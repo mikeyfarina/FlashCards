@@ -1,21 +1,32 @@
-import React, {useState} from 'react';
-import './App.css';
-import Form from './components/Form';
-import Flashcards from './components/Flashcards'
+import React, { useState } from "react";
+import "./App.css";
+import Form from "./components/Form";
+import Flashcards from "./components/Flashcards";
 
 function App() {
   //states
   const [inputText, setInputText] = useState("");
-  const [flashcards, setFlashcards] = useState([{front: "this is the front", back: "this is the back"}]);
- 
+  const [flashcards, setFlashcards] = useState([
+    {
+      front: "1this is the front 1this is the front 1this is the front",
+      back: "1this is the back 1this is the back 1this is the back",
+    },
+    { front: "2front", back: "2back" },
+    { front: "3front", back: "3back" },
+    { front: "4front", back: "4back" },
+  ]);
 
   return (
     <div>
       <header>
-        <h1>Flashcards</h1>
+        <h1 className="main-title noselect">Flashcards</h1>
+        <Form
+          className="search-bar"
+          inputText={inputText}
+          setInputText={setInputText}
+        />
       </header>
-      <Form inputText={inputText} setInputText={setInputText} />
-      <Flashcards flashcards={flashcards}/>      
+      <Flashcards flashcards={flashcards} setFlashcards={setFlashcards} />
     </div>
   );
 }
