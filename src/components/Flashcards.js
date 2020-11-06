@@ -1,10 +1,16 @@
 import react, { useState } from "react";
 import Flashcard from "./Flashcard";
 import Button from "./Button";
+import FlashcardTools from "./FlashcardTools";
 
 const Flashcards = ({ flashcards, setFlashcards }) => {
   const [currentFlashcard, setCurrentFlashcard] = useState(0);
   const [displayingFront, setDisplayingFront] = useState(true);
+  const [canEdit, setCanEdit] = useState(false);
+  const [newFlashcardText, setNewFlashcardText] = useState({
+    front: "",
+    back: "",
+  });
 
   const handleClick = (e) => {
     console.log("clicked");
@@ -23,38 +29,54 @@ const Flashcards = ({ flashcards, setFlashcards }) => {
   };
 
   const handleNewFlashCard = (e) => {
+    setCanEdit(true);
     const newFlashcard = {
       front: "front",
       back: "back",
     };
     const newSet = [...flashcards, newFlashcard];
+
     setFlashcards(newSet);
     setCurrentFlashcard(flashcards.length);
   };
 
+  const handleEditFlashCard = (e) => {
+    setCanEdit(!canEdit);
+    console.log(canEdit);
+  };
+
+  const handleDeleteFlashCard = (e) => {
+    flashcards.delete(currentFlashcard);
+  };
+
   return (
     <div className="flashcards-display">
-      <Button
-        onClick={handleNewFlashCard}
-        text={"+"}
-        className="new-flashcard-button"
+      <FlashcardTools
+        handleNewFlashCard={handleNewFlashCard}
+        handleEditFlashCard={handleEditFlashCard}
+        handleDeleteFlashCard={handleDeleteFlashCard}
       />
-      <Button
-        onClick={handleClick}
-        text={"\u261a"}
-        className="change-card-button"
-      />
-      <Flashcard
-        currentFlashcard={currentFlashcard}
-        flashcard={flashcards[currentFlashcard]}
-        displayingFront={displayingFront}
-        setDisplayingFront={setDisplayingFront}
-      />
-      <Button
-        onClick={handleClick}
-        text={"\u261b"}
-        className="change-card-button"
-      />
+      <div className="flashcard-selection">
+        <Button
+          onClick={handleClick}
+          text={"\u261a"}
+          className="change-card-button"
+        />
+        <Flashcard
+          canEdit={canEdit}
+          currentFlashcard={currentFlashcard}
+          flashcard={flashcards[currentFlashcard]}
+          displayingFront={displayingFront}
+          setDisplayingFront={setDisplayingFront}
+          newFlashcardText={newFlashcardText}
+          setNewFlashcardText={setNewFlashcardText}
+        />
+        <Button
+          onClick={handleClick}
+          text={"\u261b"}
+          className="change-card-button"
+        />
+      </div>
     </div>
   );
 };

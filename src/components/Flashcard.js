@@ -4,7 +4,10 @@ const Flashcard = ({
   flashcard,
   displayingFront,
   setDisplayingFront,
-  currentFlashcard,
+  currentFlashcard, //index
+  canEdit,
+  newFlashcardText,
+  setNewFlashcardText,
 }) => {
   const [mousePosition, setMousePosition] = useState({
     xAxis: 0,
@@ -34,7 +37,12 @@ const Flashcard = ({
   };
 
   const handleClick = () => {
-    setDisplayingFront(!displayingFront); //flip displayingFront to display back
+    if (!canEdit) {
+      //if not in edit mode, flip card
+      //flip {displayingFront} to display back
+      setDisplayingFront(!displayingFront);
+    }
+
     console.log("click", displayingFront);
     console.log(flashcard);
   };
@@ -42,6 +50,14 @@ const Flashcard = ({
   const styles = {
     transform: `rotateY(${mousePosition.xAxis}deg) rotateX(${mousePosition.yAxis}deg)`,
     transition: transition,
+  };
+
+  const handleTextEdit = (e) => {
+    setNewFlashcardText(
+      displayingFront
+        ? (flashcard.front = e.target.value)
+        : (flashcard.back = e.target.value)
+    );
   };
 
   return (
@@ -54,9 +70,13 @@ const Flashcard = ({
       <div className="flashcard" onClick={handleClick} style={styles}>
         <div className="flex-centering">
           <span className="card-number noselect">{currentFlashcard + 1}</span>
-          <h2 className="flashcard-text noselect">
-            {displayingFront ? flashcard.front : flashcard.back}
-          </h2>
+          <textarea
+            type="text"
+            className="flashcard-text noselect"
+            disabled={!canEdit}
+            value={displayingFront ? flashcard.front : flashcard.back}
+            onChange={handleTextEdit}
+          ></textarea>
         </div>
       </div>
     </div>

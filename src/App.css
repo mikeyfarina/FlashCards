@@ -4,7 +4,8 @@
   box-sizing: border-box;
 }
 
-body {
+body,
+button {
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
@@ -24,6 +25,11 @@ header {
   background: rgb(68, 119, 230);
 }
 
+textarea {
+  resize: none;
+  outline: none;
+}
+
 .main-title {
   display: flex;
   align-items: center;
@@ -38,28 +44,52 @@ header {
 }
 
 .flashcards-display {
-  padding: 0 8vw;
-  width: 100vw;
+  padding: 0 2vw;
   height: 92vh;
+  min-width: 100vw;
+  width: 80%;
   background-color: aliceblue;
-  display: flex;
+  display: grid;
+  grid-template-rows: 1fr 10fr;
   justify-content: center;
   align-items: center;
+}
+
+.flashcard-tools {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 100%;
+  width: 30%;
+}
+
+.new-flashcard-button,
+.edit-flashcard-button,
+.delete-flashcard-button {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  width: 100%;
+  height: 80%;
+
+  margin: 10% 0;
+}
+
+.flashcard-selection {
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
 }
 
 .change-card-button {
   font-size: 4rem;
   background: rgba(130, 156, 211, 0.2);
   border: none;
-  padding: 15% 3%;
+  padding: 10% 3%;
+  height: 50%;
+  width: 100%;
   border-radius: 5px;
-  margin: 0 2%;
-}
-
-.new-flashcard-button {
-  display: flex;
-  align-self: flex-start;
-  padding: 5%;
+  margin: 2%;
+  align-self: center;
 }
 
 .flashcard-container {
@@ -67,9 +97,10 @@ header {
   justify-content: center;
   margin: auto;
 
-  width: 90vw;
-  padding-top: 60%;
+  width: 80vw;
+  padding-top: 50%;
   height: 0;
+
   position: relative;
 
   border-radius: 10px;
@@ -86,9 +117,9 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 80%;
   height: 75%;
-
+  max-height: 60vh;
   z-index: 1;
 }
 
@@ -102,14 +133,19 @@ header {
 .card-number {
   position: absolute;
   top: 2%;
-  left: 2%;
-  font-size: 2rem;
+  left: 4%;
+  font-size: 2vw;
   color: rgba(9, 20, 58, 0.65);
   transform: translateZ(25px);
 }
 
 .flashcard-text {
-  font-size: 3rem;
+  background: white;
+  width: 100%;
+  height: 80%;
+  margin-top: 10%;
+  border: none;
+  font-size: 3vw;
   text-align: center;
   transform: translateZ(45px);
 }
