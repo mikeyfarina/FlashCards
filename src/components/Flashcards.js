@@ -1,8 +1,9 @@
-import react, { useState } from "react";
-import Flashcard from "./Flashcard";
-import Button from "./Button";
+import react, {useState} from "react";
 
-const Flashcards = ({ flashcards, setFlashcards }) => {
+import Button from "./Button";
+import Flashcard from "./Flashcard";
+
+const Flashcards = ({flashcards, setFlashcards}) => {
   const [currentFlashcard, setCurrentFlashcard] = useState(0);
   const [displayingFront, setDisplayingFront] = useState(true);
 
