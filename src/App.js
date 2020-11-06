@@ -2,19 +2,23 @@ import React, { useState } from "react";
 import "./App.css";
 import Form from "./components/Form";
 import Flashcards from "./components/Flashcards";
-
+import Sidebar from "./components/Sidebar";
 function App() {
   //states
   const [inputText, setInputText] = useState("");
   const [flashcards, setFlashcards] = useState([
-    {
-      front: "1this is the front 1this is the front 1this is the front",
-      back: "1this is the back 1this is the back 1this is the back",
-    },
-    { front: "2front", back: "2back" },
-    { front: "3front", back: "3back" },
-    { front: "4front", back: "4back" },
+    { front: "first flashcard", back: "back of first flashcard" },
+    { front: "second flashcard", back: "back of second flashcard" },
+    { front: "third flashcard", back: "back of third flashcard" },
+    { front: "fourth flashcard", back: "back of fourth flashcard" },
   ]);
+  const [flashcardSets, setFlashcardSets] = useState([
+    { title: "first set", flashcards },
+    { title: "second set", flashcards },
+    { title: "third set", flashcards },
+    { title: "fourth set", flashcards },
+  ]);
+  const [currentSet, setCurrentSet] = useState(0);
 
   return (
     <div>
@@ -26,7 +30,15 @@ function App() {
           setInputText={setInputText}
         />
       </header>
-      <Flashcards flashcards={flashcards} setFlashcards={setFlashcards} />
+      <div className="main-section">
+        <Sidebar
+          flashcardSets={flashcardSets}
+          setFlashcardSets={setFlashcardSets}
+          currentSet={currentSet}
+          setCurrentSet={setCurrentSet}
+        />
+        <Flashcards flashcards={flashcards} setFlashcards={setFlashcards} />
+      </div>
     </div>
   );
 }

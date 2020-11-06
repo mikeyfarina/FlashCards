@@ -8,8 +8,8 @@ const Flashcards = ({ flashcards, setFlashcards }) => {
   const [displayingFront, setDisplayingFront] = useState(true);
   const [canEdit, setCanEdit] = useState(false);
   const [newFlashcardText, setNewFlashcardText] = useState({
-    front: "",
-    back: "",
+    front: "new flashcard",
+    back: "back of new flashcard",
   });
 
   const handleClick = (e) => {
@@ -29,7 +29,9 @@ const Flashcards = ({ flashcards, setFlashcards }) => {
   };
 
   const handleNewFlashCard = (e) => {
-    setCanEdit(true);
+    setCanEdit(false);
+    setDisplayingFront(true);
+
     const newFlashcard = {
       front: "front",
       back: "back",
@@ -46,12 +48,22 @@ const Flashcards = ({ flashcards, setFlashcards }) => {
   };
 
   const handleDeleteFlashCard = (e) => {
-    flashcards.delete(currentFlashcard);
+    setDisplayingFront(true);
+    setCanEdit(false);
+    console.log("Delete", currentFlashcard, flashcards);
+    const newSet = flashcards.filter((_, i) => i !== currentFlashcard);
+    const newCurrentCard =
+      currentFlashcard === 0
+        ? setCurrentFlashcard(0)
+        : setCurrentFlashcard(currentFlashcard - 1);
+    setFlashcards(newSet);
+    console.log("After Delete", newSet, currentFlashcard, flashcards);
   };
 
   return (
     <div className="flashcards-display">
       <FlashcardTools
+        amountOfFlashcards={flashcards.length}
         handleNewFlashCard={handleNewFlashCard}
         handleEditFlashCard={handleEditFlashCard}
         handleDeleteFlashCard={handleDeleteFlashCard}
