@@ -1,74 +1,115 @@
 * {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-  font-family: Georgia, 'Times New Roman', Times, serif;
+body {
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-.flashcards-display{
-  width:90vw;
-  height:85vh;
+header {
+  height: 8vh;
+  display: flex;
+  background: rgb(68, 119, 230);
+}
+
+.main-title {
+  display: flex;
+  align-items: center;
+  color: white;
+  height: 100%;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flashcards-display {
+  padding: 0 8vw;
+  width: 100vw;
+  height: 92vh;
   background-color: aliceblue;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.flashcards-display > button {
-  font-size: 4rem;
-  background: rgba(68, 119, 230, 0.2);
-  border:none;
-  padding: 10% 2%;
-}
-
-.flashcard-container {
-  display:flex;
-  justify-content: center;
-  margin:auto;
-
-  width: 80%;
-  padding-top: 45%;
-  height:0;
-  position: relative;
-
-  background:rgb(68, 119, 230);
-} 
-
-.flashcard{
-  position: absolute;
-  top:10%;
-
-  background:white;
-  box-shadow: 0px 20px 20px rgba(0,0, 0,.2), 0px 0px 50px rgba(0,0, 0, .25);
-  border-radius: 5px;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  width:90%;
-  height:80%;
-}
-
-.flex-centering{
-  height:100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.flashcard-text{
-  font-size:3rem;
+.change-card-button {
+  font-size: 4rem;
+  background: rgba(130, 156, 211, 0.2);
+  border: none;
+  padding: 15% 3%;
+  border-radius: 5px;
+  margin: 0 2%;
+}
+
+.new-flashcard-button {
+  display: flex;
+  align-self: flex-start;
+  padding: 5%;
+}
+
+.flashcard-container {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+
+  width: 90vw;
+  padding-top: 60%;
+  height: 0;
+  position: relative;
+
+  border-radius: 10px;
+  background: rgba(164, 190, 245, 0.836);
+}
+.flashcard {
+  transform-style: preserve-3d;
+  position: absolute;
+  top: 10%;
+
+  background: white;
+  box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.2), 0px 0px 50px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 75%;
+
+  z-index: 1;
+}
+
+.flex-centering {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-number {
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  font-size: 2rem;
+  color: rgba(9, 20, 58, 0.65);
+  transform: translateZ(25px);
+}
+
+.flashcard-text {
+  font-size: 3rem;
   text-align: center;
+  transform: translateZ(45px);
 }
