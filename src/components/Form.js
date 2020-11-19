@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import react from "react";
 import Button from "./Button";
+
 const Form = ({ inputText, setInputText, handleSubmit, className }) => {
   const inputChangeHandler = (e) => {
     console.log(e.target.value);
@@ -16,7 +16,7 @@ const Form = ({ inputText, setInputText, handleSubmit, className }) => {
         placeholder={"Search..."}
       />
       <Button
-        text={<FontAwesomeIcon icon={["fas", "search"]} size="md" />}
+        text={<FontAwesomeIcon icon={["fas", "search"]} size="sm" />}
         onClick={handleSubmit}
         className="search-button"
       />

@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import Set from "./Set";
 
-const SetList = ({ flashcardSets }) => {
+const SetList = ({
+  flashcardSets,
+  currentSet,
+  setCurrentSet,
+  setFlashcardSets,
+  currentFlashcard,
+  setCurrentFlashcard,
+  setDisplayingFront,
+}) => {
+  console.log(flashcardSets);
+
   return (
     <ul className="sidebar__setlist">
-      {flashcardSets.map((set) => (
-        <li key={Math.random(100) * 10}>
-          <Set set={set} />
+      {flashcardSets.map((set, i) => (
+        <li key={set.id} className={i === currentSet ? "current-set" : ""}>
+          <Set
+            set={set}
+            setNumber={i}
+            setCurrentSet={setCurrentSet}
+            currentSet={currentSet}
+            flashcardSets={flashcardSets}
+            setFlashcardSets={setFlashcardSets}
+            currentFlashcard={currentFlashcard}
+            setCurrentFlashcard={setCurrentFlashcard}
+            setDisplayingFront={setDisplayingFront}
+          />
         </li>
       ))}
     </ul>

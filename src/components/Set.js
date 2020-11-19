@@ -1,20 +1,101 @@
-import React from "react";
+import React, { useState } from "react";
+import Button from "./Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+const Set = ({
+  set,
+  setNumber,
+  currentSet,
+  setCurrentSet,
+  flashcardSets,
+  currentFlashcard,
+  setCurrentFlashcard,
+  setDisplayingFront,
+}) => {
+  const [setLength, setSetLength] = useState(set.flashcards.length);
+  const [setTitle, setSetTitle] = useState(set.title);
+  const [canEditTitle, setCanEditTitle] = useState(false);
 
-const Set = ({ set }) => {
-  console.log(set);
+  const handleTitleClick = (e) => {
+    if (canEditTitle) return; // do nothing
+    setCurrentFlashcard(0);
+    setSetLength(set.flashcards.length);
+    const newIndex = flashcardSets.findIndex(
+      (fcSet) => setTitle === fcSet.title
+    );
+    console.log(newIndex, flashcardSets[newIndex]);
+    setCurrentSet(newIndex);
+  };
+
+  //switch edit mode when edit title button is clicked
+  const handleEditMode = (e) => {
+    setCanEditTitle(!canEditTitle);
+    if (canEditTitle) {
+      set.title = setTitle;
+    }
+  };
+
+  //changes setTitle state to input
+  const handleTitleEdit = (e) => {
+    if (canEditTitle) {
+      console.log(canEditTitle, e.target.value);
+      setSetTitle(e.target.value);
+    }
+  };
+
+  const handleCardClick = (e) => {
+    set.flashcards.map((card, i) => {
+      card.front === e.target.innerText && setNumber === currentSet
+        ? setCurrentFlashcard(i)
+        : console.log("nope", card, i);
+    });
+    setDisplayingFront(true);
+  };
+
   return (
     <div className="sidebar__setlist__set">
-      <h2 className="set__title">{set.title}</h2>
-      <h3 className="set__length">
-        {"Length of set: " + set.flashcards.length}
-      </h3>
-      <h4 className="set__preview">
+      <div className="set__header" onClick={handleTitleClick}>
+        <input
+          className={"noselect set__header__title"}
+          type="text"
+          defaultValue={setTitle}
+          disabled={!canEditTitle}
+          onChange={handleTitleEdit}
+        />
+        <Button
+          onClick={handleEditMode}
+          className={
+            canEditTitle ? "edit-mode title-edit-button" : "title-edit-button"
+          }
+          text={
+            canEditTitle ? (
+              <FontAwesomeIcon icon={["fa", "save"]} size="sm" />
+            ) : (
+              <FontAwesomeIcon icon={["fa", "edit"]} size="sm" />
+            )
+          }
+        />
+      </div>
+      <div className="set__length">
+        <span>{"length: " + setLength}</span>
+        <hr className={"divide-line"} />
+      </div>
+      <div className="set__preview">
         <ul>
-          {set.flashcards.slice(0, 4).map((card) => (
-            <li key={set.title}>{card.front}</li>
+          {set.flashcards.map((card, i) => (
+            <li
+              key={card.id}
+              className={
+                currentFlashcard === i && setNumber === currentSet
+                  ? "set__preview__item current-flashcard"
+                  : "set__preview__item"
+              }
+              onClick={handleCardClick}
+            >
+              {card.front}
+            </li>
           ))}
         </ul>
-      </h4>
+      </div>
     </div>
   );
 };

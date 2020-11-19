@@ -1,4 +1,4 @@
-import react, { useState } from "react";
+import react, { useState, useEffect } from "react";
 
 const Flashcard = ({
   flashcard,
@@ -23,11 +23,8 @@ const Flashcard = ({
   };
 
   const handleMouseEnter = (e) => {
-    console.log(e);
-    let xAxis = -(window.innerWidth / 2 - e.pageX) / 25;
-    let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
     setTransition("transform .5s ease-out");
-    setMousePosition({ xAxis, yAxis });
+    setMousePosition({ xAxis: 0, yAxis: 0 });
   };
 
   const handleMouseLeave = (e) => {
@@ -41,6 +38,7 @@ const Flashcard = ({
       //if not in edit mode, flip card
       //flip {displayingFront} to display back
       setDisplayingFront(!displayingFront);
+    } else {
     }
 
     console.log("click", displayingFront);
@@ -58,18 +56,20 @@ const Flashcard = ({
         ? (flashcard.front = e.target.value)
         : (flashcard.back = e.target.value)
     );
+    console.log(newFlashcardText);
   };
-
   return (
     <div
-      className="flashcard-container"
+      className={"flashcard-container"}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
     >
       <div className="flashcard" onClick={handleClick} style={styles}>
         <div className="flex-centering">
-          <span className="card-number noselect">{currentFlashcard + 1}</span>
+          <span className="card-number noselect">
+            {Number.parseInt(currentFlashcard) + 1}
+          </span>
           <textarea
             type="text"
             className="flashcard-text noselect"

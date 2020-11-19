@@ -6,11 +6,21 @@ import {
   faCode,
   faHighlighter,
   faSearch,
+  faEdit,
+  faSave,
+  faPen,
+  faPlus,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
   faCode,
   faHighlighter,
-  faSearch
+  faSearch,
+  faEdit,
+  faSave,
+  faPen,
+  faPlus,
+  faTrash
   // more icons go here
 );
