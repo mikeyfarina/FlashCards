@@ -56,7 +56,7 @@ function App() {
           setDisplayingFront={setDisplayingFront}
         />
         <Flashcards
-          flashcards={flashcards}
+          flashcards={flashcardsOfCurrentSet}
           setFlashcards={setFlashcards}
           newCardId={newCardId}
           setNewCardId={setNewCardId}

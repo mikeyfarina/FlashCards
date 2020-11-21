@@ -27,3 +27,8 @@ package-lock.json
 .eslintrc.json
 
 /public
+/node_modules
+
+/server/node_modules
+/server/package-lock.json
+yarn.lock
