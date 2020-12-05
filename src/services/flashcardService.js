@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = '/api/flashcards';
+const baseUrl = 'http://localhost:3001/api/flashcards';
 
 const getAllFlashcards = () => {
   const req = axios.get(baseUrl);
@@ -16,8 +16,14 @@ const updateFlashcard = (id, newObject) => {
   return req.then((res) => res.data);
 };
 
+const deleteFlashcard = (id) => {
+  const req = axios.delete(`${baseUrl}/${id}`);
+  return req.then((res) => res.data);
+};
+
 export default {
   getAllFlashcards: getAllFlashcards,
   createFlashcard: createFlashcard,
   updateFlashcard: updateFlashcard,
+  deleteFlashcard: deleteFlashcard,
 };

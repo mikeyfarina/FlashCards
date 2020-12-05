@@ -1,8 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 app.use(express.json());
 app.use(express.static('build'));
-
+const Flashcard = require('./models/flashcard');
 const cors = require('cors');
 app.use(cors());
 
@@ -16,59 +17,68 @@ const requestLogger = (request, response, next) => {
 
 app.use(requestLogger);
 
-let flashcards = [
-  { id: 'a', front: 'first flashcard', back: 'back of first flashcard' },
-  {
-    id: 'b',
-    front: 'second flashcard',
-    back: 'back of second flashcard',
-  },
-  { id: 'c', front: 'third flashcard', back: 'back of third flashcard' },
-  {
-    id: 'd',
-    front: 'fourth flashcard',
-    back: 'back of fourth flashcard',
-  },
-  { id: 'e', front: 'fifth flashcard', back: 'back of fifth flashcard' },
-];
-
-app.get('/', (req, res) => {
-  res.send('db');
-});
+app.get('/', (req, res) => {});
 
 app.get('/api/flashcards', (req, res) => {
-  res.json(flashcards);
+  Flashcard.find({}).then((flashcards) => {
+    res.json(flashcards);
+  });
 });
 
 app.get('/api/flashcards/:id', (req, res) => {
-  const id = req.params.id;
-  const flashcard = flashcards.find((flashcard) => flashcard.id === id);
-  if (flashcard) {
-    res.json(flashcard);
-  } else {
-    res.status(404).end();
-  }
+  Flashcard.findById(req.params.id)
+    .then((flashcard) => {
+      if (flashcard) {
+        res.json(flashcard);
+      } else {
+        res.status(404).end();
+      }
+    })
+    .catch((error) => next(error));
 });
 
 app.delete('/api/flashcards/:id', (req, res) => {
   const id = req.params.id;
-  flashcards = flashcards.filter((card) => card.id !== id);
-
-  res.status(204).end();
+  Flashcard.findByIdAndDelete(id)
+    .then((result) => {
+      res.status(204).end();
+    })
+    .catch((error) => next(error));
 });
 
 app.post('/api/flashcards', (req, res) => {
-  const flashcard = req.body;
-  flashcards = flashcards.concat(flashcard);
-  res.json(flashcard);
+  const body = req.body;
+  if (body === undefined) {
+    return res.status(400).json({ error: 'content missing' });
+  }
+  const newFlashcard = new Flashcard({
+    front: body.front,
+    back: body.back,
+  });
+  newFlashcard.save().then((savedFlashcard) => {
+    res.json(savedFlashcard);
+  });
 });
 
 app.put('/api/flashcards/:id', (req, res) => {
   const id = req.params.id;
-  const newFlashcard = req.body;
+  const body = req.body;
+  if (body === undefined) {
+    return res.status(400).json({ error: 'content missing' });
+  }
+
+  const newFlashcard = {
+    front: body.front,
+    back: body.back,
+  };
+
   console.log('newF', newFlashcard);
-  flashcards = flashcards.map((card) => (card.id === id ? newFlashcard : card));
-  res.status(200).send(newFlashcard);
+
+  Flashcard.findByIdAndUpdate(id, newFlashcard, { new: true })
+    .then((updatedFlashcard) => {
+      res.json(updatedFlashcard);
+    })
+    .catch((error) => next(error));
 });
 
 const unknownEndpoint = (request, response) => {
@@ -76,6 +86,19 @@ const unknownEndpoint = (request, response) => {
 };
 
 app.use(unknownEndpoint);
+
+const errorHandler = (error, req, res, next) => {
+  console.error(error.message);
+
+  if (error.name === 'CastError') {
+    return res.status(400).send({ error: 'malformatted id' });
+  }
+
+  next(error);
+};
+
+app.use(errorHandler);
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -4,6 +4,7 @@ import Button from './Button';
 import FlashcardTools from './FlashcardTools';
 import axios from 'axios';
 import flashcardService from '../services/flashcardService';
+import { getNodeText } from '@testing-library/react';
 const Flashcards = ({
   flashcards,
   setFlashcards,
@@ -47,7 +48,6 @@ const Flashcards = ({
     setDisplayingFront(true);
 
     const newFlashcard = {
-      id: newCardId,
       front: 'front',
       back: 'back',
     };
@@ -68,8 +68,14 @@ const Flashcards = ({
     const flashcardToUpdate = flashcards[currentFlashcard];
     console.log(flashcardToUpdate);
     const updatedFlashcard = displayingFront
-      ? { ...flashcardToUpdate, front: flashcardInputText }
-      : { ...flashcardToUpdate, back: flashcardInputText };
+      ? {
+          ...flashcardToUpdate,
+          front: flashcardInputText || flashcardToUpdate.front,
+        }
+      : {
+          ...flashcardToUpdate,
+          back: flashcardInputText || flashcardToUpdate.back,
+        };
 
     console.log(updatedFlashcard);
     if (canEdit) {
@@ -80,7 +86,10 @@ const Flashcards = ({
             flashcards.map((card) => (card.id !== id ? card : updatedFlashcard))
           );
         })
-        .catch((er) => console.log(er));
+        .catch((er) => console.log(er))
+        .then(() => {
+          setFlashcardInputText('');
+        });
     }
   };
 
@@ -88,14 +97,36 @@ const Flashcards = ({
     setDisplayingFront(true);
     setCanEdit(false);
 
+    const flashcardToUpdate = flashcards[currentFlashcard];
+    flashcardService
+      .deleteFlashcard(flashcardToUpdate.id)
+      .then(() => {
+        console.log('deleted');
+        currentFlashcard === 0
+          ? setCurrentFlashcard(0)
+          : setCurrentFlashcard(currentFlashcard - 1);
+        //updates front end as well not sure if best practice
+        const newSet = flashcards.filter((_, i) => i !== currentFlashcard);
+        setFlashcards(newSet);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    console.log('After Delete', currentFlashcard, flashcards);
+  };
+
+  /*
+  const handleDeleteFlashCard = (e) => {
+    setDisplayingFront(true);
+    setCanEdit(false);
+
     console.log('Delete', currentFlashcard, flashcards);
-    const newSet = flashcards.filter((_, i) => i !== currentFlashcard);
-    currentFlashcard === 0
-      ? setCurrentFlashcard(0)
-      : setCurrentFlashcard(currentFlashcard - 1);
+    
     setFlashcards(newSet);
     console.log('After Delete', newSet, currentFlashcard, flashcards);
   };
+  */
 
   return (
     <div className="flashcards-display">

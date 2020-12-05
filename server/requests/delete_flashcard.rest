@@ -1,1 +1,1 @@
-DELETE http://localhost:3001/api/flashcards/a
+DELETE http://localhost:3001/api/flashcards/"insert id of test here"
