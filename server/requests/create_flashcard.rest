@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/flashcards/
+Content-Type: application/json
+
+{
+  "id": "asdfasd",
+  "front": "http front",
+  "back": "http back"
+}
+###
+GET http://localhost:3001/api/flashcards/
