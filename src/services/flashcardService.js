@@ -1,16 +1,19 @@
 import axios from 'axios';
-const baseUrl = 'http://localhost:3001/api/flashcards';
+const baseUrl = '/api/flashcards';
 
 const getAllFlashcards = () => {
-  return axios.get(baseUrl);
+  const req = axios.get(baseUrl);
+  return req.then((res) => res.data);
 };
 
 const createFlashcard = (newFlashcard) => {
-  return axios.post(baseUrl, newFlashcard);
+  const req = axios.post(baseUrl, newFlashcard);
+  return req.then((res) => res.data);
 };
 
 const updateFlashcard = (id, newObject) => {
-  return axios.put(`${baseUrl}/${id}`, newObject);
+  const req = axios.put(`${baseUrl}/${id}`, newObject);
+  return req.then((res) => res.data);
 };
 
 export default {

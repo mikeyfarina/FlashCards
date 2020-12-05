@@ -37,9 +37,9 @@ function App() {
 
   useEffect(() => {
     console.log(flashcards);
-    flashcardService.getAllFlashcards().then((resp) => {
-      console.log('promise fufilled', resp.data);
-      setFlashcards(resp.data);
+    flashcardService.getAllFlashcards().then((flashcards) => {
+      console.log('promise fufilled', flashcards);
+      setFlashcards(flashcards);
     });
   }, []);
   console.log(flashcards);

@@ -53,8 +53,8 @@ const Flashcards = ({
     };
 
     setNewCardId(newCardId + 1);
-    flashcardService.createFlashcard(newFlashcard).then((response) => {
-      setFlashcards(flashcards.concat(response.data));
+    flashcardService.createFlashcard(newFlashcard).then((newFlashcard) => {
+      setFlashcards(flashcards.concat(newFlashcard));
       setCurrentFlashcard(flashcards.length);
     });
 
@@ -75,9 +75,9 @@ const Flashcards = ({
     if (canEdit) {
       flashcardService
         .updateFlashcard(flashcardToUpdate.id, updatedFlashcard)
-        .then((response) => {
+        .then((updatedFlashcard) => {
           setFlashcards(
-            flashcards.map((card) => (card.id !== id ? card : response.data))
+            flashcards.map((card) => (card.id !== id ? card : updatedFlashcard))
           );
         })
         .catch((er) => console.log(er));
