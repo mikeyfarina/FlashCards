@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import Form from "./Form";
-import Button from "./Button";
+import React, { useState } from 'react';
+import Form from './Form';
+import Button from './Button';
 
 const SidebarHeader = ({
   currentSet,
@@ -9,17 +9,17 @@ const SidebarHeader = ({
   newCardId,
   setNewCardId,
 }) => {
-  const [sidebarSearchText, setSidebarSearchText] = useState("");
+  const [sidebarSearchText, setSidebarSearchText] = useState('');
   const [newSetId, setNewSetId] = useState(1);
   const handleNewSet = () => {
     const newSet = {
       id: newSetId,
-      title: "new set " + newSetId,
+      title: 'new set ' + newSetId,
       flashcards: [
         {
           id: newCardId,
-          front: "new card",
-          back: "new card",
+          front: 'new card',
+          back: 'new card',
         },
       ],
     };
@@ -30,7 +30,7 @@ const SidebarHeader = ({
   return (
     <div className="sidebar__header">
       {currentSet}
-      <Button text={"+"} className={"new-set-button"} onClick={handleNewSet} />
+      <Button text={'+'} className={'new-set-button'} onClick={handleNewSet} />
       <Form
         className="search-bar"
         inputText={sidebarSearchText}

@@ -1,30 +1,29 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import Flashcards from "./components/Flashcards";
-import Sidebar from "./components/Sidebar";
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import Flashcards from './components/Flashcards';
+import Sidebar from './components/Sidebar';
+import flashcardService from './services/flashcardService';
 
 function App() {
   //states
-  const [inputText, setInputText] = useState("");
-  const [flashcards, setFlashcards] = useState([]);
   const [flashcardSets, setFlashcardSets] = useState([
     {
       id: 0,
-      title: "first set",
+      title: 'first set',
       flashcards: [
-        { id: "a", front: "first flashcard", back: "back of first flashcard" },
+        { id: 'a', front: 'first flashcard', back: 'back of first flashcard' },
         {
-          id: "b",
-          front: "second flashcard",
-          back: "back of second flashcard",
+          id: 'b',
+          front: 'second flashcard',
+          back: 'back of second flashcard',
         },
-        { id: "c", front: "third flashcard", back: "back of third flashcard" },
+        { id: 'c', front: 'third flashcard', back: 'back of third flashcard' },
         {
-          id: "d",
-          front: "fourth flashcard",
-          back: "back of fourth flashcard",
+          id: 'd',
+          front: 'fourth flashcard',
+          back: 'back of fourth flashcard',
         },
-        { id: "e", front: "fifth flashcard", back: "back of fifth flashcard" },
+        { id: 'e', front: 'fifth flashcard', back: 'back of fifth flashcard' },
       ],
     },
   ]);
@@ -32,11 +31,25 @@ function App() {
   const [newCardId, setNewCardId] = useState(0);
   const [currentFlashcard, setCurrentFlashcard] = useState(0);
   const [displayingFront, setDisplayingFront] = useState(true);
+  const [flashcards, setFlashcards] = useState([
+    { id: '10000', front: 'defaultstate', back: 'back of defaultstate' },
+  ]);
+
+  useEffect(() => {
+    console.log(flashcards);
+    flashcardService.getAllFlashcards().then((resp) => {
+      console.log('promise fufilled', resp.data);
+      setFlashcards(resp.data);
+    });
+  }, []);
+  console.log(flashcards);
+
+  useEffect(() => {
+    setCurrentFlashcard(0);
+    setDisplayingFront(true);
+  }, [currentSet]);
 
   console.log(flashcardSets, currentSet, currentFlashcard);
-
-  const flashcardsOfCurrentSet = flashcardSets[currentSet].flashcards;
-  console.log(flashcardSets, flashcards, flashcardsOfCurrentSet);
   return (
     <div>
       <header>
@@ -44,6 +57,8 @@ function App() {
       </header>
       <div className="main-section">
         <Sidebar
+          flashcards={flashcards}
+          setFlashcards={setFlashcards}
           flashcardSets={flashcardSets}
           setFlashcardSets={setFlashcardSets}
           currentSet={currentSet}
@@ -56,8 +71,10 @@ function App() {
           setDisplayingFront={setDisplayingFront}
         />
         <Flashcards
-          flashcards={flashcardsOfCurrentSet}
+          flashcards={flashcards}
           setFlashcards={setFlashcards}
+          flashcardSets={flashcardSets}
+          currentSet={currentSet}
           newCardId={newCardId}
           setNewCardId={setNewCardId}
           currentFlashcard={currentFlashcard}

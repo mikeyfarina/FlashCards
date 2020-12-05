@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import Set from "./Set";
+import React, { useState } from 'react';
+import Set from './Set';
 
 const SetList = ({
+  flashcards,
+  setFlashcards,
   flashcardSets,
   currentSet,
   setCurrentSet,
@@ -15,8 +17,9 @@ const SetList = ({
   return (
     <ul className="sidebar__setlist">
       {flashcardSets.map((set, i) => (
-        <li key={set.id} className={i === currentSet ? "current-set" : ""}>
+        <li key={set.id} className={i === currentSet ? 'current-set' : ''}>
           <Set
+            flashcards={flashcards}
             set={set}
             setNumber={i}
             setCurrentSet={setCurrentSet}

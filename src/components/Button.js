@@ -1,4 +1,4 @@
-import react from "react";
+import react from 'react';
 
 const Button = ({ className, text, onClick, disabled }) => {
   return (

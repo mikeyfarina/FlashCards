@@ -1,35 +1,41 @@
-import react, { useState, useEffect } from "react";
-
+import react, { useState, useEffect } from 'react';
+import flashcardService from '../services/flashcardService.js';
 const Flashcard = ({
-  flashcard,
+  flashcards,
   displayingFront,
   setDisplayingFront,
   currentFlashcard, //index
+  flashcardInputText,
+  setFlashcardInputText,
   canEdit,
-  newFlashcardText,
-  setNewFlashcardText,
 }) => {
   const [mousePosition, setMousePosition] = useState({
     xAxis: 0,
     yAxis: 0,
   });
-  const [transition, setTransition] = useState("none");
+  const [transition, setTransition] = useState('none');
+  const [flashcard, setFlashcard] = useState(flashcards[0]);
+
+  useEffect(() => {
+    const newFlashcard = flashcards[currentFlashcard];
+    setFlashcard(newFlashcard);
+  }, [currentFlashcard]);
 
   const handleMouseMove = (e) => {
     let xAxis = -(window.innerWidth / 2 - e.pageX) / 25;
     let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-    setTransition("none");
+    setTransition('none');
     setMousePosition({ xAxis, yAxis });
   };
 
   const handleMouseEnter = (e) => {
-    setTransition("transform .5s ease-out");
+    setTransition('transform .5s ease-out');
     setMousePosition({ xAxis: 0, yAxis: 0 });
   };
 
   const handleMouseLeave = (e) => {
-    console.log("reset", e);
-    setTransition("transform .5s ease-out");
+    console.log('reset', e);
+    setTransition('transform .5s ease-out');
     setMousePosition({ xAxis: 0, yAxis: 0 });
   };
 
@@ -41,7 +47,7 @@ const Flashcard = ({
     } else {
     }
 
-    console.log("click", displayingFront);
+    console.log('click', displayingFront);
     console.log(flashcard);
   };
 
@@ -51,16 +57,15 @@ const Flashcard = ({
   };
 
   const handleTextEdit = (e) => {
-    setNewFlashcardText(
-      displayingFront
-        ? (flashcard.front = e.target.value)
-        : (flashcard.back = e.target.value)
-    );
-    console.log(newFlashcardText);
+    setFlashcardInputText(e.target.value);
+    displayingFront
+      ? (flashcard.front = e.target.value)
+      : (flashcard.back = e.target.value);
   };
+  console.log(flashcard);
   return (
     <div
-      className={"flashcard-container"}
+      className={'flashcard-container'}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}

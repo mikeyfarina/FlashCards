@@ -8,7 +8,7 @@
 
 body,
 button {
-  font-family: Tahoma, "Geneva", sans-serif;
+  font-family: Tahoma, 'Geneva', sans-serif;
   background: #ececec;
 }
 
@@ -273,7 +273,7 @@ li {
 
 .tools__card-selection select {
   height: 100%;
-  width: 200%;
+  max-width: 200%;
   outline: none;
   margin: 0 2%;
   padding: 0 5%;

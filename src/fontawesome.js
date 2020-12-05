@@ -1,5 +1,5 @@
 // import the library
-import { library } from "@fortawesome/fontawesome-svg-core";
+import { library } from '@fortawesome/fontawesome-svg-core';
 
 // import your icons
 import {
@@ -11,7 +11,7 @@ import {
   faPen,
   faPlus,
   faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons';
 
 library.add(
   faCode,
