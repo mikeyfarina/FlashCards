@@ -1,27 +1,16 @@
-require('dotenv').config();
 const mongoose = require('mongoose');
-
-const url = process.env.MONGODB_URI;
-
-console.log('connecting to', url);
-
-mongoose
-  .connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-  })
-  .then((result) => {
-    console.log('connected to mongoDB');
-  })
-  .catch((er) => {
-    console.log(er);
-  });
 
 const flashcardSchema = new mongoose.Schema({
   front: String,
   back: String,
+  date: {
+    type: Date,
+    required: true,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
 });
 
 flashcardSchema.set('toJSON', {
@@ -32,4 +21,6 @@ flashcardSchema.set('toJSON', {
   },
 });
 
-module.exports = mongoose.model('Flashcard', flashcardSchema);
+const Flashcard = mongoose.model('Flashcard', flashcardSchema);
+
+module.exports = Flashcard;

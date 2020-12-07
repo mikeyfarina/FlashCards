@@ -1,0 +1,27 @@
+get http://localhost:3001/api/users
+
+###
+post http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+  "username": "new-random-user",
+  "password": "password",
+  "name": "fred"
+}
+
+###
+delete http://localhost:3001/api/users/5fcdb7241db05a33fde3b84f
+
+###
+post http://localhost:3001/api/flashcards
+Content-Type: application/json
+
+{
+  "front": "auth test 2",
+  "back":"test",
+  "userID":"5fcdb6ff1db05a33fde3b84e"
+}
+
+###
+delete http://localhost:3001/api/flashcards/5fcdb9f2c5eaea368e0e21da
