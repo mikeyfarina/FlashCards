@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import SetList from './SetList';
-import SidebarHeader from './SidebarHeader';
+import SetList from "./SetList";
+import SidebarHeader from "./SidebarHeader";
 
 const Sidebar = ({
   flashcards,
@@ -20,8 +20,7 @@ const Sidebar = ({
       <SidebarHeader
         flashcardSets={flashcardSets}
         currentSet={currentSet}
-        setFlashcardSets={
-    setFlashcardSets}
+        setFlashcardSets={setFlashcardSets}
       />
       <SetList
         flashcards={flashcards}
