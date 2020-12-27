@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Set from './Set';
 
 const SetList = ({
   flashcards,
-  setFlashcards,
   flashcardSets,
   currentSet,
   setCurrentSet,
   setFlashcardSets,
-  currentFlashcard,
-  setCurrentFlashcard,
+  currentFlashcardIndex,
+  setCurrentFlashcardIndex,
   setDisplayingFront,
 }) => {
-  console.log(flashcardSets);
-
   return (
     <ul className="sidebar__setlist">
       {flashcardSets.map((set, i) => (
@@ -26,8 +23,8 @@ const SetList = ({
             currentSet={currentSet}
             flashcardSets={flashcardSets}
             setFlashcardSets={setFlashcardSets}
-            currentFlashcard={currentFlashcard}
-            setCurrentFlashcard={setCurrentFlashcard}
+            currentFlashcardIndex={currentFlashcardIndex}
+            setCurrentFlashcardIndex={setCurrentFlashcardIndex}
             setDisplayingFront={setDisplayingFront}
           />
         </li>

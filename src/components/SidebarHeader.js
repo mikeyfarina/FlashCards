@@ -2,31 +2,27 @@ import React, { useState } from 'react';
 import Form from './Form';
 import Button from './Button';
 
-const SidebarHeader = ({
-  currentSet,
-  flashcardSets,
-  setFlashcardSets,
-  newCardId,
-  setNewCardId,
-}) => {
+const SidebarHeader = ({ currentSet, flashcardSets, setFlashcardSets }) => {
   const [sidebarSearchText, setSidebarSearchText] = useState('');
   const [newSetId, setNewSetId] = useState(1);
+
+  //TODO: FIX THIS
   const handleNewSet = () => {
     const newSet = {
       id: newSetId,
       title: 'new set ' + newSetId,
       flashcards: [
         {
-          id: newCardId,
+          id: Math.random(100) * 5,
           front: 'new card',
           back: 'new card',
         },
       ],
     };
-    setNewCardId(newCardId + 1);
     setNewSetId(newSetId + 1);
     setFlashcardSets(flashcardSets.concat(newSet));
   };
+
   return (
     <div className="sidebar__header">
       {currentSet}

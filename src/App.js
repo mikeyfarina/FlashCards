@@ -28,12 +28,8 @@ function App() {
     },
   ]);
   const [currentSet, setCurrentSet] = useState(0);
-  const [newCardId, setNewCardId] = useState(0);
-  const [currentFlashcard, setCurrentFlashcard] = useState(0);
-  const [displayingFront, setDisplayingFront] = useState(true);
-  const [flashcards, setFlashcards] = useState([
-    { id: '10000', front: 'defaultstate', back: 'back of defaultstate' },
-  ]);
+  const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
+  const [flashcards, setFlashcards] = useState(null);
 
   useEffect(() => {
     console.log(flashcards);
@@ -45,44 +41,38 @@ function App() {
   console.log(flashcards);
 
   useEffect(() => {
-    setCurrentFlashcard(0);
-    setDisplayingFront(true);
+    setCurrentFlashcardIndex(0);
   }, [currentSet]);
 
-  console.log(flashcardSets, currentSet, currentFlashcard);
+  console.log(flashcardSets, currentSet, currentFlashcardIndex);
   return (
     <div>
       <header>
         <h1 className="main-title noselect">Flashcards</h1>
       </header>
-      <div className="main-section">
-        <Sidebar
-          flashcards={flashcards}
-          setFlashcards={setFlashcards}
-          flashcardSets={flashcardSets}
-          setFlashcardSets={setFlashcardSets}
-          currentSet={currentSet}
-          setCurrentSet={setCurrentSet}
-          newCardId={newCardId}
-          setNewCardId={setNewCardId}
-          currentFlashcard={currentFlashcard}
-          setCurrentFlashcard={setCurrentFlashcard}
-          displayingFront={displayingFront}
-          setDisplayingFront={setDisplayingFront}
-        />
-        <Flashcards
-          flashcards={flashcards}
-          setFlashcards={setFlashcards}
-          flashcardSets={flashcardSets}
-          currentSet={currentSet}
-          newCardId={newCardId}
-          setNewCardId={setNewCardId}
-          currentFlashcard={currentFlashcard}
-          setCurrentFlashcard={setCurrentFlashcard}
-          displayingFront={displayingFront}
-          setDisplayingFront={setDisplayingFront}
-        />
-      </div>
+      {!flashcards ? (
+        'flashcards loading'
+      ) : (
+        <div className="main-section">
+          <Sidebar
+            flashcards={flashcards}
+            setFlashcards={setFlashcards}
+            flashcardSets={flashcardSets}
+            setFlashcardSets={setFlashcardSets}
+            currentSet={currentSet}
+            setCurrentSet={setCurrentSet}
+            currentFlashcardIndex={currentFlashcardIndex}
+            setCurrentFlashcardIndex={setCurrentFlashcardIndex}
+          />
+          <Flashcards
+            flashcards={flashcards}
+            setFlashcards={setFlashcards}
+            currentSet={currentSet}
+            currentFlashcardIndex={currentFlashcardIndex}
+            setCurrentFlashcardIndex={setCurrentFlashcardIndex}
+          />
+        </div>
+      )}
     </div>
   );
 }
