@@ -2,7 +2,7 @@ PUT http://localhost:3001/api/flashcards/5fcc0cd88bae9a4cc0693611
 Content-Type: application/json
 
 {
- "front": "updated front of flashcard" 
+ "front": "updated front of flashcard"
 }
 
 ###
