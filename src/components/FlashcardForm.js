@@ -1,7 +1,7 @@
-import { createContext } from "react";
+import React, { useState } from 'react';
 
 const FlashcardForm = ({ createFlashcard }) => {
-  const [newFlashcard, setNewFlashcard] = useState({ front: "", back: "" });
+  const [newFlashcard, setNewFlashcard] = useState({ front: '', back: '' });
   const handleChange = (event) => {
     setNewFlashcard(event.target.value);
   };
@@ -9,10 +9,10 @@ const FlashcardForm = ({ createFlashcard }) => {
   const addFlashcard = (event) => {
     event.preventDefault();
     createFlashcard({
-      front: "ff test",
-      back: "ff back",
+      front: 'ff test',
+      back: 'ff back',
     });
-    setNewFlashcard("");
+    setNewFlashcard('');
   };
 
   return (

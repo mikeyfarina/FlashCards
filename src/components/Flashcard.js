@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 
-import flashcardService from "../services/flashcardService";
+import flashcardService from '../services/flashcardService';
 
 const Flashcard = ({
   flashcards,
@@ -12,9 +12,9 @@ const Flashcard = ({
     xAxis: 0,
     yAxis: 0,
   });
-  const [transition, setTransition] = useState("none");
+  const [transition, setTransition] = useState('none');
   const [flashcard, setFlashcard] = useState(flashcards[0]);
-  const [flashcardInputText, setFlashcardInputText] = useState("");
+  const [flashcardInputText, setFlashcardInputText] = useState('');
   const [displayingFront, setDisplayingFront] = useState(true);
 
   useEffect(() => {
@@ -39,18 +39,18 @@ const Flashcard = ({
   const handleMouseMove = (e) => {
     let xAxis = -(window.innerWidth / 2 - e.pageX) / 25;
     let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-    setTransition("none");
+    setTransition('none');
     setMousePosition({ xAxis, yAxis });
   };
 
   const handleMouseEnter = () => {
-    setTransition("transform .5s ease-out");
+    setTransition('transform .5s ease-out');
     setMousePosition({ xAxis: 0, yAxis: 0 });
   };
 
   const handleMouseLeave = () => {
     //console.log('reset', e);
-    setTransition("transform .5s ease-out");
+    setTransition('transform .5s ease-out');
     setMousePosition({ xAxis: 0, yAxis: 0 });
   };
 
@@ -69,7 +69,7 @@ const Flashcard = ({
 
   const handleTextEdit = (e) => {
     if (canEdit) {
-      console.log("handling text edit!");
+      console.log('handling text edit!');
       setFlashcardInputText(e.target.value);
       displayingFront
         ? (flashcard.front = e.target.value)
@@ -78,7 +78,7 @@ const Flashcard = ({
   };
 
   const updateAndSaveFlashcard = () => {
-    console.log("SAVING CHANGES TO FLASHCARD");
+    console.log('SAVING CHANGES TO FLASHCARD');
     const flashcardToUpdate = flashcards[currentFlashcardIndex];
     const updatedFlashcard = displayingFront
       ? {
@@ -100,12 +100,12 @@ const Flashcard = ({
       })
       .catch((er) => console.log(er))
       .then(() => {
-        setFlashcardInputText("");
+        setFlashcardInputText('');
       });
   };
   return (
     <div
-      className={"flashcard-container"}
+      className={'flashcard-container'}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
@@ -117,7 +117,7 @@ const Flashcard = ({
           </span>
           <textarea
             type="text"
-            className={canEdit ? "flashcard-text" : "flashcard-text noselect"}
+            className={canEdit ? 'flashcard-text' : 'flashcard-text noselect'}
             disabled={!canEdit}
             value={displayingFront ? flashcard.front : flashcard.back}
             onChange={handleTextEdit}
