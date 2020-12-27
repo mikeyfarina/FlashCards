@@ -60,6 +60,11 @@ li {
   padding: 1%;
 }
 
+.login {
+  display: flex;
+  align-items: baseline;
+}
+
 .search-bar {
   display: grid;
   grid-template-columns: 4fr 1fr;
@@ -187,6 +192,7 @@ li {
   margin: 3% 2%;
   font-weight: bolder;
 }
+
 .divide-line {
   height: 5%;
   margin: 2% 0;

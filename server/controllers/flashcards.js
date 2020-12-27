@@ -1,6 +1,7 @@
 const flashcardsRouter = require('express').Router();
 const Flashcard = require('../models/flashcard');
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 
 flashcardsRouter.get('/', async (req, res) => {
   const flashcards = await Flashcard.find({}).populate('user', {
@@ -20,29 +21,49 @@ flashcardsRouter.get('/:id', async (req, res) => {
 });
 
 flashcardsRouter.delete('/:id', async (req, res) => {
-  await Flashcard.findByIdAndDelete(req.params.id);
-  res.status(204).end();
+  const decodedToken = jwt.verify(req.token, process.env.SECRET);
+  if (!req.token || !decodedToken.id) {
+    return res.status(401).json({
+      error: 'token invalid',
+    });
+  }
+
+  const user = await User.findById(decodedToken.id);
+  const flashcard = await Flashcard.findById(req.params.id);
+
+  if (flashcard.user.toString() === user.id.toString()) {
+    console.log('can delete');
+    Flashcard.findByIdAndDelete(req.params.id);
+    return res.status(204).end();
+  } else {
+    console.log('cant delete');
+    console.log('wrong user, expected: ', flashcard.user, 'got: ', user.id);
+    return res.status(401).end();
+  }
 });
 
 flashcardsRouter.post('/', async (req, res) => {
   const body = req.body;
-  const user = await User.findById(body.userID);
-
-  if (!user) {
-    return;
+  const decodedToken = jwt.verify(req.token, process.env.SECRET);
+  if (!req.token || !decodedToken.id) {
+    return res.status(401).json({
+      error: 'token invalid',
+    });
   }
+
+  const user = await User.findById(decodedToken.id);
 
   const newFlashcard = new Flashcard({
     front: body.front,
     back: body.back,
     date: new Date(),
-    userID: user.id,
+    user: user.id,
   });
 
   const savedFlashcard = await newFlashcard.save();
-  console.log(savedFlashcard, user.flashcards);
   user.flashcards = user.flashcards.concat(savedFlashcard._id);
   await user.save();
+
   res.json(savedFlashcard);
 });
 
