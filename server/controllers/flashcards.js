@@ -5,8 +5,8 @@ const jwt = require('jsonwebtoken');
 
 flashcardsRouter.get('/', async (req, res) => {
   const flashcards = await Flashcard.find({}).populate('user', {
-    username: 1,
-    name: 1,
+    username : 1,
+    name : 1,
   });
   res.json(flashcards);
 });
@@ -24,7 +24,7 @@ flashcardsRouter.delete('/:id', async (req, res) => {
   const decodedToken = jwt.verify(req.token, process.env.SECRET);
   if (!req.token || !decodedToken.id) {
     return res.status(401).json({
-      error: 'token invalid',
+      error : 'token invalid',
     });
   }
 
@@ -47,17 +47,17 @@ flashcardsRouter.post('/', async (req, res) => {
   const decodedToken = jwt.verify(req.token, process.env.SECRET);
   if (!req.token || !decodedToken.id) {
     return res.status(401).json({
-      error: 'token invalid',
+      error : 'token invalid',
     });
   }
 
   const user = await User.findById(decodedToken.id);
 
   const newFlashcard = new Flashcard({
-    front: body.front,
-    back: body.back,
-    date: new Date(),
-    user: user.id,
+    front : body.front,
+    back : body.back,
+    date : new Date(),
+    user : user.id,
   });
 
   const savedFlashcard = await newFlashcard.save();
@@ -71,16 +71,16 @@ flashcardsRouter.put('/:id', async (req, res) => {
   const id = req.params.id;
   const body = req.body;
   if (body === undefined) {
-    return res.status(400).json({ error: 'content missing' });
+    return res.status(400).json({error : 'content missing'});
   }
 
   const newFlashcard = {
-    front: body.front,
-    back: body.back,
+    front : body.front,
+    back : body.back,
   };
 
   const updatedFlashcard = await Flashcard.findByIdAndUpdate(id, newFlashcard, {
-    new: true,
+    new : true,
   });
   res.json(updatedFlashcard);
 });

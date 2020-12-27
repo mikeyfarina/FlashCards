@@ -4,8 +4,8 @@ const bcrypt = require('bcrypt');
 
 usersRouter.get('/', async (req, res) => {
   const users = await User.find({}).populate('flashcards', {
-    front: 1,
-    back: 1,
+    front : 1,
+    back : 1,
   });
   res.json(users);
 });
@@ -17,8 +17,8 @@ usersRouter.post('/', async (req, res) => {
   const passwordHash = await bcrypt.hash(body.password, saltRounds);
 
   const user = new User({
-    username: body.username,
-    name: body.name,
+    username : body.username,
+    name : body.name,
     passwordHash,
   });
 

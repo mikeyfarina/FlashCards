@@ -10,19 +10,16 @@ const baseUrl = '/api/flashcards';
 beforeEach(async () => {
   await Flashcard.deleteMany({});
 
-  const flashcardObjects = helper.initialFlashcards.map(
-    (flashcard) => new Flashcard(flashcard)
-  );
+  const flashcardObjects =
+      helper.initialFlashcards.map((flashcard) => new Flashcard(flashcard));
   const promiseArray = flashcardObjects.map((flashcard) => flashcard.save());
   await Promise.all(promiseArray);
 });
 
 describe('when there are initially some flashcards saved', () => {
   test('flashcards are returned as json', async () => {
-    await api
-      .get(baseUrl)
-      .expect(200)
-      .expect('Content-Type', /application\/json/);
+    await api.get(baseUrl).expect(200).expect('Content-Type',
+                                              /application\/json/);
   });
 
   test('all flashcards are returned', async () => {
@@ -43,10 +40,9 @@ describe('viewing a specific flashcard', () => {
     const cardsAtStart = await helper.flashcardsInDb();
     const cardToView = cardsAtStart[0];
 
-    const resultCard = await api
-      .get(`${baseUrl}/${cardToView.id}`)
-      .expect(200)
-      .expect('Content-Type', /application\/json/);
+    const resultCard = await api.get(`${baseUrl}/${cardToView.id}`)
+                           .expect(200)
+                           .expect('Content-Type', /application\/json/);
     const processedCardToView = JSON.parse(JSON.stringify(cardToView));
 
     expect(resultCard.body).toEqual(processedCardToView);
@@ -65,15 +61,12 @@ describe('viewing a specific flashcard', () => {
 describe('creating flashcard', () => {
   test('succeeds', async () => {
     const newCard = {
-      front: 'front of new card',
-      back: 'back of new card',
+      front : 'front of new card',
+      back : 'back of new card',
     };
 
-    await api
-      .post(baseUrl)
-      .send(newCard)
-      .expect(200)
-      .expect('Content-Type', /application\/json/);
+    await api.post(baseUrl).send(newCard).expect(200).expect(
+        'Content-Type', /application\/json/);
 
     const cardsAtEnd = await helper.flashcardsInDb();
     expect(cardsAtEnd).toHaveLength(helper.initialFlashcards.length + 1);
@@ -98,6 +91,4 @@ describe('deletion of a flashcard', () => {
   });
 });
 
-afterAll(() => {
-  mongoose.connection.close();
-});
+afterAll(() => { mongoose.connection.close(); });

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 
 import Button from "./Button";
 import Form from "./Form";
 
-const SidebarHeader = ({ currentSet, flashcardSets, setFlashcardSets }) => {
+const SidebarHeader = ({currentSet, flashcardSets, setFlashcardSets}) => {
   const [sidebarSearchText, setSidebarSearchText] = useState("");
   const [newSetId, setNewSetId] = useState(1);
 

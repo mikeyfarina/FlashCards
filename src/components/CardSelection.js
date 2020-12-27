@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
-const CardSelection = ({ flashcards, setCurrentFlashcard }) => {
+const CardSelection = ({flashcards, setCurrentFlashcard}) => {
   const [selectValue, setSelectValue] = useState(0);
 
   console.log();

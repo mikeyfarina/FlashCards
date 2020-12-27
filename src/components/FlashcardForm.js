@@ -1,6 +1,6 @@
-import { createContext } from 'react';
+import {createContext} from 'react';
 
-const FlashcardForm = ({ createFlashcard }) => {
+const FlashcardForm = ({createFlashcard}) => {
   const [newFlashcard, setNewFlashcard] = useState({ front: '', back: '' });
   const handleChange = (event) => {
     setNewFlashcard(event.target.value);

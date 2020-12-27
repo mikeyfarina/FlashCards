@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import loginService from '../services/loginService';
-import flashcardService from '../services/flashcardService';
+import React, {useState} from 'react';
 
-const LoginForm = ({ setUser }) => {
+import flashcardService from '../services/flashcardService';
+import loginService from '../services/loginService';
+
+const LoginForm = ({setUser}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   LoginForm.propTypes = {
-    setUser: PropTypes.func.isRequired,
+    setUser : PropTypes.func.isRequired,
   };
 
   const handleLogin = async (event) => {
@@ -20,10 +21,8 @@ const LoginForm = ({ setUser }) => {
         password,
       });
       console.log('user', user);
-      window.localStorage.setItem(
-        'loggedFlashcardAppUser',
-        JSON.stringify(user)
-      );
+      window.localStorage.setItem('loggedFlashcardAppUser',
+                                  JSON.stringify(user));
       flashcardService.setToken(user.token);
       console.log(user.username, 'logged in');
       setUsername('');
@@ -44,19 +43,15 @@ const LoginForm = ({ setUser }) => {
           <div>
             username
             <input
-              type="text"
-              value={username}
-              name="Username"
-              onChange={({ target }) => setUsername(target.value)}
-            />
-          </div>
-          <div>
-            password
-            <input
-              type="password"
-              value={password}
-              name="Password"
-              onChange={({ target }) => setPassword(target.value)}
+  type = "text"
+  value = {username} name = "Username"
+  onChange = { ({target}) => setUsername(target.value) } />
+          </div >
+             <div>password < input
+  type = "password"
+  value = {password} name = "Password"
+              onChange={
+    ({target}) => setPassword(target.value)}
             />
           </div>
           <button type="submit">login</button>

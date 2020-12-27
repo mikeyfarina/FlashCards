@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 
 import flashcardService from "../services/flashcardService";
 
@@ -16,14 +16,14 @@ const Flashcards = ({
 
   const handlePreviousCardClick = () => {
     currentFlashcardIndex - 1 < 0
-      ? setCurrentFlashcardIndex(flashcards.length - 1)
-      : setCurrentFlashcardIndex(currentFlashcardIndex - 1);
+        ? setCurrentFlashcardIndex(flashcards.length - 1)
+        : setCurrentFlashcardIndex(currentFlashcardIndex - 1);
   };
 
   const handleNextCardClick = () => {
     currentFlashcardIndex + 1 >= flashcards.length
-      ? setCurrentFlashcardIndex(0)
-      : setCurrentFlashcardIndex(currentFlashcardIndex + 1);
+        ? setCurrentFlashcardIndex(0)
+        : setCurrentFlashcardIndex(currentFlashcardIndex + 1);
   };
 
   const handleNewFlashCard = (e) => {
@@ -31,8 +31,8 @@ const Flashcards = ({
     setCanEdit(false);
 
     const newFlashcard = {
-      front: "front",
-      back: "back",
+      front : "front",
+      back : "back",
     };
 
     flashcardService.createFlashcard(newFlashcard).then((newFlashcard) => {
@@ -50,20 +50,18 @@ const Flashcards = ({
     setCanEdit(false);
 
     const flashcardToUpdate = flashcards[currentFlashcardIndex];
-    flashcardService
-      .deleteFlashcard(flashcardToUpdate.id)
-      .then(() => {
-        console.log("deleted");
-        currentFlashcardIndex === 0
-          ? setCurrentFlashcardIndex(0)
-          : setCurrentFlashcardIndex(currentFlashcardIndex - 1);
-        // updates front end as well not sure if best practice
-        const newSet = flashcards.filter((_, i) => i !== currentFlashcardIndex);
-        setFlashcards(newSet);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    flashcardService.deleteFlashcard(flashcardToUpdate.id)
+        .then(() => {
+          console.log("deleted");
+          currentFlashcardIndex === 0
+              ? setCurrentFlashcardIndex(0)
+              : setCurrentFlashcardIndex(currentFlashcardIndex - 1);
+          // updates front end as well not sure if best practice
+          const newSet =
+              flashcards.filter((_, i) => i !== currentFlashcardIndex);
+          setFlashcards(newSet);
+        })
+        .catch((error) => { console.error(error); });
 
     console.log("After Delete", currentFlashcardIndex, flashcards);
   };
@@ -71,24 +69,26 @@ const Flashcards = ({
   return (
     <div className="flashcards-display">
       <FlashcardTools
-        amountOfFlashcards={flashcards.length}
-        handleNewFlashCard={handleNewFlashCard}
-        handleEditFlashCard={handleEditFlashCard}
-        handleDeleteFlashCard={handleDeleteFlashCard}
-        flashcards={flashcards}
-        setCurrentFlashcardIndex={setCurrentFlashcardIndex}
-      />
+  amountOfFlashcards = {flashcards.length} handleNewFlashCard =
+      {handleNewFlashCard} handleEditFlashCard =
+          {handleEditFlashCard} handleDeleteFlashCard =
+              {handleDeleteFlashCard} flashcards =
+                  {flashcards} setCurrentFlashcardIndex =
+  {
+    setCurrentFlashcardIndex
+  } />
       <div className="flashcard-selection">
         <Button
           onClick={handlePreviousCardClick}
           text={"\u261a"}
           className="change-card-button"
-        />
-        <Flashcard
+        / >
+      < Flashcard
           canEdit={canEdit}
           currentFlashcardIndex={currentFlashcardIndex}
           flashcards={flashcards}
-          setFlashcards={setFlashcards}
+          setFlashcards={
+    setFlashcards}
         />
         <Button
           onClick={handleNextCardClick}
