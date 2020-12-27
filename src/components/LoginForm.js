@@ -1,12 +1,12 @@
-import PropTypes from "prop-types";
-import React, { useState } from "react";
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 
-import flashcardService from "../services/flashcardService";
-import loginService from "../services/loginService";
+import flashcardService from '../services/flashcardService';
+import loginService from '../services/loginService';
 
 const LoginForm = ({ setUser }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   LoginForm.propTypes = {
     setUser: PropTypes.func.isRequired,
@@ -20,18 +20,18 @@ const LoginForm = ({ setUser }) => {
         username,
         password,
       });
-      console.log("user", user);
+      console.log('user', user);
       window.localStorage.setItem(
-        "loggedFlashcardAppUser",
+        'loggedFlashcardAppUser',
         JSON.stringify(user)
       );
       flashcardService.setToken(user.token);
-      console.log(user.username, "logged in");
-      setUsername("");
-      setPassword("");
+      console.log(user.username, 'logged in');
+      setUsername('');
+      setPassword('');
       setUser(user);
     } catch (ex) {
-      console.log("wrong credentials");
+      console.log('wrong credentials');
     }
   };
 
@@ -41,7 +41,7 @@ const LoginForm = ({ setUser }) => {
         <h3>Login</h3>
       </div>
       <div>
-        <form className={"login"} onSubmit={handleLogin}>
+        <form className={'login'} onSubmit={handleLogin}>
           <div>
             username
             <input
@@ -52,7 +52,7 @@ const LoginForm = ({ setUser }) => {
             />
           </div>
           <div>
-            password{" "}
+            password{' '}
             <input
               type="password"
               value={password}

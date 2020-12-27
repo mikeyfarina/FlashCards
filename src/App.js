@@ -1,44 +1,45 @@
-import "./App.css";
+import './App.css';
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 
-import Flashcards from "./components/Flashcards";
-import LoginForm from "./components/LoginForm";
-import Sidebar from "./components/Sidebar";
-import Togglable from "./components/Togglable";
-import flashcardService from "./services/flashcardService";
+import Flashcards from './components/Flashcards';
+import LoginForm from './components/LoginForm';
+import Sidebar from './components/Sidebar';
+import Togglable from './components/Togglable';
+import flashcardService from './services/flashcardService';
 
 function App() {
   // states
   const [flashcardSets, setFlashcardSets] = useState([
     {
       id: 0,
-      title: "first set",
+      title: 'first set',
       flashcards: [
-        { id: "a", front: "first flashcard", back: "back of first flashcard" },
+        { id: 'a', front: 'first flashcard', back: 'back of first flashcard' },
         {
-          id: "b",
-          front: "second flashcard",
-          back: "back of second flashcard",
+          id: 'b',
+          front: 'second flashcard',
+          back: 'back of second flashcard',
         },
-        { id: "c", front: "third flashcard", back: "back of third flashcard" },
+        { id: 'c', front: 'third flashcard', back: 'back of third flashcard' },
         {
-          id: "d",
-          front: "fourth flashcard",
-          back: "back of fourth flashcard",
+          id: 'd',
+          front: 'fourth flashcard',
+          back: 'back of fourth flashcard',
         },
-        { id: "e", front: "fifth flashcard", back: "back of fifth flashcard" },
+        { id: 'e', front: 'fifth flashcard', back: 'back of fifth flashcard' },
       ],
     },
   ]);
   const [currentSet, setCurrentSet] = useState(0);
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
   const [flashcards, setFlashcards] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     console.log(flashcards);
     flashcardService.getAllFlashcards().then((flashcards) => {
-      console.log("promise fufilled", flashcards);
+      console.log('promise fufilled', flashcards);
       setFlashcards(flashcards);
     });
   }, []);
@@ -47,7 +48,7 @@ function App() {
   // if a user is logged in with local storage, re-sign in user
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem(
-      "loggedFlashcardAppUser"
+      'loggedFlashcardAppUser'
     );
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
@@ -73,9 +74,9 @@ function App() {
     event.preventDefault();
 
     flashcardService.setToken(null);
-    window.localStorage.removeItem("loggedFlashcardAppUser");
+    window.localStorage.removeItem('loggedFlashcardAppUser');
     setUser(null);
-    console.log("logged out");
+    console.log('logged out');
   };
 
   const logoutDiv = () => (
@@ -92,7 +93,7 @@ function App() {
         {user ? logoutDiv() : loginForm()}
       </header>
       {!flashcards ? (
-        "flashcards loading"
+        'flashcards loading'
       ) : (
         <div className="main-section">
           <Sidebar
