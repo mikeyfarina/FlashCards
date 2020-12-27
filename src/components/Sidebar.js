@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import SidebarHeader from "./SidebarHeader";
+import React from "react";
+
 import SetList from "./SetList";
+import SidebarHeader from "./SidebarHeader";
 
 const Sidebar = ({
+  flashcards,
+  setFlashcards,
   flashcardSets,
   setFlashcardSets,
   currentSet,
   setCurrentSet,
-  newCardId,
-  setNewCardId,
-  currentFlashcard,
-  setCurrentFlashcard,
+  currentFlashcardIndex,
+  setCurrentFlashcardIndex,
   displayingFront,
   setDisplayingFront,
 }) => {
@@ -20,16 +21,16 @@ const Sidebar = ({
         flashcardSets={flashcardSets}
         currentSet={currentSet}
         setFlashcardSets={setFlashcardSets}
-        newCardId={newCardId}
-        setNewCardId={setNewCardId}
       />
       <SetList
+        flashcards={flashcards}
+        setFlashcards={setFlashcards}
         currentSet={currentSet}
         setCurrentSet={setCurrentSet}
         flashcardSets={flashcardSets}
         setFlashcardSets={setFlashcardSets}
-        currentFlashcard={currentFlashcard}
-        setCurrentFlashcard={setCurrentFlashcard}
+        currentFlashcardIndex={currentFlashcardIndex}
+        setCurrentFlashcardIndex={setCurrentFlashcardIndex}
         displayingFront={displayingFront}
         setDisplayingFront={setDisplayingFront}
       />

@@ -8,7 +8,7 @@
 
 body,
 button {
-  font-family: Tahoma, "Geneva", sans-serif;
+  font-family: Tahoma, 'Geneva', sans-serif;
   background: #ececec;
 }
 
@@ -20,6 +20,13 @@ button {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+}
+.noselect::selection {
+  background: transparent;
+}
+
+.noselect::-moz-selection {
+  background: transparent;
 }
 
 header {
@@ -51,6 +58,11 @@ li {
   color: #ffffff;
   font-size: 3.5vw;
   padding: 1%;
+}
+
+.login {
+  display: flex;
+  align-items: baseline;
 }
 
 .search-bar {
@@ -180,6 +192,7 @@ li {
   margin: 3% 2%;
   font-weight: bolder;
 }
+
 .divide-line {
   height: 5%;
   margin: 2% 0;
@@ -273,7 +286,7 @@ li {
 
 .tools__card-selection select {
   height: 100%;
-  width: 200%;
+  max-width: 200%;
   outline: none;
   margin: 0 2%;
   padding: 0 5%;
@@ -375,4 +388,5 @@ li {
   font-size: 3vw;
   text-align: center;
   transform: translateZ(45px);
+  outline: none;
 }

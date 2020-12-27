@@ -1,83 +1,73 @@
-import react, { useState, useEffect } from "react";
-import Flashcard from "./Flashcard";
+import React, { useState } from "react";
+
+import flashcardService from "../services/flashcardService";
+
 import Button from "./Button";
+import Flashcard from "./Flashcard";
 import FlashcardTools from "./FlashcardTools";
+
 const Flashcards = ({
   flashcards,
   setFlashcards,
-  newCardId,
-  setNewCardId,
-  currentFlashcard,
-  setCurrentFlashcard,
-  displayingFront,
-  setDisplayingFront,
+  currentFlashcardIndex,
+  setCurrentFlashcardIndex,
 }) => {
   const [canEdit, setCanEdit] = useState(false);
-  const [newFlashcardText, setNewFlashcardText] = useState({
-    front: "new flashcard",
-    back: "back of new flashcard",
-  });
 
-  console.log(flashcards);
+  const handlePreviousCardClick = () => {
+    currentFlashcardIndex - 1 < 0
+      ? setCurrentFlashcardIndex(flashcards.length - 1)
+      : setCurrentFlashcardIndex(currentFlashcardIndex - 1);
+  };
 
-  const handleClick = (e) => {
-    console.log("clicked");
-    console.log("dir, cc", e, currentFlashcard);
-    setDisplayingFront(true);
-    if (e.target.innerText === "\u261a") {
-      //going to previous card
-      currentFlashcard - 1 < 0
-        ? setCurrentFlashcard(flashcards.length - 1)
-        : setCurrentFlashcard(currentFlashcard - 1);
-    } else {
-      currentFlashcard + 1 >= flashcards.length
-        ? setCurrentFlashcard(0)
-        : setCurrentFlashcard(currentFlashcard + 1);
-    }
+  const handleNextCardClick = () => {
+    currentFlashcardIndex + 1 >= flashcards.length
+      ? setCurrentFlashcardIndex(0)
+      : setCurrentFlashcardIndex(currentFlashcardIndex + 1);
   };
 
   const handleNewFlashCard = (e) => {
+    e.preventDefault();
     setCanEdit(false);
-    setDisplayingFront(true);
 
     const newFlashcard = {
-      id: newCardId,
       front: "front",
       back: "back",
     };
 
-    const newSet = flashcards.concat(newFlashcard);
-    const newCardIndex = newSet.length - 1;
-
-    setNewCardId(newCardId + 1);
-    setFlashcards(newSet);
-    setCurrentFlashcard(newCardIndex);
-
-    console.log(newSet, newSet.length - 1, flashcards, currentFlashcard);
+    flashcardService.createFlashcard(newFlashcard).then((newFlashcard) => {
+      setFlashcards(flashcards.concat(newFlashcard));
+      setCurrentFlashcardIndex(flashcards.length);
+    });
   };
 
-  const handleEditFlashCard = (e) => {
+  const handleEditFlashCard = () => {
     setCanEdit(!canEdit);
     console.log(canEdit);
-
-    if (canEdit) {
-    }
   };
 
-  const handleDeleteFlashCard = (e) => {
-    setDisplayingFront(true);
+  const handleDeleteFlashCard = () => {
     setCanEdit(false);
 
-    console.log("Delete", currentFlashcard, flashcards);
-    const newSet = flashcards.filter((_, i) => i !== currentFlashcard);
-    currentFlashcard === 0
-      ? setCurrentFlashcard(0)
-      : setCurrentFlashcard(currentFlashcard - 1);
-    setFlashcards(newSet);
-    console.log("After Delete", newSet, currentFlashcard, flashcards);
+    const flashcardToUpdate = flashcards[currentFlashcardIndex];
+    flashcardService
+      .deleteFlashcard(flashcardToUpdate.id)
+      .then(() => {
+        console.log("deleted");
+        currentFlashcardIndex === 0
+          ? setCurrentFlashcardIndex(0)
+          : setCurrentFlashcardIndex(currentFlashcardIndex - 1);
+        // updates front end as well not sure if best practice
+        const newSet = flashcards.filter((_, i) => i !== currentFlashcardIndex);
+        setFlashcards(newSet);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    console.log("After Delete", currentFlashcardIndex, flashcards);
   };
 
-  const flashcard = flashcards[currentFlashcard];
   return (
     <div className="flashcards-display">
       <FlashcardTools
@@ -86,25 +76,22 @@ const Flashcards = ({
         handleEditFlashCard={handleEditFlashCard}
         handleDeleteFlashCard={handleDeleteFlashCard}
         flashcards={flashcards}
-        setCurrentFlashcard={setCurrentFlashcard}
+        setCurrentFlashcardIndex={setCurrentFlashcardIndex}
       />
       <div className="flashcard-selection">
         <Button
-          onClick={handleClick}
+          onClick={handlePreviousCardClick}
           text={"\u261a"}
           className="change-card-button"
         />
         <Flashcard
           canEdit={canEdit}
-          currentFlashcard={currentFlashcard}
-          flashcard={flashcard}
-          displayingFront={displayingFront}
-          setDisplayingFront={setDisplayingFront}
-          newFlashcardText={newFlashcardText}
-          setNewFlashcardText={setNewFlashcardText}
+          currentFlashcardIndex={currentFlashcardIndex}
+          flashcards={flashcards}
+          setFlashcards={setFlashcards}
         />
         <Button
-          onClick={handleClick}
+          onClick={handleNextCardClick}
           text={"\u261b"}
           className="change-card-button"
         />

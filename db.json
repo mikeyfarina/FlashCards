@@ -1,0 +1,29 @@
+{
+  "flashcards": [
+    {
+      "id": "a",
+      "front": "first flashcard",
+      "back": "back of first flashcard"
+    },
+    {
+      "id": "b",
+      "front": "second flashcard",
+      "back": "back of second flashcard"
+    },
+    {
+      "id": "c",
+      "front": "third flashcard",
+      "back": "back of third flashcard"
+    },
+    {
+      "id": "d",
+      "front": "fourth flashcard",
+      "back": "back of fourth flashcard"
+    },
+    {
+      "id": "e",
+      "front": "fifth flashcard",
+      "back": "back of fifth flashcard"
+    }
+  ]
+}

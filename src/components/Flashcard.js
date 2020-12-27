@@ -1,19 +1,40 @@
-import react, { useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
+import flashcardService from "../services/flashcardService";
 
 const Flashcard = ({
-  flashcard,
-  displayingFront,
-  setDisplayingFront,
-  currentFlashcard, //index
+  flashcards,
+  setFlashcards,
+  currentFlashcardIndex, // index
   canEdit,
-  newFlashcardText,
-  setNewFlashcardText,
 }) => {
   const [mousePosition, setMousePosition] = useState({
     xAxis: 0,
     yAxis: 0,
   });
   const [transition, setTransition] = useState("none");
+  const [flashcard, setFlashcard] = useState(flashcards[0]);
+  const [flashcardInputText, setFlashcardInputText] = useState("");
+  const [displayingFront, setDisplayingFront] = useState(true);
+
+  useEffect(() => {
+    const newFlashcard = flashcards[currentFlashcardIndex];
+    setFlashcard(newFlashcard);
+    setDisplayingFront(true);
+  }, [currentFlashcardIndex]);
+
+  const firstLoad = useRef(true);
+  useEffect(() => {
+    //dont save flashcard on first load
+    if (firstLoad.current) {
+      firstLoad.current = false;
+      return;
+    }
+    //if switching from edit mode to non-edit mode, save
+    if (!canEdit) {
+      updateAndSaveFlashcard();
+    }
+  }, [canEdit]);
 
   const handleMouseMove = (e) => {
     let xAxis = -(window.innerWidth / 2 - e.pageX) / 25;
@@ -22,13 +43,13 @@ const Flashcard = ({
     setMousePosition({ xAxis, yAxis });
   };
 
-  const handleMouseEnter = (e) => {
+  const handleMouseEnter = () => {
     setTransition("transform .5s ease-out");
     setMousePosition({ xAxis: 0, yAxis: 0 });
   };
 
-  const handleMouseLeave = (e) => {
-    console.log("reset", e);
+  const handleMouseLeave = () => {
+    //console.log('reset', e);
     setTransition("transform .5s ease-out");
     setMousePosition({ xAxis: 0, yAxis: 0 });
   };
@@ -38,11 +59,7 @@ const Flashcard = ({
       //if not in edit mode, flip card
       //flip {displayingFront} to display back
       setDisplayingFront(!displayingFront);
-    } else {
     }
-
-    console.log("click", displayingFront);
-    console.log(flashcard);
   };
 
   const styles = {
@@ -51,12 +68,40 @@ const Flashcard = ({
   };
 
   const handleTextEdit = (e) => {
-    setNewFlashcardText(
+    if (canEdit) {
+      console.log("handling text edit!");
+      setFlashcardInputText(e.target.value);
       displayingFront
         ? (flashcard.front = e.target.value)
-        : (flashcard.back = e.target.value)
-    );
-    console.log(newFlashcardText);
+        : (flashcard.back = e.target.value);
+    }
+  };
+
+  const updateAndSaveFlashcard = () => {
+    console.log("SAVING CHANGES TO FLASHCARD");
+    const flashcardToUpdate = flashcards[currentFlashcardIndex];
+    const updatedFlashcard = displayingFront
+      ? {
+          ...flashcardToUpdate,
+          front: flashcardInputText || flashcardToUpdate.front,
+        }
+      : {
+          ...flashcardToUpdate,
+          back: flashcardInputText || flashcardToUpdate.back,
+        };
+    flashcardService
+      .updateFlashcard(flashcardToUpdate.id, updatedFlashcard)
+      .then((updatedFlashcard) => {
+        setFlashcards(
+          flashcards.map((card) =>
+            card.id !== flashcardToUpdate.id ? card : updatedFlashcard
+          )
+        );
+      })
+      .catch((er) => console.log(er))
+      .then(() => {
+        setFlashcardInputText("");
+      });
   };
   return (
     <div
@@ -66,13 +111,13 @@ const Flashcard = ({
       onMouseEnter={handleMouseEnter}
     >
       <div className="flashcard" onClick={handleClick} style={styles}>
-        <div className="flex-centering">
+        <div className="flex-centering noselect">
           <span className="card-number noselect">
-            {Number.parseInt(currentFlashcard) + 1}
+            {Number.parseInt(currentFlashcardIndex) + 1}
           </span>
           <textarea
             type="text"
-            className="flashcard-text noselect"
+            className={canEdit ? "flashcard-text" : "flashcard-text noselect"}
             disabled={!canEdit}
             value={displayingFront ? flashcard.front : flashcard.back}
             onChange={handleTextEdit}
