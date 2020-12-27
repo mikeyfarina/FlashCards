@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import Flashcard from './Flashcard';
-import Button from './Button';
-import FlashcardTools from './FlashcardTools';
-import flashcardService from '../services/flashcardService';
+import React, { useState } from "react";
+
+import flashcardService from "../services/flashcardService";
+
+import Button from "./Button";
+import Flashcard from "./Flashcard";
+import FlashcardTools from "./FlashcardTools";
 
 const Flashcards = ({
   flashcards,
@@ -29,8 +31,8 @@ const Flashcards = ({
     setCanEdit(false);
 
     const newFlashcard = {
-      front: 'front',
-      back: 'back',
+      front: "front",
+      back: "back",
     };
 
     flashcardService.createFlashcard(newFlashcard).then((newFlashcard) => {
@@ -51,11 +53,11 @@ const Flashcards = ({
     flashcardService
       .deleteFlashcard(flashcardToUpdate.id)
       .then(() => {
-        console.log('deleted');
+        console.log("deleted");
         currentFlashcardIndex === 0
           ? setCurrentFlashcardIndex(0)
           : setCurrentFlashcardIndex(currentFlashcardIndex - 1);
-        //updates front end as well not sure if best practice
+        // updates front end as well not sure if best practice
         const newSet = flashcards.filter((_, i) => i !== currentFlashcardIndex);
         setFlashcards(newSet);
       })
@@ -63,7 +65,7 @@ const Flashcards = ({
         console.error(error);
       });
 
-    console.log('After Delete', currentFlashcardIndex, flashcards);
+    console.log("After Delete", currentFlashcardIndex, flashcards);
   };
 
   return (
@@ -79,7 +81,7 @@ const Flashcards = ({
       <div className="flashcard-selection">
         <Button
           onClick={handlePreviousCardClick}
-          text={'\u261a'}
+          text={"\u261a"}
           className="change-card-button"
         />
         <Flashcard
@@ -90,7 +92,7 @@ const Flashcards = ({
         />
         <Button
           onClick={handleNextCardClick}
-          text={'\u261b'}
+          text={"\u261b"}
           className="change-card-button"
         />
       </div>

@@ -1,6 +1,7 @@
-import React from 'react';
-import SidebarHeader from './SidebarHeader';
-import SetList from './SetList';
+import React from "react";
+
+import SetList from "./SetList";
+import SidebarHeader from "./SidebarHeader";
 
 const Sidebar = ({
   flashcards,

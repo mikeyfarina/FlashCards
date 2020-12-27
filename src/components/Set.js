@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import Button from './Button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from "react";
+
+import Button from "./Button";
+
 const Set = ({
   flashcards,
   set,
@@ -27,7 +29,7 @@ const Set = ({
     setCurrentSet(newIndex);
   };
 
-  //switch edit mode when edit title button is clicked
+  // switch edit mode when edit title button is clicked
   const handleEditMode = () => {
     setCanEditTitle(!canEditTitle);
     if (canEditTitle) {
@@ -35,7 +37,7 @@ const Set = ({
     }
   };
 
-  //changes setTitle state to input
+  // changes setTitle state to input
   const handleTitleEdit = (e) => {
     if (canEditTitle) {
       setSetTitle(e.target.value);
@@ -46,7 +48,7 @@ const Set = ({
     set.flashcards.map((card, i) => {
       card.front === e.target.innerText && setNumber === currentSet
         ? setCurrentFlashcardIndex(i)
-        : console.log('nope', card, i);
+        : console.log("nope", card, i);
     });
     setDisplayingFront(true);
   };
@@ -57,7 +59,7 @@ const Set = ({
     <div className="sidebar__setlist__set">
       <div className="set__header" onClick={handleTitleClick}>
         <input
-          className={'noselect set__header__title'}
+          className={"noselect set__header__title"}
           type="text"
           defaultValue={setTitle}
           disabled={!canEditTitle}
@@ -66,20 +68,20 @@ const Set = ({
         <Button
           onClick={handleEditMode}
           className={
-            canEditTitle ? 'edit-mode title-edit-button' : 'title-edit-button'
+            canEditTitle ? "edit-mode title-edit-button" : "title-edit-button"
           }
           text={
             canEditTitle ? (
-              <FontAwesomeIcon icon={['fa', 'save']} size="sm" />
+              <FontAwesomeIcon icon={["fa", "save"]} size="sm" />
             ) : (
-              <FontAwesomeIcon icon={['fa', 'edit']} size="sm" />
+              <FontAwesomeIcon icon={["fa", "edit"]} size="sm" />
             )
           }
         />
       </div>
       <div className="set__length">
-        <span>{'length: ' + setLength}</span>
-        <hr className={'divide-line'} />
+        <span>{"length: " + setLength}</span>
+        <hr className={"divide-line"} />
       </div>
       <div className="set__preview">
         <ul>
@@ -88,8 +90,8 @@ const Set = ({
               key={card.id}
               className={
                 currentFlashcardIndex === i && setNumber === currentSet
-                  ? 'set__preview__item current-flashcard'
-                  : 'set__preview__item'
+                  ? "set__preview__item current-flashcard"
+                  : "set__preview__item"
               }
               onClick={handleCardClick}
             >
