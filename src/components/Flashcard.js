@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
+
 import flashcardService from '../services/flashcardService';
 
 const Flashcard = ({
   flashcards,
   setFlashcards,
-  currentFlashcardIndex, //index
+  currentFlashcardIndex, // index
   canEdit,
 }) => {
   const [mousePosition, setMousePosition] = useState({

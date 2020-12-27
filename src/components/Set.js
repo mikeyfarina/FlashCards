@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import React, {useState} from 'react';
+
 import Button from './Button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 const Set = ({
   flashcards,
   set,
@@ -17,17 +19,17 @@ const Set = ({
   const [canEditTitle, setCanEditTitle] = useState(false);
 
   const handleTitleClick = () => {
-    if (canEditTitle) return; // do nothing
+    if (canEditTitle)
+      return; // do nothing
     setCurrentFlashcardIndex(0);
     setSetLength(set.flashcards.length);
-    const newIndex = flashcardSets.findIndex(
-      (fcSet) => setTitle === fcSet.title
-    );
+    const newIndex =
+        flashcardSets.findIndex((fcSet) => setTitle === fcSet.title);
     console.log(newIndex, flashcardSets[newIndex]);
     setCurrentSet(newIndex);
   };
 
-  //switch edit mode when edit title button is clicked
+  // switch edit mode when edit title button is clicked
   const handleEditMode = () => {
     setCanEditTitle(!canEditTitle);
     if (canEditTitle) {
@@ -35,7 +37,7 @@ const Set = ({
     }
   };
 
-  //changes setTitle state to input
+  // changes setTitle state to input
   const handleTitleEdit = (e) => {
     if (canEditTitle) {
       setSetTitle(e.target.value);
@@ -45,8 +47,8 @@ const Set = ({
   const handleCardClick = (e) => {
     set.flashcards.map((card, i) => {
       card.front === e.target.innerText && setNumber === currentSet
-        ? setCurrentFlashcardIndex(i)
-        : console.log('nope', card, i);
+          ? setCurrentFlashcardIndex(i)
+          : console.log('nope', card, i);
     });
     setDisplayingFront(true);
   };
@@ -57,11 +59,11 @@ const Set = ({
     <div className="sidebar__setlist__set">
       <div className="set__header" onClick={handleTitleClick}>
         <input
-          className={'noselect set__header__title'}
-          type="text"
+  className = {'noselect set__header__title'} type = "text"
           defaultValue={setTitle}
           disabled={!canEditTitle}
-          onChange={handleTitleEdit}
+          onChange={
+    handleTitleEdit}
         />
         <Button
           onClick={handleEditMode}
@@ -95,10 +97,10 @@ const Set = ({
             >
               {card.front}
             </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+          ))
+}
+</ul>
+      </div>< /div>
   );
 };
 
