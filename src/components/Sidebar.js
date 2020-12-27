@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import SidebarHeader from './SidebarHeader';
-import SetList from './SetList';
+import React from "react";
+
+import SetList from "./SetList";
+import SidebarHeader from "./SidebarHeader";
 
 const Sidebar = ({
   flashcards,
@@ -9,22 +10,17 @@ const Sidebar = ({
   setFlashcardSets,
   currentSet,
   setCurrentSet,
-  newCardId,
-  setNewCardId,
-  currentFlashcard,
-  setCurrentFlashcard,
+  currentFlashcardIndex,
+  setCurrentFlashcardIndex,
   displayingFront,
   setDisplayingFront,
 }) => {
-  console.log(flashcards);
   return (
     <div className="sidebar">
       <SidebarHeader
         flashcardSets={flashcardSets}
         currentSet={currentSet}
         setFlashcardSets={setFlashcardSets}
-        newCardId={newCardId}
-        setNewCardId={setNewCardId}
       />
       <SetList
         flashcards={flashcards}
@@ -33,8 +29,8 @@ const Sidebar = ({
         setCurrentSet={setCurrentSet}
         flashcardSets={flashcardSets}
         setFlashcardSets={setFlashcardSets}
-        currentFlashcard={currentFlashcard}
-        setCurrentFlashcard={setCurrentFlashcard}
+        currentFlashcardIndex={currentFlashcardIndex}
+        setCurrentFlashcardIndex={setCurrentFlashcardIndex}
         displayingFront={displayingFront}
         setDisplayingFront={setDisplayingFront}
       />

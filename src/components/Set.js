@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import Button from './Button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from "react";
+
+import Button from "./Button";
+
 const Set = ({
   flashcards,
   set,
@@ -8,17 +10,17 @@ const Set = ({
   currentSet,
   setCurrentSet,
   flashcardSets,
-  currentFlashcard,
-  setCurrentFlashcard,
+  currentFlashcardIndex,
+  setCurrentFlashcardIndex,
   setDisplayingFront,
 }) => {
   const [setLength, setSetLength] = useState(set.flashcards.length);
   const [setTitle, setSetTitle] = useState(set.title);
   const [canEditTitle, setCanEditTitle] = useState(false);
 
-  const handleTitleClick = (e) => {
+  const handleTitleClick = () => {
     if (canEditTitle) return; // do nothing
-    setCurrentFlashcard(0);
+    setCurrentFlashcardIndex(0);
     setSetLength(set.flashcards.length);
     const newIndex = flashcardSets.findIndex(
       (fcSet) => setTitle === fcSet.title
@@ -27,18 +29,17 @@ const Set = ({
     setCurrentSet(newIndex);
   };
 
-  //switch edit mode when edit title button is clicked
-  const handleEditMode = (e) => {
+  // switch edit mode when edit title button is clicked
+  const handleEditMode = () => {
     setCanEditTitle(!canEditTitle);
     if (canEditTitle) {
       set.title = setTitle;
     }
   };
 
-  //changes setTitle state to input
+  // changes setTitle state to input
   const handleTitleEdit = (e) => {
     if (canEditTitle) {
-      console.log(canEditTitle, e.target.value);
       setSetTitle(e.target.value);
     }
   };
@@ -46,8 +47,8 @@ const Set = ({
   const handleCardClick = (e) => {
     set.flashcards.map((card, i) => {
       card.front === e.target.innerText && setNumber === currentSet
-        ? setCurrentFlashcard(i)
-        : console.log('nope', card, i);
+        ? setCurrentFlashcardIndex(i)
+        : console.log("nope", card, i);
     });
     setDisplayingFront(true);
   };
@@ -58,7 +59,7 @@ const Set = ({
     <div className="sidebar__setlist__set">
       <div className="set__header" onClick={handleTitleClick}>
         <input
-          className={'noselect set__header__title'}
+          className={"noselect set__header__title"}
           type="text"
           defaultValue={setTitle}
           disabled={!canEditTitle}
@@ -67,20 +68,20 @@ const Set = ({
         <Button
           onClick={handleEditMode}
           className={
-            canEditTitle ? 'edit-mode title-edit-button' : 'title-edit-button'
+            canEditTitle ? "edit-mode title-edit-button" : "title-edit-button"
           }
           text={
             canEditTitle ? (
-              <FontAwesomeIcon icon={['fa', 'save']} size="sm" />
+              <FontAwesomeIcon icon={["fa", "save"]} size="sm" />
             ) : (
-              <FontAwesomeIcon icon={['fa', 'edit']} size="sm" />
+              <FontAwesomeIcon icon={["fa", "edit"]} size="sm" />
             )
           }
         />
       </div>
       <div className="set__length">
-        <span>{'length: ' + setLength}</span>
-        <hr className={'divide-line'} />
+        <span>{"length: " + setLength}</span>
+        <hr className={"divide-line"} />
       </div>
       <div className="set__preview">
         <ul>
@@ -88,9 +89,9 @@ const Set = ({
             <li
               key={card.id}
               className={
-                currentFlashcard === i && setNumber === currentSet
-                  ? 'set__preview__item current-flashcard'
-                  : 'set__preview__item'
+                currentFlashcardIndex === i && setNumber === currentSet
+                  ? "set__preview__item current-flashcard"
+                  : "set__preview__item"
               }
               onClick={handleCardClick}
             >

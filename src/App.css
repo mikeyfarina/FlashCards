@@ -21,6 +21,13 @@ button {
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+.noselect::selection {
+  background: transparent;
+}
+
+.noselect::-moz-selection {
+  background: transparent;
+}
 
 header {
   z-index: 2;
@@ -381,4 +388,5 @@ li {
   font-size: 3vw;
   text-align: center;
   transform: translateZ(45px);
+  outline: none;
 }
