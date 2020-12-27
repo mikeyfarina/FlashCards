@@ -20,8 +20,7 @@ const Sidebar = ({
       <SidebarHeader
         flashcardSets={flashcardSets}
         currentSet={currentSet}
-        setFlashcardSets={
-    setFlashcardSets}
+        setFlashcardSets={setFlashcardSets}
       />
       <SetList
         flashcards={flashcards}

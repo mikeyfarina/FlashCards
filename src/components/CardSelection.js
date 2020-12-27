@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 
-const CardSelection = ({flashcards, setCurrentFlashcard}) => {
+const CardSelection = ({ flashcards, setCurrentFlashcard }) => {
   const [selectValue, setSelectValue] = useState(0);
 
   console.log();
@@ -14,7 +14,7 @@ const CardSelection = ({flashcards, setCurrentFlashcard}) => {
       <select onChange={handleSelect} value={selectValue}>
         {flashcards.map((card, i) => (
           <option key={Math.random(35) * 6} value={i}>
-            {i + 1 + ': ' + card.front}
+            {i + 1 + ": " + card.front}
           </option>
         ))}
       </select>
