@@ -1,4 +1,4 @@
-import react, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Flashcard from './Flashcard';
 import Button from './Button';
 import FlashcardTools from './FlashcardTools';

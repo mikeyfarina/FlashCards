@@ -1,11 +1,10 @@
-import react, { useState, useEffect } from 'react';
-import flashcardService from '../services/flashcardService.js';
+import React, { useState, useEffect } from 'react';
+
 const Flashcard = ({
   flashcards,
   displayingFront,
   setDisplayingFront,
   currentFlashcard, //index
-  flashcardInputText,
   setFlashcardInputText,
   canEdit,
 }) => {
@@ -44,7 +43,6 @@ const Flashcard = ({
       //if not in edit mode, flip card
       //flip {displayingFront} to display back
       setDisplayingFront(!displayingFront);
-    } else {
     }
 
     console.log('click', displayingFront);
