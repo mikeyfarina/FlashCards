@@ -5,9 +5,9 @@ post http://localhost:3001/api/users
 Content-Type: application/json
 
 {
-  "username": "test",
+  "username": "root",
   "password": "password",
-  "name": "fred"
+  "name": "admin"
 }
 
 ###
@@ -16,11 +16,11 @@ delete http://localhost:3001/api/users/5fcdb7241db05a33fde3b84f
 ###
 post http://localhost:3001/api/flashcards
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjVmZTkwMjJjMzBiYjE5YWYwYWVmMDhkZSIsImlhdCI6MTYwOTEwNjA3MH0.DGb9SDQKbIshnUSXMq68aTQ51vdKiYYeny41oM7VSwY
 
 {
-  "front": "auth test 2",
-  "back":"test",
-  "userID":"5fcdb6ff1db05a33fde3b84e"
+  "front": "test testdb front",
+  "back":"testdb back",
 }
 
 ###

@@ -12,7 +12,6 @@ const Set = ({
   flashcardSets,
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
-  setDisplayingFront,
 }) => {
   const [setLength, setSetLength] = useState(set.flashcards.length);
   const [setTitle, setSetTitle] = useState(set.title);
@@ -50,7 +49,6 @@ const Set = ({
         ? setCurrentFlashcardIndex(i)
         : console.log('nope', card, i);
     });
-    setDisplayingFront(true);
   };
 
   console.log(flashcards);
