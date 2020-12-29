@@ -9,7 +9,6 @@ const SetList = ({
   setFlashcardSets,
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
-  setDisplayingFront,
 }) => {
   return (
     <ul className="sidebar__setlist">
@@ -25,7 +24,6 @@ const SetList = ({
             setFlashcardSets={setFlashcardSets}
             currentFlashcardIndex={currentFlashcardIndex}
             setCurrentFlashcardIndex={setCurrentFlashcardIndex}
-            setDisplayingFront={setDisplayingFront}
           />
         </li>
       ))}

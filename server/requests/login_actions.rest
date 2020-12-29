@@ -25,3 +25,14 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb
 delete http://localhost:3001/api/flashcards/5fcdc919e31e85445f579a85
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjVmY2RiNmZmMWRiMDVhMzNmZGUzYjg0ZSIsImlhdCI6MTYwNzMyMTQ3Mn0.1mYtC71YmPFJRGIceAc7aTOVvta0wtoWiHc3Knuv5K8
+
+###
+post http://localhost:3001/api/flashcards
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjVmZTkwMjJjMzBiYjE5YWYwYWVmMDhkZSIsImlhdCI6MTYwOTEwNjE0OH0.svohGH7tZmpytIj6wATANuMy-EjsiTd9q8KSpaNNqL8
+
+{
+  "front": "auth upload",
+  "back": "auth back",
+  "user": "5fcdb79627bb9f345052d367"
+}

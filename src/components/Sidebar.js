@@ -12,8 +12,6 @@ const Sidebar = ({
   setCurrentSet,
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
-  displayingFront,
-  setDisplayingFront,
 }) => {
   return (
     <div className="sidebar">
@@ -31,8 +29,6 @@ const Sidebar = ({
         setFlashcardSets={setFlashcardSets}
         currentFlashcardIndex={currentFlashcardIndex}
         setCurrentFlashcardIndex={setCurrentFlashcardIndex}
-        displayingFront={displayingFront}
-        setDisplayingFront={setDisplayingFront}
       />
       <div className="sidebar__bottom"></div>
     </div>

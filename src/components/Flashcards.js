@@ -82,7 +82,7 @@ const Flashcards = ({
         <Button
           onClick={handlePreviousCardClick}
           text={'\u261a'}
-          className="change-card-button"
+          className="change-card-button previous-flashcard-button"
         />
         <Flashcard
           canEdit={canEdit}
@@ -93,7 +93,7 @@ const Flashcards = ({
         <Button
           onClick={handleNextCardClick}
           text={'\u261b'}
-          className="change-card-button"
+          className="change-card-button next-flashcard-button"
         />
       </div>
     </div>

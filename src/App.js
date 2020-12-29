@@ -81,19 +81,20 @@ function App() {
 
   const logoutDiv = () => (
     <div>
-      <div>{`hello, ${user.username}`}</div>
-      <button onClick={handleLogout}>Logout</button>
+      <div className="user-greeting">{`hello, ${user.username}`}</div>
+      <button onClick={handleLogout} className="logout-button">
+        Logout
+      </button>
     </div>
   );
-
   return (
     <div>
       <header>
         <h1 className="main-title noselect">Flashcards</h1>
         {user ? logoutDiv() : loginForm()}
       </header>
-      {!flashcards ? (
-        'flashcards loading'
+      {!flashcards || flashcards.length === 0 ? (
+        'flashcards loading...'
       ) : (
         <div className="main-section">
           <Sidebar
