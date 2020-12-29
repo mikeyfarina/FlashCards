@@ -56,7 +56,6 @@ flashcardsRouter.post('/', async (req, res) => {
 
   const user = await User.findById(decodedToken.id);
 
-  console.log(user, body);
   const newFlashcard = new Flashcard({
     front: body.front,
     back: body.back,
