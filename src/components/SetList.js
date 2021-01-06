@@ -10,6 +10,7 @@ const SetList = ({
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
 }) => {
+  console.log(flashcardSets);
   return (
     <ul className="sidebar__setlist">
       {flashcardSets.map((set, i) => (

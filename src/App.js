@@ -43,6 +43,7 @@ function App() {
       setFlashcards(flashcards);
     });
   }, []);
+
   console.log(flashcards);
 
   // if a user is logged in with local storage, re-sign in user
@@ -65,12 +66,16 @@ function App() {
 
   const loginFormRef = useRef();
   const loginForm = () => (
-    <Togglable buttonLabel="Login" ref={loginFormRef}>
+    <Togglable
+      buttonLabel="login"
+      ref={loginFormRef}
+      parentDivClassName="login-div"
+    >
       <LoginForm setUser={setUser} />
     </Togglable>
   );
 
-  const handleLogout = async (event) => {
+  const handleLogout = (event) => {
     event.preventDefault();
 
     flashcardService.setToken(null);
@@ -80,7 +85,7 @@ function App() {
   };
 
   const logoutDiv = () => (
-    <div>
+    <div className="logout-div">
       <div className="user-greeting">{`hello, ${user.username}`}</div>
       <button onClick={handleLogout} className="logout-button">
         Logout

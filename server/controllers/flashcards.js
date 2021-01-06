@@ -4,10 +4,14 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
 flashcardsRouter.get('/', async (req, res) => {
-  const flashcards = await Flashcard.find({}).populate('user', {
-    username: 1,
-    name: 1,
-  });
+  const flashcards = await Flashcard.find({})
+    .populate('user', {
+      username: 1,
+      name: 1,
+    })
+    .populate('set', {
+      title: 1,
+    });
   res.json(flashcards);
 });
 

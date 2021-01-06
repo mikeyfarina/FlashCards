@@ -6,6 +6,7 @@ const cors = require('cors');
 const flashcardsRouter = require('./controllers/flashcards');
 const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
+const setsRouter = require('./controllers/sets');
 const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');
 const mongoose = require('mongoose');
@@ -35,6 +36,7 @@ app.use(middleware.tokenExtractor);
 app.use('/api/login', loginRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/flashcards', flashcardsRouter);
+app.use('/api/sets', setsRouter);
 
 if (process.env.NODE_ENV === 'test') {
   const testingRouter = require('./controllers/testing');
