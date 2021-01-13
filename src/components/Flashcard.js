@@ -103,6 +103,7 @@ const Flashcard = ({
         setFlashcardInputText('');
       });
   };
+
   return (
     <div
       className={'flashcard-container'}
@@ -110,20 +111,24 @@ const Flashcard = ({
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
     >
-      <div className="flashcard" onClick={handleClick} style={styles}>
-        <div className="flex-centering noselect">
-          <span className="card-number noselect">
-            {Number.parseInt(currentFlashcardIndex) + 1}
-          </span>
-          <textarea
-            type="text"
-            className={canEdit ? 'flashcard-text' : 'flashcard-text noselect'}
-            disabled={!canEdit}
-            value={displayingFront ? flashcard.front : flashcard.back}
-            onChange={handleTextEdit}
-          ></textarea>
+      {!flashcard ? (
+        'flashcard loading...'
+      ) : (
+        <div className="flashcard" onClick={handleClick} style={styles}>
+          <div className="flex-centering noselect">
+            <span className="card-number noselect">
+              {Number.parseInt(currentFlashcardIndex) + 1}
+            </span>
+            <textarea
+              type="text"
+              className={canEdit ? 'flashcard-text' : 'flashcard-text noselect'}
+              disabled={!canEdit}
+              value={displayingFront ? flashcard.front : flashcard.back}
+              onChange={handleTextEdit}
+            ></textarea>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -7,42 +7,31 @@ import LoginForm from './components/LoginForm';
 import Sidebar from './components/Sidebar';
 import Togglable from './components/Togglable';
 import flashcardService from './services/flashcardService';
+import setService from './services/setService';
 
 function App() {
   // states
-  const [flashcardSets, setFlashcardSets] = useState([
-    {
-      id: 0,
-      title: 'first set',
-      flashcards: [
-        { id: 'a', front: 'first flashcard', back: 'back of first flashcard' },
-        {
-          id: 'b',
-          front: 'second flashcard',
-          back: 'back of second flashcard',
-        },
-        { id: 'c', front: 'third flashcard', back: 'back of third flashcard' },
-        {
-          id: 'd',
-          front: 'fourth flashcard',
-          back: 'back of fourth flashcard',
-        },
-        { id: 'e', front: 'fifth flashcard', back: 'back of fifth flashcard' },
-      ],
-    },
-  ]);
+  const [flashcardSets, setFlashcardSets] = useState(null);
   const [currentSet, setCurrentSet] = useState(0);
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
   const [flashcards, setFlashcards] = useState(null);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    console.log(flashcards);
-    flashcardService.getAllFlashcards().then((flashcards) => {
-      console.log('promise fufilled', flashcards);
-      setFlashcards(flashcards);
-    });
-  }, []);
+    console.log(flashcardSets);
+    setService
+      .getAllSets()
+      .then((sets) => {
+        console.log('got sets', sets);
+        setFlashcardSets(sets);
+        return sets;
+      })
+      .then((sets) => {
+        setService
+          .getAllFlashcardsInSet(sets[currentSet].id)
+          .then((flashcards) => setFlashcards(flashcards));
+      });
+  }, [currentSet]);
 
   console.log(flashcards);
 
@@ -52,9 +41,11 @@ function App() {
       'loggedFlashcardAppUser'
     );
     if (loggedUserJSON) {
+      console.log('logging in user');
       const user = JSON.parse(loggedUserJSON);
       setUser(user);
       flashcardService.setToken(user.token);
+      setService.setToken(user.token);
     }
   }, []);
 
@@ -98,13 +89,12 @@ function App() {
         <h1 className="main-title noselect">Flashcards</h1>
         {user ? logoutDiv() : loginForm()}
       </header>
-      {!flashcards || flashcards.length === 0 ? (
+      {!flashcardSets || !flashcards ? (
         'flashcards loading...'
       ) : (
         <div className="main-section">
           <Sidebar
             flashcards={flashcards}
-            setFlashcards={setFlashcards}
             flashcardSets={flashcardSets}
             setFlashcardSets={setFlashcardSets}
             currentSet={currentSet}
@@ -115,6 +105,7 @@ function App() {
           <Flashcards
             flashcards={flashcards}
             setFlashcards={setFlashcards}
+            flashcardSets={flashcardSets}
             currentSet={currentSet}
             currentFlashcardIndex={currentFlashcardIndex}
             setCurrentFlashcardIndex={setCurrentFlashcardIndex}

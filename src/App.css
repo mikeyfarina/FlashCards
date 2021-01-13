@@ -211,7 +211,7 @@ li {
 
 .sidebar__setlist__set {
   display: grid;
-  grid-template-rows: 0.5fr 0.6fr 2fr;
+  grid-template-rows: 0.25fr 0.2fr 2fr;
   border: 5px darkgray solid;
   border-radius: 5px;
   margin: 5% 3%;
@@ -223,7 +223,7 @@ li {
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template-columns: 9fr 1fr;
+  grid-template-columns: 8fr 1fr 1fr;
   padding: 2%;
   background: #646c80;
 }

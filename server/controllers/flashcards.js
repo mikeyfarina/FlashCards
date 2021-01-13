@@ -1,6 +1,7 @@
 const flashcardsRouter = require('express').Router();
 const Flashcard = require('../models/flashcard');
 const User = require('../models/user');
+const Set = require('../models/set');
 const jwt = require('jsonwebtoken');
 
 flashcardsRouter.get('/', async (req, res) => {
@@ -59,17 +60,22 @@ flashcardsRouter.post('/', async (req, res) => {
   }
 
   const user = await User.findById(decodedToken.id);
+  const set = await Set.findById(body.setId);
 
   const newFlashcard = new Flashcard({
     front: body.front,
     back: body.back,
     date: new Date(),
     user: user.id,
+    set: set._id,
   });
 
   const savedFlashcard = await newFlashcard.save();
   user.flashcards = user.flashcards.concat(savedFlashcard._id);
   await user.save();
+
+  set.flashcards = set.flashcards.concat(savedFlashcard._id);
+  await set.save();
 
   res.json(savedFlashcard);
 });

@@ -9,6 +9,8 @@ import FlashcardTools from './FlashcardTools';
 const Flashcards = ({
   flashcards,
   setFlashcards,
+  flashcardSets,
+  currentSet,
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
 }) => {
@@ -26,13 +28,16 @@ const Flashcards = ({
       : setCurrentFlashcardIndex(currentFlashcardIndex + 1);
   };
 
-  const handleNewFlashCard = (e) => {
+  const handleNewFlashCard = async (e) => {
     e.preventDefault();
     setCanEdit(false);
+
+    const setId = flashcardSets[currentSet].id;
 
     const newFlashcard = {
       front: 'front',
       back: 'back',
+      setId,
     };
 
     flashcardService.createFlashcard(newFlashcard).then((newFlashcard) => {
@@ -67,6 +72,8 @@ const Flashcards = ({
 
     console.log('After Delete', currentFlashcardIndex, flashcards);
   };
+
+  console.log(flashcards);
 
   return (
     <div className="flashcards-display">

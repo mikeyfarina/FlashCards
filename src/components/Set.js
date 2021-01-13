@@ -1,26 +1,33 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import setService from '../services/setService';
 
 import Button from './Button';
 
 const Set = ({
-  flashcards,
   set,
-  setNumber,
+  flashcards,
   currentSet,
   setCurrentSet,
   flashcardSets,
+  setFlashcardSets,
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
 }) => {
-  const [setLength, setSetLength] = useState(set.flashcards.length);
+  const [setLength, setSetLength] = useState(0);
   const [setTitle, setSetTitle] = useState(set.title);
   const [canEditTitle, setCanEditTitle] = useState(false);
 
+  useEffect(() => {
+    setSetLength(flashcards.length);
+  }, [flashcards]);
+
+  console.log(set, flashcards);
   const handleTitleClick = () => {
     if (canEditTitle) return; // do nothing
+
     setCurrentFlashcardIndex(0);
-    setSetLength(set.flashcards.length);
+    setSetLength(flashcards.length);
     const newIndex = flashcardSets.findIndex(
       (fcSet) => setTitle === fcSet.title
     );
@@ -43,15 +50,26 @@ const Set = ({
     }
   };
 
-  const handleCardClick = (e) => {
-    set.flashcards.map((card, i) => {
-      card.front === e.target.innerText && setNumber === currentSet
-        ? setCurrentFlashcardIndex(i)
-        : console.log('nope', card, i);
+  const handleCardClick = (e, indexOfCardPreview) => {
+    console.log(e);
+    flashcards.map((card) => {
+      console.log(card.front);
+      card.front === e.target.innerText
+        ? setCurrentFlashcardIndex(indexOfCardPreview)
+        : console.log('nope', card, indexOfCardPreview);
     });
   };
 
-  console.log(flashcards);
+  const handleDeleteSet = () => {
+    const setId = flashcardSets[currentSet].id;
+    setService.deleteSet(setId).then(() => {
+      console.log('deleted');
+      currentSet === 0 ? currentSet(0) : currentSet(currentSet - 1);
+
+      const updatedSets = flashcardSets.filter((n) => n !== setId);
+      setFlashcardSets(updatedSets);
+    });
+  };
 
   return (
     <div className="sidebar__setlist__set">
@@ -76,6 +94,11 @@ const Set = ({
             )
           }
         />
+        <Button
+          onClick={handleDeleteSet}
+          className={'title-edit-button'}
+          text={<FontAwesomeIcon icon={['fa', 'trash']} size="sm" />}
+        />
       </div>
       <div className="set__length">
         <span>{'length: ' + setLength}</span>
@@ -83,15 +106,15 @@ const Set = ({
       </div>
       <div className="set__preview">
         <ul>
-          {set.flashcards.map((card, i) => (
+          {flashcards.map((card, i) => (
             <li
               key={card.id}
               className={
-                currentFlashcardIndex === i && setNumber === currentSet
+                currentFlashcardIndex === i
                   ? 'set__preview__item current-flashcard'
                   : 'set__preview__item'
               }
-              onClick={handleCardClick}
+              onClick={(e) => handleCardClick(e, i)}
             >
               {card.front}
             </li>
