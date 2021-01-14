@@ -17,22 +17,26 @@ const Set = ({
   const [setLength, setSetLength] = useState(0);
   const [setTitle, setSetTitle] = useState(set.title);
   const [canEditTitle, setCanEditTitle] = useState(false);
+  const [indexOfSet, setIndexOfSet] = useState(null);
+
+  useEffect(() => {
+    setIndexOfSet(flashcardSets.findIndex((s) => s.id === set.id));
+  }, []);
 
   useEffect(() => {
     setSetLength(flashcards.length);
   }, [flashcards]);
 
-  console.log(set, flashcards);
-  const handleTitleClick = () => {
+  const handleTitleClick = async () => {
     if (canEditTitle) return; // do nothing
+    const dbSet = await setService.getSetById(set.id);
+    const newIndex = flashcardSets.findIndex((set) => dbSet.id === set.id);
 
     setCurrentFlashcardIndex(0);
-    setSetLength(flashcards.length);
-    const newIndex = flashcardSets.findIndex(
-      (fcSet) => setTitle === fcSet.title
-    );
-    console.log(newIndex, flashcardSets[newIndex]);
-    setCurrentSet(newIndex);
+    if (newIndex === currentSet) return;
+    else {
+      setCurrentSet(newIndex);
+    }
   };
 
   // switch edit mode when edit title button is clicked
@@ -51,25 +55,26 @@ const Set = ({
   };
 
   const handleCardClick = (e, indexOfCardPreview) => {
-    console.log(e);
-    flashcards.map((card) => {
-      console.log(card.front);
-      card.front === e.target.innerText
+    flashcards.map((card, i) => {
+      i === indexOfCardPreview && currentSet === indexOfSet
         ? setCurrentFlashcardIndex(indexOfCardPreview)
-        : console.log('nope', card, indexOfCardPreview);
+        : '';
     });
   };
 
   const handleDeleteSet = () => {
     const setId = flashcardSets[currentSet].id;
     setService.deleteSet(setId).then(() => {
-      console.log('deleted');
-      currentSet === 0 ? currentSet(0) : currentSet(currentSet - 1);
-
       const updatedSets = flashcardSets.filter((n) => n !== setId);
+      if (currentSet === 0 || currentSet >= flashcardSets.length - 1)
+        setCurrentSet(0);
+      if (currentSet <= flashcardSets.length) setCurrentSet(currentSet - 1);
       setFlashcardSets(updatedSets);
+      console.log('deleted', currentSet);
     });
   };
+
+  console.log(indexOfSet, currentSet);
 
   return (
     <div className="sidebar__setlist__set">
@@ -98,6 +103,7 @@ const Set = ({
           onClick={handleDeleteSet}
           className={'title-edit-button'}
           text={<FontAwesomeIcon icon={['fa', 'trash']} size="sm" />}
+          disabled={currentSet === indexOfSet ? false : true}
         />
       </div>
       <div className="set__length">
@@ -110,7 +116,7 @@ const Set = ({
             <li
               key={card.id}
               className={
-                currentFlashcardIndex === i
+                currentFlashcardIndex === i && indexOfSet === currentSet
                   ? 'set__preview__item current-flashcard'
                   : 'set__preview__item'
               }

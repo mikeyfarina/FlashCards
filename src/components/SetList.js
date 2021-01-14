@@ -3,7 +3,7 @@ import setService from '../services/setService';
 import Set from './Set';
 
 const SetList = ({
-  flashcards,
+  setFlashcards,
   flashcardSets,
   setFlashcardSets,
   currentSet,
@@ -14,17 +14,18 @@ const SetList = ({
   const [updatedFlashcardSets, setUpdatedFlashcardSets] = useState([]);
 
   useEffect(() => {
-    Promise.all(getCurrentFlashcardSetsPromises()).then((sets) => {
+    Promise.all(getCurrentFlashcardSets()).then((sets) => {
       setUpdatedFlashcardSets(sets);
+      setFlashcards(sets[currentSet].flashcards);
     });
-  }, [currentSet, flashcards]);
+  }, [currentSet, flashcardSets]);
 
-  const getCurrentFlashcardSetsPromises = () => {
+  const getCurrentFlashcardSets = () => {
     return flashcardSets.map((set) => {
-      return setService.getAllFlashcardsInSet(set.id).then((setFlashcards) => {
+      return setService.getAllFlashcardsInSet(set.id).then((setFcs) => {
         const formattedSet = {
           title: set.title,
-          flashcards: setFlashcards,
+          flashcards: setFcs,
           id: set.id,
         };
         return formattedSet;
@@ -42,11 +43,7 @@ const SetList = ({
             <li key={set.id} className={i === currentSet ? 'current-set' : ''}>
               <Set
                 set={set}
-                flashcards={
-                  set.id === flashcardSets[currentSet].id
-                    ? flashcards
-                    : set.flashcards
-                }
+                flashcards={set.flashcards}
                 currentSet={currentSet}
                 setCurrentSet={setCurrentSet}
                 flashcardSets={flashcardSets}

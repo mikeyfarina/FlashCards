@@ -1,11 +1,12 @@
 import React from 'react';
-import flashcardService from '../services/flashcardService';
+//import flashcardService from '../services/flashcardService';
 import setService from '../services/setService';
 import SetList from './SetList';
 import SidebarHeader from './SidebarHeader';
 
 const Sidebar = ({
   flashcards,
+  setFlashcards,
   flashcardSets,
   setFlashcardSets,
   currentSet,
@@ -18,17 +19,10 @@ const Sidebar = ({
     const newSet = {
       title: 'new set',
     };
-    setService.createSet(newSet).then((newSet) => {
+    setService.createSet(newSet).then(async (newSet) => {
       console.log('set created', newSet);
-      setFlashcardSets(flashcardSets.concat(newSet));
+      await setFlashcardSets(flashcardSets.concat(newSet));
       console.log('added to sets', flashcardSets);
-      console.log('creating default flashcards');
-      const newFlashcard = {
-        front: 'first flashcard of new set',
-        back: 'back of flashcard',
-        setId: newSet._id,
-      };
-      flashcardService.createFlashcard(newFlashcard);
     });
   };
 
@@ -37,6 +31,7 @@ const Sidebar = ({
       <SidebarHeader handleNewSet={handleNewSet} />
       <SetList
         flashcards={flashcards}
+        setFlashcards={setFlashcards}
         flashcardSets={flashcardSets}
         setFlashcardSets={setFlashcardSets}
         currentSet={currentSet}

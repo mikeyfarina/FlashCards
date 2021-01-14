@@ -13,7 +13,7 @@ const Flashcard = ({
     yAxis: 0,
   });
   const [transition, setTransition] = useState('none');
-  const [flashcard, setFlashcard] = useState(flashcards[0]);
+  const [flashcard, setFlashcard] = useState(null);
   const [flashcardInputText, setFlashcardInputText] = useState('');
   const [displayingFront, setDisplayingFront] = useState(true);
 
@@ -22,6 +22,10 @@ const Flashcard = ({
     setFlashcard(newFlashcard);
     setDisplayingFront(true);
   }, [currentFlashcardIndex]);
+
+  useEffect(() => {
+    setFlashcard(flashcards[currentFlashcardIndex] || null);
+  }, [flashcards]);
 
   const firstLoad = useRef(true);
   useEffect(() => {

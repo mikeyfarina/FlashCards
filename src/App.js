@@ -18,7 +18,7 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    console.log(flashcardSets);
+    console.log('flashcardSets', flashcardSets);
     setService
       .getAllSets()
       .then((sets) => {
@@ -27,13 +27,14 @@ function App() {
         return sets;
       })
       .then((sets) => {
+        console.log(sets[currentSet].id);
         setService
           .getAllFlashcardsInSet(sets[currentSet].id)
           .then((flashcards) => setFlashcards(flashcards));
       });
   }, [currentSet]);
 
-  console.log(flashcards);
+  console.log('flashcards', flashcards);
 
   // if a user is logged in with local storage, re-sign in user
   useEffect(() => {
@@ -95,6 +96,7 @@ function App() {
         <div className="main-section">
           <Sidebar
             flashcards={flashcards}
+            setFlashcards={setFlashcards}
             flashcardSets={flashcardSets}
             setFlashcardSets={setFlashcardSets}
             currentSet={currentSet}
