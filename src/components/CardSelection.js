@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-const CardSelection = ({ flashcards, setCurrentFlashcard }) => {
+const CardSelection = ({ flashcards, setCurrentFlashcardIndex }) => {
   const [selectValue, setSelectValue] = useState(0);
 
   console.log();
   const handleSelect = (e) => {
     console.log(e.target.value);
     setSelectValue(e.target.value);
-    setCurrentFlashcard(e.target.value);
+    setCurrentFlashcardIndex(Number(e.target.value));
   };
   return (
     <div className="tools__card-selection">

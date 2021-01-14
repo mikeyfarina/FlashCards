@@ -7,6 +7,8 @@ import Button from './Button';
 const Set = ({
   set,
   flashcards,
+  index,
+  setCreator,
   currentSet,
   setCurrentSet,
   flashcardSets,
@@ -17,26 +19,21 @@ const Set = ({
   const [setLength, setSetLength] = useState(0);
   const [setTitle, setSetTitle] = useState(set.title);
   const [canEditTitle, setCanEditTitle] = useState(false);
-  const [indexOfSet, setIndexOfSet] = useState(null);
+  const [indexOfSet] = useState(index);
+  const [currentFlashcards, setCurrentFlashcards] = useState(flashcards);
 
-  useEffect(() => {
-    setIndexOfSet(flashcardSets.findIndex((s) => s.id === set.id));
-  }, []);
+  useEffect(async () => {
+    const setFlashcards = await setService.getAllFlashcardsInSet(set.id);
+    setCurrentFlashcards(setFlashcards);
+    setSetLength(setFlashcards.length);
+  }, [flashcards, currentFlashcardIndex]);
 
-  useEffect(() => {
-    setSetLength(flashcards.length);
-  }, [flashcards]);
-
-  const handleTitleClick = async () => {
+  const handleTitleClick = () => {
+    console.log('clicked');
     if (canEditTitle) return; // do nothing
-    const dbSet = await setService.getSetById(set.id);
-    const newIndex = flashcardSets.findIndex((set) => dbSet.id === set.id);
 
-    setCurrentFlashcardIndex(0);
-    if (newIndex === currentSet) return;
-    else {
-      setCurrentSet(newIndex);
-    }
+    const newIndex = flashcardSets.findIndex((s) => set.id === s.id);
+    if (!(newIndex === currentSet)) setCurrentSet(newIndex);
   };
 
   // switch edit mode when edit title button is clicked
@@ -55,7 +52,7 @@ const Set = ({
   };
 
   const handleCardClick = (e, indexOfCardPreview) => {
-    flashcards.map((card, i) => {
+    currentFlashcards.map((card, i) => {
       i === indexOfCardPreview && currentSet === indexOfSet
         ? setCurrentFlashcardIndex(indexOfCardPreview)
         : '';
@@ -63,18 +60,17 @@ const Set = ({
   };
 
   const handleDeleteSet = () => {
-    const setId = flashcardSets[currentSet].id;
-    setService.deleteSet(setId).then(() => {
-      const updatedSets = flashcardSets.filter((n) => n !== setId);
-      if (currentSet === 0 || currentSet >= flashcardSets.length - 1)
-        setCurrentSet(0);
-      if (currentSet <= flashcardSets.length) setCurrentSet(currentSet - 1);
+    setService.deleteSet(set.id).then(() => {
+      const updatedSets = flashcardSets.filter((s) => s.id !== set.id);
       setFlashcardSets(updatedSets);
+      if (currentSet === 0 || currentSet >= updatedSets.length - 1)
+        setCurrentSet(0);
+      if (currentSet <= updatedSets.length) setCurrentSet(currentSet - 1);
       console.log('deleted', currentSet);
     });
   };
 
-  console.log(indexOfSet, currentSet);
+  console.log('set', flashcards);
 
   return (
     <div className="sidebar__setlist__set">
@@ -106,25 +102,32 @@ const Set = ({
           disabled={currentSet === indexOfSet ? false : true}
         />
       </div>
-      <div className="set__length">
-        <span>{'length: ' + setLength}</span>
+      <div className="set__info">
+        <div className="set__length">
+          <span>{'length: ' + setLength}</span>
+        </div>
+        <div className="set__creator">
+          <span>{setCreator}</span>
+        </div>
         <hr className={'divide-line'} />
       </div>
       <div className="set__preview">
         <ul>
-          {flashcards.map((card, i) => (
-            <li
-              key={card.id}
-              className={
-                currentFlashcardIndex === i && indexOfSet === currentSet
-                  ? 'set__preview__item current-flashcard'
-                  : 'set__preview__item'
-              }
-              onClick={(e) => handleCardClick(e, i)}
-            >
-              {card.front}
-            </li>
-          ))}
+          {currentFlashcards
+            ? currentFlashcards.map((card, i) => (
+                <li
+                  key={card.id}
+                  className={
+                    currentFlashcardIndex === i && indexOfSet === currentSet
+                      ? 'set__preview__item current-flashcard'
+                      : 'set__preview__item'
+                  }
+                  onClick={(e) => handleCardClick(e, i)}
+                >
+                  {card.front}
+                </li>
+              ))
+            : 'loading...'}
         </ul>
       </div>
     </div>

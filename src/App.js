@@ -16,25 +16,20 @@ function App() {
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
   const [flashcards, setFlashcards] = useState(null);
   const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    console.log('flashcardSets', flashcardSets);
-    setService
-      .getAllSets()
-      .then((sets) => {
-        console.log('got sets', sets);
-        setFlashcardSets(sets);
-        return sets;
-      })
-      .then((sets) => {
-        console.log(sets[currentSet].id);
-        setService
-          .getAllFlashcardsInSet(sets[currentSet].id)
-          .then((flashcards) => setFlashcards(flashcards));
-      });
-  }, [currentSet]);
-
   console.log('flashcards', flashcards);
+
+  useEffect(async () => {
+    const sets = await setService.getAllSets();
+    console.log(sets);
+    setFlashcardSets(sets);
+  }, [flashcards]);
+
+  useEffect(async () => {
+    const sets = await setService.getAllSets();
+    const setID = sets[currentSet].id;
+    const flashcards = await setService.getAllFlashcardsInSet(setID);
+    setFlashcards(flashcards);
+  }, [currentSet]);
 
   // if a user is logged in with local storage, re-sign in user
   useEffect(() => {

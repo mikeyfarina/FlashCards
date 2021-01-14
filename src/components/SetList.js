@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import setService from '../services/setService';
+import React from 'react';
 import Set from './Set';
 
 const SetList = ({
-  setFlashcards,
+  flashcards,
   flashcardSets,
   setFlashcardSets,
   currentSet,
@@ -11,39 +10,19 @@ const SetList = ({
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
 }) => {
-  const [updatedFlashcardSets, setUpdatedFlashcardSets] = useState([]);
-
-  useEffect(() => {
-    Promise.all(getCurrentFlashcardSets()).then((sets) => {
-      setUpdatedFlashcardSets(sets);
-      setFlashcards(sets[currentSet].flashcards);
-    });
-  }, [currentSet, flashcardSets]);
-
-  const getCurrentFlashcardSets = () => {
-    return flashcardSets.map((set) => {
-      return setService.getAllFlashcardsInSet(set.id).then((setFcs) => {
-        const formattedSet = {
-          title: set.title,
-          flashcards: setFcs,
-          id: set.id,
-        };
-        return formattedSet;
-      });
-    });
-  };
-
   return (
     <div>
-      {!updatedFlashcardSets ? (
+      {!flashcardSets ? (
         <div>Loading Set List...</div>
       ) : (
         <ul className="sidebar__setlist">
-          {updatedFlashcardSets.map((set, i) => (
+          {flashcardSets.map((set, i) => (
             <li key={set.id} className={i === currentSet ? 'current-set' : ''}>
               <Set
                 set={set}
-                flashcards={set.flashcards}
+                flashcards={currentSet === i ? flashcards : set.flashcards}
+                index={i}
+                setCreator={set.username}
                 currentSet={currentSet}
                 setCurrentSet={setCurrentSet}
                 flashcardSets={flashcardSets}

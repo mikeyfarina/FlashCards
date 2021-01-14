@@ -39,9 +39,9 @@ flashcardsRouter.delete('/:id', async (req, res) => {
 
   if (flashcard.user.toString() === user.id.toString()) {
     console.log('can delete');
-    Flashcard.findByIdAndDelete(req.params.id);
+    const deletedFlashcard = await Flashcard.findByIdAndDelete(req.params.id);
     console.log('deleted');
-    return res.status(204).end();
+    return res.status(204).json(deletedFlashcard);
   } else {
     console.log('cant delete');
     console.log('wrong user, expected: ', flashcard.user, 'got: ', user.id);
@@ -61,6 +61,14 @@ flashcardsRouter.post('/', async (req, res) => {
 
   const user = await User.findById(decodedToken.id);
   const set = await Set.findById(body.setId);
+
+  console.log('ids for post', user.id, set.user);
+
+  if (user.id.toString() !== set.user.toString()) {
+    return res.status(401).json({
+      error: 'cant create flashcards in other users sets',
+    });
+  }
 
   const newFlashcard = new Flashcard({
     front: body.front,
@@ -87,15 +95,38 @@ flashcardsRouter.put('/:id', async (req, res) => {
     return res.status(400).json({ error: 'content missing' });
   }
 
+  const decodedToken = jwt.verify(req.token, process.env.SECRET);
+  if (!req.token || !decodedToken.id) {
+    return res.status(401).json({
+      error: 'token invalid',
+    });
+  }
+
+  const user = await User.findById(decodedToken.id);
+  const flashcard = await Flashcard.findById(id);
+
   const newFlashcard = {
     front: body.front,
     back: body.back,
   };
 
-  const updatedFlashcard = await Flashcard.findByIdAndUpdate(id, newFlashcard, {
-    new: true,
-  });
-  res.json(updatedFlashcard);
+  if (flashcard.user.toString() === user.id.toString()) {
+    console.log('can update');
+    const updatedFlashcard = await Flashcard.findByIdAndUpdate(
+      id,
+      newFlashcard,
+      {
+        new: true,
+      }
+    );
+    res.json(updatedFlashcard);
+    console.log('updated');
+    return res.status(204).end();
+  } else {
+    console.log('cant update');
+    console.log('wrong user, expected: ', flashcard.user, 'got: ', user.id);
+    return res.status(401).end();
+  }
 });
 
 module.exports = flashcardsRouter;

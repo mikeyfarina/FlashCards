@@ -76,8 +76,8 @@ const Flashcard = ({
       console.log('handling text edit!');
       setFlashcardInputText(e.target.value);
       displayingFront
-        ? (flashcard.front = e.target.value)
-        : (flashcard.back = e.target.value);
+        ? setFlashcard({ ...flashcard, front: e.target.value })
+        : setFlashcard({ ...flashcard, back: e.target.value });
     }
   };
 
@@ -102,7 +102,10 @@ const Flashcard = ({
           )
         );
       })
-      .catch((er) => console.log(er))
+      .catch((er) => {
+        console.log(er);
+        setFlashcard(flashcardToUpdate);
+      })
       .then(() => {
         setFlashcardInputText('');
       });

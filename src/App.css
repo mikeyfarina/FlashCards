@@ -146,25 +146,34 @@ li {
   text-indent: 7px;
 }
 
-.login-form > .search-bar {
-  display: grid;
-  grid-template-columns: 4fr 1fr;
-  height: 80%;
+.new-set-button {
+  background: white;
+  border: 3px #646c80 solid;
+  outline: none;
+  border-radius: 10px;
+  height: 100%;
+  width: 94%;
+  margin-right: 4%;
+  cursor: pointer;
+  font-size: 2vw;
+  font-weight: bolder;
+}
+
+.search-bar {
+  height: 100%;
   width: 100%;
-  margin: auto 1%;
-  border-radius: 15px;
-  overflow: hidden;
-  border: 1px grey solid;
+  border-radius: 10px;
+  border: 3px #646c80 solid;
 }
 
 .search-bar input {
   width: 100%;
   height: 100%;
-  border-radius: 15px 0 0 15px;
   border: none;
   outline: none;
   padding: 0 6%;
   font-size: 1.5vw;
+  border-radius: 10px;
 }
 .search-button {
   height: 100%;
@@ -193,10 +202,9 @@ li {
 .sidebar__header {
   height: 100%;
   width: 100%;
-  padding: 2%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 3.5%;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
   box-shadow: 10px 50px 50px rgba(0, 0, 0, 0.151);
 }
 
@@ -214,7 +222,7 @@ li {
   grid-template-rows: 0.25fr 0.2fr 2fr;
   border: 5px darkgray solid;
   border-radius: 5px;
-  margin: 5% 3%;
+  margin: 5% 1.5%;
   background: #8590aa;
   color: white;
 }
@@ -244,6 +252,7 @@ li {
   outline: none;
   font-size: 3vh;
   font-weight: bolder;
+  caret-color: #646c80;
 }
 
 .current-set > .sidebar__setlist__set > .set__header {
@@ -267,18 +276,35 @@ li {
   color: #646c80;
 }
 
+.set__info {
+  display: grid;
+  width: 96%;
+  height: 100%;
+  margin: 0 2%;
+  grid-template-columns: 0.5fr 0.5fr;
+  grid-template-rows: 0.9fr 0.1fr;
+}
+
 .set__length {
   cursor: default;
-  margin: 1vh;
+  margin: 1vh 0;
   min-height: 2vh;
   font-size: 2vh;
-  margin: 3% 2%;
+  font-weight: bolder;
+}
+
+.set__creator {
+  text-align: right;
+  cursor: default;
+  margin: 1vh 0.2vh;
+  min-height: 2vh;
+  font-size: 2vh;
   font-weight: bolder;
 }
 
 .divide-line {
   height: 5%;
-  margin: 2% 0;
+  grid-area: 2 / 1 / 2 / 3;
 }
 
 .set__preview {
