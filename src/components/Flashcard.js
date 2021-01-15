@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import flashcardService from '../services/flashcardService';
+import LoadingFlashcardPlaceholder from './LoadingFlashcardPlaceholder';
 
 const Flashcard = ({
   flashcards,
@@ -119,7 +120,10 @@ const Flashcard = ({
       onMouseEnter={handleMouseEnter}
     >
       {!flashcard ? (
-        'flashcard loading...'
+        <LoadingFlashcardPlaceholder
+          mousePosition={mousePosition}
+          transition={transition}
+        />
       ) : (
         <div className="flashcard" onClick={handleClick} style={styles}>
           <div className="flex-centering noselect">

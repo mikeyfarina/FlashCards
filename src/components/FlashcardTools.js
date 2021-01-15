@@ -10,6 +10,7 @@ const FlashcardTools = ({
   handleEditFlashCard,
   handleDeleteFlashCard,
   flashcards,
+  currentFlashcardIndex,
   setCurrentFlashcardIndex,
 }) => {
   return (
@@ -34,6 +35,7 @@ const FlashcardTools = ({
       </div>
       <CardSelection
         flashcards={flashcards}
+        currentFlashcardIndex={currentFlashcardIndex}
         setCurrentFlashcardIndex={setCurrentFlashcardIndex}
       />
     </div>

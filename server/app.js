@@ -7,6 +7,7 @@ const flashcardsRouter = require('./controllers/flashcards');
 const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
 const setsRouter = require('./controllers/sets');
+const resetRouter = require('./controllers/testing');
 const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');
 const mongoose = require('mongoose');

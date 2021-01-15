@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "NODE_ENV=test jest --verbose --runInBand",
+    "test": "NODE_ENV=test jest --verbose --runInBand --detectOpenHandles",
     "start:test": "cross-env NODE_ENV=test node index.js"
   },
   "author": "",

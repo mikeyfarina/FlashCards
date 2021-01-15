@@ -1,4 +1,5 @@
 const flashcardsRouter = require('express').Router();
+const objectID = require('mongodb').ObjectID;
 const Flashcard = require('../models/flashcard');
 const User = require('../models/user');
 const Set = require('../models/set');
@@ -59,6 +60,9 @@ flashcardsRouter.post('/', async (req, res) => {
     });
   }
 
+  if (!objectID.isValid(body.setId)) {
+    body.setId = new objectID(body.setId);
+  }
   const user = await User.findById(decodedToken.id);
   const set = await Set.findById(body.setId);
 

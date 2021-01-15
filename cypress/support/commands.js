@@ -36,31 +36,56 @@ Cypress.Commands.add('login', ({ username, password }) => {
   });
 });
 
-Cypress.Commands.add('loginThenCreateFlashcard', ({ username, password }) => {
-  cy.request('POST', 'http://localhost:3001/api/login', {
-    username,
-    password,
+Cypress.Commands.add('loginThenCreateSet', ({ username, password }) => {
+  cy.request({
+    url: 'http://localhost:3001/api/login',
+    method: 'POST',
+    body: {
+      username,
+      password,
+    },
   }).then((response) => {
     localStorage.setItem(
       'loggedFlashcardAppUser',
       JSON.stringify(response.body)
     );
-    cy.createFlashcard({
-      front: 'first card',
-      back: 'back of first',
+    cy.createSet({
+      title: 'Default Test Set',
     });
     cy.visit('http://localhost:3000');
   });
 });
 
-Cypress.Commands.add('createFlashcard', ({ front, back }) => {
+Cypress.Commands.add('createSet', ({ title }) => {
+  cy.request({
+    url: 'http://localhost:3001/api/sets',
+    method: 'POST',
+    body: {
+      title,
+    },
+    headers: {
+      Authorization: `bearer ${
+        JSON.parse(localStorage.getItem('loggedFlashcardAppUser')).token
+      }`,
+    },
+  }).then((res) => {
+    console.log('set id ', res.body.id);
+    cy.createFlashcard({
+      front: 'first test flashcard',
+      back: 'back test flashcard',
+      setId: res.body.id,
+    });
+  });
+});
+
+Cypress.Commands.add('createFlashcard', ({ front, back, setId }) => {
   cy.request({
     url: 'http://localhost:3001/api/flashcards',
     method: 'POST',
     body: {
       front,
       back,
-      date: new Date(),
+      setId,
     },
     headers: {
       Authorization: `bearer ${

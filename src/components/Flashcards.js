@@ -76,11 +76,12 @@ const Flashcards = ({
   return (
     <div className="flashcards-display">
       <FlashcardTools
-        amountOfFlashcards={flashcards.length}
+        amountOfFlashcards={flashcards.length || 0}
         handleNewFlashCard={handleNewFlashCard}
         handleEditFlashCard={handleEditFlashCard}
         handleDeleteFlashCard={handleDeleteFlashCard}
         flashcards={flashcards}
+        currentFlashcardIndex={currentFlashcardIndex}
         setCurrentFlashcardIndex={setCurrentFlashcardIndex}
       />
       <div className="flashcard-selection">

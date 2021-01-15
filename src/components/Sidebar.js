@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 //import flashcardService from '../services/flashcardService';
 import setService from '../services/setService';
 import SetList from './SetList';
@@ -14,7 +14,12 @@ const Sidebar = ({
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
 }) => {
-  //TODO: FIX THIS
+  const [sidebarSearchText, setSidebarSearchText] = useState('');
+
+  useEffect(() => {
+    searchTitles();
+  }, [sidebarSearchText]);
+
   const handleNewSet = () => {
     const newSet = {
       title: 'new set',
@@ -25,9 +30,17 @@ const Sidebar = ({
     });
   };
 
+  const searchTitles = () => {
+    console.log(sidebarSearchText);
+  };
+
   return (
     <div className="sidebar">
-      <SidebarHeader handleNewSet={handleNewSet} />
+      <SidebarHeader
+        sidebarSearchText={sidebarSearchText}
+        setSidebarSearchText={setSidebarSearchText}
+        handleNewSet={handleNewSet}
+      />
       <SetList
         flashcards={flashcards}
         setFlashcards={setFlashcards}

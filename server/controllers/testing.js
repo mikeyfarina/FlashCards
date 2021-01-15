@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Flashcard = require('../models/flashcard');
+const Set = require('../models/set');
 const User = require('../models/user');
 
 router.post('/reset', async (request, response) => {

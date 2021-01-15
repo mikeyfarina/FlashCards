@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Button from './Button';
 import Form from './Form';
 
-const SidebarHeader = ({ handleNewSet }) => {
-  const [sidebarSearchText, setSidebarSearchText] = useState('');
+const SidebarHeader = ({
+  sidebarSearchText,
+  setSidebarSearchText,
+  handleNewSet,
+}) => {
+  console.log(sidebarSearchText);
 
   return (
     <div className="sidebar__header">

@@ -73,7 +73,7 @@ const Set = ({
     <div className="sidebar__setlist__set">
       <div className="set__header" onClick={handleTitleClick}>
         <input
-          className={'noselect set__header__title'}
+          className={'set__header__title'}
           type="text"
           defaultValue={setTitle}
           disabled={!canEditTitle}
