@@ -20,7 +20,6 @@ const Sidebar = ({
       title: 'new set',
     };
     setService.createSet(newSet).then(async (newSet) => {
-      console.log('set created', newSet);
       await setFlashcardSets(flashcardSets.concat(newSet));
       console.log('added to sets', flashcardSets);
     });

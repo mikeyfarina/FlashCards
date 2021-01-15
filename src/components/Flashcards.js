@@ -73,8 +73,6 @@ const Flashcards = ({
     console.log('After Delete', currentFlashcardIndex, flashcards);
   };
 
-  console.log(flashcards);
-
   return (
     <div className="flashcards-display">
       <FlashcardTools

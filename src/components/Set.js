@@ -29,7 +29,6 @@ const Set = ({
   }, [flashcards, currentFlashcardIndex]);
 
   const handleTitleClick = () => {
-    console.log('clicked');
     if (canEditTitle) return; // do nothing
 
     const newIndex = flashcardSets.findIndex((s) => set.id === s.id);
@@ -69,8 +68,6 @@ const Set = ({
       console.log('deleted', currentSet);
     });
   };
-
-  console.log('set', flashcards);
 
   return (
     <div className="sidebar__setlist__set">

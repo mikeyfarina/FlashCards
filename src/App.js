@@ -16,7 +16,6 @@ function App() {
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
   const [flashcards, setFlashcards] = useState(null);
   const [user, setUser] = useState(null);
-  console.log('flashcards', flashcards);
 
   useEffect(async () => {
     const sets = await setService.getAllSets();
@@ -49,8 +48,6 @@ function App() {
     setCurrentFlashcardIndex(0);
   }, [currentSet]);
 
-  console.log(flashcardSets, currentSet, currentFlashcardIndex);
-
   const loginFormRef = useRef();
   const loginForm = () => (
     <Togglable
@@ -68,7 +65,6 @@ function App() {
     flashcardService.setToken(null);
     window.localStorage.removeItem('loggedFlashcardAppUser');
     setUser(null);
-    console.log('logged out');
   };
 
   const logoutDiv = () => (

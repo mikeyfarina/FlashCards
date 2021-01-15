@@ -2,7 +2,6 @@ import React from 'react';
 
 const Form = ({ inputText, setInputText, className }) => {
   const inputChangeHandler = (e) => {
-    console.log(e.target.value);
     setInputText(e.target.value);
   };
 

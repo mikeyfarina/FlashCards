@@ -3,9 +3,7 @@ import React, { useState } from 'react';
 const CardSelection = ({ flashcards, setCurrentFlashcardIndex }) => {
   const [selectValue, setSelectValue] = useState(0);
 
-  console.log();
   const handleSelect = (e) => {
-    console.log(e.target.value);
     setSelectValue(e.target.value);
     setCurrentFlashcardIndex(Number(e.target.value));
   };
