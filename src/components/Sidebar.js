@@ -9,16 +9,16 @@ const Sidebar = ({
   setFlashcards,
   flashcardSets,
   setFlashcardSets,
-  currentSet,
-  setCurrentSet,
+  currentSetIndex,
+  setCurrentSetIndex,
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
 }) => {
   const [sidebarSearchText, setSidebarSearchText] = useState('');
 
   useEffect(() => {
-    searchTitles();
-  }, [sidebarSearchText]);
+    setSidebarSearchText('');
+  }, [currentSetIndex]);
 
   const handleNewSet = () => {
     const newSet = {
@@ -30,10 +30,6 @@ const Sidebar = ({
     });
   };
 
-  const searchTitles = () => {
-    console.log(sidebarSearchText);
-  };
-
   return (
     <div className="sidebar">
       <SidebarHeader
@@ -42,14 +38,15 @@ const Sidebar = ({
         handleNewSet={handleNewSet}
       />
       <SetList
-        flashcards={flashcards}
+        flashcards={flashcards || []}
         setFlashcards={setFlashcards}
         flashcardSets={flashcardSets}
         setFlashcardSets={setFlashcardSets}
-        currentSet={currentSet}
-        setCurrentSet={setCurrentSet}
+        currentSetIndex={currentSetIndex}
+        setCurrentSetIndex={setCurrentSetIndex}
         currentFlashcardIndex={currentFlashcardIndex}
         setCurrentFlashcardIndex={setCurrentFlashcardIndex}
+        sidebarSearchText={sidebarSearchText}
       />
       <div className="sidebar__bottom"></div>
     </div>

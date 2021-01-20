@@ -13,11 +13,13 @@ const CardSelection = ({
   return (
     <div className="tools__card-selection">
       <select onChange={handleSelect} value={currentFlashcardIndex}>
-        {flashcards.map((card, i) => (
-          <option key={Math.random(35) * 6} value={i}>
-            {i + 1 + ': ' + card.front}
-          </option>
-        ))}
+        {flashcards
+          ? flashcards.map((card, i) => (
+              <option key={Math.random(35) * 6} value={i}>
+                {i + 1 + ': ' + card.front}
+              </option>
+            ))
+          : []}
       </select>
     </div>
   );

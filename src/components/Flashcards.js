@@ -10,7 +10,7 @@ const Flashcards = ({
   flashcards,
   setFlashcards,
   flashcardSets,
-  currentSet,
+  currentSetIndex,
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
 }) => {
@@ -32,7 +32,7 @@ const Flashcards = ({
     e.preventDefault();
     setCanEdit(false);
 
-    const setId = flashcardSets[currentSet].id;
+    const setId = flashcardSets[currentSetIndex].id;
 
     const newFlashcard = {
       front: 'front',
@@ -76,7 +76,7 @@ const Flashcards = ({
   return (
     <div className="flashcards-display">
       <FlashcardTools
-        amountOfFlashcards={flashcards.length || 0}
+        amountOfFlashcards={flashcards ? flashcards.length : 0}
         handleNewFlashCard={handleNewFlashCard}
         handleEditFlashCard={handleEditFlashCard}
         handleDeleteFlashCard={handleDeleteFlashCard}
@@ -93,7 +93,7 @@ const Flashcards = ({
         <Flashcard
           canEdit={canEdit}
           currentFlashcardIndex={currentFlashcardIndex}
-          flashcards={flashcards}
+          flashcards={flashcards || []}
           setFlashcards={setFlashcards}
         />
         <Button

@@ -5,12 +5,12 @@ import setService from '../services/setService';
 import Button from './Button';
 
 const Set = ({
-  set,
   flashcards,
+  set,
   index,
   setCreator,
-  currentSet,
-  setCurrentSet,
+  currentSetIndex,
+  setCurrentSetIndex,
   flashcardSets,
   setFlashcardSets,
   currentFlashcardIndex,
@@ -20,19 +20,22 @@ const Set = ({
   const [setTitle, setSetTitle] = useState(set.title);
   const [canEditTitle, setCanEditTitle] = useState(false);
   const [indexOfSet] = useState(index);
-  const [currentFlashcards, setCurrentFlashcards] = useState(flashcards);
+  const [currentFlashcardsInSet, setCurrentFlashcardsInSet] = useState(null);
 
   useEffect(async () => {
-    const setFlashcards = await setService.getAllFlashcardsInSet(set.id);
-    setCurrentFlashcards(setFlashcards);
-    setSetLength(setFlashcards.length);
-  }, [flashcards, currentFlashcardIndex]);
+    const flashcardsOfSet = await setService.getAllFlashcardsInSet(set.id);
+    setCurrentFlashcardsInSet(flashcardsOfSet);
+    setSetLength(flashcardsOfSet.length);
+  }, [flashcards]);
 
   const handleTitleClick = () => {
     if (canEditTitle) return; // do nothing
 
+    console.log(currentSetIndex);
+
     const newIndex = flashcardSets.findIndex((s) => set.id === s.id);
-    if (!(newIndex === currentSet)) setCurrentSet(newIndex);
+    setCurrentFlashcardIndex(0);
+    setCurrentSetIndex(newIndex);
   };
 
   // switch edit mode when edit title button is clicked
@@ -40,6 +43,10 @@ const Set = ({
     setCanEditTitle(!canEditTitle);
     if (canEditTitle) {
       set.title = setTitle;
+      console.log('saving edit to server');
+      setService.updateSetTitle(set.id, setTitle).then((updatedSet) => {
+        console.log(updatedSet);
+      });
     }
   };
 
@@ -51,8 +58,8 @@ const Set = ({
   };
 
   const handleCardClick = (e, indexOfCardPreview) => {
-    currentFlashcards.map((card, i) => {
-      i === indexOfCardPreview && currentSet === indexOfSet
+    currentFlashcardsInSet.map((card, i) => {
+      i === indexOfCardPreview && currentSetIndex === indexOfSet
         ? setCurrentFlashcardIndex(indexOfCardPreview)
         : '';
     });
@@ -62,12 +69,22 @@ const Set = ({
     setService.deleteSet(set.id).then(() => {
       const updatedSets = flashcardSets.filter((s) => s.id !== set.id);
       setFlashcardSets(updatedSets);
-      if (currentSet === 0 || currentSet >= updatedSets.length - 1)
-        setCurrentSet(0);
-      if (currentSet <= updatedSets.length) setCurrentSet(currentSet - 1);
-      console.log('deleted', currentSet);
+      if (currentSetIndex === 0 || currentSetIndex >= updatedSets.length - 1)
+        setCurrentSetIndex(0);
+      if (currentSetIndex <= updatedSets.length)
+        setCurrentSetIndex(currentSetIndex - 1);
+      console.log('deleted', currentSetIndex);
     });
   };
+
+  console.log(`
+    Set Info: 
+    title: ${setTitle}
+    currentFlashcards: ${JSON.stringify(currentFlashcardsInSet)}
+    flashcards: ${JSON.stringify(flashcards)}
+    currentFlashcardIndex: ${currentFlashcardIndex}
+    currentSetIndex: ${currentSetIndex}
+  `);
 
   return (
     <div className="sidebar__setlist__set">
@@ -96,7 +113,7 @@ const Set = ({
           onClick={handleDeleteSet}
           className={'title-edit-button'}
           text={<FontAwesomeIcon icon={['fa', 'trash']} size="sm" />}
-          disabled={currentSet === indexOfSet ? false : true}
+          disabled={currentSetIndex === indexOfSet ? false : true}
         />
       </div>
       <div className="set__info">
@@ -110,12 +127,13 @@ const Set = ({
       </div>
       <div className="set__preview">
         <ul>
-          {currentFlashcards
-            ? currentFlashcards.map((card, i) => (
+          {currentFlashcardsInSet
+            ? currentFlashcardsInSet.map((card, i) => (
                 <li
                   key={card.id}
                   className={
-                    currentFlashcardIndex === i && indexOfSet === currentSet
+                    flashcards[currentFlashcardIndex] &&
+                    flashcards[currentFlashcardIndex].id === card.id
                       ? 'set__preview__item current-flashcard'
                       : 'set__preview__item'
                   }

@@ -28,7 +28,9 @@ setsRouter.get('/:id', async (req, res) => {
 
 setsRouter.get('/:id/flashcards', async (req, res) => {
   const set = await Set.findById(req.params.id);
-  const flashcards = await Flashcard.find({ _id: { $in: set.flashcards } });
+  const flashcards = await Flashcard.find({
+    _id: { $in: set.flashcards },
+  }).select('front back');
   if (flashcards) {
     console.log(flashcards);
     res.json(flashcards);

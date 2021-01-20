@@ -2,7 +2,9 @@ import React from 'react';
 
 const LoadingFlashcardPlaceholder = ({ mousePosition, transition }) => {
   const cardStyles = {
-    transform: `rotateY(${mousePosition.xAxis}deg) rotateX(${mousePosition.yAxis}deg)`,
+    transform: `rotateY(${
+      mousePosition ? mousePosition.xAxis : 0
+    }deg) rotateX(${mousePosition ? mousePosition.yAxis : 0}deg)`,
     transition: transition,
     padding: '3%',
     overflow: 'hidden',

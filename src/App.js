@@ -12,23 +12,27 @@ import setService from './services/setService';
 function App() {
   // states
   const [flashcardSets, setFlashcardSets] = useState(null);
-  const [currentSet, setCurrentSet] = useState(0);
+  const [currentSetIndex, setCurrentSetIndex] = useState(0);
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
   const [flashcards, setFlashcards] = useState(null);
   const [user, setUser] = useState(null);
+  console.log('flashcards', flashcards);
+  console.log(flashcardSets);
+  console.log(currentSetIndex);
 
   useEffect(async () => {
     const sets = await setService.getAllSets();
-    console.log(sets);
     setFlashcardSets(sets);
-  }, [flashcards]);
+  }, []);
 
   useEffect(async () => {
+    setFlashcards(null);
     const sets = await setService.getAllSets();
-    const setID = sets[currentSet].id;
+    setFlashcardSets(sets);
+    const setID = sets[currentSetIndex].id;
     const flashcards = await setService.getAllFlashcardsInSet(setID);
     setFlashcards(flashcards);
-  }, [currentSet]);
+  }, [currentSetIndex]);
 
   // if a user is logged in with local storage, re-sign in user
   useEffect(() => {
@@ -43,10 +47,6 @@ function App() {
       setService.setToken(user.token);
     }
   }, []);
-
-  useEffect(() => {
-    setCurrentFlashcardIndex(0);
-  }, [currentSet]);
 
   const loginFormRef = useRef();
   const loginForm = () => (
@@ -75,36 +75,35 @@ function App() {
       </button>
     </div>
   );
+
+  console.log('fs', flashcardSets);
+
   return (
     <div>
       <header>
         <h1 className="main-title noselect">Flashcards</h1>
         {user ? logoutDiv() : loginForm()}
       </header>
-      {!flashcardSets || !flashcards ? (
-        'flashcards loading...'
-      ) : (
-        <div className="main-section">
-          <Sidebar
-            flashcards={flashcards}
-            setFlashcards={setFlashcards}
-            flashcardSets={flashcardSets}
-            setFlashcardSets={setFlashcardSets}
-            currentSet={currentSet}
-            setCurrentSet={setCurrentSet}
-            currentFlashcardIndex={currentFlashcardIndex}
-            setCurrentFlashcardIndex={setCurrentFlashcardIndex}
-          />
-          <Flashcards
-            flashcards={flashcards}
-            setFlashcards={setFlashcards}
-            flashcardSets={flashcardSets}
-            currentSet={currentSet}
-            currentFlashcardIndex={currentFlashcardIndex}
-            setCurrentFlashcardIndex={setCurrentFlashcardIndex}
-          />
-        </div>
-      )}
+      <div className="main-section">
+        <Sidebar
+          flashcards={flashcards}
+          setFlashcards={setFlashcards}
+          flashcardSets={flashcardSets}
+          setFlashcardSets={setFlashcardSets}
+          currentSetIndex={currentSetIndex}
+          setCurrentSetIndex={setCurrentSetIndex}
+          currentFlashcardIndex={currentFlashcardIndex}
+          setCurrentFlashcardIndex={setCurrentFlashcardIndex}
+        />
+        <Flashcards
+          flashcards={flashcards}
+          setFlashcards={setFlashcards}
+          flashcardSets={flashcardSets}
+          currentSetIndex={currentSetIndex}
+          currentFlashcardIndex={currentFlashcardIndex}
+          setCurrentFlashcardIndex={setCurrentFlashcardIndex}
+        />
+      </div>
     </div>
   );
 }
