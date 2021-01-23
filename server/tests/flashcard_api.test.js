@@ -5,11 +5,28 @@ const app = require('../app');
 const api = supertest(app);
 
 const Flashcard = require('../models/flashcard');
+const User = require('../models/user');
 const baseUrl = '/api/flashcards';
+
+beforeAll(async () => {
+  await User.deleteMany({});
+
+  const savedUser = await helper.createAccount({
+    username: 'test',
+    password: 'test',
+    name: 'test',
+  });
+
+  const login = await api.post('/api/login').send({
+    username: savedUser.username,
+    name: savedUser.name,
+    password: 'test',
+  });
+  console.log(login);
+});
 
 beforeEach(async () => {
   await Flashcard.deleteMany({});
-
   const flashcardObjects = helper.initialFlashcards.map(
     (flashcard) => new Flashcard(flashcard)
   );
@@ -62,11 +79,12 @@ describe('viewing a specific flashcard', () => {
   });
 });
 
-describe('creating flashcard', () => {
+describe.only('creating flashcard', () => {
   test('succeeds', async () => {
     const newCard = {
       front: 'front of new card',
       back: 'back of new card',
+      user: savedUser._id,
     };
 
     await api

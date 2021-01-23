@@ -77,15 +77,6 @@ const Set = ({
     });
   };
 
-  console.log(`
-    Set Info: 
-    title: ${setTitle}
-    currentFlashcards: ${JSON.stringify(currentFlashcardsInSet)}
-    flashcards: ${JSON.stringify(flashcards)}
-    currentFlashcardIndex: ${currentFlashcardIndex}
-    currentSetIndex: ${currentSetIndex}
-  `);
-
   return (
     <div className="sidebar__setlist__set">
       <div className="set__header" onClick={handleTitleClick}>

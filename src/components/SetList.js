@@ -35,7 +35,6 @@ const SetList = ({
     }
   }, [sidebarSearchText]);
 
-  console.log('setListSets', setListSets);
   return (
     <div className="sidebar__setlist">
       {!setListSets ? (

@@ -1,5 +1,8 @@
 const Flashcard = require('../models/flashcard');
 const Set = require('../models/set');
+const User = require('../models/user');
+
+let token;
 
 const initialSets = [
   {
@@ -15,22 +18,27 @@ const initialFlashcards = [
   {
     front: 'first flashcard',
     back: 'back of first flashcard',
+    date: new Date(),
   },
   {
     front: 'second flashcard',
     back: 'back of second flashcard',
+    date: new Date(),
   },
   {
     front: 'third flashcard',
     back: 'back of third flashcard',
+    date: new Date(),
   },
   {
     front: 'fourth flashcard',
     back: 'back of fourth flashcard',
+    date: new Date(),
   },
   {
     front: 'fifth flashcard',
     back: 'back of fifth flashcard',
+    date: new Date(),
   },
 ];
 
@@ -56,10 +64,23 @@ const setsInDb = async () => {
   return set.map((set) => set.toJSON());
 };
 
+const createAccount = async (newUserInfo) => {
+  //login and set token
+  const user = new User(newUserInfo);
+  const savedUser = await user.save();
+  return savedUser;
+};
+
+const getToken = async () => {
+  if (!token) await login();
+  return token;
+};
+
 module.exports = {
   initialSets,
   initialFlashcards,
   nonExistingId,
   flashcardsInDb,
   setsInDb,
+  createAccount,
 };

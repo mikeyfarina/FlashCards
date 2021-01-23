@@ -88,10 +88,12 @@ li {
   align-self: center;
   grid-template-rows: 2fr 1fr;
   background: #ececec;
-  padding: 1% 5%;
+  padding: 1% 2%;
+  margin-right: 1vh;
   border: 2px solid #646c80;
   border-radius: 4px;
   height: 90%;
+  width: fit-content;
 }
 .login-div.invisible {
   display: flex;
@@ -189,7 +191,7 @@ li {
   border: none;
   outline: none;
   padding: 0 6%;
-  font-size: 1.5vw;
+  font-size: 1.5vh;
   border-radius: 10px;
 }
 .search-button {
@@ -204,8 +206,8 @@ li {
 
 .main-section {
   display: grid;
-  grid-template-columns: 1fr 3.5fr;
-  grid-template-rows: 1fr 10fr 1fr;
+  grid-template-columns: 1.3fr 5fr;
+  grid-template-rows: 1fr 10fr 0.5fr;
   height: 90vh;
   max-height: 90vh;
   background: #5da2d5;
@@ -223,7 +225,7 @@ li {
 .sidebar__header {
   height: 100%;
   width: 100%;
-  padding: 3.5%;
+  padding: 1vh;
   grid-area: 1 / 1 / 2 / 2;
   display: grid;
   grid-template-columns: 1fr 5fr;
@@ -376,7 +378,7 @@ li {
 .flashcards-display {
   z-index: 2;
   min-width: 90%;
-  width: 100%;
+  width: 90%;
   background-color: aliceblue;
   display: contents;
   background: #5da2d5;
@@ -389,11 +391,14 @@ li {
   min-width: 100%;
   height: 100%;
   max-height: 100%;
-  padding: 1% 0 1% 0;
+  padding: 1vh;
+  padding-left: 0;
   background: #ececec;
 }
 
 .button-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   width: 25%;
 }
 
@@ -405,10 +410,8 @@ li {
   outline: none;
   border-radius: 10px;
   font-size: 1vw;
-  font-weight: 700;
-  width: 29%;
+  width: 90%;
   height: 100%;
-  margin: 0 2%;
   cursor: pointer;
 }
 
@@ -430,6 +433,7 @@ li {
   max-width: 200%;
   outline: none;
   margin: 0 2%;
+  margin-right: 0;
   padding: 0 5%;
   border: 3px #646c80 solid;
   border-radius: 8px;
@@ -438,11 +442,12 @@ li {
 }
 
 .flashcard-selection {
+  width: 90%;
   grid-area: 2 / 2 / 4 / 3;
   margin: auto;
   padding: 1.5vh 1.5%;
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 1.5fr 1fr;
 }
 
 .change-card-button {

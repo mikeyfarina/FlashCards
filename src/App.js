@@ -16,9 +16,6 @@ function App() {
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
   const [flashcards, setFlashcards] = useState(null);
   const [user, setUser] = useState(null);
-  console.log('flashcards', flashcards);
-  console.log(flashcardSets);
-  console.log(currentSetIndex);
 
   useEffect(async () => {
     const sets = await setService.getAllSets();
@@ -75,8 +72,6 @@ function App() {
       </button>
     </div>
   );
-
-  console.log('fs', flashcardSets);
 
   return (
     <div>
