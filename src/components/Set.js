@@ -104,7 +104,6 @@ const Set = ({
           onClick={handleDeleteSet}
           className={'title-edit-button'}
           text={<FontAwesomeIcon icon={['fa', 'trash']} size="sm" />}
-          disabled={currentSetIndex === indexOfSet ? false : true}
         />
       </div>
       <div className="set__info">
