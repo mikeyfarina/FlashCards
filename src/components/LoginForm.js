@@ -36,37 +36,29 @@ const LoginForm = ({ setUser }) => {
   };
 
   return (
-    <div>
-      <div>
-        <h3>Login</h3>
-      </div>
-      <div>
-        <form className={'login'} onSubmit={handleLogin}>
-          <div>
-            username
-            <input
-              type="text"
-              id="username"
-              value={username}
-              name="Username"
-              onChange={({ target }) => setUsername(target.value)}
-            />
-          </div>
-          <div>
-            password{' '}
-            <input
-              id="password"
-              type="password"
-              value={password}
-              name="Password"
-              onChange={({ target }) => setPassword(target.value)}
-            />
-          </div>
-          <button type="submit" id="login-button">
-            login
-          </button>
-        </form>
-      </div>
+    <div className={'login noselect'}>
+      <h3>Login</h3>
+      <form className={'login-form'} onSubmit={handleLogin}>
+        <input
+          type="text"
+          id="username"
+          value={username}
+          name="Username"
+          onChange={({ target }) => setUsername(target.value)}
+          placeholder="username"
+        />
+        <input
+          id="password"
+          type="password"
+          value={password}
+          name="Password"
+          onChange={({ target }) => setPassword(target.value)}
+          placeholder="password"
+        />
+        <button type="submit" className="login-button">
+          login
+        </button>
+      </form>
     </div>
   );
 };

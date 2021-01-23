@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import flashcardService from '../services/flashcardService';
+import LoadingFlashcardPlaceholder from './LoadingFlashcardPlaceholder';
 
 const Flashcard = ({
   flashcards,
@@ -13,7 +14,7 @@ const Flashcard = ({
     yAxis: 0,
   });
   const [transition, setTransition] = useState('none');
-  const [flashcard, setFlashcard] = useState(flashcards[0]);
+  const [flashcard, setFlashcard] = useState(null);
   const [flashcardInputText, setFlashcardInputText] = useState('');
   const [displayingFront, setDisplayingFront] = useState(true);
 
@@ -22,6 +23,10 @@ const Flashcard = ({
     setFlashcard(newFlashcard);
     setDisplayingFront(true);
   }, [currentFlashcardIndex]);
+
+  useEffect(() => {
+    setFlashcard(flashcards[currentFlashcardIndex] || null);
+  }, [flashcards]);
 
   const firstLoad = useRef(true);
   useEffect(() => {
@@ -72,8 +77,8 @@ const Flashcard = ({
       console.log('handling text edit!');
       setFlashcardInputText(e.target.value);
       displayingFront
-        ? (flashcard.front = e.target.value)
-        : (flashcard.back = e.target.value);
+        ? setFlashcard({ ...flashcard, front: e.target.value })
+        : setFlashcard({ ...flashcard, back: e.target.value });
     }
   };
 
@@ -98,11 +103,15 @@ const Flashcard = ({
           )
         );
       })
-      .catch((er) => console.log(er))
+      .catch((er) => {
+        console.log(er);
+        setFlashcard(flashcardToUpdate);
+      })
       .then(() => {
         setFlashcardInputText('');
       });
   };
+
   return (
     <div
       className={'flashcard-container'}
@@ -110,20 +119,27 @@ const Flashcard = ({
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
     >
-      <div className="flashcard" onClick={handleClick} style={styles}>
-        <div className="flex-centering noselect">
-          <span className="card-number noselect">
-            {Number.parseInt(currentFlashcardIndex) + 1}
-          </span>
-          <textarea
-            type="text"
-            className={canEdit ? 'flashcard-text' : 'flashcard-text noselect'}
-            disabled={!canEdit}
-            value={displayingFront ? flashcard.front : flashcard.back}
-            onChange={handleTextEdit}
-          ></textarea>
+      {!flashcard ? (
+        <LoadingFlashcardPlaceholder
+          mousePosition={mousePosition}
+          transition={transition}
+        />
+      ) : (
+        <div className="flashcard" onClick={handleClick} style={styles}>
+          <div className="flex-centering noselect">
+            <span className="card-number noselect">
+              {Number.parseInt(currentFlashcardIndex) + 1}
+            </span>
+            <textarea
+              type="text"
+              className={canEdit ? 'flashcard-text' : 'flashcard-text noselect'}
+              disabled={!canEdit}
+              value={displayingFront ? flashcard.front : flashcard.back}
+              onChange={handleTextEdit}
+            ></textarea>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -1,31 +1,41 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import setService from '../services/setService';
 
 import Button from './Button';
 
 const Set = ({
   flashcards,
   set,
-  setNumber,
-  currentSet,
-  setCurrentSet,
+  index,
+  setCreator,
+  currentSetIndex,
+  setCurrentSetIndex,
   flashcardSets,
+  setFlashcardSets,
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
 }) => {
-  const [setLength, setSetLength] = useState(set.flashcards.length);
+  const [setLength, setSetLength] = useState(0);
   const [setTitle, setSetTitle] = useState(set.title);
   const [canEditTitle, setCanEditTitle] = useState(false);
+  const [indexOfSet] = useState(index);
+  const [currentFlashcardsInSet, setCurrentFlashcardsInSet] = useState(null);
+
+  useEffect(async () => {
+    const flashcardsOfSet = await setService.getAllFlashcardsInSet(set.id);
+    setCurrentFlashcardsInSet(flashcardsOfSet);
+    setSetLength(flashcardsOfSet.length);
+  }, [flashcards]);
 
   const handleTitleClick = () => {
     if (canEditTitle) return; // do nothing
+
+    console.log(currentSetIndex);
+
+    const newIndex = flashcardSets.findIndex((s) => set.id === s.id);
     setCurrentFlashcardIndex(0);
-    setSetLength(set.flashcards.length);
-    const newIndex = flashcardSets.findIndex(
-      (fcSet) => setTitle === fcSet.title
-    );
-    console.log(newIndex, flashcardSets[newIndex]);
-    setCurrentSet(newIndex);
+    setCurrentSetIndex(newIndex);
   };
 
   // switch edit mode when edit title button is clicked
@@ -33,6 +43,10 @@ const Set = ({
     setCanEditTitle(!canEditTitle);
     if (canEditTitle) {
       set.title = setTitle;
+      console.log('saving edit to server');
+      setService.updateSetTitle(set.id, setTitle).then((updatedSet) => {
+        console.log(updatedSet);
+      });
     }
   };
 
@@ -43,21 +57,31 @@ const Set = ({
     }
   };
 
-  const handleCardClick = (e) => {
-    set.flashcards.map((card, i) => {
-      card.front === e.target.innerText && setNumber === currentSet
-        ? setCurrentFlashcardIndex(i)
-        : console.log('nope', card, i);
+  const handleCardClick = (e, indexOfCardPreview) => {
+    currentFlashcardsInSet.map((card, i) => {
+      i === indexOfCardPreview && currentSetIndex === indexOfSet
+        ? setCurrentFlashcardIndex(indexOfCardPreview)
+        : '';
     });
   };
 
-  console.log(flashcards);
+  const handleDeleteSet = () => {
+    setService.deleteSet(set.id).then(() => {
+      const updatedSets = flashcardSets.filter((s) => s.id !== set.id);
+      setFlashcardSets(updatedSets);
+      if (currentSetIndex === 0 || currentSetIndex >= updatedSets.length - 1)
+        setCurrentSetIndex(0);
+      if (currentSetIndex <= updatedSets.length)
+        setCurrentSetIndex(currentSetIndex - 1);
+      console.log('deleted', currentSetIndex);
+    });
+  };
 
   return (
     <div className="sidebar__setlist__set">
       <div className="set__header" onClick={handleTitleClick}>
         <input
-          className={'noselect set__header__title'}
+          className={'set__header__title'}
           type="text"
           defaultValue={setTitle}
           disabled={!canEditTitle}
@@ -76,26 +100,39 @@ const Set = ({
             )
           }
         />
+        <Button
+          onClick={handleDeleteSet}
+          className={'title-edit-button'}
+          text={<FontAwesomeIcon icon={['fa', 'trash']} size="sm" />}
+        />
       </div>
-      <div className="set__length">
-        <span>{'length: ' + setLength}</span>
+      <div className="set__info">
+        <div className="set__length">
+          <span>{'length: ' + setLength}</span>
+        </div>
+        <div className="set__creator">
+          <span>{setCreator}</span>
+        </div>
         <hr className={'divide-line'} />
       </div>
       <div className="set__preview">
         <ul>
-          {set.flashcards.map((card, i) => (
-            <li
-              key={card.id}
-              className={
-                currentFlashcardIndex === i && setNumber === currentSet
-                  ? 'set__preview__item current-flashcard'
-                  : 'set__preview__item'
-              }
-              onClick={handleCardClick}
-            >
-              {card.front}
-            </li>
-          ))}
+          {currentFlashcardsInSet
+            ? currentFlashcardsInSet.map((card, i) => (
+                <li
+                  key={card.id}
+                  className={
+                    flashcards[currentFlashcardIndex] &&
+                    flashcards[currentFlashcardIndex].id === card.id
+                      ? 'set__preview__item current-flashcard'
+                      : 'set__preview__item'
+                  }
+                  onClick={(e) => handleCardClick(e, i)}
+                >
+                  {card.front}
+                </li>
+              ))
+            : 'loading...'}
         </ul>
       </div>
     </div>

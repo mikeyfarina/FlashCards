@@ -14,32 +14,32 @@ describe('Flashcard App', function () {
   });
 
   it('login form can be opened', function () {
-    cy.contains('Login').click();
+    cy.contains('login').click();
   });
 
   it('user can log in', function () {
-    cy.contains('Login').click();
+    cy.contains('login').click();
 
     cy.get('#username').type('root');
     cy.get('#password').type('password');
-    cy.get('#login-button').click();
+    cy.get('.login-button').click();
 
     cy.contains('hello, root');
   });
 
   it('login fails with wrong info', function () {
-    cy.contains('Login').click();
+    cy.contains('login').click();
 
     cy.get('#username').type('root');
     cy.get('#password').type('wrong password');
-    cy.get('#login-button').click();
+    cy.get('.login-button').click();
     cy.wait(1000);
     cy.get('header').should('not.contain', 'hello, root');
   });
 
-  describe('when logged in', function () {
+  describe.only('when logged in', function () {
     beforeEach(function () {
-      cy.loginThenCreateFlashcard({ username: 'root', password: 'password' });
+      cy.loginThenCreateSet({ username: 'root', password: 'password' });
     });
 
     describe('and the flashcard page loads when a flashcard exists', function () {

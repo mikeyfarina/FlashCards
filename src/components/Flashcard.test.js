@@ -15,6 +15,7 @@ describe('<Flashcard />', () => {
         back: 'back for testing',
       },
     ];
+
     currentFlashcardIndex = 0;
 
     const component = render(

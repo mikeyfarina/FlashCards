@@ -21,7 +21,10 @@ const createFlashcard = async (newFlashcard) => {
 };
 
 const updateFlashcard = (id, newObject) => {
-  const req = axios.put(`${baseUrl}/${id}`, newObject);
+  const config = {
+    headers: { Authorization: token },
+  };
+  const req = axios.put(`${baseUrl}/${id}`, newObject, config);
   return req.then((res) => res.data);
 };
 

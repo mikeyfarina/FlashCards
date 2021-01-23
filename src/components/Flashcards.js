@@ -9,6 +9,8 @@ import FlashcardTools from './FlashcardTools';
 const Flashcards = ({
   flashcards,
   setFlashcards,
+  flashcardSets,
+  currentSetIndex,
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
 }) => {
@@ -26,13 +28,16 @@ const Flashcards = ({
       : setCurrentFlashcardIndex(currentFlashcardIndex + 1);
   };
 
-  const handleNewFlashCard = (e) => {
+  const handleNewFlashCard = async (e) => {
     e.preventDefault();
     setCanEdit(false);
+
+    const setId = flashcardSets[currentSetIndex].id;
 
     const newFlashcard = {
       front: 'front',
       back: 'back',
+      setId,
     };
 
     flashcardService.createFlashcard(newFlashcard).then((newFlashcard) => {
@@ -71,11 +76,12 @@ const Flashcards = ({
   return (
     <div className="flashcards-display">
       <FlashcardTools
-        amountOfFlashcards={flashcards.length}
+        amountOfFlashcards={flashcards ? flashcards.length : 0}
         handleNewFlashCard={handleNewFlashCard}
         handleEditFlashCard={handleEditFlashCard}
         handleDeleteFlashCard={handleDeleteFlashCard}
         flashcards={flashcards}
+        currentFlashcardIndex={currentFlashcardIndex}
         setCurrentFlashcardIndex={setCurrentFlashcardIndex}
       />
       <div className="flashcard-selection">
@@ -87,7 +93,7 @@ const Flashcards = ({
         <Flashcard
           canEdit={canEdit}
           currentFlashcardIndex={currentFlashcardIndex}
-          flashcards={flashcards}
+          flashcards={flashcards || []}
           setFlashcards={setFlashcards}
         />
         <Button
