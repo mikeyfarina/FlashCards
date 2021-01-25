@@ -55,7 +55,7 @@ if (
 ) {
   app.use('/', express.static('client/build'));
   app.all('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/client/build/index.html'));
+    res.sendFile('index.html');
   });
 }
 
