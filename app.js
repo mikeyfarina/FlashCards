@@ -51,7 +51,7 @@ app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + './index.html'));
+  res.sendFile(path.join(__dirname + './client/build/index.html'));
 });
 
 module.exports = app;
