@@ -1,61 +1,28 @@
 {
-  "name": "flashcards",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.1",
-    "@fortawesome/fontawesome-svg-core": "^1.2.32",
-    "@fortawesome/free-brands-svg-icons": "^5.15.1",
-    "@fortawesome/free-regular-svg-icons": "^5.15.1",
-    "@fortawesome/free-solid-svg-icons": "^5.15.1",
-    "@fortawesome/react-fontawesome": "^0.1.12",
-    "@testing-library/user-event": "^12.1.10",
-    "axios": "^0.21.0",
-    "dotenv": "^8.2.0",
-    "prettier": "^2.2.0",
-    "prop-types": "^15.7.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "4.0.0",
-    "styled-components": "^5.2.1",
-    "web-vitals": "^0.2.4"
-  },
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "./node_modules/.bin/eslint ./src ./server",
-    "eslint": "eslint .",
-    "pretty": "prettier --write '**/*.{js,json}' '!node_modules/**'",
-    "postpretty": "npm run lint --fix",
-    "cypress:open": "cypress open",
-    "test:e2e": "cypress run",
-    "server:start": "cd server && nodemon index.js",
-    "heroku-postbuild": "npm install && npm run build"
+    "start": "nodemon index.js",
+    "test": "NODE_ENV=test jest --verbose --runInBand --detectOpenHandles",
+    "start:test": "cross-env NODE_ENV=test node index.js"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.4",
+    "mongoose-unique-validator": "^2.0.3",
+    "supertest": "^6.0.1"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.6",
-    "@testing-library/react": "^11.2.2",
-    "cypress": "^6.2.0",
-    "eslint": "^7.6.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-cypress": "^2.11.2",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^24.1.3",
-    "eslint-plugin-react": "^7.21.5"
-  },
-  "proxy": "http://localhost:3001"
+    "cross-env": "^7.0.3",
+    "eslint-plugin-cypress": "^2.11.2"
+  }
 }

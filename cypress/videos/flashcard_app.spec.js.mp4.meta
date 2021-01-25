@@ -1,0 +1,86 @@
+;FFMETADATA1
+[CHAPTER]
+TIMEBASE=1/1000
+START=4223
+END=5456
+title=Flashcard App front page loads
+[CHAPTER]
+TIMEBASE=1/1000
+START=6089
+END=6692
+title=Flashcard App login form can be opened
+[CHAPTER]
+TIMEBASE=1/1000
+START=6005
+END=7298
+title=Flashcard App user can log in
+[CHAPTER]
+TIMEBASE=1/1000
+START=6322
+END=8595
+title=Flashcard App login fails with wrong info
+[CHAPTER]
+TIMEBASE=1/1000
+START=9308
+END=10897
+title=Flashcard App when logged in and the flashcard page loads when a flashcard exists the flashcard functions correctly displays the first card
+[CHAPTER]
+TIMEBASE=1/1000
+START=11287
+END=12488
+title=Flashcard App when logged in and the flashcard page loads when a flashcard exists the flashcard functions correctly displays the back of the first card when clicked
+[CHAPTER]
+TIMEBASE=1/1000
+START=12246
+END=13692
+title=Flashcard App when logged in and the flashcard page loads when a flashcard exists the flashcard tools work correctly a new flashcard can be created
+[CHAPTER]
+TIMEBASE=1/1000
+START=13819
+END=15142
+title=Flashcard App when logged in and the flashcard page loads when a flashcard exists the flashcard tools work correctly displays new card when new card is created
+[CHAPTER]
+TIMEBASE=1/1000
+START=14964
+END=16471
+title=Flashcard App when logged in and the flashcard page loads when a flashcard exists the flashcard tools work correctly the front of the card is displayed after adding a new card
+[CHAPTER]
+TIMEBASE=1/1000
+START=16402
+END=17980
+title=Flashcard App when logged in and the flashcard page loads when a flashcard exists the flashcard tools work correctly a flashcard can be edited
+[CHAPTER]
+TIMEBASE=1/1000
+START=18048
+END=19559
+title=Flashcard App when logged in and the flashcard page loads when a flashcard exists the flashcard tools work correctly a flashcard can be deleted by user who created it
+[CHAPTER]
+TIMEBASE=1/1000
+START=19399
+END=21072
+title=Flashcard App when logged in and the flashcard page loads when a flashcard exists the flashcard tools work correctly a flashcard made by one user can not be deleted by a different one
+[CHAPTER]
+TIMEBASE=1/1000
+START=21251
+END=22748
+title=Flashcard App when logged in and the flashcard page loads when a flashcard exists cycling through the flashcards works properly displays previous card when clicking left arrow button
+[CHAPTER]
+TIMEBASE=1/1000
+START=22731
+END=24246
+title=Flashcard App when logged in and the flashcard page loads when a flashcard exists cycling through the flashcards works properly displays next card when clicking right arrow button
+[CHAPTER]
+TIMEBASE=1/1000
+START=24120
+END=25763
+title=Flashcard App when logged in and the flashcard page loads when a flashcard exists cycling through the flashcards works properly if changing cards while on back of one, display front of next
+[CHAPTER]
+TIMEBASE=1/1000
+START=25302
+END=27409
+title=Flashcard App when logged in and the flashcard page loads when a flashcard exists cycling through the flashcards works properly displays first card if clicking next arrow on last card
+[CHAPTER]
+TIMEBASE=1/1000
+START=27975
+END=29522
+title=Flashcard App when logged in and the flashcard page loads when a flashcard exists cycling through the flashcards works properly displays last card if clicking previous arrow on first card
