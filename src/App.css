@@ -637,7 +637,10 @@ li {
     max-height: 90%;
   }
   .set__preview {
-    overflow-x: scroll;
+    overflow-y: scroll;
+  }
+  ::-webkit-scrollbar {
+    display: none;
   }
   .set__preview__item {
     padding: 2%;
