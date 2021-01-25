@@ -30,7 +30,9 @@
     "pretty": "prettier --write '**/*.{js,json}' '!node_modules/**'",
     "postpretty": "npm run lint --fix",
     "cypress:open": "cypress open",
-    "test:e2e": "cypress run"
+    "test:e2e": "cypress run",
+    "server:start": "cd server && nodemon index.js",
+    "heroku-postbuild": "npm install && npm run build"
   },
   "browserslist": {
     "production": [
