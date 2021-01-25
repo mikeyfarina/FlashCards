@@ -49,9 +49,14 @@ if (process.env.NODE_ENV === 'test') {
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 
-app.use(express.static('client/build'));
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'));
-});
+if (
+  process.env.NODE_ENV === 'production' ||
+  process.env.NODE_ENV === 'staging'
+) {
+  app.use('/', express.static('client/build'));
+  app.all('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/client/build/index.html'));
+  });
+}
 
 module.exports = app;
