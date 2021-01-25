@@ -31,7 +31,6 @@ mongoose
   });
 
 app.use(cors());
-app.use(express.static('/client/build'));
 
 app.use(express.json());
 app.use(middleware.requestLogger);
@@ -50,8 +49,14 @@ if (process.env.NODE_ENV === 'test') {
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '../client/build/index.html'));
-});
+if (
+  process.env.NODE_ENV === 'production' ||
+  process.env.NODE_ENV === 'staging'
+) {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/client/build/index.html'));
+  });
+}
 
 module.exports = app;
