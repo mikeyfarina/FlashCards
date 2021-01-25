@@ -31,8 +31,8 @@ mongoose
   });
 
 app.use(cors());
-app.use(express.static('build'));
-app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.use(express.static(path.join(__dirname, './client/build')));
+
 app.use(express.json());
 app.use(middleware.requestLogger);
 app.use(middleware.tokenExtractor);
@@ -50,9 +50,8 @@ if (process.env.NODE_ENV === 'test') {
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 
-// Right before your app.listen(), add this:
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  res.sendFile(path.join(__dirname + './client/build/index.html'));
 });
 
 module.exports = app;
