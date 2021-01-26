@@ -1,1 +1,4 @@
 GET http://localhost:3001/api/flashcards/
+
+###
+GET http://localhost:3001/
