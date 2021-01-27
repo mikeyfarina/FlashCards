@@ -51,12 +51,24 @@ const App = () => {
     setUser(null);
   };
 
+  const userDropdownRef = useRef();
+
   const logoutDiv = () => (
     <div className="logout-div">
       <div className="user-greeting">{`hello, ${user.username}`}</div>
-      <button onClick={handleLogout} className="logout-button">
-        Logout
-      </button>
+      <Togglable
+        buttonLabel={'\u25BC'}
+        ref={userDropdownRef}
+        parentDivClassName="user-dropdown"
+        cancelButtonText="close"
+      >
+        <div className="user-dropdown">
+          <Link to={`/users/${user.username}/`}>My Account</Link>
+          <button onClick={handleLogout} className="logout-button">
+            Logout
+          </button>
+        </div>
+      </Togglable>
     </div>
   );
 
@@ -77,7 +89,7 @@ const App = () => {
           <Route path={'/home'}>
             <Homepage flashcardSets={flashcardSets} />
           </Route>
-          <Route path={'/users'}></Route>
+          <Route path={'/users/:id'}></Route>
           <Route path={'/'}>
             <FlashcardsDisplay
               flashcardSets={flashcardSets}

@@ -43,7 +43,7 @@ const Togglable = React.forwardRef((props, ref) => {
           onClick={toggleVisibility}
           className={`${props.buttonLabel}-cancel-button`}
         >
-          cancel
+          {props.cancelButtonText || 'cancel'}
         </button>
       </div>
     </div>
