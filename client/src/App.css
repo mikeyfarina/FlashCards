@@ -71,6 +71,13 @@ li {
   list-style-type: none;
 }
 
+.main-title-container {
+  height: 100%;
+  width: fit-content;
+  padding-right: 2%;
+  display: contents;
+}
+
 .main-title {
   display: flex;
   align-items: center;

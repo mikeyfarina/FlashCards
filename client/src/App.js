@@ -1,35 +1,22 @@
-import './App.css';
-
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
 
-import Flashcards from './components/Flashcards';
-import LoginForm from './components/LoginForm';
-import Sidebar from './components/Sidebar';
-import Togglable from './components/Togglable';
 import flashcardService from './services/flashcardService';
 import setService from './services/setService';
+import Togglable from './components/Togglable';
+import LoginForm from './components/LoginForm';
 
-function App() {
-  // states
-  const [flashcardSets, setFlashcardSets] = useState(null);
-  const [currentSetIndex, setCurrentSetIndex] = useState(0);
-  const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
-  const [flashcards, setFlashcards] = useState(null);
+import FlashcardsDisplay from './pages/FlashcardsDisplay';
+import Homepage from './pages/Homepage';
+
+const App = () => {
   const [user, setUser] = useState(null);
+  const [flashcardSets, setFlashcardSets] = useState(null);
 
   useEffect(async () => {
     const sets = await setService.getAllSets();
     setFlashcardSets(sets);
   }, []);
-
-  useEffect(async () => {
-    setFlashcards(null);
-    const sets = await setService.getAllSets();
-    setFlashcardSets(sets);
-    const setID = sets[currentSetIndex].id;
-    const flashcards = await setService.getAllFlashcardsInSet(setID);
-    setFlashcards(flashcards);
-  }, [currentSetIndex]);
 
   // if a user is logged in with local storage, re-sign in user
   useEffect(() => {
@@ -73,34 +60,34 @@ function App() {
     </div>
   );
 
+  const linkStyle = { textDecoration: 'none', display: 'contents' };
+
   return (
     <div>
-      <header>
-        <h1 className="main-title noselect">Flashcards</h1>
-        {user ? logoutDiv() : loginForm()}
-      </header>
-      <div className="main-section">
-        <Sidebar
-          flashcards={flashcards}
-          setFlashcards={setFlashcards}
-          flashcardSets={flashcardSets}
-          setFlashcardSets={setFlashcardSets}
-          currentSetIndex={currentSetIndex}
-          setCurrentSetIndex={setCurrentSetIndex}
-          currentFlashcardIndex={currentFlashcardIndex}
-          setCurrentFlashcardIndex={setCurrentFlashcardIndex}
-        />
-        <Flashcards
-          flashcards={flashcards}
-          setFlashcards={setFlashcards}
-          flashcardSets={flashcardSets}
-          currentSetIndex={currentSetIndex}
-          currentFlashcardIndex={currentFlashcardIndex}
-          setCurrentFlashcardIndex={setCurrentFlashcardIndex}
-        />
-      </div>
+      <Router>
+        <header>
+          <Link to={'/home'} style={linkStyle}>
+            <div className="main-title-container">
+              <h1 className="main-title noselect">Flashcards</h1>
+            </div>
+          </Link>
+          {user ? logoutDiv() : loginForm()}
+        </header>
+        <Switch>
+          <Route path={'/home'}>
+            <Homepage flashcardSets={flashcardSets} />
+          </Route>
+          <Route path={'/users'}></Route>
+          <Route path={'/'}>
+            <FlashcardsDisplay
+              flashcardSets={flashcardSets}
+              setFlashcardSets={setFlashcardSets}
+            />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;
