@@ -7,12 +7,13 @@ import Sidebar from '../components/Sidebar';
 
 import setService from '../services/setService';
 
-const FlashcardsDisplay = ({ flashcardSets, setFlashcardSets }) => {
+const FlashcardsDisplay = ({ flashcardSets, setFlashcardSets, setIndex }) => {
   // states
-  const [currentSetIndex, setCurrentSetIndex] = useState(0);
+  const [currentSetIndex, setCurrentSetIndex] = useState(setIndex || 0);
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
   const [flashcards, setFlashcards] = useState(null);
 
+  useEffect(() => {}, [setIndex]);
   useEffect(async () => {
     setFlashcards(null);
     const sets = await setService.getAllSets();

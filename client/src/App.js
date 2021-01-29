@@ -1,4 +1,10 @@
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import {
+  BrowserRouter as Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useHistory,
+} from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
 
 import flashcardService from './services/flashcardService';
@@ -72,32 +78,41 @@ const App = () => {
     </div>
   );
 
-  const linkStyle = { textDecoration: 'none', display: 'contents' };
+  const match = useRouteMatch('/flashcards/:id');
+  const setIndex =
+    match && flashcardSets
+      ? flashcardSets.findIndex((set) => set.id === Number(match.params.id))
+      : 0;
+  console.log(setIndex);
 
+  const history = useHistory();
   return (
     <div>
-      <Router>
-        <header>
-          <Link to={'/home'} style={linkStyle}>
-            <div className="main-title-container">
-              <h1 className="main-title noselect">Flashcards</h1>
-            </div>
-          </Link>
-          {user ? logoutDiv() : loginForm()}
-        </header>
-        <Switch>
-          <Route path={'/home'}>
-            <Homepage flashcardSets={flashcardSets} />
-          </Route>
-          <Route path={'/users/:id'}></Route>
-          <Route path={'/'}>
-            <FlashcardsDisplay
-              flashcardSets={flashcardSets}
-              setFlashcardSets={setFlashcardSets}
-            />
-          </Route>
-        </Switch>
-      </Router>
+      <header>
+        <div
+          className="main-title-container"
+          onClick={() => {
+            history.push('/home');
+          }}
+        >
+          <h1 className="main-title noselect">Flashcards</h1>
+        </div>
+        {user ? logoutDiv() : loginForm()}
+      </header>
+      <Switch>
+        <Route path={'/home'}>
+          <Homepage flashcardSets={flashcardSets} />
+        </Route>
+        <Route path={'/users/:id'}>{}</Route>
+        <Route path={'/flashcards/:id'}></Route>
+        <Route path={('/flashcards', '/')}>
+          <FlashcardsDisplay
+            flashcardSets={flashcardSets}
+            setFlashcardSets={setFlashcardSets}
+            setIndex={setIndex}
+          />
+        </Route>
+      </Switch>
     </div>
   );
 };
