@@ -22,11 +22,14 @@ const Set = ({
   const [indexOfSet] = useState(index);
   const [currentFlashcardsInSet, setCurrentFlashcardsInSet] = useState(null);
 
-  useEffect(async () => {
-    const flashcardsOfSet = await setService.getAllFlashcardsInSet(set.id);
-    setCurrentFlashcardsInSet(flashcardsOfSet);
-    setSetLength(flashcardsOfSet.length);
-  }, [flashcards]);
+  useEffect(() => {
+    async function getCurrentSetFlashcards() {
+      const flashcardsOfSet = await setService.getAllFlashcardsInSet(set.id);
+      setCurrentFlashcardsInSet(flashcardsOfSet);
+      setSetLength(flashcardsOfSet.length);
+    }
+    getCurrentSetFlashcards();
+  }, [flashcards, set.id]);
 
   const handleTitleClick = () => {
     if (canEditTitle) return; // do nothing

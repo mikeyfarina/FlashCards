@@ -6,4 +6,10 @@ const createAccount = async (accountInfo) => {
   return response.data;
 };
 
-export default { createAccount };
+const findAccountByUsername = async (username) => {
+  const response = await axios.get(`${baseUrl}/${username}`);
+  console.log(response);
+  return response.data;
+};
+
+export default { createAccount, findAccountByUsername };

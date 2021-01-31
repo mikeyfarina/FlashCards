@@ -3,25 +3,29 @@ import {
   Route,
   Link,
   useRouteMatch,
-  useHistory,
 } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
 
-import flashcardService from './services/flashcardService';
-import setService from './services/setService';
-import Togglable from './components/Togglable';
-import LoginForm from './components/LoginForm';
-
 import FlashcardsDisplay from './pages/FlashcardsDisplay';
 import Homepage from './pages/Homepage';
+import UserInformation from './pages/UserInformation';
+
+import flashcardService from './services/flashcardService';
+import setService from './services/setService';
+
+import Togglable from './components/Togglable';
+import LoginForm from './components/LoginForm';
 
 const App = () => {
   const [user, setUser] = useState(null);
   const [flashcardSets, setFlashcardSets] = useState(null);
 
-  useEffect(async () => {
-    const sets = await setService.getAllSets();
-    setFlashcardSets(sets);
+  useEffect(() => {
+    async function setSets() {
+      const sets = await setService.getAllSets();
+      setFlashcardSets(sets);
+    }
+    setSets();
   }, []);
 
   // if a user is logged in with local storage, re-sign in user
@@ -78,34 +82,34 @@ const App = () => {
     </div>
   );
 
-  const match = useRouteMatch('/flashcards/:id');
+  const flashcardSetMatch = useRouteMatch('/flashcards/:id');
   const setIndex =
-    match && flashcardSets
-      ? flashcardSets.findIndex((set) => set.id === Number(match.params.id))
+    flashcardSetMatch && flashcardSets
+      ? flashcardSets.findIndex(
+          (set) => set.id === Number(flashcardSetMatch.params.id)
+        )
       : 0;
   console.log(setIndex);
 
-  const history = useHistory();
   return (
     <div>
       <header>
-        <div
-          className="main-title-container"
-          onClick={() => {
-            history.push('/home');
-          }}
-        >
-          <h1 className="main-title noselect">Flashcards</h1>
+        <div className="main-title-container">
+          <Link to="/home">
+            <h1 className="main-title noselect">Flashcards</h1>
+          </Link>
         </div>
         {user ? logoutDiv() : loginForm()}
       </header>
       <Switch>
-        <Route path={'/home'}>
+        <Route exact path={'/home'}>
           <Homepage flashcardSets={flashcardSets} />
         </Route>
-        <Route path={'/users/:id'}>{}</Route>
-        <Route path={'/flashcards/:id'}></Route>
-        <Route path={('/flashcards', '/')}>
+        <Route exact path={'/users/:username'}>
+          <UserInformation />
+        </Route>
+        <Route path={'/flashcards/:username'}></Route>
+        <Route exact path={('/', '/flashcards')}>
           <FlashcardsDisplay
             flashcardSets={flashcardSets}
             setFlashcardSets={setFlashcardSets}
@@ -116,5 +120,4 @@ const App = () => {
     </div>
   );
 };
-
 export default App;
