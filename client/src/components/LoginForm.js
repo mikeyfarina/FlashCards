@@ -9,6 +9,8 @@ const LoginForm = ({ setUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [createAccount, setCreateAccount] = useState(false);
+  const [accountCreationMessage, setAccountCreationMessage] = useState('');
+  const [error, setError] = useState(null);
 
   LoginForm.propTypes = {
     setUser: PropTypes.func.isRequired,
@@ -33,14 +35,27 @@ const LoginForm = ({ setUser }) => {
       setPassword('');
       setUser(user);
     } catch (ex) {
-      console.log('wrong credentials');
+      setError('Incorrect Username/Password');
+      setTimeout(() => {
+        setError(null);
+      }, 5000);
     }
+  };
+
+  const loginFormStyle = {
+    gridTemplateRows: error
+      ? 'repeat(3,1fr) .5fr repear(2, 1fr)'
+      : 'repeat(5,1fr)',
   };
 
   return (
     <div className={'login noselect'}>
       {!createAccount ? (
-        <form className={'login-form'} onSubmit={handleLogin}>
+        <form
+          className={'login-form'}
+          onSubmit={handleLogin}
+          style={loginFormStyle}
+        >
           <h3>Login</h3>
           <input
             type="text"
@@ -58,6 +73,7 @@ const LoginForm = ({ setUser }) => {
             onChange={({ target }) => setPassword(target.value)}
             placeholder="password"
           />
+          {error ? <p className={'error-message'}>{error}</p> : ''}
           <button type="submit" className="login-form-button">
             login
           </button>

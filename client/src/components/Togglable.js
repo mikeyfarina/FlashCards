@@ -33,6 +33,7 @@ const Togglable = React.forwardRef((props, ref) => {
         <button
           onClick={toggleVisibility}
           className={`${props.buttonLabel}-outside-button`}
+          style={{ border: 'none', outline: 'none' }}
         >
           {props.buttonLabel}
         </button>
@@ -42,6 +43,13 @@ const Togglable = React.forwardRef((props, ref) => {
         <button
           onClick={toggleVisibility}
           className={`${props.buttonLabel}-cancel-button`}
+          style={{
+            border: 'none',
+            outline: 'none',
+            position: 'absolute',
+            top: '1%',
+            right: '2%',
+          }}
         >
           {props.cancelButtonText || 'cancel'}
         </button>

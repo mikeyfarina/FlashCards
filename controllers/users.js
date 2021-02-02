@@ -15,6 +15,20 @@ usersRouter.get('/', async (req, res) => {
   res.json(users);
 });
 
+usersRouter.get('/:username', async (req, res) => {
+  const user = await User.find({
+    username: { $in: req.params.username },
+  }).exec();
+  console.log(user);
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(204).json({
+      error: 'user does not exist',
+    });
+  }
+});
+
 usersRouter.post('/', async (req, res) => {
   const body = req.body;
 
@@ -26,8 +40,7 @@ usersRouter.post('/', async (req, res) => {
     name: body.name,
     passwordHash,
   });
-
-  const savedUser = await user.save();
+  const savedUser = await user.save().catch((err) => res.json(err));
   res.json(savedUser);
 });
 

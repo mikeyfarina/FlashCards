@@ -2,13 +2,13 @@ import React from 'react';
 import userService from '../services/userService';
 import { useRouteMatch } from 'react-router-dom';
 
-const UserInformation = ({ user }) => {
+const UserInformation = () => {
   const usernameMatch = useRouteMatch();
   console.log(usernameMatch);
-  const desiredUserForInfo = usernameMatch
+  const user = usernameMatch
     ? userService.findAccountByUsername(usernameMatch.params.username)
     : null;
-  console.log(desiredUserForInfo, usernameMatch);
+  console.log(user, usernameMatch);
 
   return user ? (
     <div>

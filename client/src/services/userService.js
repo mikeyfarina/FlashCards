@@ -8,7 +8,6 @@ const createAccount = async (accountInfo) => {
 
 const findAccountByUsername = async (username) => {
   const response = await axios.get(`${baseUrl}/${username}`);
-  console.log(response);
   return response.data;
 };
 

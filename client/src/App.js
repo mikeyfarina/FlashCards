@@ -1,9 +1,4 @@
-import {
-  BrowserRouter as Switch,
-  Route,
-  Link,
-  useRouteMatch,
-} from 'react-router-dom';
+import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
 
 import FlashcardsDisplay from './pages/FlashcardsDisplay';
@@ -63,17 +58,28 @@ const App = () => {
 
   const userDropdownRef = useRef();
 
+  const dropdownStyle = {
+    display: 'grid',
+    gridTemplateRows: '1fr 1fr',
+    height: '4.5vh',
+  };
+
   const logoutDiv = () => (
-    <div className="logout-div">
+    <div className="logout-div" style={{ position: 'relative' }}>
       <div className="user-greeting">{`hello, ${user.username}`}</div>
       <Togglable
         buttonLabel={'\u25BC'}
         ref={userDropdownRef}
         parentDivClassName="user-dropdown"
-        cancelButtonText="close"
+        cancelButtonText="x"
       >
-        <div className="user-dropdown">
-          <Link to={`/users/${user.username}/`}>My Account</Link>
+        <div className="user-dropdown-info" style={dropdownStyle}>
+          <Link
+            to={`/users/${user.username}/`}
+            style={{ textDecoration: 'none', outline: 'none' }}
+          >
+            My Account
+          </Link>
           <button onClick={handleLogout} className="logout-button">
             Logout
           </button>
@@ -95,7 +101,10 @@ const App = () => {
     <div>
       <header>
         <div className="main-title-container">
-          <Link to="/home">
+          <Link
+            to="/home"
+            style={{ textDecoration: 'none', display: 'contents' }}
+          >
             <h1 className="main-title noselect">Flashcards</h1>
           </Link>
         </div>
@@ -103,13 +112,20 @@ const App = () => {
       </header>
       <Switch>
         <Route exact path={'/home'}>
-          <Homepage flashcardSets={flashcardSets} />
+          <Homepage flashcardSets={flashcardSets} user={user} />
         </Route>
         <Route exact path={'/users/:username'}>
           <UserInformation />
         </Route>
-        <Route path={'/flashcards/:username'}></Route>
-        <Route exact path={('/', '/flashcards')}>
+        <Route path={'/flashcards/:id'}></Route>
+        <Route path={'/flashcards'}>
+          <FlashcardsDisplay
+            flashcardSets={flashcardSets}
+            setFlashcardSets={setFlashcardSets}
+            setIndex={setIndex}
+          />
+        </Route>
+        <Route exact path={'/'}>
           <FlashcardsDisplay
             flashcardSets={flashcardSets}
             setFlashcardSets={setFlashcardSets}

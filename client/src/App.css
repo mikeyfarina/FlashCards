@@ -104,7 +104,7 @@ li {
   margin-right: 1vh;
   border: 2px solid #646c80;
   border-radius: 4px;
-  height: 7vh;
+  height: 8vh;
   align-items: center;
 }
 
@@ -130,6 +130,7 @@ li {
 
 .login {
   height: fit-content;
+  width: 20vw;
 }
 
 .login-outside-button,
@@ -158,16 +159,17 @@ li {
 .logout-button {
   text-align: center;
   align-self: center;
+  border-radius: 3px;
+  background: white;
+  color: #5da2d5;
+  margin-top: auto;
+  border: #5da2d5 1px solid;
 }
 
 .login-form,
 .create-account-form {
   display: grid;
   max-height: 100%;
-}
-
-.login-form {
-  grid-template-rows: repeat(5, 1fr);
 }
 
 .login-form-input,
@@ -183,8 +185,23 @@ li {
   border: 1px red solid;
 }
 .error-message {
-  color: red;
-  font-size: 1.5vw;
+  color: white;
+  background: rgba(233, 64, 64, 0.911);
+  font-size: 1.2vw;
+  padding: 2%;
+  text-align: center;
+  align-self: center;
+  border-radius: 3px;
+}
+
+.success {
+  color: darkgreen;
+  font-size: 1.2vw;
+  background: rgba(102, 255, 109, 0.25);
+  padding: 2%;
+  text-align: center;
+  align-self: center;
+  border-radius: 3px;
 }
 
 .login-form-input {
