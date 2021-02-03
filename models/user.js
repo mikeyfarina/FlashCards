@@ -22,6 +22,9 @@ const userSchema = new mongoose.Schema({
       ref: 'Set',
     },
   ],
+  photoNumber: {
+    type: Number,
+  },
 });
 
 userSchema.plugin(uniqueValidator);

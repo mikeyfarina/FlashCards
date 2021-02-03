@@ -81,7 +81,11 @@ setsRouter.delete('/:id', async (req, res) => {
 
   const set = await Set.findById(req.params.id);
 
-  console.log(set, user);
+  const IDsOfFlashcardsInSet = set.flashcards;
+  IDsOfFlashcardsInSet.map(async (id) => {
+    await user.update({ $pull: { flashcards: id } });
+    console.log(`removed: ${id} from users flashcards`);
+  });
 
   if (set.user.toString() === user.id.toString()) {
     console.log('deleting...', set);

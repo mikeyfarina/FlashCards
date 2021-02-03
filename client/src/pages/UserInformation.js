@@ -46,6 +46,7 @@ const UserInformation = () => {
       'linear-gradient(221deg, rgba(93,162,213,1) 0%, rgba(133,196,247,1) 39%, rgba(255,255,255,1) 100%)',
     alignItems: 'center',
     scrollSnapAlign: 'start',
+    scrollMarginTop: '6vh',
   };
 
   const profilePhotoStyle = {

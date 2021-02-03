@@ -15,22 +15,29 @@ const Homepage = ({ flashcardSets, user }) => {
   };
   const collectionStyle = {
     display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
+    gridTemplateRows: 'repeat(3, 33.33%)',
+    gridTemplateColumns: 'repeat(auto, 33.3vw)',
+    gridAutoFlow: 'column',
     background: 'rgba(99, 108, 156, .1)',
-    height: 'fit-content',
-    width: '80%',
-    margin: '5% 10%',
-    padding: '2% 0',
+    height: '80%',
+    gridAutoColumns: '33.3vw',
+    margin: '5% 0',
+    padding: '0',
     borderRadius: '5px',
+    overflowX: 'scroll',
+    position: 'relative',
   };
   const setStyle = {
-    width: '80%',
-    height: '18vh',
+    float: 'left',
+    minWidth: '90%',
+    minHeight: '92%',
+    margin: '2% 5%',
     background: 'white',
-    margin: '5% 10%',
+
     padding: '2% 4%',
     borderRadius: '8px',
     boxShadow: '2px 5px 12px rgb(1, 1, 1, 0.2), 2px 5px 2px rgb(1, 1, 1, 0.1)',
+    scrollSnapAlign: 'start',
   };
 
   const signupSectionStyle = {
@@ -81,6 +88,13 @@ const Homepage = ({ flashcardSets, user }) => {
     cursor: 'pointer',
   };
 
+  const hoverScrollDivStyle = {
+    position: 'absolute',
+    height: '100%',
+    width: '15%',
+    color: 'lightblue',
+  };
+
   return (
     <div style={homepageStyle}>
       {!user ? (
@@ -125,10 +139,15 @@ const Homepage = ({ flashcardSets, user }) => {
         All Flashcards
       </Link>
       <div style={collectionStyle}>
+        <div
+          className={'hover_section left'}
+          style={{ ...hoverScrollDivStyle, left: '0' }}
+        ></div>
         {flashcardSets ? (
           flashcardSets.map((set) => (
             <li key={set.id}>
               <div
+                className={'user-list-item'}
                 style={setStyle}
                 onClick={() => {
                   history.push(`/flashcards/${set.id}`);
@@ -150,6 +169,10 @@ const Homepage = ({ flashcardSets, user }) => {
           <div>{'Loading Flashcard Sets'}</div>
         )}
       </div>
+      <div
+        className={'hover_section right'}
+        style={{ ...hoverScrollDivStyle, right: '0' }}
+      ></div>
     </div>
   );
 };
