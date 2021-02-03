@@ -23,11 +23,15 @@ usersRouter.get('/:username', async (req, res) => {
       path: 'flashcards',
       populate: {
         path: 'set',
+        select: 'title',
       },
     })
-    .populate('sets', {
-      title: 1,
-      date: 1,
+    .populate({
+      path: 'sets',
+      populate: {
+        path: 'flashcards',
+        select: 'id',
+      },
     })
     .exec();
   console.log(user);

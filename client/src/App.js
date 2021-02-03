@@ -66,25 +66,17 @@ const App = () => {
 
   const logoutDiv = () => (
     <div className="logout-div" style={{ position: 'relative' }}>
-      <div className="user-greeting">{`hello, ${user.username}`}</div>
-      <Togglable
-        buttonLabel={'\u25BC'}
-        ref={userDropdownRef}
-        parentDivClassName="user-dropdown"
-        cancelButtonText="x"
-      >
-        <div className="user-dropdown-info" style={dropdownStyle}>
-          <Link
-            to={`/users/${user.username}/`}
-            style={{ textDecoration: 'none', outline: 'none' }}
-          >
-            My Account
-          </Link>
-          <button onClick={handleLogout} className="logout-button">
-            Logout
-          </button>
-        </div>
-      </Togglable>
+      <div className="user-greeting">
+        <Link
+          to={`/users/${user.username}/`}
+          style={{ textDecoration: 'none', outline: 'none' }}
+        >
+          {`hello, ${user.username}`}
+        </Link>
+      </div>
+      <button onClick={handleLogout} className="logout-button">
+        Logout
+      </button>
     </div>
   );
 

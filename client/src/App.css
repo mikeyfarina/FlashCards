@@ -73,6 +73,7 @@ li {
 
 .user-list-item:hover {
   transform: scaleY(1.05) scaleX(1.05);
+  cursor: pointer;
 }
 
 .user-list-item::before {
@@ -84,18 +85,19 @@ li {
   bottom: 0;
   left: 0;
   border-radius: 8px;
-
+  background: transparent;
   /* Create the box shadow at expanded size. */
   box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5);
   /* Hidden by default. */
   opacity: 0;
-  transition: opacity 500ms;
+  transition: opacity 0.15s;
 }
 
 .user-list-item:hover::before {
   /* Show the pseudo-element on hover. */
   opacity: 1;
   z-index: -1;
+  border-radius: 8px;
 }
 
 .main-title-container {
@@ -184,12 +186,12 @@ li {
 }
 
 .logout-button {
-  text-align: center;
-  align-self: center;
   border-radius: 3px;
   background: white;
   color: #5da2d5;
-  margin-top: auto;
+  height: 75%;
+  font-size: 1vw;
+  padding: 5% 20%;
   border: #5da2d5 1px solid;
 }
 
@@ -560,7 +562,7 @@ li {
   z-index: 3;
   background: rgba(255, 255, 255, 0);
 
-  width: 60vw;
+  width: 58vw;
   padding-top: 70%;
   height: 0;
 

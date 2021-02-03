@@ -102,15 +102,14 @@ const UserInformation = () => {
     background: 'white',
     border: '1px rgba(1,1,1,.2) solid',
     borderRadius: '8px',
-    display: 'grid',
-    gridTemplateRows: '1fr 1fr',
     height: '14vh',
     margin: '2vh 2vw',
     width: '22vw',
-    alignItems: 'center',
+    alignSelf: 'center',
+    textAlign: 'center',
     padding: '1% 2%',
     boxShadow: '0px 0px 20px rgb(1 1 1 / 10%), 0 0 5px rgb(1 1 1 / 30%)',
-    transition: 'all .1s ease-in',
+    transition: 'all .15s ease-in-out',
     position: 'relative',
     float: 'left',
   };
@@ -132,6 +131,15 @@ const UserInformation = () => {
     float: 'left',
     padding: '1% 2%',
     scrollSnapAlign: 'end',
+    display: 'flex',
+  };
+
+  const setTitleContainerStyle = {
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   };
 
   console.log(user);
@@ -139,7 +147,7 @@ const UserInformation = () => {
     <div className={'user-info'} style={userInfoStyle}>
       <div className={'user-info__basic'} style={basicInfoContainer}>
         <div className={'user-info__basic__photo'}>
-          <img src={profilePhotos[0]} style={profilePhotoStyle} />
+          <img src={profilePhotos[3]} style={profilePhotoStyle} />
         </div>
         <div
           className={'user-info__basic__names'}
@@ -170,7 +178,7 @@ const UserInformation = () => {
         </div>
       </div>
       <div style={setDisplayContainerStyle}>
-        <h2>Sets:</h2>
+        <h2 style={{ marginBottom: '1vh' }}>Sets:</h2>
         <div
           className={'setDisplay'}
           style={{ ...displayStyle, ...setDisplayStyle }}
@@ -182,10 +190,20 @@ const UserInformation = () => {
                 style={setStyle}
                 key={set.id}
               >
-                <h3>{set.title}</h3>
-                <h5>
-                  Flashcards: {set.flashcards ? set.flashcards.length : ''}
-                </h5>
+                <div style={setTitleContainerStyle}>
+                  <h3>{set.title}</h3>
+                </div>
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: '4%',
+                    right: '4%',
+                    color: 'darkgray',
+                    fontWeight: 'lighter',
+                  }}
+                >
+                  Size: <strong>{set.flashcards.length}</strong>
+                </div>
               </div>
             );
           })}
@@ -193,7 +211,7 @@ const UserInformation = () => {
         <div style={{ height: '3vh' }}></div>
       </div>
       <div style={{ ...setDisplayContainerStyle, marginBottom: '3vh' }}>
-        <h2>Flashcards:</h2>
+        <h2 style={{ marginBottom: '1vh' }}>Flashcards:</h2>
         <div
           className={'setDisplay'}
           style={{ ...flashcardsDisplayStyle, ...displayStyle }}
@@ -207,8 +225,17 @@ const UserInformation = () => {
                 key={flashcard.id}
               >
                 <h3>{flashcard.front}</h3>
-                <h5>from set:</h5>
-                <h4>{flashcard.set.title}</h4>
+                <h5
+                  style={{
+                    position: 'absolute',
+                    bottom: '4%',
+                    right: '4%',
+                    color: 'darkgray',
+                    fontWeight: 'lighter',
+                  }}
+                >
+                  from: <strong>{flashcard.set.title}</strong>
+                </h5>
               </div>
             );
           })}
