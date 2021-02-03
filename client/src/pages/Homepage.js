@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { ReactComponent as Image } from '../images/img1.svg';
+import { ReactComponent as Image } from '../images/clipart/img1.svg';
 
 const Homepage = ({ flashcardSets, user }) => {
   const [signupDisplayed, setSignupDisplayed] = useState(true);

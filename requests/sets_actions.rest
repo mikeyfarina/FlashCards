@@ -2,11 +2,11 @@ GET http://localhost:3001/api/sets
 ###
 POST http://localhost:3001/api/sets
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjVmY2RiNmZmMWRiMDVhMzNmZGUzYjg0ZSIsImlhdCI6MTYwOTg5NDkyMn0.dA3FEp9waIBP65MMkFLK7UT6N1pcJLL_zYsBXtxbqtg
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYwMThmMWM4NmM3ZjZlMmVhNTUzZDZhNCIsImlhdCI6MTYxMjI0NzUxNH0.L6dv4f3wR-icxLDfctR-Oz-ZDKx2z_DeC7AkSzDPy7c
 
 {
   "title": "new set from backend",
-  "user": "5fcdb6ff1db05a33fde3b84e"
+  "user": "6018f1c86c7f6e2ea553d6a4"
 }
 ###
 DELETE http://localhost:3001/api/sets/5fff5c4fdaed66244beed955

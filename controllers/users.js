@@ -18,10 +18,21 @@ usersRouter.get('/', async (req, res) => {
 usersRouter.get('/:username', async (req, res) => {
   const user = await User.find({
     username: { $in: req.params.username },
-  }).exec();
+  })
+    .populate('flashcards', {
+      front: 1,
+      back: 1,
+      set: 1,
+    })
+    .populate('sets', {
+      title: 1,
+      date: 1,
+      flashcards: 1,
+    })
+    .exec();
   console.log(user);
   if (user) {
-    res.json(user);
+    res.status(200).json(user);
   } else {
     res.status(204).json({
       error: 'user does not exist',

@@ -41,7 +41,7 @@ setsRouter.get('/:id/flashcards', async (req, res) => {
 
 setsRouter.post('/', async (req, res) => {
   const body = req.body;
-
+  console.log(body, req.token);
   const decodedToken = jwt.verify(req.token, process.env.SECRET);
   if (!req.token || !decodedToken.id) {
     return res.status(401).json({
@@ -76,6 +76,9 @@ setsRouter.delete('/:id', async (req, res) => {
   }
 
   const user = await User.findById(decodedToken.id);
+  await user.update({ $pull: { sets: req.params.id } });
+  await user.save();
+
   const set = await Set.findById(req.params.id);
 
   console.log(set, user);

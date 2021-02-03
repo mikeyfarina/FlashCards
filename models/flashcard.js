@@ -13,7 +13,7 @@ const flashcardSchema = new mongoose.Schema({
   },
   set: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'Set',
   },
 });
 
