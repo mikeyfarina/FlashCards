@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import userService from '../services/userService';
 import { useParams } from 'react-router-dom';
 import profilePhotos from '../utils/profilePhotoLoader';
+import FlashcardsDisplay from './FlashcardsDisplay';
 const UserInformation = () => {
   const [user, setUser] = useState(null);
   const username = useParams().username;
@@ -30,6 +31,8 @@ const UserInformation = () => {
     borderRadius: '5px',
     boxShadow: '0 15px 25px rgba(1,1,1,0.3), 0 0px 5px rgba(1,1,1,0.4)',
     zIndex: 1,
+    overflowY: 'scroll',
+    scrollSnapType: 'y mandatory',
   };
   const basicInfoContainer = {
     padding: '5vh 5vw',
@@ -38,14 +41,16 @@ const UserInformation = () => {
     borderRadius: '8px',
     boxShadow: '0 15px 25px rgba(1,1,1,0.1)',
     height: '30vh',
+    margin: '6vh 0 9vh 0',
     background:
       'linear-gradient(221deg, rgba(93,162,213,1) 0%, rgba(133,196,247,1) 39%, rgba(255,255,255,1) 100%)',
     alignItems: 'center',
+    scrollSnapAlign: 'start',
   };
 
   const profilePhotoStyle = {
     height: '20vh',
-    borderRadius: '4px',
+    borderRadius: '25px',
   };
 
   const basicStatsStyle = {
@@ -58,7 +63,7 @@ const UserInformation = () => {
     borderRadius: '8px',
     textAlign: 'center',
     background:
-      'radial-gradient(circle, rgba(236,236,236,1) 0%, rgba(236,236,236,1) 48%, rgba(255,255,255,1) 100%)',
+      'radial-gradient(circle, rgba(235,235,235,1) 0%, rgba(255,255,255,1) 100%)',
     alignSelf: 'center',
   };
 
@@ -75,28 +80,58 @@ const UserInformation = () => {
     display: 'grid',
     gridTemplateRows: '1fr 3fr',
     alignItems: 'center',
-    height: '55vh',
+    height: '40vh',
+    margin: '3vh 0 5.5vh 0',
   };
-  const setDisplayStyle = {
+
+  const displayStyle = {
     border: '1px rgba(1,1,1,.2) solid',
     borderRadius: '8px',
-    width: '100%',
-    display: 'inline-flex',
-    justifyContent: 'space-between',
-
-    height: '45vh',
+    height: '36vh',
+    background:
+      'linear-gradient(221deg, rgba(255,255,255,1) 0%, rgba(235,234,234,1) 47%, rgba(255,255,255,1) 100%)',
+    marginBottom: '3vh',
+    overflowY: 'scroll',
+    display: 'inline-block',
+    scrollSnapAlign: 'end',
   };
 
+  const setDisplayStyle = {};
+
   const setStyle = {
+    background: 'white',
     border: '1px rgba(1,1,1,.2) solid',
     borderRadius: '8px',
     display: 'grid',
     gridTemplateRows: '1fr 1fr',
-    height: '12vh',
-    margin: '2%',
-    width: '25vw',
+    height: '14vh',
+    margin: '2vh 2vw',
+    width: '22vw',
     alignItems: 'center',
     padding: '1% 2%',
+    boxShadow: '0px 0px 20px rgb(1 1 1 / 10%), 0 0 5px rgb(1 1 1 / 30%)',
+    transition: 'all .1s ease-in',
+    position: 'relative',
+    float: 'left',
+  };
+
+  const flashcardsDisplayStyle = {
+    scrollMarginBottom: '4vh',
+  };
+
+  const flashcardStyle = {
+    background: 'white',
+    border: '1px rgba(1,1,1,.2) solid',
+    borderRadius: '8px',
+    transition: 'all .1s ease-in',
+    position: 'relative',
+    boxShadow: '0px 0px 20px rgb(1 1 1 / 10%), 0 0 5px rgb(1 1 1 / 30%)',
+    height: '10vh',
+    width: '23%',
+    margin: '1vh 1%',
+    float: 'left',
+    padding: '1% 2%',
+    scrollSnapAlign: 'end',
   };
 
   console.log(user);
@@ -135,13 +170,45 @@ const UserInformation = () => {
         </div>
       </div>
       <div style={setDisplayContainerStyle}>
-        <h2>Created Flashcard Sets:</h2>
-        <div className={'setDisplay'} style={setDisplayStyle}>
+        <h2>Sets:</h2>
+        <div
+          className={'setDisplay'}
+          style={{ ...displayStyle, ...setDisplayStyle }}
+        >
           {user.sets.map((set) => {
             return (
-              <div className={'setItem'} style={setStyle} key={set.id}>
+              <div
+                className={'setItem user-list-item'}
+                style={setStyle}
+                key={set.id}
+              >
                 <h3>{set.title}</h3>
-                <h5>Flashcards: {set.flashcards.length}</h5>
+                <h5>
+                  Flashcards: {set.flashcards ? set.flashcards.length : ''}
+                </h5>
+              </div>
+            );
+          })}
+        </div>
+        <div style={{ height: '3vh' }}></div>
+      </div>
+      <div style={{ ...setDisplayContainerStyle, marginBottom: '3vh' }}>
+        <h2>Flashcards:</h2>
+        <div
+          className={'setDisplay'}
+          style={{ ...flashcardsDisplayStyle, ...displayStyle }}
+        >
+          {user.flashcards.map((flashcard) => {
+            console.log(flashcard);
+            return (
+              <div
+                className={'flashcardItem user-list-item'}
+                style={flashcardStyle}
+                key={flashcard.id}
+              >
+                <h3>{flashcard.front}</h3>
+                <h5>from set:</h5>
+                <h4>{flashcard.set.title}</h4>
               </div>
             );
           })}
@@ -149,7 +216,16 @@ const UserInformation = () => {
       </div>
     </div>
   ) : (
-    <h3>Loading User...</h3>
+    <h3
+      style={{
+        height: '100%',
+        fontSize: '8vw',
+        alignSelf: 'center',
+        textAlign: 'center',
+      }}
+    >
+      Loading User...
+    </h3>
   );
 };
 

@@ -19,15 +19,15 @@ usersRouter.get('/:username', async (req, res) => {
   const user = await User.find({
     username: { $in: req.params.username },
   })
-    .populate('flashcards', {
-      front: 1,
-      back: 1,
-      set: 1,
+    .populate({
+      path: 'flashcards',
+      populate: {
+        path: 'set',
+      },
     })
     .populate('sets', {
       title: 1,
       date: 1,
-      flashcards: 1,
     })
     .exec();
   console.log(user);
