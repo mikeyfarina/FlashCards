@@ -25,7 +25,6 @@ const SetList = ({
       const sets = flashcardSets
         .filter((set) => set.title.includes(sidebarSearchText, 0))
         .sort((a, b) => {
-          console.log(a, b);
           return (
             a.title.indexOf(sidebarSearchText) -
             b.title.indexOf(sidebarSearchText)

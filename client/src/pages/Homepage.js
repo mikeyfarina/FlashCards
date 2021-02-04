@@ -1,12 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { ReactComponent as Image } from '../images/clipart/img1.svg';
+import Form from '../components/Form';
 
 const Homepage = ({ flashcardSets, user }) => {
   const [signupDisplayed, setSignupDisplayed] = useState(true);
   const [hideSignup, setHideSignup] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const [scrollAmount, setScrollAmount] = useState(0);
+  const [searchText, setSearchText] = useState('');
+  const [searchSets, setSearchSets] = useState([]);
+
   console.log(scrolling, scrollAmount);
 
   const homepageStyle = {
@@ -17,9 +21,9 @@ const Homepage = ({ flashcardSets, user }) => {
     overflowX: 'hidden',
   };
   const containerStyle = {
-    height: '75vh',
+    height: '82vh',
     width: '100vw',
-    margin: '10vh 0 0',
+
     position: 'relative',
   };
 
@@ -45,8 +49,8 @@ const Homepage = ({ flashcardSets, user }) => {
     boxShadow: '2px 5px 12px rgb(1, 1, 1, 0.2), 2px 5px 2px rgb(1, 1, 1, 0.1)',
     transition: 'all .1s linear',
     position: 'relative',
-    scrollSnapAlign: 'end',
-    scrollMarginBottom: '2.5vh',
+    scrollSnapAlign: 'start',
+    scrollMarginTop: '2.5vh',
   };
 
   const signupSectionStyle = {
@@ -60,7 +64,6 @@ const Homepage = ({ flashcardSets, user }) => {
     position: 'relative',
     transition: 'all .5s ease-out',
   };
-  console.log(flashcardSets);
 
   const history = useHistory();
 
@@ -118,6 +121,24 @@ const Homepage = ({ flashcardSets, user }) => {
     return () => clearInterval(interval);
   }, [scrolling]);
 
+  useEffect(() => {
+    setSearchSets(flashcardSets);
+  }, []);
+
+  useEffect(() => {
+    if (searchText === '') {
+      console.log('search empty', flashcardSets);
+      setSearchSets(flashcardSets);
+    } else {
+      const sets = flashcardSets
+        .filter((set) => set.title.includes(searchText, 0))
+        .sort((a, b) => {
+          return a.title.indexOf(searchText) - b.title.indexOf(searchText);
+        });
+      setSearchSets(sets);
+    }
+  }, [searchText]);
+
   const containerRef = useRef();
 
   console.log(containerRef);
@@ -159,12 +180,24 @@ const Homepage = ({ flashcardSets, user }) => {
       ) : (
         ''
       )}
-      <Link
-        to="/flashcards"
-        style={{ textDecoration: 'none', fontSize: '2vw' }}
-      >
-        All Flashcards
-      </Link>
+      <div style={{ height: '8vh' }}>
+        <input
+          type="text"
+          onChange={({ target }) => {
+            setSearchText(target.value);
+          }}
+          className="homepage__search"
+          style={{
+            margin: '1vh 10%',
+            fontSize: '2vw',
+            border: '3px #ececec solid',
+            borderRadius: '5px',
+            fontFamily: 'inherit',
+            padding: '0 1%',
+          }}
+          placeholder="search flashcard sets..."
+        />
+      </div>
       <div style={containerStyle}>
         <div
           className={'hover_section up'}
@@ -188,8 +221,8 @@ const Homepage = ({ flashcardSets, user }) => {
           style={collectionStyle}
           ref={containerRef}
         >
-          {flashcardSets ? (
-            flashcardSets.map((set) => (
+          {searchSets ? (
+            searchSets.map((set) => (
               <li key={set.id}>
                 <div
                   className={'user-list-item'}
