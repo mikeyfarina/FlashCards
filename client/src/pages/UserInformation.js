@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import userService from '../services/userService';
 import { useParams } from 'react-router-dom';
 import profilePhotos from '../utils/profilePhotoLoader';
-import FlashcardsDisplay from './FlashcardsDisplay';
-const UserInformation = () => {
+
+const UserInformation = ({ loggedInUser, loggedInUserId }) => {
   const [user, setUser] = useState(null);
   const [displayProfilePhotoOptions, setDisplayProfilePhotoOptions] = useState(
     false
   );
+
   const username = useParams().username;
-  console.log(user);
+  console.log(loggedInUserId);
   useEffect(() => {
     if (username) {
       console.log(username);
@@ -45,7 +46,7 @@ const UserInformation = () => {
   const basicInfoContainer = {
     padding: '5vh 5vw',
     display: 'grid',
-    gridTemplateColumns: 'auto .5fr 2fr',
+    gridTemplateColumns: '20vh .5fr 2fr',
     borderRadius: '8px',
     boxShadow: '0 15px 25px rgba(1,1,1,0.1)',
     height: '30vh',
@@ -55,12 +56,7 @@ const UserInformation = () => {
     alignItems: 'center',
     scrollSnapAlign: 'start',
     scrollMarginTop: '6vh',
-  };
-
-  const profilePhotoStyle = {
-    height: '20vh',
-    borderRadius: '25px',
-    boxShadow: '0px 0px 45px rgba(1,1,1,.35)',
+    position: 'relative',
   };
 
   const basicStatsStyle = {
@@ -163,11 +159,18 @@ const UserInformation = () => {
       <div className={'user-info__basic'} style={basicInfoContainer}>
         <div
           className={'user-info__basic__photo'}
-          style={{ position: 'relative' }}
+          style={{
+            position: 'relative',
+            height: '20vh',
+            borderRadius: '25px',
+            overflow: 'hidden',
+            boxShadow: '0px 0px 45px rgba(1,1,1,.35)',
+            transition: 'all .5s ease-in-out',
+          }}
         >
           <img
+            style={{ height: '100%', width: '100%' }}
             src={profilePhotos[user.photoNumber]}
-            style={profilePhotoStyle}
           />
           <div
             style={{
@@ -176,30 +179,64 @@ const UserInformation = () => {
               height: '3vh',
               width: '100%',
               background:
-                'linear-gradient(180deg, rgba(1,1,1,.7) 0%, rgba(1,1,1,.05) 55%)',
+                'linear-gradient(0deg, rgba(1,1,1,.5) 0%, rgba(1,1,1,.0) 85%)',
               color: 'white',
               transition: 'all .25s ease-in',
-
-              borderRadius: '25px',
+              textAlign: 'center',
+              alignSelf: 'center',
+              cursor: 'pointer',
             }}
             onClick={() => {
-              setDisplayProfilePhotoOptions(true);
+              setDisplayProfilePhotoOptions(!displayProfilePhotoOptions);
             }}
           >
             Change Photo
           </div>
-          {displayProfilePhotoOptions && (
-            <div
-              className={'photo-options-container'}
-              style={{
-                width: '20vw',
-                height: '10vh',
-              }}
-            >
-              choose a photo
-            </div>
-          )}
         </div>
+        {displayProfilePhotoOptions && (
+          <div
+            className={'photo-options-container'}
+            style={{
+              width: '34vh',
+              height: '23vh',
+              zIndex: '3',
+              position: 'absolute',
+              left: '28vh',
+              background: 'aliceblue',
+              display: 'grid',
+              gridGap: '1vh',
+              gridTemplateColumns: 'repeat(3, 10vh)',
+              gridTemplateRows: 'repeat(2, 10vh)',
+              padding: '1vh',
+              border: '#646c80 2px solid',
+              borderRadius: '5px',
+            }}
+          >
+            {profilePhotos.map((photo, indexOfPhoto) => (
+              <img
+                key={Math.random() * 100}
+                src={photo}
+                className={'profile-photo-option'}
+                style={{
+                  height: '100%',
+                  width: '100%',
+                  border: '#ececec 2px solid',
+                  borderRadius: '5px',
+                  boxSizing: 'border-box',
+                  transition: 'all .1s ease-in',
+                }}
+                onClick={() => {
+                  if (user.username === loggedInUser.username) {
+                    userService.changeProfilePhoto(
+                      loggedInUserId,
+                      indexOfPhoto
+                    );
+                  }
+                }}
+              />
+            ))}
+          </div>
+        )}
         <div
           className={'user-info__basic__names'}
           style={{ marginLeft: '4vw' }}
@@ -306,7 +343,7 @@ const UserInformation = () => {
           alignSelf: 'center',
           fontSize: '5vw',
           marginBottom: '25vh',
-          background: 'white',
+          background: 'transparent',
         }}
       >
         Loading User...

@@ -192,7 +192,7 @@ const Homepage = ({ flashcardSets, user }) => {
           className="homepage__search"
           style={{
             margin: '1vh 10%',
-            fontSize: '2vw',
+            fontSize: '1.6vw',
             border: '3px #ececec solid',
             borderRadius: '5px',
             fontFamily: 'inherit',

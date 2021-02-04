@@ -70,15 +70,25 @@ input {
 li {
   list-style-type: none;
 }
-
 .hover-section:hover {
   background: rgba(0, 0, 0, 0.64);
 }
+.profile-photo-option:hover {
+  transform: translateY(-0.5vh) scaleY(1.02) scaleX(1.02);
+  opacity: 0.95;
+  cursor: pointer;
+}
+
+.profile-photo-option:active {
+  transform: translateY(0vh) scaleY(1) scaleX(1);
+  opacity: 0.95;
+  cursor: pointer;
+}
+
 .user-list-item:hover {
   transform: scaleY(1.05) scaleX(1.05);
   cursor: pointer;
 }
-
 .user-list-item::before {
   /* Position the pseudo-element. */
   content: ' ';
@@ -95,7 +105,6 @@ li {
   opacity: 0;
   transition: opacity 0.15s;
 }
-
 .user-list-item:hover::before {
   /* Show the pseudo-element on hover. */
   opacity: 1;

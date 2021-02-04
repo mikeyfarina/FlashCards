@@ -10,9 +10,11 @@ import setService from './services/setService';
 
 import Togglable from './components/Togglable';
 import LoginForm from './components/LoginForm';
+import userService from './services/userService';
 
 const App = () => {
   const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState(null);
   const [flashcardSets, setFlashcardSets] = useState(null);
 
   useEffect(() => {
@@ -34,6 +36,8 @@ const App = () => {
       setUser(user);
       flashcardService.setToken(user.token);
       setService.setToken(user.token);
+      const userID = userService.findAccountByUsername(user.username).id;
+      setUserId(userID);
     }
   }, []);
 
@@ -104,7 +108,7 @@ const App = () => {
           <Homepage flashcardSets={flashcardSets} user={user} />
         </Route>
         <Route exact path={'/users/:username'}>
-          <UserInformation />
+          <UserInformation loggedInUser={user} loggedInUserId={userId} />
         </Route>
         <Route path={'/flashcards/:id'}>
           <FlashcardsDisplay
