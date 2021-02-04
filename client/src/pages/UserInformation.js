@@ -5,6 +5,9 @@ import profilePhotos from '../utils/profilePhotoLoader';
 import FlashcardsDisplay from './FlashcardsDisplay';
 const UserInformation = () => {
   const [user, setUser] = useState(null);
+  const [displayProfilePhotoOptions, setDisplayProfilePhotoOptions] = useState(
+    false
+  );
   const username = useParams().username;
   console.log(user);
   useEffect(() => {
@@ -57,6 +60,7 @@ const UserInformation = () => {
   const profilePhotoStyle = {
     height: '20vh',
     borderRadius: '25px',
+    boxShadow: '0px 0px 45px rgba(1,1,1,.35)',
   };
 
   const basicStatsStyle = {
@@ -71,6 +75,7 @@ const UserInformation = () => {
     background:
       'radial-gradient(circle, rgba(235,235,235,1) 0%, rgba(255,255,255,1) 100%)',
     alignSelf: 'center',
+    boxShadow: '0px 0px 45px rgba(1,1,1,.35)',
   };
 
   const statNumberStyle = {
@@ -156,11 +161,44 @@ const UserInformation = () => {
   return user ? (
     <div className={'user-info'} style={userInfoStyle}>
       <div className={'user-info__basic'} style={basicInfoContainer}>
-        <div className={'user-info__basic__photo'}>
+        <div
+          className={'user-info__basic__photo'}
+          style={{ position: 'relative' }}
+        >
           <img
             src={profilePhotos[user.photoNumber]}
             style={profilePhotoStyle}
           />
+          <div
+            style={{
+              position: 'absolute',
+              bottom: '0',
+              height: '3vh',
+              width: '100%',
+              background:
+                'linear-gradient(180deg, rgba(1,1,1,.7) 0%, rgba(1,1,1,.05) 55%)',
+              color: 'white',
+              transition: 'all .25s ease-in',
+
+              borderRadius: '25px',
+            }}
+            onClick={() => {
+              setDisplayProfilePhotoOptions(true);
+            }}
+          >
+            Change Photo
+          </div>
+          {displayProfilePhotoOptions && (
+            <div
+              className={'photo-options-container'}
+              style={{
+                width: '20vw',
+                height: '10vh',
+              }}
+            >
+              choose a photo
+            </div>
+          )}
         </div>
         <div
           className={'user-info__basic__names'}
@@ -256,16 +294,24 @@ const UserInformation = () => {
       </div>
     </div>
   ) : (
-    <h3
+    <div
       style={{
-        height: '100%',
-        fontSize: '8vw',
-        alignSelf: 'center',
-        textAlign: 'center',
+        display: 'flex',
+        height: '90vh',
+        justifyContent: 'center',
       }}
     >
-      Loading User...
-    </h3>
+      <div
+        style={{
+          alignSelf: 'center',
+          fontSize: '5vw',
+          marginBottom: '25vh',
+          background: 'white',
+        }}
+      >
+        Loading User...
+      </div>
+    </div>
   );
 };
 
