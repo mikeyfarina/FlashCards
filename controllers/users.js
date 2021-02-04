@@ -66,15 +66,15 @@ usersRouter.post('/', async (req, res) => {
   res.json(savedUser);
 });
 
-usersRouter.patch('/:id/profile', async (req, res) => {
+usersRouter.patch('/:username/profile', async (req, res) => {
   const randomProfilePhotoIndex = Math.floor(Math.random() * Math.floor(6));
+  const photoIndex = req.body.photoIndex.toString() || randomProfilePhotoIndex;
 
-  const photoNumber = req.body.photoNumber || randomProfilePhotoIndex;
-  const user = await User.findByIdAndUpdate(
-    { _id: req.params.id },
-    { photoNumber: photoNumber }
+  const user = await User.findOneAndUpdate(
+    { username: req.params.username },
+    { photoNumber: Number(photoIndex) },
+    { new: true }
   );
-
   res.json(user);
 });
 

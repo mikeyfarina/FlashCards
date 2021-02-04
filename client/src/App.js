@@ -108,7 +108,7 @@ const App = () => {
           <Homepage flashcardSets={flashcardSets} user={user} />
         </Route>
         <Route exact path={'/users/:username'}>
-          <UserInformation loggedInUser={user} loggedInUserId={userId} />
+          <UserInformation loggedInUser={user} />
         </Route>
         <Route path={'/flashcards/:id'}>
           <FlashcardsDisplay

@@ -3,14 +3,14 @@ import userService from '../services/userService';
 import { useParams } from 'react-router-dom';
 import profilePhotos from '../utils/profilePhotoLoader';
 
-const UserInformation = ({ loggedInUser, loggedInUserId }) => {
-  const [user, setUser] = useState(null);
+const UserInformation = ({ loggedInUser }) => {
+  const [desiredUser, setDesiredUser] = useState(null);
   const [displayProfilePhotoOptions, setDisplayProfilePhotoOptions] = useState(
     false
   );
+  const [tempPhotoOption, setTempPhotoOption] = useState(0);
 
   const username = useParams().username;
-  console.log(loggedInUserId);
   useEffect(() => {
     if (username) {
       console.log(username);
@@ -18,18 +18,23 @@ const UserInformation = ({ loggedInUser, loggedInUserId }) => {
         .findAccountByUsername(username)
         .then((foundUser) => {
           console.log(foundUser);
-          setUser(foundUser[0]);
+          setDesiredUser(foundUser[0]);
         })
         .catch((err) => console.log(err));
     }
   }, []);
 
   useEffect(() => {
-    if (user && !user.photoNumber) {
-      userService.changeProfilePhoto(user.id);
+    if (loggedInUser) {
+      console.log(tempPhotoOption);
+      userService
+        .changeProfilePhoto(loggedInUser.username, tempPhotoOption)
+        .then((u) => {
+          console.log(u, 'set pp');
+        });
     }
-  }, [user]);
-  console.log(user);
+  }, [tempPhotoOption]);
+  console.log(loggedInUser, desiredUser);
 
   const userInfoStyle = {
     height: '90vh',
@@ -153,8 +158,7 @@ const UserInformation = ({ loggedInUser, loggedInUserId }) => {
     justifyContent: 'center',
   };
 
-  console.log(user);
-  return user ? (
+  return desiredUser ? (
     <div className={'user-info'} style={userInfoStyle}>
       <div className={'user-info__basic'} style={basicInfoContainer}>
         <div
@@ -169,81 +173,92 @@ const UserInformation = ({ loggedInUser, loggedInUserId }) => {
           }}
         >
           <img
-            style={{ height: '100%', width: '100%' }}
-            src={profilePhotos[user.photoNumber]}
-          />
-          <div
             style={{
-              position: 'absolute',
-              bottom: '0',
-              height: '3vh',
+              height: '100%',
               width: '100%',
-              background:
-                'linear-gradient(0deg, rgba(1,1,1,.5) 0%, rgba(1,1,1,.0) 85%)',
-              color: 'white',
-              transition: 'all .25s ease-in',
-              textAlign: 'center',
-              alignSelf: 'center',
-              cursor: 'pointer',
             }}
-            onClick={() => {
-              setDisplayProfilePhotoOptions(!displayProfilePhotoOptions);
-            }}
-          >
-            Change Photo
-          </div>
+            src={
+              profilePhotos[
+                `${tempPhotoOption.toString() || desiredUser.photoNumber}`
+              ]
+            }
+          />
+          {loggedInUser.username === desiredUser.username && (
+            <div
+              className={'change-profile-button'}
+              style={{
+                position: 'absolute',
+                bottom: '0',
+                width: '100%',
+                color: 'white',
+                transition: 'all .25s ease-in',
+                textAlign: 'center',
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                setDisplayProfilePhotoOptions(!displayProfilePhotoOptions);
+              }}
+            >
+              {displayProfilePhotoOptions ? 'Close Window' : 'Change Photo'}
+            </div>
+          )}
         </div>
-        {displayProfilePhotoOptions && (
-          <div
-            className={'photo-options-container'}
-            style={{
-              width: '34vh',
-              height: '23vh',
-              zIndex: '3',
-              position: 'absolute',
-              left: '28vh',
-              background: 'aliceblue',
-              display: 'grid',
-              gridGap: '1vh',
-              gridTemplateColumns: 'repeat(3, 10vh)',
-              gridTemplateRows: 'repeat(2, 10vh)',
-              padding: '1vh',
-              border: '#646c80 2px solid',
-              borderRadius: '5px',
-            }}
-          >
-            {profilePhotos.map((photo, indexOfPhoto) => (
-              <img
-                key={Math.random() * 100}
-                src={photo}
-                className={'profile-photo-option'}
-                style={{
-                  height: '100%',
-                  width: '100%',
-                  border: '#ececec 2px solid',
-                  borderRadius: '5px',
-                  boxSizing: 'border-box',
-                  transition: 'all .1s ease-in',
-                }}
-                onClick={() => {
-                  if (user.username === loggedInUser.username) {
-                    userService.changeProfilePhoto(
-                      loggedInUserId,
-                      indexOfPhoto
-                    );
-                  }
-                }}
-              />
-            ))}
-          </div>
-        )}
+
+        <div
+          className={
+            displayProfilePhotoOptions
+              ? 'displaying photo-options-container'
+              : 'photo-options-container'
+          }
+          style={{
+            width: '34vh',
+            zIndex: '3',
+            position: 'absolute',
+            left: '30vh',
+            background: 'aliceblue',
+            display: 'grid',
+            gridGap: '1vh',
+            gridTemplateColumns: 'repeat(3, 10vh)',
+            gridTemplateRows: 'repeat(2, 10vh)',
+            padding: '1vh',
+            border: '#646c80 2px solid',
+            borderRadius: '5px',
+            transition: 'all .5s ease-in',
+          }}
+        >
+          {profilePhotos.map((photo, indexOfPhoto) => (
+            <img
+              key={photo}
+              src={photo}
+              className={
+                displayProfilePhotoOptions
+                  ? 'displaying profile-photo-option'
+                  : 'profile-photo-option'
+              }
+              style={{
+                height: '100%',
+                width: '100%',
+                border: '#ececec 2px solid',
+                borderRadius: '5px',
+                boxSizing: 'border-box',
+                transition: 'all .1s ease-in',
+              }}
+              onClick={() => {
+                if (desiredUser.username === loggedInUser.username) {
+                  console.log(indexOfPhoto);
+                  setTempPhotoOption(indexOfPhoto);
+                }
+              }}
+            />
+          ))}
+        </div>
         <div
           className={'user-info__basic__names'}
           style={{ marginLeft: '4vw' }}
         >
-          <h1>{user.name}</h1>
+          <h1>{desiredUser.name}</h1>
           <h3 style={{ fontStyle: 'italic', marginTop: 'revert' }}>
-            {user.username}
+            {desiredUser.username}
           </h3>
         </div>
         <div className={'user-info__basic__stats'} style={basicStatsStyle}>
@@ -252,7 +267,7 @@ const UserInformation = ({ loggedInUser, loggedInUserId }) => {
               Sets:
             </h3>
             <h3 style={{ ...statNumberStyle, gridArea: '2 / 1 / 3 / 2' }}>
-              {user.sets.length}
+              {desiredUser.sets.length}
             </h3>
           </div>
           <div className={'stats__flashcards'} style={{ display: 'contents' }}>
@@ -260,7 +275,7 @@ const UserInformation = ({ loggedInUser, loggedInUserId }) => {
               Flashcards:
             </h3>
             <h3 style={{ ...statNumberStyle, gridArea: '2 / 2 / 3 / 3' }}>
-              {user.flashcards.length}
+              {desiredUser.flashcards.length}
             </h3>
           </div>
         </div>
@@ -271,7 +286,7 @@ const UserInformation = ({ loggedInUser, loggedInUserId }) => {
           className={'setDisplay'}
           style={{ ...displayStyle, ...setDisplayStyle }}
         >
-          {user.sets.map((set) => {
+          {desiredUser.sets.map((set) => {
             return (
               <div
                 className={'setItem user-list-item'}
@@ -304,7 +319,7 @@ const UserInformation = ({ loggedInUser, loggedInUserId }) => {
           className={'setDisplay'}
           style={{ ...flashcardsDisplayStyle, ...displayStyle }}
         >
-          {user.flashcards.map((flashcard) => {
+          {desiredUser.flashcards.map((flashcard) => {
             console.log(flashcard);
             return (
               <div

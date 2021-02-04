@@ -11,8 +11,8 @@ const findAccountByUsername = async (username) => {
   return response.data;
 };
 
-const changeProfilePhoto = async (id, photoIndex) => {
-  const response = await axios.patch(`${baseUrl}/${id}/profile`, {
+const changeProfilePhoto = async (username, photoIndex) => {
+  const response = await axios.patch(`${baseUrl}/${username}/profile`, {
     photoIndex,
   });
   return response.data;

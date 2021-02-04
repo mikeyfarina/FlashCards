@@ -10,7 +10,7 @@ Content-Type: application/json
   "name": "test"
 }
 ###
-patch http://localhost:3001/api/users/601b9ae8811f6e23c5bc865d/profile
+patch http://localhost:3001/api/users/random-user/profile
 Content-Type: application/json
 
 {

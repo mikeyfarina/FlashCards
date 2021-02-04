@@ -73,6 +73,42 @@ li {
 .hover-section:hover {
   background: rgba(0, 0, 0, 0.64);
 }
+.change-profile-button {
+  transform: translateY(4vh);
+  height: 13vh;
+  padding-top: 14.5vh;
+  background: linear-gradient(
+    0deg,
+    rgba(1, 1, 1, 0.35) 0%,
+    rgba(1, 1, 1, 0) 55%
+  );
+}
+.change-profile-button:hover {
+  transform: translateY(0);
+  padding-top: 10vh;
+}
+
+.photo-options-container {
+  height: 0;
+  opacity: 0;
+  transform: translateY(10vh);
+}
+
+.displaying.photo-options-container {
+  opacity: 1;
+  height: 23vh;
+  transform: translateY(0vh);
+  overflow: hidden;
+}
+
+.profile-photo-option {
+  opacity: 0;
+}
+
+.displaying.profile-photo-option {
+  opacity: 1;
+}
+
 .profile-photo-option:hover {
   transform: translateY(-0.5vh) scaleY(1.02) scaleX(1.02);
   opacity: 0.95;
