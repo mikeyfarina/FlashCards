@@ -24,6 +24,7 @@ const userSchema = new mongoose.Schema({
   ],
   photoNumber: {
     type: Number,
+    ref: 'PhotoNumber',
   },
 });
 

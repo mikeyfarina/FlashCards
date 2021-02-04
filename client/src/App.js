@@ -83,11 +83,8 @@ const App = () => {
   const flashcardSetMatch = useRouteMatch('/flashcards/:id');
   const setIndex =
     flashcardSetMatch && flashcardSets
-      ? flashcardSets.findIndex(
-          (set) => set.id === Number(flashcardSetMatch.params.id)
-        )
+      ? flashcardSets.findIndex((set) => set.id === flashcardSetMatch.params.id)
       : 0;
-  console.log(setIndex);
 
   return (
     <div>
@@ -109,19 +106,23 @@ const App = () => {
         <Route exact path={'/users/:username'}>
           <UserInformation />
         </Route>
-        <Route path={'/flashcards/:id'}></Route>
+        <Route path={'/flashcards/:id'}>
+          <FlashcardsDisplay
+            flashcardSets={flashcardSets}
+            setFlashcardSets={setFlashcardSets}
+            desiredSetIndex={setIndex}
+          />
+        </Route>
         <Route path={'/flashcards'}>
           <FlashcardsDisplay
             flashcardSets={flashcardSets}
             setFlashcardSets={setFlashcardSets}
-            setIndex={setIndex}
           />
         </Route>
         <Route exact path={'/'}>
           <FlashcardsDisplay
             flashcardSets={flashcardSets}
             setFlashcardSets={setFlashcardSets}
-            setIndex={setIndex}
           />
         </Route>
       </Switch>

@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import setService from '../services/setService';
 
 import Button from './Button';
@@ -22,12 +23,15 @@ const Set = ({
   const [indexOfSet] = useState(index);
   const [currentFlashcardsInSet, setCurrentFlashcardsInSet] = useState(null);
 
+  const history = useHistory();
+
+  const getCurrentSetFlashcards = async () => {
+    const flashcardsOfSet = await setService.getAllFlashcardsInSet(set.id);
+    setCurrentFlashcardsInSet(flashcardsOfSet);
+    setSetLength(flashcardsOfSet.length);
+  };
+
   useEffect(() => {
-    async function getCurrentSetFlashcards() {
-      const flashcardsOfSet = await setService.getAllFlashcardsInSet(set.id);
-      setCurrentFlashcardsInSet(flashcardsOfSet);
-      setSetLength(flashcardsOfSet.length);
-    }
     getCurrentSetFlashcards();
   }, [flashcards, set.id]);
 
@@ -39,6 +43,7 @@ const Set = ({
     const newIndex = flashcardSets.findIndex((s) => set.id === s.id);
     setCurrentFlashcardIndex(0);
     setCurrentSetIndex(newIndex);
+    history.push(`/flashcards/${set.id}/`);
   };
 
   // switch edit mode when edit title button is clicked
@@ -80,8 +85,15 @@ const Set = ({
     });
   };
 
+  const setRef = useRef();
+  useEffect(() => {
+    if (index === currentSetIndex) {
+      setRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [currentSetIndex, index]);
+
   return (
-    <div className="sidebar__setlist__set">
+    <div className="sidebar__setlist__set" ref={setRef}>
       <div className="set__header" onClick={handleTitleClick}>
         <input
           className={'set__header__title'}
@@ -114,7 +126,13 @@ const Set = ({
           <span>{'length: ' + setLength}</span>
         </div>
         <div className="set__creator">
-          <span>{setCreator}</span>
+          <Link
+            to={`/users/${set.username}`}
+            className={'user-link'}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <strong>{set.username}</strong>
+          </Link>
         </div>
         <hr className={'divide-line'} />
       </div>

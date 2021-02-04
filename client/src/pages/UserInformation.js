@@ -6,7 +6,7 @@ import FlashcardsDisplay from './FlashcardsDisplay';
 const UserInformation = () => {
   const [user, setUser] = useState(null);
   const username = useParams().username;
-  console.log(username);
+  console.log(user);
   useEffect(() => {
     if (username) {
       console.log(username);
@@ -20,6 +20,11 @@ const UserInformation = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (user && !user.photoNumber) {
+      userService.changeProfilePhoto(user.id);
+    }
+  }, [user]);
   console.log(user);
 
   const userInfoStyle = {
@@ -152,7 +157,10 @@ const UserInformation = () => {
     <div className={'user-info'} style={userInfoStyle}>
       <div className={'user-info__basic'} style={basicInfoContainer}>
         <div className={'user-info__basic__photo'}>
-          <img src={profilePhotos[3]} style={profilePhotoStyle} />
+          <img
+            src={profilePhotos[user.photoNumber]}
+            style={profilePhotoStyle}
+          />
         </div>
         <div
           className={'user-info__basic__names'}

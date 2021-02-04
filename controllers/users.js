@@ -1,6 +1,9 @@
 const usersRouter = require('express').Router();
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
+const ObjectId = require('mongodb').ObjectId;
+const Flashcard = require('../models/flashcard');
+const Set = require('../models/set');
 
 usersRouter.get('/', async (req, res) => {
   const users = await User.find({})
@@ -50,13 +53,29 @@ usersRouter.post('/', async (req, res) => {
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(body.password, saltRounds);
 
+  const randomProfilePhotoIndex = Math.floor(Math.random() * Math.floor(6));
+
   const user = new User({
     username: body.username,
     name: body.name,
     passwordHash,
+    photoNumber: randomProfilePhotoIndex,
   });
+
   const savedUser = await user.save().catch((err) => res.json(err));
   res.json(savedUser);
+});
+
+usersRouter.patch('/:id/profile', async (req, res) => {
+  const randomProfilePhotoIndex = Math.floor(Math.random() * Math.floor(6));
+
+  const photoNumber = req.body.photoNumber || randomProfilePhotoIndex;
+  const user = await User.findByIdAndUpdate(
+    { _id: req.params.id },
+    { photoNumber: photoNumber }
+  );
+
+  res.json(user);
 });
 
 usersRouter.delete('/:id', async (req, res) => {

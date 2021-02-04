@@ -11,4 +11,11 @@ const findAccountByUsername = async (username) => {
   return response.data;
 };
 
-export default { createAccount, findAccountByUsername };
+const changeProfilePhoto = async (id, photoIndex) => {
+  const response = await axios.patch(`${baseUrl}/${id}/profile`, {
+    photoIndex,
+  });
+  return response.data;
+};
+
+export default { createAccount, findAccountByUsername, changeProfilePhoto };

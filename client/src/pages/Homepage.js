@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { ReactComponent as Image } from '../images/clipart/img1.svg';
 import Form from '../components/Form';
+import setService from '../services/setService';
 
 const Homepage = ({ flashcardSets, user }) => {
   const [signupDisplayed, setSignupDisplayed] = useState(true);
@@ -122,7 +123,9 @@ const Homepage = ({ flashcardSets, user }) => {
   }, [scrolling]);
 
   useEffect(() => {
-    setSearchSets(flashcardSets);
+    setService.getAllSets().then((sets) => {
+      setSearchSets(sets);
+    });
   }, []);
 
   useEffect(() => {

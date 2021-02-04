@@ -102,7 +102,14 @@ li {
   z-index: -1;
   border-radius: 8px;
 }
-
+.user-link {
+  color: white;
+  text-decoration: none;
+}
+.user-link:hover {
+  cursor: point;
+  text-decoration: underline;
+}
 .user-link-from-set {
   text-decoration: none;
   color: black;
@@ -139,7 +146,7 @@ li {
   display: grid;
   float: right;
   align-self: center;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 5vw;
   background: #ececec;
   padding: 1vh 2%;
   white-space: nowrap;
