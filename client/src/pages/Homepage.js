@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { ReactComponent as Image } from '../images/clipart/img1.svg';
 
 const Homepage = ({ flashcardSets, user }) => {
   const [signupDisplayed, setSignupDisplayed] = useState(true);
   const [hideSignup, setHideSignup] = useState(false);
+  const [scrolling, setScrolling] = useState(false);
+  const [scrollAmount, setScrollAmount] = useState(0);
+  console.log(scrolling, scrollAmount);
 
   const homepageStyle = {
     background: 'white',
@@ -13,31 +16,37 @@ const Homepage = ({ flashcardSets, user }) => {
     overflowY: 'hidden',
     overflowX: 'hidden',
   };
+  const containerStyle = {
+    height: '75vh',
+    width: '100vw',
+    margin: '10vh 0 0',
+    position: 'relative',
+  };
+
   const collectionStyle = {
-    display: 'grid',
-    gridTemplateRows: 'repeat(3, 33.33%)',
-    gridTemplateColumns: 'repeat(auto, 33.3vw)',
-    gridAutoFlow: 'column',
+    display: 'inline-block',
     background: 'rgba(99, 108, 156, .1)',
-    height: '80%',
-    gridAutoColumns: '33.3vw',
-    margin: '5% 0',
+    height: '100%',
+    width: '100%',
     padding: '0',
     borderRadius: '5px',
-    overflowX: 'scroll',
-    position: 'relative',
+    overflowY: 'scroll',
+    scrollSnapType: 'y mandatory',
   };
   const setStyle = {
     float: 'left',
-    minWidth: '90%',
-    minHeight: '92%',
-    margin: '2% 5%',
+    minWidth: '30vw',
+    height: '20vh',
+    margin: '2.5vh 1.5vw',
     background: 'white',
-
-    padding: '2% 4%',
+    zIndex: '1',
+    padding: '1% 2%',
     borderRadius: '8px',
     boxShadow: '2px 5px 12px rgb(1, 1, 1, 0.2), 2px 5px 2px rgb(1, 1, 1, 0.1)',
-    scrollSnapAlign: 'start',
+    transition: 'all .1s linear',
+    position: 'relative',
+    scrollSnapAlign: 'end',
+    scrollMarginBottom: '2.5vh',
   };
 
   const signupSectionStyle = {
@@ -90,10 +99,28 @@ const Homepage = ({ flashcardSets, user }) => {
 
   const hoverScrollDivStyle = {
     position: 'absolute',
-    height: '100%',
-    width: '15%',
-    color: 'lightblue',
+    height: '20%',
+    width: '100%',
+    zIndex: '0',
   };
+
+  const scrollAction = () => {
+    console.log('scrolling: ', scrollAmount);
+    containerRef.current.scrollBy({
+      top: scrollAmount,
+      behavior: 'smooth',
+    });
+  };
+
+  useEffect(() => {
+    let interval;
+    if (scrolling) interval = setInterval(scrollAction, 250);
+    return () => clearInterval(interval);
+  }, [scrolling]);
+
+  const containerRef = useRef();
+
+  console.log(containerRef);
 
   return (
     <div style={homepageStyle}>
@@ -138,41 +165,102 @@ const Homepage = ({ flashcardSets, user }) => {
       >
         All Flashcards
       </Link>
-      <div style={collectionStyle}>
+      <div style={containerStyle}>
         <div
-          className={'hover_section left'}
-          style={{ ...hoverScrollDivStyle, left: '0' }}
+          className={'hover_section up'}
+          style={{
+            ...hoverScrollDivStyle,
+            top: '0',
+            background:
+              'linear-gradient(rgba(0, 0, 0, 0.24) 0%, rgba(99, 108, 156, 0.01) 97%)',
+          }}
+          onMouseEnter={() => {
+            setScrolling(true);
+            setScrollAmount(scrollAmount - 20);
+          }}
+          onMouseLeave={() => {
+            setScrolling(false);
+            setScrollAmount(0);
+          }}
         ></div>
-        {flashcardSets ? (
-          flashcardSets.map((set) => (
-            <li key={set.id}>
-              <div
-                className={'user-list-item'}
-                style={setStyle}
-                onClick={() => {
-                  history.push(`/flashcards/${set.id}`);
-                }}
-              >
-                <h2 style={{ marginBottom: '1vh' }}>{set.title}</h2>
-                {set.flashcards.map((card, i) => {
-                  if (!(i < 3)) return;
-                  return (
-                    <div key={card.id}>
-                      <h5>{card.front}</h5>
-                    </div>
-                  );
-                })}
-              </div>
-            </li>
-          ))
-        ) : (
-          <div>{'Loading Flashcard Sets'}</div>
-        )}
+        <div
+          className={'collection-container'}
+          style={collectionStyle}
+          ref={containerRef}
+        >
+          {flashcardSets ? (
+            flashcardSets.map((set) => (
+              <li key={set.id}>
+                <div
+                  className={'user-list-item'}
+                  style={setStyle}
+                  onClick={() => {
+                    history.push(`/flashcards/${set.id}`);
+                  }}
+                >
+                  <h2 style={{ marginBottom: '1vh' }}>{set.title}</h2>
+                  {set.flashcards.map((card, i) => {
+                    if (!(i < 3)) return;
+                    return (
+                      <div key={card.id}>
+                        <h5>{card.front}</h5>
+                      </div>
+                    );
+                  })}
+                  <h5
+                    style={{
+                      position: 'absolute',
+                      bottom: '18%',
+                      right: '4%',
+                      color: 'darkgray',
+                      fontWeight: 'lighter',
+                    }}
+                  >
+                    Size: <strong>{set.flashcards.length || 0}</strong>
+                  </h5>
+                  <h5
+                    style={{
+                      position: 'absolute',
+                      bottom: '6%',
+                      right: '4%',
+                      color: 'darkgray',
+                      fontWeight: 'lighter',
+                    }}
+                  >
+                    Created By:{' '}
+                    <Link
+                      to={`/users/${set.username}`}
+                      className={'user-link-from-set'}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <strong>{set.username}</strong>
+                    </Link>
+                  </h5>
+                </div>
+              </li>
+            ))
+          ) : (
+            <div>{'Loading Flashcard Sets'}</div>
+          )}
+        </div>
+        <div
+          className={'hover_section down'}
+          style={{
+            ...hoverScrollDivStyle,
+            bottom: '0',
+            background:
+              'linear-gradient(0deg, rgba(0, 0, 0, 0.24) 0%, rgba(99, 108, 156, 0.01) 97%)',
+          }}
+          onMouseEnter={() => {
+            setScrollAmount(scrollAmount + 20);
+            setScrolling(true);
+          }}
+          onMouseLeave={() => {
+            setScrollAmount(0);
+            setScrolling(false);
+          }}
+        ></div>
       </div>
-      <div
-        className={'hover_section right'}
-        style={{ ...hoverScrollDivStyle, right: '0' }}
-      ></div>
     </div>
   );
 };

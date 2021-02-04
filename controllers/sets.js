@@ -10,10 +10,7 @@ setsRouter.get('/', async (req, res) => {
       front: 1,
       back: 1,
     })
-    .populate('users', {
-      name: 1,
-      username: 1,
-    });
+    .populate('users', { name: 1 });
   res.json(sets);
 });
 
