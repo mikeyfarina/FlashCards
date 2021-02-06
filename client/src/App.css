@@ -507,12 +507,15 @@ li {
   overflow: hidden;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  transition: all 0.05s linear;
 }
 
 .set__preview__item:hover {
   background: #646c80;
   border-radius: 3px;
   cursor: pointer;
+  margin: 2%;
+  padding: 1% 0.5%;
 }
 
 .current-flashcard {
@@ -520,12 +523,16 @@ li {
   border-radius: 3px;
   color: #646c80;
   cursor: pointer;
+  margin: 1%;
+  padding: 1%;
+  transition: all 0.1s ease-in;
 }
 
 .current-flashcard:hover {
-  box-sizing: border-box;
   background: #f0df9b;
-  transition: background 0.1s ease-in;
+  margin: 1%;
+  padding: 1% 1.5%;
+  width: 98%;
 }
 
 .flashcards-display {
@@ -553,7 +560,7 @@ li {
 .button-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  width: 25%;
+  width: 40vw;
 }
 
 .new-flashcard-button,
@@ -700,7 +707,7 @@ li {
   }
   .main-section {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 10vh 50vh 35vh;
+    grid-template-rows: 8vh 52vh 35vh;
     height: 95vh;
     max-height: 95vh;
   }
@@ -786,6 +793,7 @@ li {
   }
   .set__preview__item {
     max-height: 20%;
+    white-space: normal;
   }
   .sidebar__header {
     width: 101%;
@@ -832,6 +840,7 @@ li {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 2fr 1fr;
     width: 95%;
+    height: 100%;
     max-height: 100%;
     margin: 0 auto;
   }
@@ -840,6 +849,7 @@ li {
     width: 100%;
     padding-top: 0;
     height: 90%;
+    margin: auto;
   }
   .flashcard {
     width: 95%;
@@ -945,7 +955,7 @@ li {
   }
   .flashcard-container {
     width: 90%;
-    margin: 0;
+    margin: auto;
     height: 45%;
   }
   .change-card-button {

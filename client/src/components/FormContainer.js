@@ -10,7 +10,7 @@ const FormContainer = (props) => {
     padding: '5vh 5vw',
     borderRadius: '10px',
     boxShadow: '0 0 55px rgba(1, 1, 1, 0.4), 0 0 5px rgba(1, 1, 1, .5)',
-    margin: '12.5vh auto',
+    margin: '5vh auto',
     alignItems: 'center',
   };
 

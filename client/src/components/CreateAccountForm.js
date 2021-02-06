@@ -156,7 +156,9 @@ const CreateAccountForm = ({ setCreateAccount, setUser }) => {
         <p style={{ marginTop: 'auto' }}>Already have an account?</p>
         <button
           className="login-form-button"
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
+            history.push('/home/login');
             setCreateAccount(false);
           }}
         >
