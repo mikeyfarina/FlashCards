@@ -11,6 +11,7 @@ const Homepage = ({ flashcardSets, user }) => {
   const [scrollAmount, setScrollAmount] = useState(0);
   const [searchText, setSearchText] = useState('');
   const [searchSets, setSearchSets] = useState([]);
+  const [hover, setHover] = useState(false);
 
   const homepageStyle = {
     background: 'white',
@@ -39,6 +40,7 @@ const Homepage = ({ flashcardSets, user }) => {
   const setStyle = {
     float: 'left',
     minWidth: '30vw',
+    maxWidth: '30vw',
     height: '20vh',
     margin: '2.5vh 1.4vw',
     background: 'white',
@@ -250,21 +252,46 @@ const Homepage = ({ flashcardSets, user }) => {
             searchSets.map((set) => (
               <li key={set.id}>
                 <div
-                  className={'user-list-item'}
+                  className={'user-list-item home-set'}
                   style={setStyle}
                   onClick={() => {
                     history.push(`/flashcards/${set.id}`);
                   }}
                 >
-                  <h2 style={{ marginBottom: '1vh' }}>{set.title}</h2>
-                  {set.flashcards.map((card, i) => {
-                    if (!(i < 3)) return;
-                    return (
-                      <div key={card.id}>
-                        <h5>{card.front}</h5>
-                      </div>
-                    );
-                  })}
+                  <h2
+                    style={{
+                      marginBottom: '1vh',
+                      textOverflow: 'ellipsis',
+                      overflow: 'hidden',
+                      whiteSpace: 'nowrap',
+                      textDecoration: hover ? 'underline' : 'none',
+                    }}
+                  >
+                    {set.title}
+                  </h2>
+                  <div style={{ maxHeight: '8vh', overflow: 'scroll' }}>
+                    {set.flashcards.map((card, i) => {
+                      return (
+                        <div
+                          key={card.id}
+                          style={{
+                            webkitBoxOrient: 'vertical',
+                            webkitLineClamp: '1',
+                            overflow: 'hidden',
+                            display: '-webkit-box',
+                            maxWidth: '60%',
+                          }}
+                          className={'home-flashcard-option'}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            history.push(`/flashcards/${set.id}/${card.id}`);
+                          }}
+                        >
+                          <h5>{card.front}</h5>
+                        </div>
+                      );
+                    })}
+                  </div>
                   <h5
                     style={{
                       position: 'absolute',

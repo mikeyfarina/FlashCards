@@ -351,6 +351,10 @@ const UserInformation = ({ loggedInUser }) => {
                     right: '4%',
                     color: 'darkgray',
                     fontWeight: 'lighter',
+                    maxWidth: '75%',
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap',
                   }}
                 >
                   from: <strong>{flashcard.set.title}</strong>

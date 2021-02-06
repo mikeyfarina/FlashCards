@@ -71,6 +71,12 @@ input {
 li {
   list-style-type: none;
 }
+.home-flashcard-option:hover {
+  text-decoration: underline;
+}
+.user-list-item.home-set:hover > h2 {
+  text-decoration: underline;
+}
 .hover-section:hover {
   background: rgba(0, 0, 0, 0.64);
 }
@@ -192,7 +198,7 @@ li {
   display: grid;
   float: right;
   align-self: center;
-  grid-template-columns: auto 5vw;
+  grid-template-columns: auto auto;
   background: #ececec;
   padding: 1vh 2%;
   white-space: nowrap;
@@ -256,9 +262,11 @@ li {
   background: white;
   color: #5da2d5;
   height: 75%;
+  width: fit-content;
   font-size: 1vw;
   padding: 5% 20%;
   border: #5da2d5 1px solid;
+  cursor: pointer;
 }
 
 .login-form,
@@ -429,6 +437,7 @@ li {
   font-size: 3vh;
   font-weight: bolder;
   caret-color: #646c80;
+  text-overflow: ellipsis;
 }
 
 .set__header__title::selection {
@@ -492,7 +501,12 @@ li {
   margin: 1% 2%;
 }
 .set__preview__item {
-  padding: 2%;
+  display: -webkit-box;
+  margin: 2%;
+  padding: 1% 0;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .set__preview__item:hover {
@@ -570,15 +584,18 @@ li {
 
 .tools__card-selection select {
   height: 100%;
-  max-width: 200%;
+  width: 50%;
+  max-width: 60%;
   outline: none;
   margin: 0 2%;
   margin-right: 0;
-  padding: 0 5%;
+  padding: 0 5% 0 1%;
   border: 3px #646c80 solid;
   border-radius: 8px;
   cursor: pointer;
   float: right;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .flashcard-selection {
@@ -722,23 +739,23 @@ li {
     padding: 1%;
   }
   .logout-div {
-    grid-template-rows: 1fr;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: auto auto;
     padding: 0;
-    width: 40vw;
+    width: fit-content;
     height: 5vh;
     border-radius: 4px;
     padding: 0.5vh 1vw;
     margin-right: 0;
     align-items: center;
   }
+
   .logout-button {
     height: 100%;
-    width: 100%;
+    width: 20vw;
   }
   .user-greeting,
   .logout-button {
-    font-size: 2vw;
+    font-size: 4vw;
   }
   .sidebar__setlist {
     grid-area: 3 / 1 / 4 / 3;
@@ -768,7 +785,6 @@ li {
     display: none;
   }
   .set__preview__item {
-    padding: 2%;
     max-height: 20%;
   }
   .sidebar__header {
@@ -854,10 +870,22 @@ li {
     height: 5vh;
     align-content: center;
   }
+
+  .user-greeting,
+  .logout-button {
+    font-size: 2vw;
+    height: 100%;
+    align-self: baseline;
+  }
+
   .main-section {
     grid-template-columns: 1fr 2.5fr;
     max-height: 94vh;
     height: 94vh;
+  }
+  .button-container {
+    min-width: 30vw;
+    max-width: 30vw;
   }
   .set__header__title {
     font-size: 3vw;
@@ -874,37 +902,50 @@ li {
     grid-template-rows: 3fr 2fr;
     width: 95%;
   }
+
+  .card-number {
+    font-size: 1.5vw;
+  }
   .flashcard-container {
     grid-area: 1 / 1 / 2 / 3;
     width: 100%;
+    margin: 0;
+  }
+
+  .flashcard-text {
+    font-size: 3vw;
   }
 
   .change-card-button {
-    height: 30%;
+    height: 45%;
     width: 60%;
     padding: 0;
   }
 }
-@media all and (max-width: 1250px) {
+@media all and (min-width: 901px) and (max-width: 1250px) {
   .main-section {
-    grid-template-columns: 1fr 5.5fr;
+    grid-template-columns: 1fr 4fr;
   }
   .set__header {
     grid-template-columns: 7fr 1fr 1fr;
   }
   .set__header__title {
+    font-size: 1.75vw;
+  }
+  .set__info > * {
     font-size: 1.5vw;
   }
   .button-container {
-    width: 15%;
+    min-width: 20vw;
   }
   .flashcard-selection {
-    width: 80%;
+    width: 95%;
     height: 90%;
+    grid-template-columns: 1fr 56vw 1fr;
   }
   .flashcard-container {
     width: 90%;
-    margin: auto;
+    margin: 0;
     height: 45%;
   }
   .change-card-button {
