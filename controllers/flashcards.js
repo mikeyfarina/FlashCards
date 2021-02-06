@@ -11,9 +11,7 @@ flashcardsRouter.get('/', async (req, res) => {
       username: 1,
       name: 1,
     })
-    .populate('set', {
-      title: 1,
-    });
+    .populate('set', { title: 1 });
   res.json(flashcards);
 });
 
@@ -36,7 +34,13 @@ flashcardsRouter.delete('/:id', async (req, res) => {
   }
 
   const user = await User.findById(decodedToken.id);
+  await user.update({ $pull: { flashcards: req.params.id } });
+  await user.save();
+
   const flashcard = await Flashcard.findById(req.params.id);
+  const set = await Set.findById(flashcard.set);
+  await set.update({ $pull: { flashcards: req.params.id } });
+  await set.save();
 
   if (flashcard.user.toString() === user.id.toString()) {
     console.log('can delete');
@@ -60,13 +64,16 @@ flashcardsRouter.post('/', async (req, res) => {
     });
   }
 
-  if (!objectID.isValid(body.setId)) {
-    body.setId = new objectID(body.setId);
+  if (!body.setId) {
+    return res.status(204).send({
+      error: 'Set ID missing',
+    });
   }
+
   const user = await User.findById(decodedToken.id);
   const set = await Set.findById(body.setId);
 
-  console.log('ids for post', user.id, set.user);
+  console.log('ids for post', user, set);
 
   if (user.id.toString() !== set.user.toString()) {
     return res.status(401).json({
@@ -77,9 +84,9 @@ flashcardsRouter.post('/', async (req, res) => {
   const newFlashcard = new Flashcard({
     front: body.front,
     back: body.back,
+    set: set.id,
     date: new Date(),
     user: user.id,
-    set: set._id,
   });
 
   const savedFlashcard = await newFlashcard.save();
@@ -89,6 +96,7 @@ flashcardsRouter.post('/', async (req, res) => {
   set.flashcards = set.flashcards.concat(savedFlashcard._id);
   await set.save();
 
+  console.log(newFlashcard);
   res.json(savedFlashcard);
 });
 

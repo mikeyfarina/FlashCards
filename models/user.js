@@ -5,8 +5,10 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     unique: true,
+    required: true,
+    uniqueCaseInsensitive: true,
   },
-  name: String,
+  name: { type: String, required: true },
   passwordHash: String,
   flashcards: [
     {
@@ -20,6 +22,10 @@ const userSchema = new mongoose.Schema({
       ref: 'Set',
     },
   ],
+  photoNumber: {
+    type: Number,
+    ref: 'PhotoNumber',
+  },
 });
 
 userSchema.plugin(uniqueValidator);

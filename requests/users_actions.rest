@@ -5,13 +5,20 @@ post http://localhost:3001/api/users
 Content-Type: application/json
 
 {
-  "username": "root",
-  "password": "password",
-  "name": "admin"
+  "username": "pptest",
+  "password": "pass",
+  "name": "test"
+}
+###
+patch http://localhost:3001/api/users/random-user/profile
+Content-Type: application/json
+
+{
+  "photoNumber": 2
 }
 
 ###
-delete http://localhost:3001/api/users/5fcdb7241db05a33fde3b84f
+delete http://localhost:3001/api/users/601b9ae8811f6e23c5bc865d
 
 ###
 post http://localhost:3001/api/flashcards

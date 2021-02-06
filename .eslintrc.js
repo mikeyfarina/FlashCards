@@ -4,7 +4,11 @@ module.exports = {
     es6: true,
     'jest/globals': true,
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+  ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -22,6 +26,7 @@ module.exports = {
     'arrow-spacing': ['error', { before: true, after: true }],
     //'no-console': ['warn'],
     'react/prop-types': 0,
+    'no-unused-vars': 0,
   },
   settings: {
     react: {

@@ -1,35 +1,31 @@
-import './App.css';
-
+import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
 
-import Flashcards from './components/Flashcards';
-import LoginForm from './components/LoginForm';
-import Sidebar from './components/Sidebar';
-import Togglable from './components/Togglable';
+import FlashcardsDisplay from './pages/FlashcardsDisplay';
+import Homepage from './pages/Homepage';
+import UserInformation from './pages/UserInformation';
+
 import flashcardService from './services/flashcardService';
 import setService from './services/setService';
 
-function App() {
-  // states
-  const [flashcardSets, setFlashcardSets] = useState(null);
-  const [currentSetIndex, setCurrentSetIndex] = useState(0);
-  const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
-  const [flashcards, setFlashcards] = useState(null);
+import Togglable from './components/Togglable';
+import LoginForm from './components/LoginForm';
+import userService from './services/userService';
+import CreateAccountForm from './components/CreateAccountForm';
+import FormContainer from './components/FormContainer';
+
+const App = () => {
   const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState(null);
+  const [flashcardSets, setFlashcardSets] = useState(null);
 
-  useEffect(async () => {
-    const sets = await setService.getAllSets();
-    setFlashcardSets(sets);
+  useEffect(() => {
+    async function setSets() {
+      const sets = await setService.getAllSets();
+      setFlashcardSets(sets);
+    }
+    setSets();
   }, []);
-
-  useEffect(async () => {
-    setFlashcards(null);
-    const sets = await setService.getAllSets();
-    setFlashcardSets(sets);
-    const setID = sets[currentSetIndex].id;
-    const flashcards = await setService.getAllFlashcardsInSet(setID);
-    setFlashcards(flashcards);
-  }, [currentSetIndex]);
 
   // if a user is logged in with local storage, re-sign in user
   useEffect(() => {
@@ -42,6 +38,8 @@ function App() {
       setUser(user);
       flashcardService.setToken(user.token);
       setService.setToken(user.token);
+      const userID = userService.findAccountByUsername(user.username).id;
+      setUserId(userID);
     }
   }, []);
 
@@ -52,7 +50,7 @@ function App() {
       ref={loginFormRef}
       parentDivClassName="login-div"
     >
-      <LoginForm setUser={setUser} />
+      <LoginForm setUser={setUser} standalone={false} />
     </Togglable>
   );
 
@@ -64,43 +62,96 @@ function App() {
     setUser(null);
   };
 
+  const userDropdownRef = useRef();
+
+  const dropdownStyle = {
+    display: 'grid',
+    gridTemplateRows: '1fr 1fr',
+    height: '4.5vh',
+  };
+
   const logoutDiv = () => (
-    <div className="logout-div">
-      <div className="user-greeting">{`hello, ${user.username}`}</div>
+    <div className="logout-div" style={{ position: 'relative' }}>
+      <div className="user-greeting">
+        <Link
+          to={`/users/${user.username}/`}
+          style={{ textDecoration: 'none', outline: 'none' }}
+        >
+          {`hello, ${user.username}`}
+        </Link>
+      </div>
       <button onClick={handleLogout} className="logout-button">
         Logout
       </button>
     </div>
   );
 
+  const flashcardSetMatch = useRouteMatch('/flashcards/:setId/');
+  const setIndex =
+    flashcardSetMatch && flashcardSets
+      ? flashcardSets.findIndex(
+          (set) => set.id === flashcardSetMatch.params.setId
+        )
+      : 0;
+
   return (
     <div>
       <header>
-        <h1 className="main-title noselect">Flashcards</h1>
+        <div className="main-title-container">
+          <Link
+            to="/home"
+            style={{ textDecoration: 'none', display: 'contents' }}
+          >
+            <h1 className="main-title noselect">Flashcards</h1>
+          </Link>
+        </div>
         {user ? logoutDiv() : loginForm()}
       </header>
-      <div className="main-section">
-        <Sidebar
-          flashcards={flashcards}
-          setFlashcards={setFlashcards}
-          flashcardSets={flashcardSets}
-          setFlashcardSets={setFlashcardSets}
-          currentSetIndex={currentSetIndex}
-          setCurrentSetIndex={setCurrentSetIndex}
-          currentFlashcardIndex={currentFlashcardIndex}
-          setCurrentFlashcardIndex={setCurrentFlashcardIndex}
-        />
-        <Flashcards
-          flashcards={flashcards}
-          setFlashcards={setFlashcards}
-          flashcardSets={flashcardSets}
-          currentSetIndex={currentSetIndex}
-          currentFlashcardIndex={currentFlashcardIndex}
-          setCurrentFlashcardIndex={setCurrentFlashcardIndex}
-        />
-      </div>
+      <Switch>
+        <Route exact path={'/home'}>
+          <Homepage flashcardSets={flashcardSets} user={user} />
+        </Route>
+        <Route path={'/home/login'}>
+          <FormContainer>
+            <LoginForm setUser={setUser} standalone={true} />
+          </FormContainer>
+        </Route>
+        <Route path={'/home/createAccount'}>
+          <FormContainer>
+            <CreateAccountForm />
+          </FormContainer>
+        </Route>
+        <Route exact path={'/users/:username'}>
+          <UserInformation loggedInUser={user} />
+        </Route>
+        <Route path={'/flashcards/:setId/:flashcardId'}>
+          <FlashcardsDisplay
+            flashcardSets={flashcardSets}
+            setFlashcardSets={setFlashcardSets}
+            desiredSetIndex={setIndex}
+          />
+        </Route>
+        <Route path={'/flashcards/:id'}>
+          <FlashcardsDisplay
+            flashcardSets={flashcardSets}
+            setFlashcardSets={setFlashcardSets}
+            desiredSetIndex={setIndex}
+          />
+        </Route>
+        <Route path={'/flashcards'}>
+          <FlashcardsDisplay
+            flashcardSets={flashcardSets}
+            setFlashcardSets={setFlashcardSets}
+          />
+        </Route>
+        <Route exact path={'/'}>
+          <FlashcardsDisplay
+            flashcardSets={flashcardSets}
+            setFlashcardSets={setFlashcardSets}
+          />
+        </Route>
+      </Switch>
     </div>
   );
-}
-
+};
 export default App;

@@ -10,12 +10,13 @@ body {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  font-family: Tahoma, 'Geneva', sans-serif;
+  background: linear-gradient(0deg, #d6d6d6 0%, white 75%);
 }
 
-body,
 button {
-  font-family: Tahoma, 'Geneva', sans-serif;
   background: #ececec;
+  font-family: Tahoma, 'Geneva', sans-serif;
 }
 
 @keyframes scanLeftToRight {
@@ -70,6 +71,107 @@ input {
 li {
   list-style-type: none;
 }
+.hover-section:hover {
+  background: rgba(0, 0, 0, 0.64);
+}
+.change-profile-button {
+  transform: translateY(4vh);
+  height: 13vh;
+  padding-top: 14.5vh;
+  background: linear-gradient(
+    0deg,
+    rgba(1, 1, 1, 0.35) 0%,
+    rgba(1, 1, 1, 0) 55%
+  );
+}
+.change-profile-button:hover {
+  transform: translateY(0);
+  padding-top: 10vh;
+}
+
+.photo-options-container {
+  height: 0;
+  opacity: 0;
+  transform: translateY(10vh);
+}
+
+.displaying {
+  opacity: 1;
+  height: 23vh;
+  transform: translateY(0vh);
+  overflow: hidden;
+}
+
+.profile-photo-option {
+  opacity: 0;
+}
+
+.displaying.profile-photo-option {
+  opacity: 1;
+}
+
+.profile-photo-option:hover {
+  transform: translateY(-0.5vh) scaleY(1.02) scaleX(1.02);
+  opacity: 0.95;
+  cursor: pointer;
+}
+
+.profile-photo-option:active {
+  transform: translateY(0vh) scaleY(1) scaleX(1);
+  opacity: 0.95;
+  cursor: pointer;
+}
+
+.user-list-item:hover {
+  transform: scaleY(1.05) scaleX(1.05);
+  cursor: pointer;
+}
+.user-list-item::before {
+  /* Position the pseudo-element. */
+  content: ' ';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 8px;
+  background: transparent;
+  /* Create the box shadow at expanded size. */
+  box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5);
+  /* Hidden by default. */
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.user-list-item:hover::before {
+  /* Show the pseudo-element on hover. */
+  opacity: 1;
+  z-index: -1;
+  border-radius: 8px;
+}
+.user-link {
+  color: white;
+  text-decoration: none;
+}
+.user-link:hover {
+  cursor: point;
+  text-decoration: underline;
+}
+.user-link-from-set {
+  text-decoration: none;
+  color: black;
+}
+
+.user-link-from-set:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.main-title-container {
+  height: 100%;
+  width: fit-content;
+  padding-right: 2%;
+  display: contents;
+}
 
 .main-title {
   display: flex;
@@ -90,14 +192,14 @@ li {
   display: grid;
   float: right;
   align-self: center;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 5vw;
   background: #ececec;
   padding: 1vh 2%;
   white-space: nowrap;
   margin-right: 1vh;
   border: 2px solid #646c80;
   border-radius: 4px;
-  height: 7vh;
+  height: 8vh;
   align-items: center;
 }
 
@@ -110,7 +212,7 @@ li {
 
 .login-div.visible {
   margin-top: 4vh;
-  z-index: 3;
+  z-index: 4;
   padding: 3%;
   margin-right: 2%;
   border-radius: 10px;
@@ -118,23 +220,27 @@ li {
   background: white;
   height: fit-content;
   position: relative;
+  box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.5);
 }
 
 .login {
-  display: grid;
-  height: 15vw;
-  grid-template-rows: 1.5fr 6fr;
+  height: fit-content;
+  width: 20vw;
 }
 
 .login-outside-button,
-.login-button,
-.logout-button,
+.login-form-button,
+.logout-form-button,
 .login-cancel-button {
   background: white;
   color: #5da2d5;
   padding: 0.6vw 1vw;
   font-size: 1vw;
   border-radius: 5px;
+}
+
+.login-form-button {
+  font-size: 1.5vw;
 }
 
 .login-cancel-button {
@@ -146,27 +252,54 @@ li {
 }
 
 .logout-button {
-  text-align: center;
-  align-self: center;
+  border-radius: 3px;
+  background: white;
+  color: #5da2d5;
+  height: 75%;
+  font-size: 1vw;
+  padding: 5% 20%;
+  border: #5da2d5 1px solid;
 }
 
-.login-form {
+.login-form,
+.create-account-form {
   display: grid;
-  grid-template-rows: 1fr 1fr 0.5fr;
   max-height: 100%;
 }
 
-#username,
-#password,
-.login-button {
+.login-form-input,
+.login-form-button {
   width: 100%;
   height: 80%;
   margin: 3% 0;
   border-radius: 3px;
 }
 
-#username,
-#password {
+.login-form-input.error {
+  outline: red;
+  border: 1px red solid;
+}
+.error-message {
+  color: white;
+  background: rgba(233, 64, 64, 0.911);
+  font-size: 1.2vw;
+  padding: 2%;
+  text-align: center;
+  align-self: center;
+  border-radius: 3px;
+}
+
+.success {
+  color: darkgreen;
+  font-size: 1.2vw;
+  background: rgba(102, 255, 109, 0.25);
+  padding: 2%;
+  text-align: center;
+  align-self: center;
+  border-radius: 3px;
+}
+
+.login-form-input {
   text-indent: 7px;
 }
 
@@ -234,14 +367,15 @@ li {
   grid-area: 1 / 1 / 2 / 2;
   display: grid;
   grid-template-columns: 1fr 5fr;
-  box-shadow: 10px 50px 50px rgba(0, 0, 0, 0.151);
+  box-shadow: -5px 5px 50px rgba(0, 0, 0, 0.151);
+  z-index: 2;
   background: #ececec;
 }
 
 .sidebar__bottom {
   z-index: 3;
   background: #ececec;
-  box-shadow: -5px 0px 60px rgba(0, 0, 0, 0.514);
+  box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.14);
   height: 100%;
   width: 100%;
   grid-area: 3 / 1 / 4 / 2;
@@ -399,6 +533,7 @@ li {
   padding: 1vh;
   padding-left: 0;
   background: #ececec;
+  z-index: 3;
 }
 
 .button-container {
@@ -493,7 +628,7 @@ li {
   z-index: 3;
   background: rgba(255, 255, 255, 0);
 
-  width: 60vw;
+  width: 58vw;
   padding-top: 70%;
   height: 0;
 
@@ -586,7 +721,7 @@ li {
     width: 100%;
     grid-template-rows: 1fr 1fr 2fr;
   }
-  .login-button {
+  .login-form-button {
     font-size: 3vw;
     height: 50%;
     margin-top: 10%;

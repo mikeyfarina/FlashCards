@@ -9,7 +9,6 @@ const CardSelection = ({
     setCurrentFlashcardIndex(Number(e.target.value));
   };
 
-  console.log(currentFlashcardIndex);
   return (
     <div className="tools__card-selection">
       <select onChange={handleSelect} value={currentFlashcardIndex}>

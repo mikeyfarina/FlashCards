@@ -22,11 +22,8 @@ const Flashcard = ({
     const newFlashcard = flashcards[currentFlashcardIndex];
     setFlashcard(newFlashcard);
     setDisplayingFront(true);
-  }, [currentFlashcardIndex]);
-
-  useEffect(() => {
     setFlashcard(flashcards[currentFlashcardIndex] || null);
-  }, [flashcards]);
+  }, [currentFlashcardIndex, flashcards]);
 
   const firstLoad = useRef(true);
   useEffect(() => {

@@ -2,12 +2,12 @@ import './fontawesome';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import App from './App.js';
+import { BrowserRouter as Router } from 'react-router-dom';
+import App from './App';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Router>
     <App />
-  </React.StrictMode>,
+  </Router>,
   document.getElementById('root')
 );
