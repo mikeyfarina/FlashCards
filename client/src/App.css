@@ -344,8 +344,8 @@ li {
 
 .main-section {
   display: grid;
-  grid-template-columns: 1.3fr 5fr;
-  grid-template-rows: 1fr 10fr 0.5fr;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 1fr 11fr 0.5fr;
   height: 90vh;
   max-height: 90vh;
   background: #5da2d5;
@@ -583,12 +583,12 @@ li {
 
 .flashcard-selection {
   height: 55%;
-  width: 85%;
+  width: 70%;
   grid-area: 2 / 2 / 4 / 3;
   margin: auto;
   padding: 1.5vh 1.5%;
   display: grid;
-  grid-template-columns: 1fr 55vw 1fr;
+  grid-template-columns: 1fr 45vw 1fr;
 }
 
 .change-card-button {
@@ -656,7 +656,7 @@ li {
   position: absolute;
   top: 4%;
   left: 4%;
-  font-size: 1.5vw;
+  font-size: 1vw;
   color: rgba(9, 20, 58, 0.65);
   transform: translateZ(25px);
 }
@@ -667,7 +667,7 @@ li {
   height: 80%;
   margin-top: 0%;
   border: none;
-  font-size: 2vw;
+  font-size: 1.55vw;
   text-align: center;
   outline: none;
   transform: translateZ(45px);
@@ -903,7 +903,9 @@ li {
     height: 90%;
   }
   .flashcard-container {
-    width: 50vw;
+    width: 90%;
+    margin: auto;
+    height: 45%;
   }
   .change-card-button {
     height: 35%;
@@ -911,5 +913,8 @@ li {
   }
   .flashcard-text {
     font-size: 2vw;
+  }
+  .search-bar input {
+    font-size: 1.25vw;
   }
 }

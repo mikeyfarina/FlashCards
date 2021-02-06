@@ -50,7 +50,6 @@ const Flashcard = ({
       let xAxis = -(window.innerWidth / 2 - e.pageX) / 25;
       let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
       setMousePosition({ xAxis, yAxis });
-      setTransition('none');
     }
   };
 
@@ -74,15 +73,16 @@ const Flashcard = ({
       setFlip(true);
       setTimeout(() => {
         setFlip(false);
-        setTransition('none');
-      }, 600);
+      }, 500);
     }
   };
 
   console.log(transition);
   const divStyle = {
-    transform: `rotateY(${!flip ? mousePosition.xAxis : 0}deg) rotateX(${
-      displayingFront ? 180 - (-mousePosition.yAxis - 10) : mousePosition.yAxis
+    transform: `rotateY(${!flip ? mousePosition.xAxis - 5 : 0}deg) rotateX(${
+      displayingFront
+        ? 180 - -mousePosition.yAxis + 5
+        : (mousePosition.yAxis + 5) * 1.5
     }deg)`,
     transformStyle: 'preserve-3d',
     transition: transition,
