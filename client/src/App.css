@@ -582,13 +582,13 @@ li {
 }
 
 .flashcard-selection {
-  width: 90%;
+  height: 55%;
+  width: 85%;
   grid-area: 2 / 2 / 4 / 3;
   margin: auto;
   padding: 1.5vh 1.5%;
   display: grid;
-  grid-template-columns: 1fr 1.5fr 1fr;
-  align-content: center;
+  grid-template-columns: 1fr 55vw 1fr;
 }
 
 .change-card-button {
@@ -621,37 +621,24 @@ li {
 }
 
 .flashcard-container {
-  display: flex;
-  justify-content: center;
-  margin: auto;
-
-  z-index: 3;
   background: rgba(255, 255, 255, 0);
 
-  width: 58vw;
-  padding-top: 70%;
-  height: 0;
-
-  position: relative;
+  width: 80%;
+  height: 100%;
+  margin: 0 10%;
 
   border-radius: 10px;
 }
 
 .flashcard {
   transform-style: preserve-3d;
-  position: absolute;
-  top: 15%;
 
   background: white;
   box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.2), 0px 0px 50px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-  height: 65%;
-  max-height: 60vh;
+  height: 100%;
   z-index: 1;
+  margin: auto;
 }
 
 .scanner {
@@ -678,12 +665,15 @@ li {
   background: none;
   width: 100%;
   height: 80%;
-  margin-top: 10%;
+  margin-top: 0%;
   border: none;
-  font-size: 3vw;
+  font-size: 2vw;
   text-align: center;
-  transform: translateZ(45px);
   outline: none;
+  transform: translateZ(45px);
+  backface-visibility: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 @media all and (max-width: 560px) {
@@ -895,7 +885,7 @@ li {
     padding: 0;
   }
 }
-@media all and (min-width: 1250px) {
+@media all and (max-width: 1250px) {
   .main-section {
     grid-template-columns: 1fr 5.5fr;
   }
@@ -909,8 +899,8 @@ li {
     width: 15%;
   }
   .flashcard-selection {
-    margin: 0 10%;
     width: 80%;
+    height: 90%;
   }
   .flashcard-container {
     width: 50vw;
@@ -921,6 +911,5 @@ li {
   }
   .flashcard-text {
     font-size: 2vw;
-    margin-top: 25%;
   }
 }
