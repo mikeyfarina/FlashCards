@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import userService from '../services/userService';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import profilePhotos from '../utils/profilePhotoLoader';
 
 const UserInformation = ({ loggedInUser }) => {
@@ -8,8 +8,9 @@ const UserInformation = ({ loggedInUser }) => {
   const [displayProfilePhotoOptions, setDisplayProfilePhotoOptions] = useState(
     false
   );
-  const [tempPhotoOption, setTempPhotoOption] = useState(0);
+  const [tempPhotoOption, setTempPhotoOption] = useState(null);
 
+  const history = useHistory();
   const username = useParams().username;
   useEffect(() => {
     if (username) {
@@ -22,7 +23,7 @@ const UserInformation = ({ loggedInUser }) => {
         })
         .catch((err) => console.log(err));
     }
-  }, []);
+  }, [username]);
 
   useEffect(() => {
     if (loggedInUser) {
@@ -151,10 +152,11 @@ const UserInformation = ({ loggedInUser }) => {
   };
 
   const setTitleContainerStyle = {
-    height: '100%',
+    overflow: 'scroll',
+    maxHeight: '80%',
     width: '100%',
     display: 'flex',
-    alignItems: 'center',
+    textOverflow: 'ellipsis',
     justifyContent: 'center',
   };
 
@@ -179,11 +181,15 @@ const UserInformation = ({ loggedInUser }) => {
             }}
             src={
               profilePhotos[
-                `${tempPhotoOption.toString() || desiredUser.photoNumber}`
+                `${
+                  tempPhotoOption
+                    ? tempPhotoOption.toString()
+                    : desiredUser.photoNumber
+                }`
               ]
             }
           />
-          {loggedInUser.username === desiredUser.username && (
+          {loggedInUser && loggedInUser.username === desiredUser.username && (
             <div
               className={'change-profile-button'}
               style={{
@@ -292,6 +298,9 @@ const UserInformation = ({ loggedInUser }) => {
                 className={'setItem user-list-item'}
                 style={setStyle}
                 key={set.id}
+                onClick={() => {
+                  history.push(`/flashcards/${set.id}`);
+                }}
               >
                 <div style={setTitleContainerStyle}>
                   <h3>{set.title}</h3>
@@ -326,8 +335,15 @@ const UserInformation = ({ loggedInUser }) => {
                 className={'flashcardItem user-list-item'}
                 style={flashcardStyle}
                 key={flashcard.id}
+                onClick={() => {
+                  history.push(
+                    `/flashcards/${flashcard.set.id}/${flashcard.id}`
+                  );
+                }}
               >
-                <h3>{flashcard.front}</h3>
+                <div style={setTitleContainerStyle}>
+                  <h3>{flashcard.front}</h3>
+                </div>
                 <h5
                   style={{
                     position: 'absolute',

@@ -11,6 +11,8 @@ import setService from './services/setService';
 import Togglable from './components/Togglable';
 import LoginForm from './components/LoginForm';
 import userService from './services/userService';
+import CreateAccountForm from './components/CreateAccountForm';
+import FormContainer from './components/FormContainer';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -48,7 +50,7 @@ const App = () => {
       ref={loginFormRef}
       parentDivClassName="login-div"
     >
-      <LoginForm setUser={setUser} />
+      <LoginForm setUser={setUser} standalone={false} />
     </Togglable>
   );
 
@@ -84,10 +86,12 @@ const App = () => {
     </div>
   );
 
-  const flashcardSetMatch = useRouteMatch('/flashcards/:id');
+  const flashcardSetMatch = useRouteMatch('/flashcards/:setId/');
   const setIndex =
     flashcardSetMatch && flashcardSets
-      ? flashcardSets.findIndex((set) => set.id === flashcardSetMatch.params.id)
+      ? flashcardSets.findIndex(
+          (set) => set.id === flashcardSetMatch.params.setId
+        )
       : 0;
 
   return (
@@ -107,8 +111,25 @@ const App = () => {
         <Route exact path={'/home'}>
           <Homepage flashcardSets={flashcardSets} user={user} />
         </Route>
+        <Route path={'/home/login'}>
+          <FormContainer>
+            <LoginForm setUser={setUser} standalone={true} />
+          </FormContainer>
+        </Route>
+        <Route path={'/home/createAccount'}>
+          <FormContainer>
+            <CreateAccountForm />
+          </FormContainer>
+        </Route>
         <Route exact path={'/users/:username'}>
           <UserInformation loggedInUser={user} />
+        </Route>
+        <Route path={'/flashcards/:setId/:flashcardId'}>
+          <FlashcardsDisplay
+            flashcardSets={flashcardSets}
+            setFlashcardSets={setFlashcardSets}
+            desiredSetIndex={setIndex}
+          />
         </Route>
         <Route path={'/flashcards/:id'}>
           <FlashcardsDisplay

@@ -8,8 +8,6 @@ const SidebarHeader = ({
   setSidebarSearchText,
   handleNewSet,
 }) => {
-  console.log(sidebarSearchText);
-
   return (
     <div className="sidebar__header">
       <Button

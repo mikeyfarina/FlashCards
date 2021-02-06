@@ -12,8 +12,6 @@ const Homepage = ({ flashcardSets, user }) => {
   const [searchText, setSearchText] = useState('');
   const [searchSets, setSearchSets] = useState([]);
 
-  console.log(scrolling, scrollAmount);
-
   const homepageStyle = {
     background: 'white',
     height: '90vh',
@@ -42,7 +40,7 @@ const Homepage = ({ flashcardSets, user }) => {
     float: 'left',
     minWidth: '30vw',
     height: '20vh',
-    margin: '2.5vh 1.5vw',
+    margin: '2.5vh 1.4vw',
     background: 'white',
     zIndex: '1',
     padding: '1% 2%',
@@ -52,12 +50,14 @@ const Homepage = ({ flashcardSets, user }) => {
     position: 'relative',
     scrollSnapAlign: 'start',
     scrollMarginTop: '2.5vh',
+    scrollPadding: '8vh',
   };
 
   const signupSectionStyle = {
     width: '100vw',
     height: signupDisplayed ? '55vh' : '0',
-    padding: '5% 10%',
+    minHeight: '0',
+    padding: '2% 10%',
     background: '#5da2d5',
     display: hideSignup ? 'none' : 'grid',
     gridTemplateColumns: '1fr 1fr',
@@ -69,18 +69,23 @@ const Homepage = ({ flashcardSets, user }) => {
   const history = useHistory();
 
   const signupPromptButton = {
-    borderRadius: '6px',
+    height: signupDisplayed ? '5vh' : '0',
     width: '8vw',
-    height: '5vh',
+    color: signupDisplayed ? 'inherit' : 'transparent',
+    borderRadius: '6px',
     outline: 'none',
     border: 'none',
     fontSize: '1.5vw',
+    minHeight: '0',
+    transition: 'all .25s ease-in',
   };
 
   const signupButton = {
     background: '#f3d250',
     color: 'black',
-    marginRight: '10%',
+
+    alignSelf: 'center',
+    justifySelf: 'end',
   };
 
   const loginButton = {
@@ -148,7 +153,7 @@ const Homepage = ({ flashcardSets, user }) => {
 
   return (
     <div style={homepageStyle}>
-      {!user ? (
+      {!user && (
         <div className={'signup-section'} style={signupSectionStyle}>
           <button
             style={cancelButton}
@@ -161,27 +166,44 @@ const Homepage = ({ flashcardSets, user }) => {
           >
             x
           </button>
-          <h2 style={{ alignSelf: 'center' }}>
-            Sign up to create your own collections
+          <h2
+            style={{
+              alignSelf: 'center',
+              textAlign: 'center',
+              minHeight: '0',
+              color: 'white',
+            }}
+          >
+            Sign up
           </h2>
-          <Image style={{ height: '100%' }} />
+          <Image
+            style={{
+              height: '100%',
+              display: 'flex',
+              justifySelf: 'center',
+              minHeight: '0',
+            }}
+          />
           <div
             style={{
               margin: 'auto',
               gridArea: '2/ 1 / 3 / 3',
-              display: 'flex',
+              display: 'contents',
+              minHeight: '0',
             }}
           >
-            <button style={{ ...signupPromptButton, ...signupButton }}>
-              Sign up
-            </button>
-            <button style={{ ...signupPromptButton, ...loginButton }}>
-              Log in
-            </button>
+            <Link to={'/home/createAccount'}>
+              <button style={{ ...signupPromptButton, ...signupButton }}>
+                Sign up
+              </button>
+            </Link>
+            <Link to={'/home/login'}>
+              <button style={{ ...signupPromptButton, ...loginButton }}>
+                Log in
+              </button>
+            </Link>
           </div>
         </div>
-      ) : (
-        ''
       )}
       <div style={{ height: '8vh' }}>
         <input

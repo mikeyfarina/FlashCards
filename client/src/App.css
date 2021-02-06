@@ -10,12 +10,13 @@ body {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  font-family: Tahoma, 'Geneva', sans-serif;
+  background: linear-gradient(0deg, #d6d6d6 0%, white 75%);
 }
 
-body,
 button {
-  font-family: Tahoma, 'Geneva', sans-serif;
   background: #ececec;
+  font-family: Tahoma, 'Geneva', sans-serif;
 }
 
 @keyframes scanLeftToRight {
@@ -94,7 +95,7 @@ li {
   transform: translateY(10vh);
 }
 
-.displaying.photo-options-container {
+.displaying {
   opacity: 1;
   height: 23vh;
   transform: translateY(0vh);

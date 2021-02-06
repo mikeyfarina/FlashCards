@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import loginService from '../services/loginService';
 import userService from '../services/userService';
-const CreateAccountForm = ({ setCreateAccount }) => {
+import setService from '../services/setService';
+import flashcardService from '../services/flashcardService';
+
+const CreateAccountForm = ({ setCreateAccount, setUser }) => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -10,6 +15,7 @@ const CreateAccountForm = ({ setCreateAccount }) => {
     message: null,
   });
   const [success, setSuccess] = useState(false);
+  const history = useHistory();
 
   const handleError = (type, message) => {
     setError({
@@ -47,6 +53,16 @@ const CreateAccountForm = ({ setCreateAccount }) => {
           handleError('accountCreationError', 'Username already taken');
         } else {
           setSuccess(true);
+          loginService.login({ username, password }).then((authUser) => {
+            setUser(authUser);
+            window.localStorage.setItem(
+              'loggedFlashcardAppUser',
+              JSON.stringify(authUser)
+            );
+            flashcardService.setToken(authUser.token);
+            setService.setToken(authUser.token);
+            history.push(`/users/${authUser.username}`);
+          });
           setTimeout(() => {
             setCreateAccount(false);
             setSuccess(false);
@@ -125,15 +141,9 @@ const CreateAccountForm = ({ setCreateAccount }) => {
           />
         </div>
         <div style={{ display: 'contents' }}>
-          {error.message ? (
-            <p className={'error-message'}>{error.message}</p>
-          ) : (
-            ''
-          )}
-          {success ? (
+          {error.message && <p className={'error-message'}>{error.message}</p>}
+          {success && (
             <p className={'success'}>Account created Successfully!</p>
-          ) : (
-            ''
           )}
           <button
             type="submit"
