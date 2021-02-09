@@ -1,12 +1,11 @@
+import '../styles/PagesStyles.css';
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { ReactComponent as Image } from '../images/clipart/img1.svg';
-import Form from '../components/Form';
+import CreateAccountPrompt from '../components/CreateAccountPrompt';
+
 import setService from '../services/setService';
 
 const Homepage = ({ flashcardSets, user }) => {
-  const [signupDisplayed, setSignupDisplayed] = useState(true);
-  const [hideSignup, setHideSignup] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const [scrollAmount, setScrollAmount] = useState(0);
   const [searchText, setSearchText] = useState('');
@@ -55,58 +54,7 @@ const Homepage = ({ flashcardSets, user }) => {
     scrollPadding: '8vh',
   };
 
-  const signupSectionStyle = {
-    width: '100vw',
-    height: signupDisplayed ? '55vh' : '0',
-    minHeight: '0',
-    padding: '2% 10%',
-    background: '#5da2d5',
-    display: hideSignup ? 'none' : 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gridTemplateRows: '5fr 1fr',
-    position: 'relative',
-    transition: 'all .5s ease-out',
-  };
-
   const history = useHistory();
-
-  const signupPromptButton = {
-    height: signupDisplayed ? '5vh' : '0',
-    width: '8vw',
-    color: signupDisplayed ? 'inherit' : 'transparent',
-    borderRadius: '6px',
-    outline: 'none',
-    border: 'none',
-    fontSize: '1.5vw',
-    minHeight: '0',
-    transition: 'all .25s ease-in',
-  };
-
-  const signupButton = {
-    background: '#f3d250',
-    color: 'black',
-
-    alignSelf: 'center',
-    justifySelf: 'end',
-  };
-
-  const loginButton = {
-    background: 'rgba(1, 1, 1, 0.05)',
-    border: '#ececec 2px solid',
-    color: '#ececec',
-  };
-
-  const cancelButton = {
-    position: 'absolute',
-    top: '2%',
-    right: '1%',
-    padding: '.5%',
-    background: '#5da2d5',
-    border: 'none',
-    fontSize: '1.5vw',
-    outline: 'none',
-    cursor: 'pointer',
-  };
 
   const hoverScrollDivStyle = {
     position: 'absolute',
@@ -155,58 +103,7 @@ const Homepage = ({ flashcardSets, user }) => {
 
   return (
     <div style={homepageStyle}>
-      {!user && (
-        <div className={'signup-section'} style={signupSectionStyle}>
-          <button
-            style={cancelButton}
-            onClick={() => {
-              setSignupDisplayed(false);
-              setTimeout(() => {
-                setHideSignup(true);
-              }, 1000);
-            }}
-          >
-            x
-          </button>
-          <h2
-            style={{
-              alignSelf: 'center',
-              textAlign: 'center',
-              minHeight: '0',
-              color: 'white',
-            }}
-          >
-            Sign up
-          </h2>
-          <Image
-            style={{
-              height: '100%',
-              display: 'flex',
-              justifySelf: 'center',
-              minHeight: '0',
-            }}
-          />
-          <div
-            style={{
-              margin: 'auto',
-              gridArea: '2/ 1 / 3 / 3',
-              display: 'contents',
-              minHeight: '0',
-            }}
-          >
-            <Link to={'/home/createAccount'}>
-              <button style={{ ...signupPromptButton, ...signupButton }}>
-                Sign up
-              </button>
-            </Link>
-            <Link to={'/home/login'}>
-              <button style={{ ...signupPromptButton, ...loginButton }}>
-                Log in
-              </button>
-            </Link>
-          </div>
-        </div>
-      )}
+      {!user && <CreateAccountPrompt />}
       <div style={{ height: '8vh' }}>
         <input
           type="text"

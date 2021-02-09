@@ -1,4 +1,4 @@
-import '../App.css';
+import '../styles/FlashcardDisplay.css';
 
 import React, { useEffect, useState } from 'react';
 

@@ -48,14 +48,6 @@ button {
   background: transparent;
 }
 
-header {
-  z-index: 2;
-  display: flex;
-  background: #6bbdf3;
-  height: 10vh;
-  justify-content: space-between;
-}
-
 textarea {
   resize: none;
   outline: none;
@@ -70,245 +62,6 @@ input {
 
 li {
   list-style-type: none;
-}
-.home-flashcard-option:hover {
-  text-decoration: underline;
-}
-.user-list-item.home-set:hover > h2 {
-  text-decoration: underline;
-}
-.hover-section:hover {
-  background: rgba(0, 0, 0, 0.64);
-}
-.change-profile-button {
-  transform: translateY(4vh);
-  height: 13vh;
-  padding-top: 14.5vh;
-  background: linear-gradient(
-    0deg,
-    rgba(1, 1, 1, 0.35) 0%,
-    rgba(1, 1, 1, 0) 55%
-  );
-}
-.change-profile-button:hover {
-  transform: translateY(0);
-  padding-top: 10vh;
-}
-
-.photo-options-container {
-  height: 0;
-  opacity: 0;
-  transform: translateY(10vh);
-}
-
-.displaying {
-  opacity: 1;
-  height: 23vh;
-  transform: translateY(0vh);
-  overflow: hidden;
-}
-
-.profile-photo-option {
-  opacity: 0;
-}
-
-.displaying.profile-photo-option {
-  opacity: 1;
-}
-
-.profile-photo-option:hover {
-  transform: translateY(-0.5vh) scaleY(1.02) scaleX(1.02);
-  opacity: 0.95;
-  cursor: pointer;
-}
-
-.profile-photo-option:active {
-  transform: translateY(0vh) scaleY(1) scaleX(1);
-  opacity: 0.95;
-  cursor: pointer;
-}
-
-.user-list-item:hover {
-  transform: scaleY(1.05) scaleX(1.05);
-  cursor: pointer;
-}
-.user-list-item::before {
-  /* Position the pseudo-element. */
-  content: ' ';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  border-radius: 8px;
-  background: transparent;
-  /* Create the box shadow at expanded size. */
-  box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5);
-  /* Hidden by default. */
-  opacity: 0;
-  transition: opacity 0.15s;
-}
-.user-list-item:hover::before {
-  /* Show the pseudo-element on hover. */
-  opacity: 1;
-  z-index: -1;
-  border-radius: 8px;
-}
-.user-link {
-  color: white;
-  text-decoration: none;
-}
-.user-link:hover {
-  cursor: point;
-  text-decoration: underline;
-}
-.user-link-from-set {
-  text-decoration: none;
-  color: black;
-}
-
-.user-link-from-set:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.main-title-container {
-  height: 100%;
-  width: fit-content;
-  padding-right: 2%;
-  display: contents;
-}
-
-.main-title {
-  display: flex;
-  align-items: center;
-  color: #ffffff;
-  font-size: 3.5vw;
-  padding: 1%;
-}
-
-.user-greeting {
-  font-size: 1.2vw;
-  margin-right: 2vw;
-
-  color: black;
-}
-
-.logout-div {
-  display: grid;
-  float: right;
-  align-self: center;
-  grid-template-columns: auto auto;
-  background: #ececec;
-  padding: 1vh 2%;
-  white-space: nowrap;
-  margin-right: 1vh;
-  border: 2px solid #646c80;
-  border-radius: 4px;
-  height: 8vh;
-  align-items: center;
-}
-
-.login-div.invisible {
-  display: flex;
-  float: right;
-  align-self: center;
-  margin-right: 2%;
-}
-
-.login-div.visible {
-  margin-top: 4vh;
-  z-index: 4;
-  padding: 3%;
-  margin-right: 2%;
-  border-radius: 10px;
-  border: 3px solid rgba(0, 0, 0, 0.3);
-  background: white;
-  height: fit-content;
-  position: relative;
-  box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.5);
-}
-
-.login {
-  height: fit-content;
-  width: 20vw;
-}
-
-.login-outside-button,
-.login-form-button,
-.logout-form-button,
-.login-cancel-button {
-  background: white;
-  color: #5da2d5;
-  padding: 0.6vw 1vw;
-  font-size: 1vw;
-  border-radius: 5px;
-}
-
-.login-form-button {
-  font-size: 1.5vw;
-}
-
-.login-cancel-button {
-  position: absolute;
-  top: 4%;
-  right: 4%;
-  padding: 1%;
-  border: none;
-}
-
-.logout-button {
-  border-radius: 3px;
-  background: white;
-  color: #5da2d5;
-  height: 75%;
-  width: fit-content;
-  font-size: 1vw;
-  padding: 5% 20%;
-  border: #5da2d5 1px solid;
-  cursor: pointer;
-}
-
-.login-form,
-.create-account-form {
-  display: grid;
-  max-height: 100%;
-}
-
-.login-form-input,
-.login-form-button {
-  width: 100%;
-  height: 80%;
-  margin: 3% 0;
-  border-radius: 3px;
-}
-
-.login-form-input.error {
-  outline: red;
-  border: 1px red solid;
-}
-.error-message {
-  color: white;
-  background: rgba(233, 64, 64, 0.911);
-  font-size: 1.2vw;
-  padding: 2%;
-  text-align: center;
-  align-self: center;
-  border-radius: 3px;
-}
-
-.success {
-  color: darkgreen;
-  font-size: 1.2vw;
-  background: rgba(102, 255, 109, 0.25);
-  padding: 2%;
-  text-align: center;
-  align-self: center;
-  border-radius: 3px;
-}
-
-.login-form-input {
-  text-indent: 7px;
 }
 
 .new-set-button {
@@ -499,6 +252,10 @@ li {
 
 .set__preview {
   margin: 1% 2%;
+  overflow: hidden;
+}
+.set__preview:hover {
+  overflow-y: scroll;
 }
 .set__preview__item {
   display: -webkit-box;
@@ -508,14 +265,16 @@ li {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   transition: all 0.05s linear;
+  scroll-snap-type: y mandatory;
+  scroll-snap-align: start;
 }
 
 .set__preview__item:hover {
   background: #646c80;
   border-radius: 3px;
   cursor: pointer;
-  margin: 2%;
-  padding: 1% 0.5%;
+  margin: 2% 1%;
+  padding: 1% 1.5%;
 }
 
 .current-flashcard {
@@ -523,15 +282,14 @@ li {
   border-radius: 3px;
   color: #646c80;
   cursor: pointer;
-  margin: 1%;
-  padding: 1%;
+  margin: 2% 1%;
+  padding: 1% 1.5%;
   transition: all 0.1s ease-in;
 }
 
 .current-flashcard:hover {
   background: #f0df9b;
-  margin: 1%;
-  padding: 1% 1.5%;
+  padding: 1% 2%;
   width: 98%;
 }
 
@@ -560,7 +318,8 @@ li {
 .button-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  width: 40vw;
+  max-width: 15vw;
+  min-width: 15vw;
 }
 
 .new-flashcard-button,
@@ -591,8 +350,9 @@ li {
 
 .tools__card-selection select {
   height: 100%;
-  width: 50%;
-  max-width: 60%;
+  min-width: 20vw;
+  width: 40%;
+  max-width: 40%;
   outline: none;
   margin: 0 2%;
   margin-right: 0;
@@ -658,7 +418,7 @@ li {
   transform-style: preserve-3d;
 
   background: white;
-  box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.2), 0px 0px 50px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 25px rgb(0 0 0 / 40%), 0px 0px 60px rgb(0 0 0 / 15%);
   border-radius: 5px;
   height: 100%;
   z-index: 1;
@@ -690,6 +450,7 @@ li {
   width: 100%;
   height: 80%;
   margin-top: 0%;
+  padding: 5%;
   border: none;
   font-size: 1.55vw;
   text-align: center;
@@ -701,68 +462,11 @@ li {
 }
 
 @media all and (max-width: 560px) {
-  header {
-    height: 5vh;
-    min-width: 100vw;
-  }
   .main-section {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 8vh 52vh 35vh;
     height: 95vh;
     max-height: 95vh;
-  }
-  .login-outside-button {
-    height: 4.5vh;
-    width: 15vw;
-    font-size: 4vw;
-    color: #5da2d5;
-  }
-  .login-div.visible {
-    width: 100%;
-    height: 35vh;
-    z-index: 4;
-    margin: auto;
-  }
-  .login.noselect {
-    grid-template-rows: 4fr 1fr;
-  }
-  .login > h3 {
-    height: 2vh;
-  }
-  .login-form {
-    height: 25vh;
-    margin: 10% auto;
-    width: 100%;
-    grid-template-rows: 1fr 1fr 2fr;
-  }
-  .login-form-button {
-    font-size: 3vw;
-    height: 50%;
-    margin-top: 10%;
-  }
-  .login-cancel-button {
-    font-size: 3vw;
-    background: #ececec;
-    padding: 1%;
-  }
-  .logout-div {
-    grid-template-columns: auto auto;
-    padding: 0;
-    width: fit-content;
-    height: 5vh;
-    border-radius: 4px;
-    padding: 0.5vh 1vw;
-    margin-right: 0;
-    align-items: center;
-  }
-
-  .logout-button {
-    height: 100%;
-    width: 20vw;
-  }
-  .user-greeting,
-  .logout-button {
-    font-size: 4vw;
   }
   .sidebar__setlist {
     grid-area: 3 / 1 / 4 / 3;
@@ -824,7 +528,6 @@ li {
     height: 100%;
     padding: 0;
     font-size: 2.5vw;
-    text-overflow: ellipsis;
   }
   .search-bar,
   .new-set-button,
@@ -868,26 +571,7 @@ li {
   }
 }
 
-@media all and (min-width: 551px) and (max-width: 900px) {
-  header {
-    height: 6vh;
-  }
-  .login-outside-button {
-    height: 100%;
-    font-size: 3vw;
-  }
-  .logout-div {
-    height: 5vh;
-    align-content: center;
-  }
-
-  .user-greeting,
-  .logout-button {
-    font-size: 2vw;
-    height: 100%;
-    align-self: baseline;
-  }
-
+@media all and (min-width: 561px) and (max-width: 900px) {
   .main-section {
     grid-template-columns: 1fr 2.5fr;
     max-height: 94vh;
@@ -936,6 +620,11 @@ li {
   .main-section {
     grid-template-columns: 1fr 4fr;
   }
+  .tools__card-selection select {
+    width: 50%;
+    min-width: 50%;
+    max-width: 50%;
+  }
   .set__header {
     grid-template-columns: 7fr 1fr 1fr;
   }
@@ -946,7 +635,9 @@ li {
     font-size: 1.5vw;
   }
   .button-container {
+    width: 20vw;
     min-width: 20vw;
+    max-width: 20vw;
   }
   .flashcard-selection {
     width: 95%;

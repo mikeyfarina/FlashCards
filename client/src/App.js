@@ -1,3 +1,4 @@
+import './styles/Header.css';
 import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
 

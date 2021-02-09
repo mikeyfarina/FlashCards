@@ -137,7 +137,7 @@ const Set = ({
         <hr className={'divide-line'} />
       </div>
       <div className="set__preview">
-        <ul>
+        <ul style={{ maxHeight: '20vh', padding: '2% 0' }}>
           {currentFlashcardsInSet
             ? currentFlashcardsInSet.map((card, i) => (
                 <li
