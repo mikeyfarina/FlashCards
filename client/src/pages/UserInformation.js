@@ -103,7 +103,7 @@ const UserInformation = ({ loggedInUser }) => {
     overflowY: 'scroll',
     display: 'inline-block',
     scrollSnapAlign: 'end',
-    scrollSnapType: 'y mandatory',
+    scrollSnapType: 'y',
   };
 
   const setDisplayStyle = {};
@@ -120,7 +120,8 @@ const UserInformation = ({ loggedInUser }) => {
     position: 'relative',
     float: 'left',
     scrollSnapAlign: 'start',
-    scrollMarginTop: '2vh',
+    scrollMarginTop: '1.5vh',
+    scrollMarginBottom: '1vh',
   };
 
   const flashcardsDisplayStyle = {
@@ -138,7 +139,8 @@ const UserInformation = ({ loggedInUser }) => {
     float: 'left',
     padding: '1% 2%',
     scrollSnapAlign: 'start',
-    scrollMarginTop: '2vh',
+    scrollMarginTop: '1.5vh',
+    scrollMarginBottom: '1vh',
     display: 'flex',
   };
 

@@ -595,6 +595,7 @@ li {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 3fr 2fr;
     width: 95%;
+    height: 75%;
   }
 
   .card-number {
