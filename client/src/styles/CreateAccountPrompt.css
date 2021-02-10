@@ -1,0 +1,58 @@
+.signup-section {
+  grid-template-rows: 5fr 1fr;
+}
+.signup-image {
+  justify-self: end;
+  max-height: 28vw;
+}
+
+.circle-separator {
+  align-self: center;
+  height: 150%;
+  position: absolute;
+  right: 0;
+  border-radius: 100% 0 0 100%;
+  width: 48vw;
+  background: rgba(255, 255, 255, 0.35);
+  z-index: 0;
+}
+
+.signup-prompt-button {
+  height: 5vh;
+  width: 8vw;
+  font-size: 1.5vw;
+}
+
+@media all and (max-width: 850px) {
+  .signup-section {
+    grid-template-rows: 1fr 3fr 1fr;
+  }
+  .signup-text {
+    grid-area: 1 / 1 / 2 / 3;
+  }
+  .signup-image {
+    max-width: 100vw;
+    max-height: none;
+    justify-self: center;
+    grid-area: 2 / 1 / 3 / 3;
+  }
+  .signup-prompt-button {
+    width: 20vw;
+    font-size: 3vw;
+  }
+  .circle-separator {
+    bottom: 0;
+    right: auto;
+    border-radius: 100% 100% 0 0;
+    width: 150vw;
+    height: 80%;
+    justify-self: center;
+  }
+}
+
+@media all and (max-width: 450px) {
+  .signup-prompt-button {
+    width: 40vw;
+    font-size: 5vw;
+  }
+}
