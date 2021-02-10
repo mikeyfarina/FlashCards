@@ -1,4 +1,5 @@
 import '../styles/PagesStyles.css';
+import '../styles/UserInformation.css';
 
 import React, { useState, useEffect } from 'react';
 import userService from '../services/userService';
@@ -118,8 +119,8 @@ const UserInformation = ({ loggedInUser }) => {
     transition: 'all .15s ease-in-out',
     position: 'relative',
     float: 'left',
-    scrollSnapAlign: 'end',
-    scrollMarginBottom: '2vh',
+    scrollSnapAlign: 'start',
+    scrollMarginTop: '2vh',
   };
 
   const flashcardsDisplayStyle = {
@@ -136,8 +137,8 @@ const UserInformation = ({ loggedInUser }) => {
     height: '14vh',
     float: 'left',
     padding: '1% 2%',
-    scrollSnapAlign: 'end',
-    scrollMarginBottom: '1vh',
+    scrollSnapAlign: 'start',
+    scrollMarginTop: '2vh',
     display: 'flex',
   };
 

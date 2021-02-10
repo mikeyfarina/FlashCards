@@ -1,9 +1,9 @@
+import '../styles/CreateAccountPrompt.css';
 import React, { useState } from 'react';
 import { ReactComponent as Image } from '../images/clipart/img1.svg';
 import { Link } from 'react-router-dom';
 const CreateAccountPrompt = () => {
   const [signupDisplayed, setSignupDisplayed] = useState(true);
-  const [hideSignup, setHideSignup] = useState(false);
 
   const signupSectionStyle = {
     width: '100vw',
@@ -11,11 +11,9 @@ const CreateAccountPrompt = () => {
     minHeight: '0',
     padding: '2% 6%',
     background: '#5da2d5',
-    display: hideSignup ? 'none' : 'grid',
+    display: signupDisplayed ? 'grid' : 'none',
     gridTemplateColumns: '1fr 1fr',
-    gridTemplateRows: '5fr 1fr',
     position: 'relative',
-    transition: 'all .5s ease-out',
     overflow: 'hidden',
   };
 
@@ -44,13 +42,10 @@ const CreateAccountPrompt = () => {
   };
 
   const signupPromptButton = {
-    height: signupDisplayed ? '5vh' : '0',
-    width: '8vw',
-    color: signupDisplayed ? 'inherit' : 'transparent',
+    color: 'inherit',
     borderRadius: '6px',
     outline: 'none',
     border: 'none',
-    fontSize: '1.5vw',
     minHeight: '0',
     transition: 'all .25s ease-in',
   };
@@ -61,26 +56,13 @@ const CreateAccountPrompt = () => {
         style={cancelButton}
         onClick={() => {
           setSignupDisplayed(false);
-          setTimeout(() => {
-            setHideSignup(true);
-          }, 250);
         }}
       >
         x
       </button>
-      <div
-        style={{
-          top: '-50%',
-          height: ' 115vh',
-          position: 'absolute',
-          right: '-30%',
-          borderRadius: '100%',
-          width: '115vh',
-          background: 'white',
-          zIndex: '0',
-        }}
-      ></div>
+      <div className={'circle-separator'}></div>
       <h2
+        className={'signup-text'}
         style={{
           alignSelf: 'center',
           textAlign: 'center',
@@ -91,10 +73,11 @@ const CreateAccountPrompt = () => {
         Sign up to create new flashcards!
       </h2>
       <Image
+        className={'signup-image'}
         style={{
           height: '100%',
           display: 'flex',
-          justifySelf: 'end',
+          alignSelf: 'center',
           minHeight: '0',
           zIndex: '1',
         }}
@@ -113,9 +96,13 @@ const CreateAccountPrompt = () => {
             justifySelf: 'end',
             alignSelf: 'center',
             marginRight: '1.5vw',
+            zIndex: '1',
           }}
         >
-          <button style={{ ...signupPromptButton, ...signupButton }}>
+          <button
+            className={'signup-prompt-button'}
+            style={{ ...signupPromptButton, ...signupButton }}
+          >
             Sign up
           </button>
         </Link>
@@ -128,7 +115,10 @@ const CreateAccountPrompt = () => {
             zIndex: '1',
           }}
         >
-          <button style={{ ...signupPromptButton, ...loginButton }}>
+          <button
+            className={'signup-prompt-button'}
+            style={{ ...signupPromptButton, ...loginButton }}
+          >
             Log in
           </button>
         </Link>

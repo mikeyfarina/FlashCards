@@ -51,7 +51,7 @@ const LoginForm = ({ setUser, standalone }) => {
       setError('Incorrect Username/Password');
       setTimeout(() => {
         setError(null);
-      }, 5000);
+      }, 335000);
     }
   };
 
@@ -85,9 +85,13 @@ const LoginForm = ({ setUser, standalone }) => {
             onChange={({ target }) => setPassword(target.value)}
             placeholder="password"
           />
-          {error && <p className={'error-message'}>{error}</p>}
-          {success && (
-            <p className={'success'}>Account created Successfully!</p>
+          {(error || success) && (
+            <div className="message">
+              {error && <p className={'error'}>{error}</p>}
+              {success && (
+                <p className={'success'}>Account created Successfully!</p>
+              )}
+            </div>
           )}
           <button type="submit" className="login-form-button">
             login

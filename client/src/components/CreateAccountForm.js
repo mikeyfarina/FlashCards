@@ -158,7 +158,6 @@ const CreateAccountForm = ({ setCreateAccount, setUser }) => {
           className="login-form-button"
           onClick={(e) => {
             e.stopPropagation();
-            history.push('/home/login');
             setCreateAccount(false);
           }}
         >
