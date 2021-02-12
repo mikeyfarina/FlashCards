@@ -48,7 +48,7 @@ const UserInformation = ({ loggedInUser }) => {
     boxShadow: '0 15px 25px rgba(1,1,1,0.3), 0 0px 5px rgba(1,1,1,0.4)',
     zIndex: 1,
     overflowY: 'scroll',
-    scrollSnapType: 'y mandatory',
+    scrollSnapType: 'y',
   };
   const basicInfoContainer = {
     padding: '5vh 5vw',
@@ -60,7 +60,6 @@ const UserInformation = ({ loggedInUser }) => {
       'linear-gradient(221deg, rgba(93,162,213,1) 0%, rgba(133,196,247,1) 39%, rgba(255,255,255,1) 100%)',
     alignItems: 'center',
     scrollSnapAlign: 'start',
-
     position: 'relative',
   };
 
@@ -102,6 +101,8 @@ const UserInformation = ({ loggedInUser }) => {
     padding: '1%',
     overflowY: 'scroll',
     display: 'inline-block',
+    scrollSnapAlign: 'end',
+    scrollSnapType: 'y',
   };
 
   const setDisplayStyle = {};
@@ -117,9 +118,14 @@ const UserInformation = ({ loggedInUser }) => {
     transition: 'all .15s ease-in-out',
     position: 'relative',
     float: 'left',
+    scrollSnapAlign: 'start',
+    scrollMarginTop: '1.5vh',
+    scrollMarginBottom: '1vh',
   };
 
-  const flashcardsDisplayStyle = {};
+  const flashcardsDisplayStyle = {
+    scrollMarginBottom: '4vh',
+  };
 
   const flashcardStyle = {
     background: 'white',
@@ -132,6 +138,9 @@ const UserInformation = ({ loggedInUser }) => {
     float: 'left',
     padding: '1% 2%',
     display: 'flex',
+    scrollSnapAlign: 'start',
+    scrollMarginTop: '1.5vh',
+    scrollMarginBottom: '1vh',
   };
 
   const setTitleContainerStyle = {
