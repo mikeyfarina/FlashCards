@@ -14,8 +14,18 @@
 .collection-container {
   height: 82vh;
 }
+.show-more-options {
+  margin-top: 1%;
+  padding: 1%;
+  align-self: center;
+  margin-left: -1%;
+}
+.show-more-options:hover {
+  background: linear-gradient(90deg, #c0c0c0, white 65%);
+  color: gray;
+  border-radius: 4px;
+}
 
-.show-more-options:hover,
 .home-flashcard-option:hover > h5 {
   text-decoration: underline;
 }
