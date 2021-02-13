@@ -1,9 +1,9 @@
 import '../styles/PagesStyles.css';
 import '../styles/Homepage.css';
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import CreateAccountPrompt from '../components/CreateAccountPrompt';
+import HomepageSet from '../components/HomepageSet';
 
 import setService from '../services/setService';
 
@@ -32,13 +32,6 @@ const Homepage = ({ flashcardSets, user }) => {
     padding: '0 1%',
   };
 
-  const containerStyle = {
-    height: '82vh',
-    width: '100vw',
-    position: 'relative',
-    oveflow: 'hidden',
-  };
-
   const backgroundShapeStyle = {
     clipPath: 'polygon(100% 33%, 0px 100%, 100% 100%)',
     position: 'absolute',
@@ -52,31 +45,7 @@ const Homepage = ({ flashcardSets, user }) => {
     width: '100%',
     padding: '0',
     borderRadius: '5px',
-    scrollSnapType: 'y',
-  };
-  const setStyle = {
-    float: 'left',
-    height: '20vh',
-    background: 'white',
-    zIndex: '1',
-    padding: '1% 2%',
-    borderRadius: '8px',
-    boxShadow: '2px 5px 12px rgb(1, 1, 1, 0.2), 2px 5px 2px rgb(1, 1, 1, 0.1)',
-    transition: 'all .1s linear',
-    position: 'relative',
-    scrollSnapAlign: 'start',
-    scrollMarginTop: '2.5vh',
-    scrollPadding: '8vh',
-  };
-
-  const history = useHistory();
-
-  const hoverScrollDivStyle = {
-    position: 'absolute',
-    height: '10%',
-    width: '20%',
-    zIndex: '0',
-    background: 'black',
+    scrollSnapType: 'y proximity',
   };
 
   useEffect(() => {
@@ -113,93 +82,21 @@ const Homepage = ({ flashcardSets, user }) => {
           placeholder="search flashcard sets..."
         />
       </div>
-      <div style={containerStyle}>
+      <div className="flashcard-collections-container">
         <div style={backgroundShapeStyle}></div>
         <div
           style={{
             height: '100%',
             overflowY: 'scroll',
+            scrollSnapType: 'y mandatory',
+            padding: '1% 0',
           }}
         >
           <div style={collectionStyle}>
             {searchSets ? (
               searchSets.map((set) => (
                 <li key={set.id}>
-                  <div
-                    className={'user-list-item home-set'}
-                    style={setStyle}
-                    onClick={() => {
-                      history.push(`/flashcards/${set.id}`);
-                    }}
-                  >
-                    <h2
-                      style={{
-                        marginBottom: '1vh',
-                        textOverflow: 'ellipsis',
-                        overflow: 'hidden',
-                        whiteSpace: 'nowrap',
-                      }}
-                    >
-                      {set.title}
-                    </h2>
-                    <div style={{ maxHeight: '9vh', overflow: 'scroll' }}>
-                      {set.flashcards.map((card, i) => {
-                        if (i > 3) return;
-                        return (
-                          <div
-                            key={card.id}
-                            style={{
-                              WebkitBoxOrient: 'vertical',
-                              WebkitLineClamp: '1',
-                              overflow: 'hidden',
-                              display: '-webkit-box',
-                              maxWidth: '80%',
-                              padding: '.5%',
-                            }}
-                            className={'home-flashcard-option'}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              history.push(`/flashcards/${set.id}/${card.id}`);
-                            }}
-                          >
-                            <h5>{card.front}</h5>
-                          </div>
-                        );
-                      })}
-                      {set.flashcards.length > 3 && (
-                        <h5 className={'show-more-options'}>...</h5>
-                      )}
-                    </div>
-                    <h5
-                      style={{
-                        position: 'absolute',
-                        bottom: '18%',
-                        right: '4%',
-                        color: 'darkgray',
-                        fontWeight: 'lighter',
-                      }}
-                    >
-                      Size: <strong>{set.flashcards.length || 0}</strong>
-                    </h5>
-                    <h5
-                      style={{
-                        position: 'absolute',
-                        bottom: '6%',
-                        right: '4%',
-                        color: 'darkgray',
-                        fontWeight: 'lighter',
-                      }}
-                    >
-                      Created By:{' '}
-                      <Link
-                        to={`/users/${set.username}`}
-                        className={'user-link-from-set'}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <strong>{set.username}</strong>
-                      </Link>
-                    </h5>
-                  </div>
+                  <HomepageSet set={set} />
                 </li>
               ))
             ) : (

@@ -98,7 +98,7 @@ const UserInformation = ({ loggedInUser }) => {
     background:
       'linear-gradient(221deg, rgba(255,255,255,1) 0%, rgba(235,234,234,1) 47%, rgba(255,255,255,1) 100%)',
     marginBottom: '3vh',
-    padding: '1%',
+    padding: '0 1%',
     overflowY: 'scroll',
     display: 'inline-block',
     scrollSnapAlign: 'end',
@@ -111,7 +111,7 @@ const UserInformation = ({ loggedInUser }) => {
     background: 'white',
     border: '1px rgba(1,1,1,.2) solid',
     borderRadius: '8px',
-    height: '14vh',
+    height: '15vh',
     alignSelf: 'center',
     textAlign: 'center',
     boxShadow: '0px 0px 20px rgb(1 1 1 / 10%), 0 0 5px rgb(1 1 1 / 30%)',
@@ -120,7 +120,7 @@ const UserInformation = ({ loggedInUser }) => {
     float: 'left',
     scrollSnapAlign: 'start',
     scrollMarginTop: '1.5vh',
-    scrollMarginBottom: '1vh',
+    willChange: 'transform',
   };
 
   const flashcardsDisplayStyle = {
@@ -134,13 +134,13 @@ const UserInformation = ({ loggedInUser }) => {
     transition: 'all .1s ease-in',
     position: 'relative',
     boxShadow: '0px 0px 20px rgb(1 1 1 / 10%), 0 0 5px rgb(1 1 1 / 30%)',
-    height: '14vh',
+    height: '15vh',
     float: 'left',
     padding: '1% 2%',
     display: 'flex',
     scrollSnapAlign: 'start',
-    scrollMarginTop: '1.5vh',
-    scrollMarginBottom: '1vh',
+    scrollMarginTop: '2vh',
+    willChange: 'transform',
   };
 
   const setTitleContainerStyle = {

@@ -71,7 +71,7 @@
 .set-item {
   width: 29%;
   padding: 1% 2%;
-  margin: 2%;
+  margin: 1.5vh 2%;
 }
 
 @media all and (max-width: 900px) {
@@ -135,7 +135,6 @@
 @media all and (max-width: 450px) {
   .user-info {
     width: 100%;
-    height: 100%;
     margin: 0;
   }
   .user-info__basic {
