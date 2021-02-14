@@ -5,7 +5,7 @@ import userService from '../services/userService';
 import setService from '../services/setService';
 import flashcardService from '../services/flashcardService';
 
-const CreateAccountForm = ({ setCreateAccount, setUser }) => {
+const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -155,10 +155,11 @@ const CreateAccountForm = ({ setCreateAccount, setUser }) => {
         </div>
         <p style={{ marginTop: 'auto' }}>Already have an account?</p>
         <button
+          type="button"
           className="login-form-button"
           onClick={(e) => {
             e.stopPropagation();
-            setCreateAccount(false);
+            standalone ? history.push('/home/login') : setCreateAccount(false);
           }}
         >
           Log In

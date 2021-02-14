@@ -98,7 +98,11 @@ const LoginForm = ({ setUser, standalone }) => {
           </button>
           <button
             className="login-form-button"
-            onClick={() => setCreateAccount(true)}
+            onClick={() =>
+              standalone
+                ? history.push('/home/createAccount')
+                : setCreateAccount(true)
+            }
           >
             Create Account
           </button>

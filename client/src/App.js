@@ -119,7 +119,7 @@ const App = () => {
         </Route>
         <Route path={'/home/createAccount'}>
           <FormContainer>
-            <CreateAccountForm />
+            <CreateAccountForm standalone={true} />
           </FormContainer>
         </Route>
         <Route exact path={'/users/:username'}>
