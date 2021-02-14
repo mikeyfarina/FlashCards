@@ -11,7 +11,6 @@ const LoginForm = ({ setUser, standalone }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [createAccount, setCreateAccount] = useState(false);
-  const [accountCreationMessage, setAccountCreationMessage] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
@@ -36,7 +35,6 @@ const LoginForm = ({ setUser, standalone }) => {
       );
       flashcardService.setToken(user.token);
       setService.setToken(user.token);
-      console.log(user.username, 'logged in', 'sA?', standalone);
       setUsername('');
       setPassword('');
       setUser(user);
@@ -51,7 +49,7 @@ const LoginForm = ({ setUser, standalone }) => {
       setError('Incorrect Username/Password');
       setTimeout(() => {
         setError(null);
-      }, 5000);
+      }, 335000);
     }
   };
 
@@ -85,16 +83,24 @@ const LoginForm = ({ setUser, standalone }) => {
             onChange={({ target }) => setPassword(target.value)}
             placeholder="password"
           />
-          {error && <p className={'error-message'}>{error}</p>}
-          {success && (
-            <p className={'success'}>Account created Successfully!</p>
+          {(error || success) && (
+            <div className="message">
+              {error && <p className={'error'}>{error}</p>}
+              {success && (
+                <p className={'success'}>Account created Successfully!</p>
+              )}
+            </div>
           )}
           <button type="submit" className="login-form-button">
             login
           </button>
           <button
             className="login-form-button"
-            onClick={() => setCreateAccount(true)}
+            onClick={() =>
+              standalone
+                ? history.push('/home/createAccount')
+                : setCreateAccount(true)
+            }
           >
             Create Account
           </button>

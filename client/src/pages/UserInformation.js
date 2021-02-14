@@ -1,3 +1,6 @@
+import '../styles/PagesStyles.css';
+import '../styles/UserInformation.css';
+
 import React, { useState, useEffect } from 'react';
 import userService from '../services/userService';
 import { useParams, useHistory } from 'react-router-dom';
@@ -14,32 +17,22 @@ const UserInformation = ({ loggedInUser }) => {
   const username = useParams().username;
   useEffect(() => {
     if (username) {
-      console.log(username);
       userService
         .findAccountByUsername(username)
         .then((foundUser) => {
-          console.log(foundUser);
           setDesiredUser(foundUser[0]);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
     }
   }, [username]);
 
   useEffect(() => {
     if (loggedInUser) {
-      console.log(tempPhotoOption);
-      userService
-        .changeProfilePhoto(loggedInUser.username, tempPhotoOption)
-        .then((u) => {
-          console.log(u, 'set pp');
-        });
+      userService.changeProfilePhoto(loggedInUser.username, tempPhotoOption);
     }
   }, [tempPhotoOption]);
-  console.log(loggedInUser, desiredUser);
 
   const userInfoStyle = {
-    height: '90vh',
-    width: '90vw',
     padding: '1% 5% 0 5%',
     background: 'white',
     margin: 'auto',
@@ -47,30 +40,23 @@ const UserInformation = ({ loggedInUser }) => {
     boxShadow: '0 15px 25px rgba(1,1,1,0.3), 0 0px 5px rgba(1,1,1,0.4)',
     zIndex: 1,
     overflowY: 'scroll',
-    scrollSnapType: 'y mandatory',
+    scrollSnapType: 'y',
   };
   const basicInfoContainer = {
     padding: '5vh 5vw',
     display: 'grid',
-    gridTemplateColumns: '20vh .5fr 2fr',
     borderRadius: '8px',
     boxShadow: '0 15px 25px rgba(1,1,1,0.1)',
-    height: '30vh',
     margin: '6vh 0 9vh 0',
     background:
       'linear-gradient(221deg, rgba(93,162,213,1) 0%, rgba(133,196,247,1) 39%, rgba(255,255,255,1) 100%)',
     alignItems: 'center',
     scrollSnapAlign: 'start',
-    scrollMarginTop: '6vh',
     position: 'relative',
   };
 
   const basicStatsStyle = {
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gridTemplateRows: '1fr 2fr',
-    width: '50%',
-    height: '50%',
     marginLeft: 'auto',
     borderRadius: '8px',
     textAlign: 'center',
@@ -104,30 +90,27 @@ const UserInformation = ({ loggedInUser }) => {
     background:
       'linear-gradient(221deg, rgba(255,255,255,1) 0%, rgba(235,234,234,1) 47%, rgba(255,255,255,1) 100%)',
     marginBottom: '3vh',
+    padding: '0 1%',
     overflowY: 'scroll',
     display: 'inline-block',
     scrollSnapAlign: 'end',
-    scrollSnapType: 'y mandatory',
+    scrollSnapType: 'y',
   };
-
-  const setDisplayStyle = {};
 
   const setStyle = {
     background: 'white',
     border: '1px rgba(1,1,1,.2) solid',
     borderRadius: '8px',
-    height: '14vh',
-    margin: '2vh 2vw',
-    width: '22vw',
+    height: '15vh',
     alignSelf: 'center',
     textAlign: 'center',
-    padding: '1% 2%',
     boxShadow: '0px 0px 20px rgb(1 1 1 / 10%), 0 0 5px rgb(1 1 1 / 30%)',
     transition: 'all .15s ease-in-out',
     position: 'relative',
     float: 'left',
-    scrollSnapAlign: 'end',
-    scrollMarginBottom: '2vh',
+    scrollSnapAlign: 'start',
+    scrollMarginTop: '1.5vh',
+    willChange: 'transform',
   };
 
   const flashcardsDisplayStyle = {
@@ -141,14 +124,13 @@ const UserInformation = ({ loggedInUser }) => {
     transition: 'all .1s ease-in',
     position: 'relative',
     boxShadow: '0px 0px 20px rgb(1 1 1 / 10%), 0 0 5px rgb(1 1 1 / 30%)',
-    height: '14vh',
-    width: '23%',
-    margin: '2vh 1%',
+    height: '15vh',
     float: 'left',
     padding: '1% 2%',
-    scrollSnapAlign: 'end',
-    scrollMarginBottom: '1vh',
     display: 'flex',
+    scrollSnapAlign: 'start',
+    scrollMarginTop: '2vh',
+    willChange: 'transform',
   };
 
   const setTitleContainerStyle = {
@@ -167,7 +149,7 @@ const UserInformation = ({ loggedInUser }) => {
           className={'user-info__basic__photo'}
           style={{
             position: 'relative',
-            height: '20vh',
+
             borderRadius: '25px',
             overflow: 'hidden',
             boxShadow: '0px 0px 45px rgba(1,1,1,.35)',
@@ -182,8 +164,8 @@ const UserInformation = ({ loggedInUser }) => {
             src={
               profilePhotos[
                 `${
-                  tempPhotoOption
-                    ? tempPhotoOption.toString()
+                  tempPhotoOption && tempPhotoOption.toString()
+                    ? tempPhotoOption
                     : desiredUser.photoNumber
                 }`
               ]
@@ -217,11 +199,12 @@ const UserInformation = ({ loggedInUser }) => {
               : 'photo-options-container'
           }
           style={{
-            width: '34vh',
+            width: 'fit-content',
+            height: 'fit-content',
             zIndex: '3',
             position: 'absolute',
-            left: '30vh',
             background: 'aliceblue',
+            visibility: displayProfilePhotoOptions ? 'visible' : 'hidden',
             display: 'grid',
             gridGap: '1vh',
             gridTemplateColumns: 'repeat(3, 10vh)',
@@ -251,7 +234,6 @@ const UserInformation = ({ loggedInUser }) => {
               }}
               onClick={() => {
                 if (desiredUser.username === loggedInUser.username) {
-                  console.log(indexOfPhoto);
                   setTempPhotoOption(indexOfPhoto);
                 }
               }}
@@ -288,14 +270,11 @@ const UserInformation = ({ loggedInUser }) => {
       </div>
       <div style={setDisplayContainerStyle}>
         <h2 style={{ marginBottom: '1vh' }}>Sets:</h2>
-        <div
-          className={'setDisplay'}
-          style={{ ...displayStyle, ...setDisplayStyle }}
-        >
+        <div className={'setDisplay'} style={{ ...displayStyle }}>
           {desiredUser.sets.map((set) => {
             return (
               <div
-                className={'setItem user-list-item'}
+                className={'set-item user-list-item'}
                 style={setStyle}
                 key={set.id}
                 onClick={() => {
@@ -329,10 +308,9 @@ const UserInformation = ({ loggedInUser }) => {
           style={{ ...flashcardsDisplayStyle, ...displayStyle }}
         >
           {desiredUser.flashcards.map((flashcard) => {
-            console.log(flashcard);
             return (
               <div
-                className={'flashcardItem user-list-item'}
+                className={'flashcard-item user-list-item'}
                 style={flashcardStyle}
                 key={flashcard.id}
                 onClick={() => {
@@ -351,6 +329,10 @@ const UserInformation = ({ loggedInUser }) => {
                     right: '4%',
                     color: 'darkgray',
                     fontWeight: 'lighter',
+                    maxWidth: '75%',
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap',
                   }}
                 >
                   from: <strong>{flashcard.set.title}</strong>

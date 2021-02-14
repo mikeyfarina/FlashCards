@@ -1,0 +1,112 @@
+.hover-section:hover {
+  background: rgba(0, 0, 0, 0.64);
+}
+.homepage-container {
+  height: 90vh;
+}
+
+.flashcard-collections-container {
+  width: 100vw;
+  height: 82vh;
+  position: relative;
+  overflow: hidden;
+}
+.collection-container {
+  height: 82vh;
+}
+.show-more-options {
+  margin-top: 1%;
+  padding: 1% 1% 2% 1%;
+  align-self: center;
+  margin-left: -1%;
+}
+.show-more-options:hover {
+  background: linear-gradient(90deg, #c0c0c0, white 65%);
+  color: gray;
+  border-radius: 4px;
+}
+
+.home-flashcard-option:hover > h5 {
+  text-decoration: underline;
+}
+.user-list-item.home-set {
+  height: 20vh;
+  min-width: 30vw;
+  max-width: 30vw;
+  margin: 2.5vh 1.4vw;
+}
+
+.user-list-item.home-set:hover > h2 {
+  text-decoration: underline;
+}
+
+.user-link {
+  color: white;
+  text-decoration: none;
+}
+.user-link:hover {
+  cursor: point;
+  text-decoration: underline;
+}
+.user-link-from-set {
+  text-decoration: none;
+  color: black;
+}
+
+.user-link-from-set:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.disable-hover {
+  pointer-events: none;
+}
+
+@media all and (min-width: 1200px) {
+  .user-list-item.home-set {
+    min-width: 22%;
+    max-width: 22%;
+    margin: 1.5vh 1.5%;
+  }
+}
+
+@media all and (max-width: 900px) {
+  .homepage-container {
+    height: 94vh;
+  }
+  .form-container {
+    min-width: 60%;
+    min-height: 40%;
+  }
+  .user-list-item.home-set {
+    min-width: 44%;
+    max-width: 44%;
+    margin: 1.5vh 2.5vw;
+  }
+  .hover_section {
+    visibility: invisible;
+  }
+  .flashcard-collections-container {
+    height: 86vh;
+  }
+}
+
+@media all and (max-width: 560px) {
+  .homepage-container {
+    height: 95vh;
+  }
+  .form-container {
+    min-width: 80%;
+  }
+  .create-account-form {
+    max-height: 65vh;
+  }
+  .user-list-item.home-set {
+    min-width: 95%;
+    max-width: 95%;
+    margin: 1.5vh 2.5vw;
+  }
+  .collection-container {
+    height: 87vh;
+  }
+}

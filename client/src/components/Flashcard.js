@@ -17,6 +17,40 @@ const Flashcard = ({
   const [flashcard, setFlashcard] = useState(null);
   const [flashcardInputText, setFlashcardInputText] = useState('');
   const [displayingFront, setDisplayingFront] = useState(true);
+  const [flip, setFlip] = useState(false);
+
+  const divStyle = {
+    transform: `rotateY(${!flip ? mousePosition.xAxis - 5 : 0}deg) rotateX(${
+      displayingFront
+        ? 180 - -mousePosition.yAxis + 5
+        : (mousePosition.yAxis + 5) * 1.5
+    }deg)`,
+    transformStyle: 'preserve-3d',
+    transition: transition,
+    display: 'flex',
+    alignItems: 'center',
+    textAlign: 'center',
+    position: 'relative',
+  };
+
+  const frontStyles = {
+    transform: 'rotateY(0deg) rotateX(180deg)',
+    transition: transition,
+    transformStyle: 'preserve-3d',
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+    padding: '2% 3%',
+  };
+
+  const backStyles = {
+    transform: 'rotateY(0deg) rotateX(0deg)',
+    transition: transition,
+    transformStyle: 'preserve-3d',
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+  };
 
   useEffect(() => {
     const newFlashcard = flashcards[currentFlashcardIndex];
@@ -38,11 +72,18 @@ const Flashcard = ({
     }
   }, [canEdit]);
 
+  useEffect(() => {
+    if (flip) {
+      setTransition('all .5s ease-out');
+    }
+  }, [flip]);
+
   const handleMouseMove = (e) => {
-    let xAxis = -(window.innerWidth / 2 - e.pageX) / 25;
-    let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-    setTransition('none');
-    setMousePosition({ xAxis, yAxis });
+    if (!flip) {
+      let xAxis = -(window.innerWidth / 2 - e.pageX) / 25;
+      let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+      setMousePosition({ xAxis, yAxis });
+    }
   };
 
   const handleMouseEnter = () => {
@@ -61,17 +102,16 @@ const Flashcard = ({
       //if not in edit mode, flip card
       //flip {displayingFront} to display back
       setDisplayingFront(!displayingFront);
+      setTransition('all .5s linear');
+      setFlip(true);
+      setTimeout(() => {
+        setFlip(false);
+      }, 500);
     }
-  };
-
-  const styles = {
-    transform: `rotateY(${mousePosition.xAxis}deg) rotateX(${mousePosition.yAxis}deg)`,
-    transition: transition,
   };
 
   const handleTextEdit = (e) => {
     if (canEdit) {
-      console.log('handling text edit!');
       setFlashcardInputText(e.target.value);
       displayingFront
         ? setFlashcard({ ...flashcard, front: e.target.value })
@@ -80,7 +120,6 @@ const Flashcard = ({
   };
 
   const updateAndSaveFlashcard = () => {
-    console.log('SAVING CHANGES TO FLASHCARD');
     const flashcardToUpdate = flashcards[currentFlashcardIndex];
     const updatedFlashcard = displayingFront
       ? {
@@ -101,7 +140,7 @@ const Flashcard = ({
         );
       })
       .catch((er) => {
-        console.log(er);
+        console.error(er);
         setFlashcard(flashcardToUpdate);
       })
       .then(() => {
@@ -122,18 +161,39 @@ const Flashcard = ({
           transition={transition}
         />
       ) : (
-        <div className="flashcard" onClick={handleClick} style={styles}>
-          <div className="flex-centering noselect">
+        <div className="flashcard" onClick={handleClick} style={divStyle}>
+          <div className="flashcard__front" style={frontStyles}>
             <span className="card-number noselect">
               {Number.parseInt(currentFlashcardIndex) + 1}
             </span>
-            <textarea
-              type="text"
-              className={canEdit ? 'flashcard-text' : 'flashcard-text noselect'}
-              disabled={!canEdit}
-              value={displayingFront ? flashcard.front : flashcard.back}
-              onChange={handleTextEdit}
-            ></textarea>
+            <div className="flex-centering noselect">
+              <textarea
+                type="text"
+                className={
+                  canEdit ? 'flashcard-text' : 'flashcard-text noselect'
+                }
+                disabled={!canEdit}
+                value={flashcard.front}
+                onChange={handleTextEdit}
+              ></textarea>
+            </div>
+          </div>
+          <div
+            className="flashcard__back"
+            onClick={handleClick}
+            style={backStyles}
+          >
+            <div className="flex-centering noselect">
+              <textarea
+                type="text"
+                className={
+                  canEdit ? 'flashcard-text' : 'flashcard-text noselect'
+                }
+                disabled={!canEdit}
+                value={flashcard.back}
+                onChange={handleTextEdit}
+              ></textarea>
+            </div>
           </div>
         </div>
       )}

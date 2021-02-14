@@ -9,7 +9,6 @@ const Set = ({
   flashcards,
   set,
   index,
-  setCreator,
   currentSetIndex,
   setCurrentSetIndex,
   flashcardSets,
@@ -25,20 +24,17 @@ const Set = ({
 
   const history = useHistory();
 
-  const getCurrentSetFlashcards = async () => {
-    const flashcardsOfSet = await setService.getAllFlashcardsInSet(set.id);
-    setCurrentFlashcardsInSet(flashcardsOfSet);
-    setSetLength(flashcardsOfSet.length);
-  };
-
   useEffect(() => {
+    const getCurrentSetFlashcards = async () => {
+      const flashcardsOfSet = await setService.getAllFlashcardsInSet(set.id);
+      setCurrentFlashcardsInSet(flashcardsOfSet);
+      setSetLength(flashcardsOfSet.length);
+    };
     getCurrentSetFlashcards();
   }, [flashcards, set.id]);
 
   const handleTitleClick = () => {
     if (canEditTitle) return; // do nothing
-
-    console.log(currentSetIndex);
 
     const newIndex = flashcardSets.findIndex((s) => set.id === s.id);
     setCurrentFlashcardIndex(0);
@@ -47,14 +43,11 @@ const Set = ({
   };
 
   // switch edit mode when edit title button is clicked
-  const handleEditMode = () => {
+  const handleEditMode = async () => {
     setCanEditTitle(!canEditTitle);
     if (canEditTitle) {
       set.title = setTitle;
-      console.log('saving edit to server');
-      setService.updateSetTitle(set.id, setTitle).then((updatedSet) => {
-        console.log(updatedSet);
-      });
+      await setService.updateSetTitle(set.id, setTitle);
     }
   };
 
@@ -91,6 +84,17 @@ const Set = ({
       setRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [currentSetIndex, index]);
+
+  const cardContainerRef = useRef();
+  const cardRefs = [];
+  useEffect(() => {
+    if (index === currentSetIndex && cardRefs[currentFlashcardIndex]) {
+      cardContainerRef.current.scrollTo({
+        top: cardRefs[currentFlashcardIndex].offsetTop,
+        behavior: 'smooth',
+      });
+    }
+  }, [currentFlashcardIndex, currentSetIndex, index]);
 
   return (
     <div className="sidebar__setlist__set" ref={setRef}>
@@ -136,8 +140,8 @@ const Set = ({
         </div>
         <hr className={'divide-line'} />
       </div>
-      <div className="set__preview">
-        <ul>
+      <div className="set__preview" ref={cardContainerRef}>
+        <ul style={{ maxHeight: '20vh', padding: '2% 0' }}>
           {currentFlashcardsInSet
             ? currentFlashcardsInSet.map((card, i) => (
                 <li
@@ -148,6 +152,9 @@ const Set = ({
                       ? 'set__preview__item current-flashcard'
                       : 'set__preview__item'
                   }
+                  ref={(el) => {
+                    cardRefs.push(el);
+                  }}
                   onClick={(e) => handleCardClick(e, i)}
                 >
                   {card.front}

@@ -48,7 +48,6 @@ const Flashcards = ({
 
   const handleEditFlashCard = () => {
     setCanEdit(!canEdit);
-    console.log(canEdit);
   };
 
   const handleDeleteFlashCard = () => {
@@ -69,8 +68,6 @@ const Flashcards = ({
       .catch((error) => {
         console.error(error);
       });
-
-    console.log('After Delete', currentFlashcardIndex, flashcards);
   };
 
   return (

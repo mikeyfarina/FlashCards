@@ -5,7 +5,7 @@ import userService from '../services/userService';
 import setService from '../services/setService';
 import flashcardService from '../services/flashcardService';
 
-const CreateAccountForm = ({ setCreateAccount, setUser }) => {
+const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -84,8 +84,6 @@ const CreateAccountForm = ({ setCreateAccount, setUser }) => {
     gridTemplateRows: 'repeat(4, 1fr)',
   };
 
-  console.log(error);
-
   return (
     <div className={'login noselect'}>
       <form className={'create-account-form'} style={createAccountGridStyle}>
@@ -155,9 +153,11 @@ const CreateAccountForm = ({ setCreateAccount, setUser }) => {
         </div>
         <p style={{ marginTop: 'auto' }}>Already have an account?</p>
         <button
+          type="button"
           className="login-form-button"
-          onClick={() => {
-            setCreateAccount(false);
+          onClick={(e) => {
+            e.stopPropagation();
+            standalone ? history.push('/home/login') : setCreateAccount(false);
           }}
         >
           Log In
