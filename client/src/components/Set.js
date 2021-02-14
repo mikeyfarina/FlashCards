@@ -92,6 +92,17 @@ const Set = ({
     }
   }, [currentSetIndex, index]);
 
+  const cardContainerRef = useRef();
+  const cardRefs = [];
+  useEffect(() => {
+    if (index === currentSetIndex && cardRefs[currentFlashcardIndex]) {
+      cardContainerRef.current.scrollTo({
+        top: cardRefs[currentFlashcardIndex].offsetTop,
+        behavior: 'smooth',
+      });
+    }
+  }, [currentFlashcardIndex]);
+
   return (
     <div className="sidebar__setlist__set" ref={setRef}>
       <div className="set__header" onClick={handleTitleClick}>
@@ -136,7 +147,7 @@ const Set = ({
         </div>
         <hr className={'divide-line'} />
       </div>
-      <div className="set__preview">
+      <div className="set__preview" ref={cardContainerRef}>
         <ul style={{ maxHeight: '20vh', padding: '2% 0' }}>
           {currentFlashcardsInSet
             ? currentFlashcardsInSet.map((card, i) => (
@@ -148,6 +159,9 @@ const Set = ({
                       ? 'set__preview__item current-flashcard'
                       : 'set__preview__item'
                   }
+                  ref={(el) => {
+                    cardRefs.push(el);
+                  }}
                   onClick={(e) => handleCardClick(e, i)}
                 >
                   {card.front}

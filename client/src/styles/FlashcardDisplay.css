@@ -252,6 +252,7 @@ li {
 
 .set__preview {
   margin: 1% 2%;
+  position: relative;
   overflow: hidden;
 }
 .set__preview:hover {
@@ -461,6 +462,98 @@ li {
   overflow-y: scroll;
 }
 
+@media all and (min-width: 901px) and (max-width: 1250px) {
+  .main-section {
+    grid-template-columns: 1fr 4fr;
+  }
+  .tools__card-selection select {
+    width: 50%;
+    min-width: fit-content;
+    max-width: 50%;
+  }
+  .set__header {
+    grid-template-columns: 7fr 1fr 1fr;
+  }
+  .set__header__title {
+    font-size: 1.75vw;
+  }
+  .set__info > * {
+    font-size: 1.5vw;
+  }
+  .button-container {
+    width: 20vw;
+    min-width: 20vw;
+    max-width: 20vw;
+  }
+  .flashcard-selection {
+    width: 95%;
+    height: 90%;
+    grid-template-columns: 1fr 56vw 1fr;
+  }
+  .flashcard-container {
+    width: 90%;
+    margin: auto;
+    height: 45%;
+  }
+  .change-card-button {
+    height: 35%;
+    width: 80%;
+  }
+  .flashcard-text {
+    font-size: 2vw;
+  }
+  .search-bar input {
+    font-size: 1.25vw;
+  }
+}
+
+@media all and (min-width: 561px) and (max-width: 900px) {
+  .main-section {
+    grid-template-columns: 1fr 2.5fr;
+    max-height: 94vh;
+    height: 94vh;
+  }
+  .button-container {
+    min-width: 30vw;
+    max-width: 30vw;
+  }
+  .set__header__title {
+    font-size: 3vw;
+  }
+  .set__length,
+  .set__creator {
+    font-size: 2vw;
+    margin: auto 0;
+    min-height: 0;
+    padding: 5% 0;
+  }
+  .flashcard-selection {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 3fr 2fr;
+    width: 95%;
+    height: 75%;
+  }
+
+  .card-number {
+    font-size: 1.5vw;
+  }
+  .flashcard-container {
+    grid-area: 1 / 1 / 2 / 3;
+    width: 100%;
+    margin: 0;
+  }
+
+  .flashcard-text {
+    font-size: 3vw;
+  }
+
+  .change-card-button {
+    height: 45%;
+    width: 60%;
+    padding: 0;
+  }
+}
+
 @media all and (max-width: 560px) {
   .main-section {
     grid-template-columns: 1fr 1fr;
@@ -568,96 +661,5 @@ li {
   .change-card-button {
     width: 90%;
     margin: auto;
-  }
-}
-
-@media all and (min-width: 561px) and (max-width: 900px) {
-  .main-section {
-    grid-template-columns: 1fr 2.5fr;
-    max-height: 94vh;
-    height: 94vh;
-  }
-  .button-container {
-    min-width: 30vw;
-    max-width: 30vw;
-  }
-  .set__header__title {
-    font-size: 3vw;
-  }
-  .set__length,
-  .set__creator {
-    font-size: 2vw;
-    margin: auto 0;
-    min-height: 0;
-    padding: 5% 0;
-  }
-  .flashcard-selection {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 3fr 2fr;
-    width: 95%;
-    height: 75%;
-  }
-
-  .card-number {
-    font-size: 1.5vw;
-  }
-  .flashcard-container {
-    grid-area: 1 / 1 / 2 / 3;
-    width: 100%;
-    margin: 0;
-  }
-
-  .flashcard-text {
-    font-size: 3vw;
-  }
-
-  .change-card-button {
-    height: 45%;
-    width: 60%;
-    padding: 0;
-  }
-}
-@media all and (min-width: 901px) and (max-width: 1250px) {
-  .main-section {
-    grid-template-columns: 1fr 4fr;
-  }
-  .tools__card-selection select {
-    width: 50%;
-    min-width: 50%;
-    max-width: 50%;
-  }
-  .set__header {
-    grid-template-columns: 7fr 1fr 1fr;
-  }
-  .set__header__title {
-    font-size: 1.75vw;
-  }
-  .set__info > * {
-    font-size: 1.5vw;
-  }
-  .button-container {
-    width: 20vw;
-    min-width: 20vw;
-    max-width: 20vw;
-  }
-  .flashcard-selection {
-    width: 95%;
-    height: 90%;
-    grid-template-columns: 1fr 56vw 1fr;
-  }
-  .flashcard-container {
-    width: 90%;
-    margin: auto;
-    height: 45%;
-  }
-  .change-card-button {
-    height: 35%;
-    width: 80%;
-  }
-  .flashcard-text {
-    font-size: 2vw;
-  }
-  .search-bar input {
-    font-size: 1.25vw;
   }
 }
