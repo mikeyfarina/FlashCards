@@ -19,7 +19,6 @@ const SetList = ({
 
   useEffect(() => {
     if (sidebarSearchText === '') {
-      console.log('search empty', flashcardSets);
       setSetListSets(flashcardSets);
     } else {
       const sets = flashcardSets
@@ -32,7 +31,7 @@ const SetList = ({
         });
       setSetListSets(sets);
     }
-  }, [sidebarSearchText]);
+  }, [sidebarSearchText, flashcardSets]);
 
   return (
     <div className="sidebar__setlist">

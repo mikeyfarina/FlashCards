@@ -17,28 +17,20 @@ const UserInformation = ({ loggedInUser }) => {
   const username = useParams().username;
   useEffect(() => {
     if (username) {
-      console.log(username);
       userService
         .findAccountByUsername(username)
         .then((foundUser) => {
-          console.log(foundUser);
           setDesiredUser(foundUser[0]);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
     }
   }, [username]);
 
   useEffect(() => {
     if (loggedInUser) {
-      console.log(tempPhotoOption);
-      userService
-        .changeProfilePhoto(loggedInUser.username, tempPhotoOption)
-        .then((u) => {
-          console.log(u, 'set pp');
-        });
+      userService.changeProfilePhoto(loggedInUser.username, tempPhotoOption);
     }
   }, [tempPhotoOption]);
-  console.log(loggedInUser, desiredUser);
 
   const userInfoStyle = {
     padding: '1% 5% 0 5%',
@@ -104,8 +96,6 @@ const UserInformation = ({ loggedInUser }) => {
     scrollSnapAlign: 'end',
     scrollSnapType: 'y',
   };
-
-  const setDisplayStyle = {};
 
   const setStyle = {
     background: 'white',
@@ -244,7 +234,6 @@ const UserInformation = ({ loggedInUser }) => {
               }}
               onClick={() => {
                 if (desiredUser.username === loggedInUser.username) {
-                  console.log(indexOfPhoto);
                   setTempPhotoOption(indexOfPhoto);
                 }
               }}
@@ -281,10 +270,7 @@ const UserInformation = ({ loggedInUser }) => {
       </div>
       <div style={setDisplayContainerStyle}>
         <h2 style={{ marginBottom: '1vh' }}>Sets:</h2>
-        <div
-          className={'setDisplay'}
-          style={{ ...displayStyle, ...setDisplayStyle }}
-        >
+        <div className={'setDisplay'} style={{ ...displayStyle }}>
           {desiredUser.sets.map((set) => {
             return (
               <div
@@ -322,7 +308,6 @@ const UserInformation = ({ loggedInUser }) => {
           style={{ ...flashcardsDisplayStyle, ...displayStyle }}
         >
           {desiredUser.flashcards.map((flashcard) => {
-            console.log(flashcard);
             return (
               <div
                 className={'flashcard-item user-list-item'}

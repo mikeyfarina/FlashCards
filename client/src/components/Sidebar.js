@@ -20,14 +20,12 @@ const Sidebar = ({
     setSidebarSearchText('');
   }, [currentSetIndex]);
 
-  const handleNewSet = () => {
+  const handleNewSet = async () => {
     const newSet = {
       title: 'new set',
     };
-    setService.createSet(newSet).then(async (newSet) => {
-      await setFlashcardSets(flashcardSets.concat(newSet));
-      console.log('added to sets', flashcardSets);
-    });
+    const createdSet = await setService.createSet(newSet);
+    setFlashcardSets(flashcardSets.concat(createdSet));
   };
 
   return (

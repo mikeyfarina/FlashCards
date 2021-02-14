@@ -9,7 +9,6 @@ const Set = ({
   flashcards,
   set,
   index,
-  setCreator,
   currentSetIndex,
   setCurrentSetIndex,
   flashcardSets,
@@ -25,20 +24,17 @@ const Set = ({
 
   const history = useHistory();
 
-  const getCurrentSetFlashcards = async () => {
-    const flashcardsOfSet = await setService.getAllFlashcardsInSet(set.id);
-    setCurrentFlashcardsInSet(flashcardsOfSet);
-    setSetLength(flashcardsOfSet.length);
-  };
-
   useEffect(() => {
+    const getCurrentSetFlashcards = async () => {
+      const flashcardsOfSet = await setService.getAllFlashcardsInSet(set.id);
+      setCurrentFlashcardsInSet(flashcardsOfSet);
+      setSetLength(flashcardsOfSet.length);
+    };
     getCurrentSetFlashcards();
   }, [flashcards, set.id]);
 
   const handleTitleClick = () => {
     if (canEditTitle) return; // do nothing
-
-    console.log(currentSetIndex);
 
     const newIndex = flashcardSets.findIndex((s) => set.id === s.id);
     setCurrentFlashcardIndex(0);
@@ -47,14 +43,11 @@ const Set = ({
   };
 
   // switch edit mode when edit title button is clicked
-  const handleEditMode = () => {
+  const handleEditMode = async () => {
     setCanEditTitle(!canEditTitle);
     if (canEditTitle) {
       set.title = setTitle;
-      console.log('saving edit to server');
-      setService.updateSetTitle(set.id, setTitle).then((updatedSet) => {
-        console.log(updatedSet);
-      });
+      await setService.updateSetTitle(set.id, setTitle);
     }
   };
 
@@ -101,7 +94,7 @@ const Set = ({
         behavior: 'smooth',
       });
     }
-  }, [currentFlashcardIndex]);
+  }, [currentFlashcardIndex, currentSetIndex, index]);
 
   return (
     <div className="sidebar__setlist__set" ref={setRef}>

@@ -16,7 +16,6 @@ const createFlashcard = async (newFlashcard) => {
   const config = {
     headers: { Authorization: token },
   };
-  console.log(newFlashcard);
   const response = await axios.post(baseUrl, newFlashcard, config);
   return response.data;
 };

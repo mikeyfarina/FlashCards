@@ -19,6 +19,39 @@ const Flashcard = ({
   const [displayingFront, setDisplayingFront] = useState(true);
   const [flip, setFlip] = useState(false);
 
+  const divStyle = {
+    transform: `rotateY(${!flip ? mousePosition.xAxis - 5 : 0}deg) rotateX(${
+      displayingFront
+        ? 180 - -mousePosition.yAxis + 5
+        : (mousePosition.yAxis + 5) * 1.5
+    }deg)`,
+    transformStyle: 'preserve-3d',
+    transition: transition,
+    display: 'flex',
+    alignItems: 'center',
+    textAlign: 'center',
+    position: 'relative',
+  };
+
+  const frontStyles = {
+    transform: 'rotateY(0deg) rotateX(180deg)',
+    transition: transition,
+    transformStyle: 'preserve-3d',
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+    padding: '2% 3%',
+  };
+
+  const backStyles = {
+    transform: 'rotateY(0deg) rotateX(0deg)',
+    transition: transition,
+    transformStyle: 'preserve-3d',
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+  };
+
   useEffect(() => {
     const newFlashcard = flashcards[currentFlashcardIndex];
     setFlashcard(newFlashcard);
@@ -77,43 +110,8 @@ const Flashcard = ({
     }
   };
 
-  console.log(transition);
-  const divStyle = {
-    transform: `rotateY(${!flip ? mousePosition.xAxis - 5 : 0}deg) rotateX(${
-      displayingFront
-        ? 180 - -mousePosition.yAxis + 5
-        : (mousePosition.yAxis + 5) * 1.5
-    }deg)`,
-    transformStyle: 'preserve-3d',
-    transition: transition,
-    display: 'flex',
-    alignItems: 'center',
-    textAlign: 'center',
-    position: 'relative',
-  };
-
-  const frontStyles = {
-    transform: 'rotateY(0deg) rotateX(180deg)',
-    transition: transition,
-    transformStyle: 'preserve-3d',
-    height: '100%',
-    width: '100%',
-    position: 'absolute',
-    padding: '2% 3%',
-  };
-
-  const backStyles = {
-    transform: 'rotateY(0deg) rotateX(0deg)',
-    transition: transition,
-    transformStyle: 'preserve-3d',
-    height: '100%',
-    width: '100%',
-    position: 'absolute',
-  };
-
   const handleTextEdit = (e) => {
     if (canEdit) {
-      console.log('handling text edit!');
       setFlashcardInputText(e.target.value);
       displayingFront
         ? setFlashcard({ ...flashcard, front: e.target.value })
@@ -122,7 +120,6 @@ const Flashcard = ({
   };
 
   const updateAndSaveFlashcard = () => {
-    console.log('SAVING CHANGES TO FLASHCARD');
     const flashcardToUpdate = flashcards[currentFlashcardIndex];
     const updatedFlashcard = displayingFront
       ? {
@@ -143,7 +140,7 @@ const Flashcard = ({
         );
       })
       .catch((er) => {
-        console.log(er);
+        console.error(er);
         setFlashcard(flashcardToUpdate);
       })
       .then(() => {

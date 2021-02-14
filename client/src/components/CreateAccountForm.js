@@ -84,8 +84,6 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
     gridTemplateRows: 'repeat(4, 1fr)',
   };
 
-  console.log(error);
-
   return (
     <div className={'login noselect'}>
       <form className={'create-account-form'} style={createAccountGridStyle}>

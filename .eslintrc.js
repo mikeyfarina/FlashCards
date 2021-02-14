@@ -24,9 +24,9 @@ module.exports = {
     'no-trailing-spaces': 'error',
     'object-curly-spacing': ['error', 'always'],
     'arrow-spacing': ['error', { before: true, after: true }],
-    //'no-console': ['warn'],
+    'no-console': 0,
     'react/prop-types': 0,
-    'no-unused-vars': 0,
+    'react-hooks/exhaustive-deps': 0,
   },
   settings: {
     react: {

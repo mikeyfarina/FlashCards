@@ -11,13 +11,11 @@ import setService from './services/setService';
 
 import Togglable from './components/Togglable';
 import LoginForm from './components/LoginForm';
-import userService from './services/userService';
 import CreateAccountForm from './components/CreateAccountForm';
 import FormContainer from './components/FormContainer';
 
 const App = () => {
   const [user, setUser] = useState(null);
-  const [userId, setUserId] = useState(null);
   const [flashcardSets, setFlashcardSets] = useState(null);
 
   useEffect(() => {
@@ -39,8 +37,6 @@ const App = () => {
       setUser(user);
       flashcardService.setToken(user.token);
       setService.setToken(user.token);
-      const userID = userService.findAccountByUsername(user.username).id;
-      setUserId(userID);
     }
   }, []);
 
@@ -61,14 +57,6 @@ const App = () => {
     flashcardService.setToken(null);
     window.localStorage.removeItem('loggedFlashcardAppUser');
     setUser(null);
-  };
-
-  const userDropdownRef = useRef();
-
-  const dropdownStyle = {
-    display: 'grid',
-    gridTemplateRows: '1fr 1fr',
-    height: '4.5vh',
   };
 
   const logoutDiv = () => (

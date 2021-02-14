@@ -20,20 +20,23 @@ const FlashcardsDisplay = ({
 
   const desiredFlashcardID = useParams().flashcardId;
 
-  useEffect(async () => {
-    setFlashcards(null);
-    const sets = await setService.getAllSets();
-    setFlashcardSets(sets);
-    const setID = sets[currentSetIndex].id;
-    const flashcards = await setService.getAllFlashcardsInSet(setID);
-    const desiredFlashcardIndex = flashcards.findIndex(
-      (card) => card.id === desiredFlashcardID
-    );
-    setCurrentFlashcardIndex(
-      desiredFlashcardIndex > 0 ? desiredFlashcardIndex : 0
-    );
-    setFlashcards(flashcards);
-  }, [currentSetIndex]);
+  useEffect(() => {
+    const getFlashcardsWithinSet = async () => {
+      setFlashcards(null);
+      const sets = await setService.getAllSets();
+      setFlashcardSets(sets);
+      const setID = sets[currentSetIndex].id;
+      const flashcards = await setService.getAllFlashcardsInSet(setID);
+      const desiredFlashcardIndex = flashcards.findIndex(
+        (card) => card.id === desiredFlashcardID
+      );
+      setCurrentFlashcardIndex(
+        desiredFlashcardIndex > 0 ? desiredFlashcardIndex : 0
+      );
+      setFlashcards(flashcards);
+    };
+    getFlashcardsWithinSet();
+  }, [currentSetIndex, desiredFlashcardID, setFlashcardSets]);
 
   return (
     <div>

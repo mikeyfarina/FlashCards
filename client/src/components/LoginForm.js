@@ -11,7 +11,6 @@ const LoginForm = ({ setUser, standalone }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [createAccount, setCreateAccount] = useState(false);
-  const [accountCreationMessage, setAccountCreationMessage] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
@@ -36,7 +35,6 @@ const LoginForm = ({ setUser, standalone }) => {
       );
       flashcardService.setToken(user.token);
       setService.setToken(user.token);
-      console.log(user.username, 'logged in', 'sA?', standalone);
       setUsername('');
       setPassword('');
       setUser(user);
