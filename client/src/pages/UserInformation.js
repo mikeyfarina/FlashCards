@@ -199,8 +199,7 @@ const UserInformation = ({ loggedInUser }) => {
               : 'photo-options-container'
           }
           style={{
-            width: 'fit-content',
-            height: 'fit-content',
+            minWidth: 'fit-content',
             zIndex: '3',
             position: 'absolute',
             background: 'aliceblue',
@@ -234,7 +233,7 @@ const UserInformation = ({ loggedInUser }) => {
               }}
               onClick={() => {
                 if (desiredUser.username === loggedInUser.username) {
-                  setTempPhotoOption(indexOfPhoto);
+                  setTempPhotoOption(indexOfPhoto.toString());
                 }
               }}
             />
