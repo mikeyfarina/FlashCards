@@ -25,7 +25,21 @@ const Flashcard = ({
         ? 180 - -mousePosition.yAxis + 5
         : (mousePosition.yAxis + 5) * 1.5
     }deg)`,
+    WebkitTransform: `rotateY(${
+      !flip ? mousePosition.xAxis - 5 : 0
+    }deg) rotateX(${
+      displayingFront
+        ? 180 - -mousePosition.yAxis + 5
+        : (mousePosition.yAxis + 5) * 1.5
+    }deg)`,
+    MozTransform: `rotateY(${!flip ? mousePosition.xAxis - 5 : 0}deg) rotateX(${
+      displayingFront
+        ? 180 - -mousePosition.yAxis + 5
+        : (mousePosition.yAxis + 5) * 1.5
+    }deg)`,
     transformStyle: 'preserve-3d',
+    WebkitTransformStyle: 'preserve-3d',
+    MozTransformStyle: 'preserve-3d',
     transition: transition,
     display: 'flex',
     alignItems: 'center',
@@ -35,8 +49,12 @@ const Flashcard = ({
 
   const frontStyles = {
     transform: 'rotateY(0deg) rotateX(180deg)',
+    WebkitTransform: 'rotateY(0deg) rotateX(180deg)',
+    MozTransform: 'rotateY(0deg) rotateX(180deg)',
     transition: transition,
     transformStyle: 'preserve-3d',
+    WebkitTransformStyle: 'preserve-3d',
+    MozTransformStyle: 'preserve-3d',
     height: '100%',
     width: '100%',
     position: 'absolute',
@@ -45,8 +63,12 @@ const Flashcard = ({
 
   const backStyles = {
     transform: 'rotateY(0deg) rotateX(0deg)',
+    WebkitTransform: 'rotateY(0deg) rotateX(0deg)',
+    MozTransform: 'rotateY(0deg) rotateX(0deg)',
     transition: transition,
     transformStyle: 'preserve-3d',
+    WebkitTransformStyle: 'preserve-3d',
+    MozTransformStyle: 'preserve-3d',
     height: '100%',
     width: '100%',
     position: 'absolute',
@@ -148,6 +170,19 @@ const Flashcard = ({
       });
   };
 
+  const backTextRef = useRef();
+  const frontTextRef = useRef();
+  useEffect(() => {
+    if (!canEdit) return;
+    console.log(backTextRef, frontTextRef);
+    if (canEdit && displayingFront) {
+      frontTextRef.current.focus();
+    }
+    if (canEdit && !displayingFront) {
+      backTextRef.current.focus();
+    }
+  }, [canEdit]);
+
   return (
     <div
       className={'flashcard-container'}
@@ -170,8 +205,11 @@ const Flashcard = ({
               <textarea
                 type="text"
                 className={
-                  canEdit ? 'flashcard-text' : 'flashcard-text noselect'
+                  canEdit
+                    ? 'can-edit flashcard-text'
+                    : 'flashcard-text noselect'
                 }
+                ref={frontTextRef}
                 disabled={!canEdit}
                 value={flashcard.front}
                 onChange={handleTextEdit}
@@ -189,6 +227,7 @@ const Flashcard = ({
                 className={
                   canEdit ? 'flashcard-text' : 'flashcard-text noselect'
                 }
+                ref={backTextRef}
                 disabled={!canEdit}
                 value={flashcard.back}
                 onChange={handleTextEdit}

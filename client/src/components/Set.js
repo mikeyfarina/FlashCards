@@ -6,6 +6,7 @@ import setService from '../services/setService';
 import Button from './Button';
 
 const Set = ({
+  loggedInUser,
   flashcards,
   set,
   index,
@@ -33,9 +34,9 @@ const Set = ({
     getCurrentSetFlashcards();
   }, [flashcards, set.id]);
 
-  const handleTitleClick = () => {
+  const handleTitleClick = (e) => {
     if (canEditTitle) return; // do nothing
-
+    e.stopPropagation();
     const newIndex = flashcardSets.findIndex((s) => set.id === s.id);
     setCurrentFlashcardIndex(0);
     setCurrentSetIndex(newIndex);
@@ -100,30 +101,38 @@ const Set = ({
     <div className="sidebar__setlist__set" ref={setRef}>
       <div className="set__header" onClick={handleTitleClick}>
         <input
-          className={'set__header__title'}
+          className={
+            canEditTitle ? 'edit-mode set__header__title' : 'set__header__title'
+          }
           type="text"
           defaultValue={setTitle}
           disabled={!canEditTitle}
           onChange={handleTitleEdit}
         />
-        <Button
-          onClick={handleEditMode}
-          className={
-            canEditTitle ? 'edit-mode title-edit-button' : 'title-edit-button'
-          }
-          text={
-            canEditTitle ? (
-              <FontAwesomeIcon icon={['fa', 'save']} size="sm" />
-            ) : (
-              <FontAwesomeIcon icon={['fa', 'edit']} size="sm" />
-            )
-          }
-        />
-        <Button
-          onClick={handleDeleteSet}
-          className={'title-edit-button'}
-          text={<FontAwesomeIcon icon={['fa', 'trash']} size="sm" />}
-        />
+        {loggedInUser && loggedInUser.username === set.username && (
+          <div style={{ display: 'contents' }}>
+            <Button
+              onClick={handleEditMode}
+              className={
+                canEditTitle
+                  ? 'edit-mode title-edit-button'
+                  : 'title-edit-button'
+              }
+              text={
+                canEditTitle ? (
+                  <FontAwesomeIcon icon={['fa', 'save']} size="sm" />
+                ) : (
+                  <FontAwesomeIcon icon={['fa', 'edit']} size="sm" />
+                )
+              }
+            />
+            <Button
+              onClick={handleDeleteSet}
+              className={'title-edit-button'}
+              text={<FontAwesomeIcon icon={['fa', 'trash']} size="sm" />}
+            />
+          </div>
+        )}
       </div>
       <div className="set__info">
         <div className="set__length">

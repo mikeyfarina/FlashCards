@@ -12,6 +12,7 @@ const FlashcardsDisplay = ({
   flashcardSets,
   setFlashcardSets,
   desiredSetIndex,
+  loggedInUser,
 }) => {
   // states
   const [currentSetIndex, setCurrentSetIndex] = useState(desiredSetIndex || 0);
@@ -50,6 +51,7 @@ const FlashcardsDisplay = ({
           setCurrentSetIndex={setCurrentSetIndex}
           currentFlashcardIndex={currentFlashcardIndex}
           setCurrentFlashcardIndex={setCurrentFlashcardIndex}
+          loggedInUser={loggedInUser}
         />
         <Flashcards
           flashcards={flashcards}
@@ -58,6 +60,7 @@ const FlashcardsDisplay = ({
           currentSetIndex={currentSetIndex}
           currentFlashcardIndex={currentFlashcardIndex}
           setCurrentFlashcardIndex={setCurrentFlashcardIndex}
+          loggedInUser={loggedInUser}
         />
       </div>
     </div>

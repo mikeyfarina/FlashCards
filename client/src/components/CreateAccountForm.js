@@ -85,7 +85,7 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
   };
 
   return (
-    <div className={'login noselect'}>
+    <div style={{ display: 'contents' }}>
       <form className={'create-account-form'} style={createAccountGridStyle}>
         <h3>Create Account</h3>
         <div style={inputsStyle}>
@@ -148,7 +148,7 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
             className="login-form-button"
             onClick={handleSubmit}
           >
-            Create
+            Create Account
           </button>
         </div>
         <p style={{ marginTop: 'auto' }}>Already have an account?</p>
@@ -160,7 +160,7 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
             standalone ? history.push('/home/login') : setCreateAccount(false);
           }}
         >
-          Log In
+          Log in
         </button>
       </form>
     </div>

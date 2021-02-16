@@ -13,6 +13,7 @@ const Flashcards = ({
   currentSetIndex,
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
+  loggedInUser,
 }) => {
   const [canEdit, setCanEdit] = useState(false);
 
@@ -80,6 +81,12 @@ const Flashcards = ({
         flashcards={flashcards}
         currentFlashcardIndex={currentFlashcardIndex}
         setCurrentFlashcardIndex={setCurrentFlashcardIndex}
+        loggedInUser={loggedInUser}
+        userCreatedSet={
+          flashcardSets &&
+          loggedInUser &&
+          flashcardSets[currentSetIndex].username === loggedInUser.username
+        }
       />
       <div className="flashcard-selection">
         <Button

@@ -13,6 +13,9 @@ header {
   display: contents;
 }
 
+.main-title:hover {
+  cursor: pointer;
+}
 .main-title {
   display: flex;
   align-items: center;
@@ -90,6 +93,7 @@ header {
   right: 4%;
   padding: 1%;
   border: none;
+  cursor: pointer;
 }
 
 .logout-button {
@@ -116,6 +120,12 @@ header {
   height: 80%;
   margin: 3% 0;
   border-radius: 3px;
+  border: 1px #646c80 solid;
+}
+
+.login-form-button {
+  border: 2px #646c80 solid;
+  cursor: pointer;
 }
 
 .login-form-input.error {
@@ -213,10 +223,13 @@ header {
     min-width: 80%;
     max-width: 80%;
     left: 10%;
-    height: fit-content;
+    min-height: 70vh;
+    max-height: fit-content;
+    max-height: -moz-fit-content;
+    max-height: -webkit-fit-content;
     padding: 10% 5%;
     position: absolute;
-    z-index: 4;
+    z-index: 5;
     margin: 0 auto;
     box-shadow: 0px 15px 155px rgb(0 0 0 / 85%), 0px 0px 15px rgb(0 0 0 / 65%);
   }
@@ -250,7 +263,6 @@ header {
     grid-template-columns: auto auto;
     padding: 0;
     width: fit-content;
-    height: 100%;
     border-radius: 4px;
     padding: 0.5vh 1vw;
     margin-right: 0;

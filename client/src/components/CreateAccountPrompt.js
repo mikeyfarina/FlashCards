@@ -62,7 +62,7 @@ const CreateAccountPrompt = () => {
       </button>
       <div className={'circle-separator'}></div>
       <h2
-        className={'signup-text'}
+        className={'signup-text noselect'}
         style={{
           alignSelf: 'center',
           textAlign: 'center',

@@ -1,5 +1,11 @@
 import './styles/Header.css';
-import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useHistory,
+} from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
 
 import FlashcardsDisplay from './pages/FlashcardsDisplay';
@@ -17,6 +23,7 @@ import FormContainer from './components/FormContainer';
 const App = () => {
   const [user, setUser] = useState(null);
   const [flashcardSets, setFlashcardSets] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     async function setSets() {
@@ -87,12 +94,14 @@ const App = () => {
     <div>
       <header>
         <div className="main-title-container">
-          <Link
-            to="/home"
-            style={{ textDecoration: 'none', display: 'contents' }}
+          <h1
+            className="main-title noselect"
+            onClick={() => {
+              history.push('/home');
+            }}
           >
-            <h1 className="main-title noselect">Flashcards</h1>
-          </Link>
+            Flashcards
+          </h1>
         </div>
         {user ? logoutDiv() : loginForm()}
       </header>
@@ -118,6 +127,7 @@ const App = () => {
             flashcardSets={flashcardSets}
             setFlashcardSets={setFlashcardSets}
             desiredSetIndex={setIndex}
+            loggedInUser={user}
           />
         </Route>
         <Route path={'/flashcards/:id'}>
@@ -125,18 +135,21 @@ const App = () => {
             flashcardSets={flashcardSets}
             setFlashcardSets={setFlashcardSets}
             desiredSetIndex={setIndex}
+            loggedInUser={user}
           />
         </Route>
         <Route path={'/flashcards'}>
           <FlashcardsDisplay
             flashcardSets={flashcardSets}
             setFlashcardSets={setFlashcardSets}
+            loggedInUser={user}
           />
         </Route>
         <Route exact path={'/'}>
           <FlashcardsDisplay
             flashcardSets={flashcardSets}
             setFlashcardSets={setFlashcardSets}
+            loggedInUser={user}
           />
         </Route>
       </Switch>

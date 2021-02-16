@@ -19,6 +19,18 @@ button {
   font-family: Tahoma, 'Geneva', sans-serif;
 }
 
+@-webkit-keyframes scanLeftToRight {
+  0% {
+    left: 0;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 0;
+  }
+}
+
 @keyframes scanLeftToRight {
   0% {
     left: 0;
@@ -171,12 +183,13 @@ li {
   grid-template-columns: 8fr 1fr 1fr;
   padding: 2%;
   background: #646c80;
+  color: white;
 }
 
 .set__header:hover {
   cursor: pointer;
   background: white;
-  color: #8590aa;
+  color: #646c80;
   border-radius: 2px;
 }
 
@@ -191,6 +204,11 @@ li {
   font-weight: bolder;
   caret-color: #646c80;
   text-overflow: ellipsis;
+  pointer-events: none;
+}
+.set__header__title.edit-mode {
+  pointer-events: all;
+  background: white;
 }
 
 .set__header__title::selection {
@@ -200,7 +218,7 @@ li {
 
 .current-set > .sidebar__setlist__set > .set__header {
   background: white;
-  color: #8590aa;
+  color: #646c80;
   cursor: default;
 }
 
@@ -417,6 +435,8 @@ li {
 
 .flashcard {
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
 
   background: white;
   box-shadow: 0px 0px 25px rgb(0 0 0 / 40%), 0px 0px 60px rgb(0 0 0 / 15%);
@@ -428,6 +448,8 @@ li {
 
 .scanner {
   animation: scanLeftToRight 3s infinite;
+  -webkit-animation: scanLeftToRight 3s infinite;
+  -moz-animation: scanLeftToRight 3s infinite;
 }
 
 .flex-centering {
@@ -444,9 +466,12 @@ li {
   font-size: 1vw;
   color: rgba(9, 20, 58, 0.65);
   transform: translateZ(25px);
+  -webkit-transform: translateZ(25px);
+  -moz-transform: translateZ(25px);
 }
 
 .flashcard-text {
+  color: black;
   background: none;
   width: 100%;
   height: 80%;
@@ -454,12 +479,21 @@ li {
   padding: 5%;
   border: none;
   font-size: 1.55vw;
+  font-family: monospace;
   text-align: center;
   outline: none;
+  z-index: 3;
   transform: translateZ(45px);
+  -webkit-transform: translateZ(45px);
+  -moz-transform: translateZ(10px);
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
   overflow-x: hidden;
   overflow-y: scroll;
+}
+.flashcard-text.can-edit {
+  color: rgba(9, 20, 58, 0.75);
 }
 
 @media all and (min-width: 901px) and (max-width: 1250px) {
@@ -470,6 +504,9 @@ li {
     width: 50%;
     min-width: fit-content;
     max-width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .set__header {
     grid-template-columns: 7fr 1fr 1fr;

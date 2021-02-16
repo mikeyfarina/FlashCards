@@ -13,6 +13,7 @@ const Sidebar = ({
   setCurrentSetIndex,
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
+  loggedInUser,
 }) => {
   const [sidebarSearchText, setSidebarSearchText] = useState('');
 
@@ -45,6 +46,7 @@ const Sidebar = ({
         currentFlashcardIndex={currentFlashcardIndex}
         setCurrentFlashcardIndex={setCurrentFlashcardIndex}
         sidebarSearchText={sidebarSearchText}
+        loggedInUser={loggedInUser}
       />
       <div className="sidebar__bottom"></div>
     </div>

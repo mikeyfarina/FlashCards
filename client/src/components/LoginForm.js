@@ -92,7 +92,7 @@ const LoginForm = ({ setUser, standalone }) => {
             </div>
           )}
           <button type="submit" className="login-form-button">
-            login
+            Log in
           </button>
           <button
             className="login-form-button"

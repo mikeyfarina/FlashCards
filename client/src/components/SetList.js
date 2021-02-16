@@ -10,6 +10,7 @@ const SetList = ({
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
   sidebarSearchText,
+  loggedInUser,
 }) => {
   const [setListSets, setSetListSets] = useState(null);
 
@@ -60,6 +61,7 @@ const SetList = ({
                 currentFlashcardIndex={currentFlashcardIndex}
                 setCurrentFlashcardIndex={setCurrentFlashcardIndex}
                 sidebarSearchText={sidebarSearchText}
+                loggedInUser={loggedInUser}
               />
             </li>
           ))}
