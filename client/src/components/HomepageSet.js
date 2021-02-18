@@ -46,7 +46,7 @@ const HomepageSet = ({ set }) => {
       </h2>
       <div
         style={{
-          overflow: 'scroll',
+          overflowY: 'scroll',
           height: showAllFlashcards ? '65%' : '50%',
           transition: 'height .2s ease-out',
         }}

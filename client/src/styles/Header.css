@@ -228,8 +228,8 @@ header {
     max-height: -moz-fit-content;
     max-height: -webkit-fit-content;
     padding: 10% 5%;
-    position: absolute;
-    z-index: 5;
+    position: fixed;
+    z-index: 100;
     margin: 0 auto;
     box-shadow: 0px 15px 155px rgb(0 0 0 / 85%), 0px 0px 15px rgb(0 0 0 / 65%);
   }
