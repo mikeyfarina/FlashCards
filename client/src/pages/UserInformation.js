@@ -27,7 +27,7 @@ const UserInformation = ({ loggedInUser }) => {
   }, [username]);
 
   useEffect(() => {
-    if (loggedInUser) {
+    if (loggedInUser && tempPhotoOption) {
       userService.changeProfilePhoto(loggedInUser.username, tempPhotoOption);
     }
   }, [tempPhotoOption]);

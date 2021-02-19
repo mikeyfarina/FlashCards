@@ -1,3 +1,7 @@
+body,
+html {
+  height: 100%;
+}
 .user-list-item:hover {
   transform: translate3d(0, 0, 0);
   cursor: pointer;
