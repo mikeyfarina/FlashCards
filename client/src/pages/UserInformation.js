@@ -1,9 +1,8 @@
 import '../styles/PagesStyles.css';
 import '../styles/UserInformation.css';
-
 import React, { useState, useEffect } from 'react';
-import userService from '../services/userService';
 import { useParams, useHistory } from 'react-router-dom';
+import userService from '../services/userService';
 import profilePhotos from '../utils/profilePhotoLoader';
 
 const UserInformation = ({ loggedInUser }) => {
@@ -14,7 +13,7 @@ const UserInformation = ({ loggedInUser }) => {
   const [tempPhotoOption, setTempPhotoOption] = useState(null);
 
   const history = useHistory();
-  const username = useParams().username;
+  const { username } = useParams();
   useEffect(() => {
     if (username) {
       userService
@@ -111,6 +110,7 @@ const UserInformation = ({ loggedInUser }) => {
     scrollSnapAlign: 'start',
     scrollMarginTop: '1.5vh',
     willChange: 'transform',
+    outline: 'none',
   };
 
   const flashcardsDisplayStyle = {
@@ -143,10 +143,10 @@ const UserInformation = ({ loggedInUser }) => {
   };
 
   return desiredUser ? (
-    <div className={'user-info'} style={userInfoStyle}>
-      <div className={'user-info__basic'} style={basicInfoContainer}>
+    <div className="user-info" style={userInfoStyle}>
+      <div className="user-info__basic" style={basicInfoContainer}>
         <div
-          className={'user-info__basic__photo'}
+          className="user-info__basic__photo"
           style={{
             position: 'relative',
 
@@ -170,10 +170,11 @@ const UserInformation = ({ loggedInUser }) => {
                 }`
               ]
             }
+            alt="User Profile"
           />
           {loggedInUser && loggedInUser.username === desiredUser.username && (
             <div
-              className={'change-profile-button'}
+              className="change-profile-button"
               style={{
                 position: 'absolute',
                 bottom: '0',
@@ -182,10 +183,13 @@ const UserInformation = ({ loggedInUser }) => {
                 transition: 'all .25s ease-in',
                 textAlign: 'center',
                 cursor: 'pointer',
+                outline: 'none',
               }}
               onClick={() => {
                 setDisplayProfilePhotoOptions(!displayProfilePhotoOptions);
               }}
+              role="button"
+              tabIndex="0"
             >
               {displayProfilePhotoOptions ? 'Close Window' : 'Change Photo'}
             </div>
@@ -215,9 +219,8 @@ const UserInformation = ({ loggedInUser }) => {
           }}
         >
           {profilePhotos.map((photo, indexOfPhoto) => (
-            <img
+            <div
               key={photo}
-              src={photo}
               className={
                 displayProfilePhotoOptions
                   ? 'displaying profile-photo-option'
@@ -230,26 +233,32 @@ const UserInformation = ({ loggedInUser }) => {
                 borderRadius: '5px',
                 boxSizing: 'border-box',
                 transition: 'all .1s ease-in',
+                outline: 'none',
               }}
               onClick={() => {
                 if (desiredUser.username === loggedInUser.username) {
                   setTempPhotoOption(indexOfPhoto.toString());
                 }
               }}
-            />
+              role="button"
+              tabIndex="0"
+            >
+              <img
+                src={photo}
+                alt="Profile option"
+                style={{ width: '100%', height: '100%' }}
+              />
+            </div>
           ))}
         </div>
-        <div
-          className={'user-info__basic__names'}
-          style={{ marginLeft: '4vw' }}
-        >
+        <div className="user-info__basic__names" style={{ marginLeft: '4vw' }}>
           <h1>{desiredUser.name}</h1>
           <h3 style={{ fontStyle: 'italic', marginTop: 'revert' }}>
             {desiredUser.username}
           </h3>
         </div>
-        <div className={'user-info__basic__stats'} style={basicStatsStyle}>
-          <div className={'stats__sets'} style={{ display: 'contents' }}>
+        <div className="user-info__basic__stats" style={basicStatsStyle}>
+          <div className="stats__sets" style={{ display: 'contents' }}>
             <h3 style={{ ...statTitleStyle, gridArea: '1 / 1 / 2 / 2' }}>
               Sets:
             </h3>
@@ -257,7 +266,7 @@ const UserInformation = ({ loggedInUser }) => {
               {desiredUser.sets.length}
             </h3>
           </div>
-          <div className={'stats__flashcards'} style={{ display: 'contents' }}>
+          <div className="stats__flashcards" style={{ display: 'contents' }}>
             <h3 style={{ ...statTitleStyle, gridArea: '1 / 2 / 2 / 3' }}>
               Flashcards:
             </h3>
@@ -269,76 +278,74 @@ const UserInformation = ({ loggedInUser }) => {
       </div>
       <div style={setDisplayContainerStyle}>
         <h2 style={{ marginBottom: '1vh' }}>Sets:</h2>
-        <div className={'setDisplay'} style={{ ...displayStyle }}>
-          {desiredUser.sets.map((set) => {
-            return (
+        <div className="setDisplay" style={{ ...displayStyle }}>
+          {desiredUser.sets.map((set) => (
+            <div
+              className="set-item user-list-item"
+              style={setStyle}
+              key={set.id}
+              onClick={() => {
+                history.push(`/flashcards/${set.id}`);
+              }}
+              role="button"
+              tabIndex="0"
+            >
+              <div style={setTitleContainerStyle}>
+                <h3>{set.title}</h3>
+              </div>
               <div
-                className={'set-item user-list-item'}
-                style={setStyle}
-                key={set.id}
-                onClick={() => {
-                  history.push(`/flashcards/${set.id}`);
+                style={{
+                  position: 'absolute',
+                  bottom: '4%',
+                  right: '4%',
+                  color: 'darkgray',
+                  fontWeight: 'lighter',
                 }}
               >
-                <div style={setTitleContainerStyle}>
-                  <h3>{set.title}</h3>
-                </div>
-                <div
-                  style={{
-                    position: 'absolute',
-                    bottom: '4%',
-                    right: '4%',
-                    color: 'darkgray',
-                    fontWeight: 'lighter',
-                  }}
-                >
-                  Size: <strong>{set.flashcards.length}</strong>
-                </div>
+                Size:
+                <strong>{` ${set.flashcards.length}`}</strong>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
-        <div style={{ height: '3vh' }}></div>
+        <div style={{ height: '3vh' }} />
       </div>
       <div style={{ ...setDisplayContainerStyle, marginBottom: '3vh' }}>
         <h2 style={{ marginBottom: '1vh' }}>Flashcards:</h2>
         <div
-          className={'setDisplay'}
+          className="setDisplay"
           style={{ ...flashcardsDisplayStyle, ...displayStyle }}
         >
-          {desiredUser.flashcards.map((flashcard) => {
-            return (
-              <div
-                className={'flashcard-item user-list-item'}
-                style={flashcardStyle}
-                key={flashcard.id}
-                onClick={() => {
-                  history.push(
-                    `/flashcards/${flashcard.set.id}/${flashcard.id}`
-                  );
+          {desiredUser.flashcards.map((flashcard) => (
+            <div
+              className={'flashcard-item user-list-item'}
+              style={flashcardStyle}
+              key={flashcard.id}
+              onClick={() => {
+                history.push(`/flashcards/${flashcard.set.id}/${flashcard.id}`);
+              }}
+            >
+              <div style={setTitleContainerStyle}>
+                <h3>{flashcard.front}</h3>
+              </div>
+              <h5
+                style={{
+                  position: 'absolute',
+                  bottom: '4%',
+                  right: '4%',
+                  color: 'darkgray',
+                  fontWeight: 'lighter',
+                  maxWidth: '75%',
+                  textOverflow: 'ellipsis',
+                  overflow: 'hidden',
+                  whiteSpace: 'nowrap',
                 }}
               >
-                <div style={setTitleContainerStyle}>
-                  <h3>{flashcard.front}</h3>
-                </div>
-                <h5
-                  style={{
-                    position: 'absolute',
-                    bottom: '4%',
-                    right: '4%',
-                    color: 'darkgray',
-                    fontWeight: 'lighter',
-                    maxWidth: '75%',
-                    textOverflow: 'ellipsis',
-                    overflow: 'hidden',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  from: <strong>{flashcard.set.title}</strong>
-                </h5>
-              </div>
-            );
-          })}
+                from:
+                <strong>{` ${flashcard.set.title}`}</strong>
+              </h5>
+            </div>
+          ))}
         </div>
       </div>
     </div>

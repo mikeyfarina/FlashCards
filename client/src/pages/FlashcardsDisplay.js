@@ -1,10 +1,7 @@
 import '../styles/FlashcardDisplay.css';
-
 import React, { useEffect, useState } from 'react';
-
 import Flashcards from '../components/Flashcards';
 import Sidebar from '../components/Sidebar';
-
 import setService from '../services/setService';
 import { useParams } from 'react-router-dom';
 
@@ -27,8 +24,8 @@ const FlashcardsDisplay = ({
       const sets = await setService.getAllSets();
       setFlashcardSets(sets);
       const setID = sets[currentSetIndex].id;
-      const flashcards = await setService.getAllFlashcardsInSet(setID);
-      const desiredFlashcardIndex = flashcards.findIndex(
+      const flashcardsInSet = await setService.getAllFlashcardsInSet(setID);
+      const desiredFlashcardIndex = flashcardsInSet.findIndex(
         (card) => card.id === desiredFlashcardID
       );
       setCurrentFlashcardIndex(

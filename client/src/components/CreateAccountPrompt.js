@@ -51,18 +51,19 @@ const CreateAccountPrompt = () => {
   };
 
   return (
-    <div className={'signup-section'} style={signupSectionStyle}>
+    <div className="signup-section" style={signupSectionStyle}>
       <button
         style={cancelButton}
         onClick={() => {
           setSignupDisplayed(false);
         }}
+        type="button"
       >
         x
       </button>
-      <div className={'circle-separator'}></div>
+      <div className={'circle-separator'} />
       <h2
-        className={'signup-text noselect'}
+        className="signup-text noselect"
         style={{
           alignSelf: 'center',
           textAlign: 'center',
@@ -73,7 +74,7 @@ const CreateAccountPrompt = () => {
         Sign up to create new flashcards!
       </h2>
       <Image
-        className={'signup-image'}
+        className="signup-image"
         style={{
           height: '100%',
           display: 'flex',
@@ -91,7 +92,7 @@ const CreateAccountPrompt = () => {
         }}
       >
         <Link
-          to={'/home/createAccount'}
+          to="/home/createAccount"
           style={{
             justifySelf: 'end',
             alignSelf: 'center',
@@ -100,14 +101,15 @@ const CreateAccountPrompt = () => {
           }}
         >
           <button
-            className={'signup-prompt-button'}
+            className="signup-prompt-button"
             style={{ ...signupPromptButton, ...signupButton }}
+            type="button"
           >
             Sign up
           </button>
         </Link>
         <Link
-          to={'/home/login'}
+          to="/home/login"
           style={{
             justifySelf: 'start',
             alignSelf: 'center',
@@ -116,8 +118,9 @@ const CreateAccountPrompt = () => {
           }}
         >
           <button
-            className={'signup-prompt-button'}
+            className="signup-prompt-button"
             style={{ ...signupPromptButton, ...loginButton }}
+            type="button"
           >
             Log in
           </button>

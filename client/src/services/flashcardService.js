@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const baseUrl = '/api/flashcards';
 
 let token = null;
@@ -37,9 +38,9 @@ const deleteFlashcard = (id) => {
 };
 
 export default {
-  getAllFlashcards: getAllFlashcards,
-  createFlashcard: createFlashcard,
-  updateFlashcard: updateFlashcard,
-  deleteFlashcard: deleteFlashcard,
-  setToken: setToken,
+  getAllFlashcards,
+  createFlashcard,
+  updateFlashcard,
+  deleteFlashcard,
+  setToken,
 };

@@ -99,7 +99,12 @@ const Set = ({
 
   return (
     <div className="sidebar__setlist__set" ref={setRef}>
-      <div className="set__header" onClick={handleTitleClick}>
+      <div
+        className="set__header"
+        onClick={handleTitleClick}
+        role="button"
+        tabIndex="0"
+      >
         <input
           className={
             canEditTitle ? 'edit-mode set__header__title' : 'set__header__title'
@@ -128,7 +133,7 @@ const Set = ({
             />
             <Button
               onClick={handleDeleteSet}
-              className={'title-edit-button'}
+              className="title-edit-button"
               text={<FontAwesomeIcon icon={['fa', 'trash']} size="sm" />}
             />
           </div>
@@ -136,24 +141,24 @@ const Set = ({
       </div>
       <div className="set__info">
         <div className="set__length">
-          <span>{'length: ' + setLength}</span>
+          <span>{`length: ${setLength}`}</span>
         </div>
         <div className="set__creator">
           <Link
             to={`/users/${set.username}`}
-            className={'user-link'}
+            className="user-link"
             onClick={(e) => e.stopPropagation()}
           >
             <strong>{set.username}</strong>
           </Link>
         </div>
-        <hr className={'divide-line'} />
+        <hr className="divide-line" />
       </div>
       <div className="set__preview" ref={cardContainerRef}>
-        <ul style={{ maxHeight: '20vh', padding: '2% 0' }}>
+        <div style={{ maxHeight: '20vh', padding: '2% 0' }}>
           {currentFlashcardsInSet
             ? currentFlashcardsInSet.map((card, i) => (
-                <li
+                <div
                   key={card.id}
                   className={
                     flashcards[currentFlashcardIndex] &&
@@ -165,12 +170,14 @@ const Set = ({
                     cardRefs.push(el);
                   }}
                   onClick={(e) => handleCardClick(e, i)}
+                  role="button"
+                  tabIndex="0"
                 >
                   {card.front}
-                </li>
+                </div>
               ))
             : 'loading...'}
-        </ul>
+        </div>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ const LoadingFlashcardPlaceholder = ({ mousePosition, transition }) => {
     transform: `rotateY(${
       mousePosition ? mousePosition.xAxis : 0
     }deg) rotateX(${mousePosition ? mousePosition.yAxis : 0}deg)`,
-    transition: transition,
+    transition,
     padding: '3%',
     overflow: 'hidden',
   };
@@ -25,7 +25,7 @@ const LoadingFlashcardPlaceholder = ({ mousePosition, transition }) => {
 
   return (
     <div className="flashcard" style={cardStyles}>
-      <div className="scanner" style={scannerStyles}></div>
+      <div className="scanner" style={scannerStyles} />
     </div>
   );
 };

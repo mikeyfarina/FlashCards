@@ -40,7 +40,7 @@ const Flashcard = ({
     transformStyle: 'preserve-3d',
     WebkitTransformStyle: 'preserve-3d',
     MozTransformStyle: 'preserve-3d',
-    transition: transition,
+    transition,
     display: 'flex',
     alignItems: 'center',
     textAlign: 'center',
@@ -51,7 +51,7 @@ const Flashcard = ({
     transform: 'rotateY(0deg) rotateX(180deg)',
     WebkitTransform: 'rotateY(0deg) rotateX(180deg)',
     MozTransform: 'rotateY(0deg) rotateX(180deg)',
-    transition: transition,
+    transition,
     transformStyle: 'preserve-3d',
     WebkitTransformStyle: 'preserve-3d',
     MozTransformStyle: 'preserve-3d',
@@ -65,7 +65,7 @@ const Flashcard = ({
     transform: 'rotateY(0deg) rotateX(0deg)',
     WebkitTransform: 'rotateY(0deg) rotateX(0deg)',
     MozTransform: 'rotateY(0deg) rotateX(0deg)',
-    transition: transition,
+    transition,
     transformStyle: 'preserve-3d',
     WebkitTransformStyle: 'preserve-3d',
     MozTransformStyle: 'preserve-3d',
@@ -81,19 +81,6 @@ const Flashcard = ({
     setFlashcard(flashcards[currentFlashcardIndex] || null);
   }, [currentFlashcardIndex, flashcards]);
 
-  const firstLoad = useRef(true);
-  useEffect(() => {
-    //dont save flashcard on first load
-    if (firstLoad.current) {
-      firstLoad.current = false;
-      return;
-    }
-    //if switching from edit mode to non-edit mode, save
-    if (!canEdit) {
-      updateAndSaveFlashcard();
-    }
-  }, [canEdit]);
-
   useEffect(() => {
     if (flip) {
       setTransition('all .5s ease-out');
@@ -102,8 +89,8 @@ const Flashcard = ({
 
   const handleMouseMove = (e) => {
     if (!flip) {
-      let xAxis = -(window.innerWidth / 2 - e.pageX) / 25;
-      let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+      const xAxis = -(window.innerWidth / 2 - e.pageX) / 25;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
       setMousePosition({ xAxis, yAxis });
     }
   };
@@ -114,15 +101,15 @@ const Flashcard = ({
   };
 
   const handleMouseLeave = () => {
-    //console.log('reset', e);
+    // console.log('reset', e);
     setTransition('transform .5s ease-out');
     setMousePosition({ xAxis: 0, yAxis: 0 });
   };
 
   const handleClick = () => {
     if (!canEdit) {
-      //if not in edit mode, flip card
-      //flip {displayingFront} to display back
+      // if not in edit mode, flip card
+      // flip {displayingFront} to display back
       setDisplayingFront(!displayingFront);
       setTransition('all .5s linear');
       setFlip(true);
@@ -154,10 +141,10 @@ const Flashcard = ({
         };
     flashcardService
       .updateFlashcard(flashcardToUpdate.id, updatedFlashcard)
-      .then((updatedFlashcard) => {
+      .then((newFlashcard) => {
         setFlashcards(
           flashcards.map((card) =>
-            card.id !== flashcardToUpdate.id ? card : updatedFlashcard
+            card.id !== flashcardToUpdate.id ? card : newFlashcard
           )
         );
       })
@@ -169,6 +156,20 @@ const Flashcard = ({
         setFlashcardInputText('');
       });
   };
+
+  const firstLoad = useRef(true);
+  useEffect(() => {
+    // dont save flashcard on first load
+    if (firstLoad.current) {
+      firstLoad.current = false;
+      return;
+    }
+
+    // if switching from edit mode to non-edit mode, save
+    if (!canEdit) {
+      updateAndSaveFlashcard();
+    }
+  }, [canEdit]);
 
   const backTextRef = useRef();
   const frontTextRef = useRef();
@@ -185,7 +186,7 @@ const Flashcard = ({
 
   return (
     <div
-      className={'flashcard-container'}
+      className="flashcard-container"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
@@ -196,10 +197,16 @@ const Flashcard = ({
           transition={transition}
         />
       ) : (
-        <div className="flashcard" onClick={handleClick} style={divStyle}>
+        <div
+          className="flashcard"
+          onClick={handleClick}
+          style={divStyle}
+          role="textbox"
+          tabIndex="0"
+        >
           <div className="flashcard__front" style={frontStyles}>
             <span className="card-number noselect">
-              {Number.parseInt(currentFlashcardIndex) + 1}
+              {Number(currentFlashcardIndex) + 1}
             </span>
             <div className="flex-centering noselect">
               <textarea
@@ -213,14 +220,10 @@ const Flashcard = ({
                 disabled={!canEdit}
                 value={flashcard.front}
                 onChange={handleTextEdit}
-              ></textarea>
+              />
             </div>
           </div>
-          <div
-            className="flashcard__back"
-            onClick={handleClick}
-            style={backStyles}
-          >
+          <div className="flashcard__back" style={backStyles}>
             <div className="flex-centering noselect">
               <textarea
                 type="text"
@@ -231,7 +234,7 @@ const Flashcard = ({
                 disabled={!canEdit}
                 value={flashcard.back}
                 onChange={handleTextEdit}
-              ></textarea>
+              />
             </div>
           </div>
         </div>

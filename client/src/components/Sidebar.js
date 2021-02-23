@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-//import flashcardService from '../services/flashcardService';
+// import flashcardService from '../services/flashcardService';
 import setService from '../services/setService';
 import SetList from './SetList';
 import SidebarHeader from './SidebarHeader';
@@ -48,7 +48,7 @@ const Sidebar = ({
         sidebarSearchText={sidebarSearchText}
         loggedInUser={loggedInUser}
       />
-      <div className="sidebar__bottom"></div>
+      <div className="sidebar__bottom" />
     </div>
   );
 };

@@ -17,11 +17,7 @@ const Togglable = React.forwardRef((props, ref) => {
     setVisible(!visible);
   };
 
-  useImperativeHandle(ref, () => {
-    return {
-      toggleVisibility,
-    };
-  });
+  useImperativeHandle(ref, () => toggleVisibility);
 
   return (
     <div
@@ -34,6 +30,7 @@ const Togglable = React.forwardRef((props, ref) => {
           onClick={toggleVisibility}
           className={`${props.buttonLabel}-outside-button`}
           style={{ border: 'none', outline: 'none' }}
+          type="button"
         >
           {props.buttonLabel}
         </button>
@@ -50,6 +47,7 @@ const Togglable = React.forwardRef((props, ref) => {
             top: '1%',
             right: '2%',
           }}
+          type="button"
         >
           {props.cancelButtonText || 'cancel'}
         </button>

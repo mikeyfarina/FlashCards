@@ -41,8 +41,8 @@ const Flashcards = ({
       setId,
     };
 
-    flashcardService.createFlashcard(newFlashcard).then((newFlashcard) => {
-      setFlashcards(flashcards.concat(newFlashcard));
+    flashcardService.createFlashcard(newFlashcard).then((createdFlashcard) => {
+      setFlashcards(flashcards.concat(createdFlashcard));
       setCurrentFlashcardIndex(flashcards.length);
     });
   };

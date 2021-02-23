@@ -59,24 +59,24 @@ const LoginForm = ({ setUser, standalone }) => {
   };
 
   return (
-    <div className={'login noselect'}>
+    <div className="login noselect">
       {!createAccount ? (
         <form
-          className={'login-form'}
+          className="login-form"
           onSubmit={handleLogin}
           style={loginFormStyle}
         >
           <h3>Login</h3>
           <input
             type="text"
-            className={'login-form-input'}
+            className="login-form-input"
             value={username}
             name="Username"
             onChange={({ target }) => setUsername(target.value)}
             placeholder="username"
           />
           <input
-            className={'login-form-input'}
+            className="login-form-input"
             type="password"
             value={password}
             name="Password"
@@ -85,9 +85,9 @@ const LoginForm = ({ setUser, standalone }) => {
           />
           {(error || success) && (
             <div className="message">
-              {error && <p className={'error'}>{error}</p>}
+              {error && <p className="error">{error}</p>}
               {success && (
-                <p className={'success'}>Account created Successfully!</p>
+                <p className="success">Account created Successfully!</p>
               )}
             </div>
           )}
@@ -101,6 +101,7 @@ const LoginForm = ({ setUser, standalone }) => {
                 ? history.push('/home/createAccount')
                 : setCreateAccount(true)
             }
+            type="button"
           >
             Create Account
           </button>

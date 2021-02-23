@@ -24,6 +24,10 @@ header {
   padding: 1%;
 }
 
+.main-title:focus {
+  outline: none;
+}
+
 .user-greeting {
   font-size: 1.2vw;
   margin-right: 2vw;

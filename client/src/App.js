@@ -7,14 +7,11 @@ import {
   useHistory,
 } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
-
 import FlashcardsDisplay from './pages/FlashcardsDisplay';
 import Homepage from './pages/Homepage';
 import UserInformation from './pages/UserInformation';
-
 import flashcardService from './services/flashcardService';
 import setService from './services/setService';
-
 import Togglable from './components/Togglable';
 import LoginForm from './components/LoginForm';
 import CreateAccountForm from './components/CreateAccountForm';
@@ -76,7 +73,7 @@ const App = () => {
           {`hello, ${user.username}`}
         </Link>
       </div>
-      <button onClick={handleLogout} className="logout-button">
+      <button onClick={handleLogout} className="logout-button" type="button">
         Logout
       </button>
     </div>
@@ -94,35 +91,37 @@ const App = () => {
     <div>
       <header>
         <div className="main-title-container">
-          <h1
+          <div
             className="main-title noselect"
             onClick={() => {
               history.push('/home');
             }}
+            role="button"
+            tabIndex="0"
           >
-            Flashcards
-          </h1>
+            <strong>Flashcards</strong>
+          </div>
         </div>
         {user ? logoutDiv() : loginForm()}
       </header>
       <Switch>
-        <Route exact path={'/home'}>
+        <Route exact path="/home">
           <Homepage flashcardSets={flashcardSets} user={user} />
         </Route>
-        <Route path={'/home/login'}>
+        <Route path="/home/login">
           <FormContainer>
-            <LoginForm setUser={setUser} standalone={true} />
+            <LoginForm setUser={setUser} standalone />
           </FormContainer>
         </Route>
-        <Route path={'/home/createAccount'}>
+        <Route path="/home/createAccount">
           <FormContainer>
-            <CreateAccountForm standalone={true} />
+            <CreateAccountForm standalone />
           </FormContainer>
         </Route>
-        <Route exact path={'/users/:username'}>
+        <Route exact path="/users/:username">
           <UserInformation loggedInUser={user} />
         </Route>
-        <Route path={'/flashcards/:setId/:flashcardId'}>
+        <Route path="/flashcards/:setId/:flashcardId">
           <FlashcardsDisplay
             flashcardSets={flashcardSets}
             setFlashcardSets={setFlashcardSets}
@@ -130,7 +129,7 @@ const App = () => {
             loggedInUser={user}
           />
         </Route>
-        <Route path={'/flashcards/:id'}>
+        <Route path="/flashcards/:id">
           <FlashcardsDisplay
             flashcardSets={flashcardSets}
             setFlashcardSets={setFlashcardSets}
@@ -138,14 +137,14 @@ const App = () => {
             loggedInUser={user}
           />
         </Route>
-        <Route path={'/flashcards'}>
+        <Route path="/flashcards">
           <FlashcardsDisplay
             flashcardSets={flashcardSets}
             setFlashcardSets={setFlashcardSets}
             loggedInUser={user}
           />
         </Route>
-        <Route exact path={'/'}>
+        <Route exact path="/">
           <FlashcardsDisplay
             flashcardSets={flashcardSets}
             setFlashcardSets={setFlashcardSets}
