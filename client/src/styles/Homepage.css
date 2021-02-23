@@ -33,8 +33,11 @@
 }
 .show-more-options:hover {
   background: linear-gradient(90deg, #c0c0c0, white 65%);
-  color: gray;
+  color: white;
   border-radius: 4px;
+}
+.show-more-options:focus {
+  outline: none;
 }
 
 .home-flashcard-option:hover > h5 {

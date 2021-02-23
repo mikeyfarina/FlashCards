@@ -28,11 +28,13 @@ const HomepageSet = ({ set }) => {
 
   return (
     <div
-      className={'user-list-item home-set'}
+      className="user-list-item home-set"
       style={setStyle}
       onClick={() => {
         history.push(`/flashcards/${set.id}`);
       }}
+      role="button"
+      tabIndex="0"
     >
       <h2
         style={{
@@ -52,7 +54,7 @@ const HomepageSet = ({ set }) => {
         }}
       >
         {set.flashcards.map((card, i) => {
-          if (i > 3 && !showAllFlashcards) return;
+          if (i < 3 && !showAllFlashcards) return <></>;
           return (
             <div
               key={card.id}
@@ -64,11 +66,13 @@ const HomepageSet = ({ set }) => {
                 maxWidth: '80%',
                 padding: '.5%',
               }}
-              className={'home-flashcard-option'}
+              className="home-flashcard-option"
               onClick={(e) => {
                 e.stopPropagation();
                 history.push(`/flashcards/${set.id}/${card.id}`);
               }}
+              role="link"
+              tabIndex="0"
             >
               <h5>{card.front}</h5>
             </div>
@@ -76,9 +80,14 @@ const HomepageSet = ({ set }) => {
         })}
       </div>
       {set.flashcards.length > 3 && (
-        <h5 className={'show-more-options'} onClick={handleShowMoreOptions}>
+        <div
+          className="show-more-options"
+          onClick={handleShowMoreOptions}
+          role="button"
+          tabIndex="0"
+        >
           ...
-        </h5>
+        </div>
       )}
       <h5
         style={{
@@ -89,7 +98,8 @@ const HomepageSet = ({ set }) => {
           fontWeight: 'lighter',
         }}
       >
-        Size: <strong>{set.flashcards.length || 0}</strong>
+        Size:
+        <strong>{` ${set.flashcards.length || 0}`}</strong>
       </h5>
       <h5
         style={{
@@ -100,13 +110,13 @@ const HomepageSet = ({ set }) => {
           fontWeight: 'lighter',
         }}
       >
-        Created By:{' '}
+        Created By:
         <Link
           to={`/users/${set.username}`}
-          className={'user-link-from-set'}
+          className="user-link-from-set"
           onClick={(e) => e.stopPropagation()}
         >
-          <strong>{set.username}</strong>
+          <strong>{` ${set.username}`}</strong>
         </Link>
       </h5>
     </div>

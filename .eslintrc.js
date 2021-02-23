@@ -1,36 +1,7 @@
 module.exports = {
-  env: {
-    browser: true,
-    es6: true,
-    'jest/globals': true,
-  },
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-  ],
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 2018,
-    sourceType: 'module',
-  },
-  plugins: ['react', 'jest'],
+  extends: ['airbnb'],
   rules: {
-    'linebreak-style': ['error', 'unix'],
-    quotes: ['error', 'single'],
-    eqeqeq: 'error',
-    'no-trailing-spaces': 'error',
-    'object-curly-spacing': ['error', 'always'],
-    'arrow-spacing': ['error', { before: true, after: true }],
-    'no-console': 0,
-    'react/prop-types': 0,
-    'react-hooks/exhaustive-deps': 0,
-  },
-  settings: {
-    react: {
-      version: 'detect',
-    },
+    'react/jsx-filename-extension': 0,
+    'jsx-a11y/click-events-have-key-events': 0,
   },
 };
