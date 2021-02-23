@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-
 import flashcardService from '../services/flashcardService';
 import LoadingFlashcardPlaceholder from './LoadingFlashcardPlaceholder';
 

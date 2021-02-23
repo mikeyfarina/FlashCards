@@ -1,10 +1,8 @@
 import '../styles/PagesStyles.css';
 import '../styles/Homepage.css';
-
 import React, { useState, useEffect } from 'react';
 import CreateAccountPrompt from '../components/CreateAccountPrompt';
 import HomepageSet from '../components/HomepageSet';
-
 import setService from '../services/setService';
 
 const Homepage = ({ flashcardSets, user }) => {

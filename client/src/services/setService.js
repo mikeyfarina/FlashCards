@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const baseUrl = '/api/sets';
-
 let token = null;
 
 const setToken = (newToken) => {
