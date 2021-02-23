@@ -25,7 +25,7 @@ describe('<Flashcard />', () => {
       />
     );
 
-    flashcard = component.container.querySelector('.flashcard');
+    flashcard = component.container.querySelector('[data-flashcard-element]');
   });
 
   test('renders content', () => {

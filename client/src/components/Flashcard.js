@@ -119,12 +119,10 @@ const Flashcard = ({
     }
   };
 
-  const handleTextEdit = (e) => {
+  // TESTING SIDE
+  const handleTextEdit = (e, side) => {
     if (canEdit) {
-      setFlashcardInputText(e.target.value);
-      displayingFront
-        ? setFlashcard({ ...flashcard, front: e.target.value })
-        : setFlashcard({ ...flashcard, back: e.target.value });
+      setFlashcard({ ...flashcard, [side]: e.target.value });
     }
   };
 
@@ -203,6 +201,7 @@ const Flashcard = ({
           style={divStyle}
           role="textbox"
           tabIndex="0"
+          data-flashcard-element
         >
           <div className="flashcard__front" style={frontStyles}>
             <span className="card-number noselect">
@@ -219,7 +218,7 @@ const Flashcard = ({
                 ref={frontTextRef}
                 disabled={!canEdit}
                 value={flashcard.front}
-                onChange={handleTextEdit}
+                onChange={(e) => handleTextEdit(e, 'front')}
               />
             </div>
           </div>
@@ -233,7 +232,7 @@ const Flashcard = ({
                 ref={backTextRef}
                 disabled={!canEdit}
                 value={flashcard.back}
-                onChange={handleTextEdit}
+                onChange={(e) => handleTextEdit(e, 'back')}
               />
             </div>
           </div>

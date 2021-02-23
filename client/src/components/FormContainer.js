@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FormContainer = (props) => {
+const FormContainer = ({ children }) => {
   const containerStyle = {
     background: 'white',
     width: 'fit-content',
@@ -16,7 +16,7 @@ const FormContainer = (props) => {
 
   return (
     <div className="form-container" style={containerStyle}>
-      {props.children}
+      {children}
     </div>
   );
 };

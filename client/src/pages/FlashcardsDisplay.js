@@ -1,9 +1,9 @@
 import '../styles/FlashcardDisplay.css';
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Flashcards from '../components/Flashcards';
 import Sidebar from '../components/Sidebar';
 import setService from '../services/setService';
-import { useParams } from 'react-router-dom';
 
 const FlashcardsDisplay = ({
   flashcardSets,
@@ -31,7 +31,7 @@ const FlashcardsDisplay = ({
       setCurrentFlashcardIndex(
         desiredFlashcardIndex > 0 ? desiredFlashcardIndex : 0
       );
-      setFlashcards(flashcards);
+      setFlashcards(flashcardsInSet);
     };
     getFlashcardsWithinSet();
   }, [currentSetIndex, desiredFlashcardID, setFlashcardSets]);

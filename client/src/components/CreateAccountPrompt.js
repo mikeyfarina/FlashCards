@@ -1,7 +1,8 @@
 import '../styles/CreateAccountPrompt.css';
 import React, { useState } from 'react';
-import { ReactComponent as Image } from '../images/clipart/img1.svg';
 import { Link } from 'react-router-dom';
+import { ReactComponent as Image } from '../images/clipart/img1.svg';
+
 const CreateAccountPrompt = () => {
   const [signupDisplayed, setSignupDisplayed] = useState(true);
 
@@ -61,7 +62,7 @@ const CreateAccountPrompt = () => {
       >
         x
       </button>
-      <div className={'circle-separator'} />
+      <div className="circle-separator" />
       <h2
         className="signup-text noselect"
         style={{

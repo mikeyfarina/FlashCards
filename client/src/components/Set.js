@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import setService from '../services/setService';
-
 import Button from './Button';
 
 const Set = ({
@@ -47,7 +46,6 @@ const Set = ({
   const handleEditMode = async () => {
     setCanEditTitle(!canEditTitle);
     if (canEditTitle) {
-      set.title = setTitle;
       await setService.updateSetTitle(set.id, setTitle);
     }
   };
@@ -60,11 +58,11 @@ const Set = ({
   };
 
   const handleCardClick = (e, indexOfCardPreview) => {
-    currentFlashcardsInSet.map((card, i) => {
+    currentFlashcardsInSet.find((card, i) =>
       i === indexOfCardPreview && currentSetIndex === indexOfSet
         ? setCurrentFlashcardIndex(indexOfCardPreview)
-        : '';
-    });
+        : ''
+    );
   };
 
   const handleDeleteSet = () => {

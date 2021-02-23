@@ -53,31 +53,31 @@ const HomepageSet = ({ set }) => {
           transition: 'height .2s ease-out',
         }}
       >
-        {set.flashcards.map((card, i) => {
-          if (i < 3 && !showAllFlashcards) return <></>;
-          return (
-            <div
-              key={card.id}
-              style={{
-                WebkitBoxOrient: 'vertical',
-                WebkitLineClamp: '1',
-                overflow: 'hidden',
-                display: '-webkit-box',
-                maxWidth: '80%',
-                padding: '.5%',
-              }}
-              className="home-flashcard-option"
-              onClick={(e) => {
-                e.stopPropagation();
-                history.push(`/flashcards/${set.id}/${card.id}`);
-              }}
-              role="link"
-              tabIndex="0"
-            >
-              <h5>{card.front}</h5>
-            </div>
-          );
-        })}
+        {set.flashcards.map(
+          (card, i) =>
+            !(i > 3 && !showAllFlashcards) && (
+              <div
+                key={card.id}
+                style={{
+                  WebkitBoxOrient: 'vertical',
+                  WebkitLineClamp: '1',
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  maxWidth: '80%',
+                  padding: '.5%',
+                }}
+                className="home-flashcard-option"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  history.push(`/flashcards/${set.id}/${card.id}`);
+                }}
+                role="link"
+                tabIndex="0"
+              >
+                <h5>{card.front}</h5>
+              </div>
+            )
+        )}
       </div>
       {set.flashcards.length > 3 && (
         <div

@@ -12,7 +12,7 @@ import Homepage from './pages/Homepage';
 import UserInformation from './pages/UserInformation';
 import flashcardService from './services/flashcardService';
 import setService from './services/setService';
-import Togglable from './components/Togglable';
+import ToggleContainer from './components/ToggleContainer';
 import LoginForm from './components/LoginForm';
 import CreateAccountForm from './components/CreateAccountForm';
 import FormContainer from './components/FormContainer';
@@ -37,22 +37,22 @@ const App = () => {
     );
     if (loggedUserJSON) {
       console.log('logging in user');
-      const user = JSON.parse(loggedUserJSON);
-      setUser(user);
-      flashcardService.setToken(user.token);
-      setService.setToken(user.token);
+      const userFromLocalStorage = JSON.parse(loggedUserJSON);
+      setUser(userFromLocalStorage);
+      flashcardService.setToken(userFromLocalStorage.token);
+      setService.setToken(userFromLocalStorage.token);
     }
   }, []);
 
   const loginFormRef = useRef();
   const loginForm = () => (
-    <Togglable
+    <ToggleContainer
       buttonLabel="login"
       ref={loginFormRef}
       parentDivClassName="login-div"
     >
       <LoginForm setUser={setUser} standalone={false} />
-    </Togglable>
+    </ToggleContainer>
   );
 
   const handleLogout = (event) => {

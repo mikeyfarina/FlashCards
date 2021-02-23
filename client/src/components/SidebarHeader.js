@@ -11,7 +11,7 @@ const SidebarHeader = ({
   <div className="sidebar__header">
     <Button
       text={<FontAwesomeIcon icon={['fa', 'plus']} size="2x" />}
-      className={'new-set-button'}
+      className="new-set-button"
       onClick={handleNewSet}
     />
     <Form

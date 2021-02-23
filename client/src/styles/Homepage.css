@@ -53,6 +53,10 @@
   margin: 2.5vh 1.4vw;
 }
 
+.user-list-item.home-set {
+  overflow: hidden;
+}
+
 .user-list-item.home-set:hover > h2 {
   text-decoration: underline;
 }

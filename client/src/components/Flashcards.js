@@ -18,15 +18,19 @@ const Flashcards = ({
   const [canEdit, setCanEdit] = useState(false);
 
   const handlePreviousCardClick = () => {
-    currentFlashcardIndex - 1 < 0
-      ? setCurrentFlashcardIndex(flashcards.length - 1)
-      : setCurrentFlashcardIndex(currentFlashcardIndex - 1);
+    setCurrentFlashcardIndex(
+      currentFlashcardIndex - 1 < 0
+        ? flashcards.length - 1
+        : currentFlashcardIndex - 1
+    );
   };
 
   const handleNextCardClick = () => {
-    currentFlashcardIndex + 1 >= flashcards.length
-      ? setCurrentFlashcardIndex(0)
-      : setCurrentFlashcardIndex(currentFlashcardIndex + 1);
+    setCurrentFlashcardIndex(
+      currentFlashcardIndex + 1 >= flashcards.length
+        ? 0
+        : currentFlashcardIndex + 1
+    );
   };
 
   const handleNewFlashCard = async (e) => {
@@ -59,9 +63,9 @@ const Flashcards = ({
       .deleteFlashcard(flashcardToUpdate.id)
       .then(() => {
         console.log('deleted');
-        currentFlashcardIndex === 0
-          ? setCurrentFlashcardIndex(0)
-          : setCurrentFlashcardIndex(currentFlashcardIndex - 1);
+        setCurrentFlashcardIndex(
+          currentFlashcardIndex === 0 ? 0 : currentFlashcardIndex - 1
+        );
         // updates front end as well not sure if best practice
         const newSet = flashcards.filter((_, i) => i !== currentFlashcardIndex);
         setFlashcards(newSet);

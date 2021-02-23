@@ -131,6 +131,7 @@ const UserInformation = ({ loggedInUser }) => {
     scrollSnapAlign: 'start',
     scrollMarginTop: '2vh',
     willChange: 'transform',
+    outline: 'none',
   };
 
   const setTitleContainerStyle = {
@@ -318,12 +319,14 @@ const UserInformation = ({ loggedInUser }) => {
         >
           {desiredUser.flashcards.map((flashcard) => (
             <div
-              className={'flashcard-item user-list-item'}
+              className="flashcard-item user-list-item"
               style={flashcardStyle}
               key={flashcard.id}
               onClick={() => {
                 history.push(`/flashcards/${flashcard.set.id}/${flashcard.id}`);
               }}
+              role="button"
+              tabIndex="0"
             >
               <div style={setTitleContainerStyle}>
                 <h3>{flashcard.front}</h3>

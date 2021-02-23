@@ -45,12 +45,14 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
       handleError('passwordMismatch', 'Passwords do not match');
     } else {
       userService.createAccount({ username, password, name }).then((result) => {
+        // eslint-disable-next-line no-underscore-dangle
         if (result.errors && result._message === 'User validation failed') {
           handleError('accountCreationError', 'Username already taken');
         } else {
           setSuccess(true);
           loginService.login({ username, password }).then((authUser) => {
             setUser(authUser);
+            // eslint-disable-next-line no-undef
             window.localStorage.setItem(
               'loggedFlashcardAppUser',
               JSON.stringify(authUser)
