@@ -1,4 +1,3 @@
-import '../styles/UserInformation.css';
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import UserStyle from './UserInformation.module.css';

@@ -1,12 +1,13 @@
 import React, { useImperativeHandle, useState } from 'react';
+import HeaderStyles from '../styles/Header.module.css';
 
-const ToggleContainer = React.forwardRef((props, ref) => {
+const ToggleLogin = React.forwardRef((props, ref) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const hideWhenVisible = { display: isVisible ? 'none' : '' };
   const showWhenVisible = { display: isVisible ? '' : 'none' };
 
-  ToggleContainer.displayName = 'ToggleContainer';
+  ToggleLogin.displayName = 'ToggleLogin';
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
@@ -16,18 +17,17 @@ const ToggleContainer = React.forwardRef((props, ref) => {
 
   return (
     <div
-      className={`${props.parentDivClassName || ''} ${
-        isVisible ? 'visible' : 'invisible'
+      className={`${HeaderStyles.login} ${
+        isVisible ? HeaderStyles.visible : HeaderStyles.invisible
       }`}
     >
       <div style={hideWhenVisible}>
         <button
           onClick={toggleVisibility}
-          className={`${props.buttonLabel}-outside-button`}
-          style={{ border: 'none', outline: 'none' }}
+          className={HeaderStyles.loginBtn}
           type="button"
         >
-          {props.buttonLabel}
+          login
         </button>
       </div>
       <div
@@ -38,21 +38,14 @@ const ToggleContainer = React.forwardRef((props, ref) => {
         {props.children}
         <button
           onClick={toggleVisibility}
-          className={`${props.buttonLabel}-cancel-button`}
-          style={{
-            border: 'none',
-            outline: 'none',
-            position: 'absolute',
-            top: '1%',
-            right: '2%',
-          }}
+          className={HeaderStyles.cancel}
           type="button"
         >
-          {props.cancelButtonText || 'cancel'}
+          cancel
         </button>
       </div>
     </div>
   );
 });
 
-export default ToggleContainer;
+export default ToggleLogin;

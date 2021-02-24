@@ -74,5 +74,6 @@
   .delete {
     border-radius: 6px;
     border: 2px #646c80 solid;
+    font-size: 2vw;
   }
 }

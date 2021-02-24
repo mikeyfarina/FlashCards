@@ -1,4 +1,3 @@
-import '../styles/FlashcardDisplay.css';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import DisplayStyle from './FlashcardsDisplay.module.css';
