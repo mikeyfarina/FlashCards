@@ -35,7 +35,7 @@ const CreateAccountPrompt = () => {
       >
         <Link to="/home/createAccount" className={PromptStyle.signupLink}>
           <button
-            className={`${PromptStyle.btn} ${PromptStyle.signup}`}
+            className={`${PromptStyle.button} ${PromptStyle.signup}`}
             type="button"
           >
             Sign up
@@ -43,7 +43,7 @@ const CreateAccountPrompt = () => {
         </Link>
         <Link to="/home/login" className={PromptStyle.loginLink}>
           <button
-            className={`${PromptStyle.btn} ${PromptStyle.login}`}
+            className={`${PromptStyle.button} ${PromptStyle.login}`}
             type="button"
           >
             Log in
