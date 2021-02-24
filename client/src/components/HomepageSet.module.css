@@ -1,3 +1,5 @@
+@import '../styles/UserListItem.module.css';
+
 .container {
   height: 20vh;
   min-width: 30vw;
@@ -18,12 +20,16 @@
   will-change: transform;
 }
 
+.container:hover > .title {
+  text-decoration: underline;
+}
+
 .title {
   margin-bottom: 1vh;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  text-decoration: underline;
+  text-decoration: none;
 }
 .cards {
   overflow-y: scroll;
@@ -89,7 +95,7 @@
 }
 
 @media all and (min-width: 1200px) {
-  .user-list-item.home-set {
+  .container {
     min-width: 22%;
     max-width: 22%;
     margin: 1.5vh 1.5%;
@@ -97,14 +103,14 @@
 }
 
 @media all and (max-width: 900px) {
-  .user-list-item.home-set {
+  .container {
     min-width: 44%;
     max-width: 44%;
     margin: 1.5vh 2.5vw;
   }
 }
 @media all and (max-width: 560px) {
-  .user-list-item.home-set {
+  .container {
     min-width: 95%;
     max-width: 95%;
     margin: 1.5vh 2.5vw;

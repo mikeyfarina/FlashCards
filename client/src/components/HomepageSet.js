@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
-import UserList from '../styles/UserListItem.module.css';
 import HomeSetStyles from './HomepageSet.module.css';
 
 const HomepageSet = ({ set }) => {
@@ -15,7 +14,7 @@ const HomepageSet = ({ set }) => {
 
   return (
     <div
-      className={`${UserList.item} ${HomeSetStyles.container}`}
+      className={`${HomeSetStyles.container}`}
       onClick={() => {
         history.push(`/flashcards/${set.id}`);
       }}
