@@ -1,5 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import SidebarHeaderStyles from './SidebarHeader.module.css';
 import Button from './Button';
 import SearchBar from './SearchBar';
 
@@ -8,10 +9,10 @@ const SidebarHeader = ({
   setSidebarSearchText,
   handleNewSet,
 }) => (
-  <div className="sidebar__header">
+  <div className={SidebarHeaderStyles.container}>
     <Button
       text={<FontAwesomeIcon icon={['fa', 'plus']} size="2x" />}
-      className="new-set-button"
+      className={SidebarHeaderStyles.create}
       onClick={handleNewSet}
     />
     <SearchBar
