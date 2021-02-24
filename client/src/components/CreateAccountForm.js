@@ -37,24 +37,22 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
 
     if (name === '') {
       handleError('nameRequired', 'Name is required');
-      return;
     } else if (username === '') {
       handleError('usernameRequired', 'Username is required');
-      return;
     } else if (password === '') {
       handleError('passwordRequired', 'Password is required');
-      return;
     } else if (password !== confirmPassword) {
       handleError('passwordMismatch', 'Passwords do not match');
-      return;
     } else {
       userService.createAccount({ username, password, name }).then((result) => {
+        // eslint-disable-next-line no-underscore-dangle
         if (result.errors && result._message === 'User validation failed') {
           handleError('accountCreationError', 'Username already taken');
         } else {
           setSuccess(true);
           loginService.login({ username, password }).then((authUser) => {
             setUser(authUser);
+            // eslint-disable-next-line no-undef
             window.localStorage.setItem(
               'loggedFlashcardAppUser',
               JSON.stringify(authUser)
@@ -86,7 +84,7 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
 
   return (
     <div style={{ display: 'contents' }}>
-      <form className={'create-account-form'} style={createAccountGridStyle}>
+      <form className="create-account-form" style={createAccountGridStyle}>
         <h3>Create Account</h3>
         <div style={inputsStyle}>
           <input
@@ -139,10 +137,8 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
           />
         </div>
         <div style={{ display: 'contents' }}>
-          {error.message && <p className={'error-message'}>{error.message}</p>}
-          {success && (
-            <p className={'success'}>Account created Successfully!</p>
-          )}
+          {error.message && <p className="error-message">{error.message}</p>}
+          {success && <p className="success">Account created Successfully!</p>}
           <button
             type="submit"
             className="login-form-button"
@@ -157,7 +153,8 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
           className="login-form-button"
           onClick={(e) => {
             e.stopPropagation();
-            standalone ? history.push('/home/login') : setCreateAccount(false);
+            if (standalone) history.push('/home/login');
+            else setCreateAccount(false);
           }}
         >
           Log in

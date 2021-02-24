@@ -1,5 +1,6 @@
-const baseUrl = '/api/users';
 import axios from 'axios';
+
+const baseUrl = '/api/users';
 
 const createAccount = async (accountInfo) => {
   const response = await axios.post(baseUrl, accountInfo);

@@ -1,32 +1,23 @@
-import PropTypes from 'prop-types';
 import React, { useImperativeHandle, useState } from 'react';
 
-const Togglable = React.forwardRef((props, ref) => {
-  const [visible, setVisible] = useState(false);
+const ToggleContainer = React.forwardRef((props, ref) => {
+  const [isVisible, setIsVisible] = useState(false);
 
-  const hideWhenVisible = { display: visible ? 'none' : '' };
-  const showWhenVisible = { display: visible ? '' : 'none' };
+  const hideWhenVisible = { display: isVisible ? 'none' : '' };
+  const showWhenVisible = { display: isVisible ? '' : 'none' };
 
-  Togglable.propTypes = {
-    buttonLabel: PropTypes.string.isRequired,
-  };
-
-  Togglable.displayName = 'Togglable';
+  ToggleContainer.displayName = 'ToggleContainer';
 
   const toggleVisibility = () => {
-    setVisible(!visible);
+    setIsVisible(!isVisible);
   };
 
-  useImperativeHandle(ref, () => {
-    return {
-      toggleVisibility,
-    };
-  });
+  useImperativeHandle(ref, () => toggleVisibility);
 
   return (
     <div
-      className={`${props.parentDivClassName} ${
-        visible ? 'visible' : 'invisible'
+      className={`${props.parentDivClassName || ''} ${
+        isVisible ? 'visible' : 'invisible'
       }`}
     >
       <div style={hideWhenVisible}>
@@ -34,11 +25,16 @@ const Togglable = React.forwardRef((props, ref) => {
           onClick={toggleVisibility}
           className={`${props.buttonLabel}-outside-button`}
           style={{ border: 'none', outline: 'none' }}
+          type="button"
         >
           {props.buttonLabel}
         </button>
       </div>
-      <div style={showWhenVisible} className="togglableContent">
+      <div
+        style={showWhenVisible}
+        className="ToggleContainerContent"
+        data-toggle-content
+      >
         {props.children}
         <button
           onClick={toggleVisibility}
@@ -50,6 +46,7 @@ const Togglable = React.forwardRef((props, ref) => {
             top: '1%',
             right: '2%',
           }}
+          type="button"
         >
           {props.cancelButtonText || 'cancel'}
         </button>
@@ -58,4 +55,4 @@ const Togglable = React.forwardRef((props, ref) => {
   );
 });
 
-export default Togglable;
+export default ToggleContainer;

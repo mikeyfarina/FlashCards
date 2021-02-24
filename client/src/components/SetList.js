@@ -24,12 +24,11 @@ const SetList = ({
     } else {
       const sets = flashcardSets
         .filter((set) => set.title.includes(sidebarSearchText, 0))
-        .sort((a, b) => {
-          return (
+        .sort(
+          (a, b) =>
             a.title.indexOf(sidebarSearchText) -
             b.title.indexOf(sidebarSearchText)
-          );
-        });
+        );
       setSetListSets(sets);
     }
   }, [sidebarSearchText, flashcardSets]);

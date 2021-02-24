@@ -1,6 +1,6 @@
 import axios from 'axios';
-const baseUrl = '/api/sets';
 
+const baseUrl = '/api/sets';
 let token = null;
 
 const setToken = (newToken) => {
@@ -47,11 +47,11 @@ const deleteSet = async (id) => {
 };
 
 export default {
-  setToken: setToken,
-  getAllSets: getAllSets,
-  getSetById: getSetById,
-  getAllFlashcardsInSet: getAllFlashcardsInSet,
-  createSet: createSet,
-  updateSetTitle: updateSetTitle,
-  deleteSet: deleteSet,
+  setToken,
+  getAllSets,
+  getSetById,
+  getAllFlashcardsInSet,
+  createSet,
+  updateSetTitle,
+  deleteSet,
 };

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
 import flashcardService from '../services/flashcardService';
 import loginService from '../services/loginService';
 import setService from '../services/setService';
@@ -59,39 +58,45 @@ const LoginForm = ({ setUser, standalone }) => {
   };
 
   return (
-    <div className={'login noselect'}>
+    <div className="login noselect">
       {!createAccount ? (
         <form
-          className={'login-form'}
+          className="login-form"
           onSubmit={handleLogin}
           style={loginFormStyle}
         >
           <h3>Login</h3>
           <input
             type="text"
-            className={'login-form-input'}
+            className="login-form-input"
             value={username}
             name="Username"
             onChange={({ target }) => setUsername(target.value)}
             placeholder="username"
+            data-input-username
           />
           <input
-            className={'login-form-input'}
+            className="login-form-input"
             type="password"
             value={password}
             name="Password"
             onChange={({ target }) => setPassword(target.value)}
             placeholder="password"
+            data-input-password
           />
           {(error || success) && (
             <div className="message">
-              {error && <p className={'error'}>{error}</p>}
+              {error && <p className="error">{error}</p>}
               {success && (
-                <p className={'success'}>Account created Successfully!</p>
+                <p className="success">Account created Successfully!</p>
               )}
             </div>
           )}
-          <button type="submit" className="login-form-button">
+          <button
+            type="submit"
+            className="login-form-button"
+            data-button-submit-login
+          >
             Log in
           </button>
           <button
@@ -101,6 +106,7 @@ const LoginForm = ({ setUser, standalone }) => {
                 ? history.push('/home/createAccount')
                 : setCreateAccount(true)
             }
+            type="button"
           >
             Create Account
           </button>

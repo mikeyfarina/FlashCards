@@ -1,10 +1,8 @@
 import '../styles/PagesStyles.css';
 import '../styles/Homepage.css';
-
 import React, { useState, useEffect } from 'react';
 import CreateAccountPrompt from '../components/CreateAccountPrompt';
 import HomepageSet from '../components/HomepageSet';
-
 import setService from '../services/setService';
 
 const Homepage = ({ flashcardSets, user }) => {
@@ -61,15 +59,15 @@ const Homepage = ({ flashcardSets, user }) => {
     } else {
       const sets = flashcardSets
         .filter((set) => set.title.includes(searchText, 0))
-        .sort((a, b) => {
-          return a.title.indexOf(searchText) - b.title.indexOf(searchText);
-        });
+        .sort(
+          (a, b) => a.title.indexOf(searchText) - b.title.indexOf(searchText)
+        );
       setSearchSets(sets);
     }
   }, [searchText]);
 
   return (
-    <div className={'homepage-container'} style={homepageStyle}>
+    <div className="homepage-container" style={homepageStyle}>
       {!user && <CreateAccountPrompt />}
       <div style={searchContainerStyle}>
         <input
@@ -83,7 +81,7 @@ const Homepage = ({ flashcardSets, user }) => {
         />
       </div>
       <div className="flashcard-collections-container">
-        <div style={backgroundShapeStyle}></div>
+        <div style={backgroundShapeStyle} />
         <div
           style={{
             height: '100%',
@@ -100,7 +98,7 @@ const Homepage = ({ flashcardSets, user }) => {
                 </li>
               ))
             ) : (
-              <div>{'Loading Flashcard Sets'}</div>
+              <div>Loading Flashcard Sets</div>
             )}
           </div>
         </div>

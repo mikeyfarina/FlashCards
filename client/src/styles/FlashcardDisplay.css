@@ -186,6 +186,10 @@ li {
   color: white;
 }
 
+.set__header:focus {
+  outline: none;
+}
+
 .set__header:hover {
   cursor: pointer;
   background: white;
@@ -286,6 +290,10 @@ li {
   transition: all 0.05s linear;
   scroll-snap-type: y mandatory;
   scroll-snap-align: start;
+}
+
+.set__preview__item:focus {
+  outline: none;
 }
 
 .set__preview__item:hover {
@@ -444,6 +452,7 @@ li {
   height: 100%;
   z-index: 1;
   margin: auto;
+  outline: none;
 }
 
 .scanner {
@@ -691,6 +700,7 @@ li {
     width: 95%;
     height: 100%;
     top: 0;
+    outline: none;
   }
   .flashcard-text {
     font-size: 5.2vw;

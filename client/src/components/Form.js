@@ -11,7 +11,7 @@ const Form = ({ inputText, setInputText, className }) => {
         onChange={inputChangeHandler}
         value={inputText}
         type="text"
-        placeholder={'Search Set Titles...'}
+        placeholder="Search Set Titles..."
       />
     </div>
   );

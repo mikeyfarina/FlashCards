@@ -1,5 +1,6 @@
 body,
-html {
+html,
+#root {
   height: 100%;
 }
 .user-list-item:hover {
@@ -29,4 +30,7 @@ html {
   z-index: -1;
   border-radius: 8px;
   pointer-events: none;
+}
+.user-list-item:focus {
+  outline: none;
 }

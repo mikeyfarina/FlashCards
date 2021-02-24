@@ -24,6 +24,10 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
+Cypress.Commands.add('loginAndCreateSet', ({ username, password }) => {
+  cy.login({ username, password }).then(cy.createSet({ title: 'test set' }));
+});
+
 Cypress.Commands.add('login', ({ username, password }) => {
   cy.request('POST', 'http://localhost:3001/api/login', {
     username,
@@ -33,26 +37,6 @@ Cypress.Commands.add('login', ({ username, password }) => {
       'loggedFlashcardAppUser',
       JSON.stringify(response.body)
     );
-  });
-});
-
-Cypress.Commands.add('loginThenCreateSet', ({ username, password }) => {
-  cy.request({
-    url: 'http://localhost:3001/api/login',
-    method: 'POST',
-    body: {
-      username,
-      password,
-    },
-  }).then((response) => {
-    localStorage.setItem(
-      'loggedFlashcardAppUser',
-      JSON.stringify(response.body)
-    );
-    cy.createSet({
-      title: 'Default Test Set',
-    });
-    cy.visit('http://localhost:3000');
   });
 });
 
@@ -68,14 +52,13 @@ Cypress.Commands.add('createSet', ({ title }) => {
         JSON.parse(localStorage.getItem('loggedFlashcardAppUser')).token
       }`,
     },
-  }).then((res) => {
-    console.log('set id ', res.body.id);
+  }).then((set) =>
     cy.createFlashcard({
-      front: 'first test flashcard',
-      back: 'back test flashcard',
-      setId: res.body.id,
-    });
-  });
+      front: 'first card',
+      back: 'back of first',
+      setId: set.id,
+    })
+  );
 });
 
 Cypress.Commands.add('createFlashcard', ({ front, back, setId }) => {
