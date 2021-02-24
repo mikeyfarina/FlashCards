@@ -6,7 +6,7 @@ const Button = ({ className, text, onClick, disabled, testingTag }) => (
     onClick={onClick}
     disabled={disabled}
     type="button"
-    testingtag={testingTag}
+    data-testing-tag={testingTag}
   >
     {text}
   </button>
