@@ -11,7 +11,7 @@ const CardSelection = ({
   };
 
   return (
-    <div>
+    <>
       <select
         className={CardSelect.selection}
         onChange={handleSelect}
@@ -25,7 +25,7 @@ const CardSelection = ({
             ))
           : []}
       </select>
-    </div>
+    </>
   );
 };
 
