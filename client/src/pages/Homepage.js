@@ -1,4 +1,3 @@
-import '../styles/PagesStyles.css';
 import '../styles/Homepage.css';
 import React, { useState, useEffect } from 'react';
 import CreateAccountPrompt from '../components/CreateAccountPrompt';

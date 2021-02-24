@@ -1,7 +1,7 @@
-import '../styles/PagesStyles.css';
 import '../styles/UserInformation.css';
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import UserList from '../styles/UserListItem.module.css';
 import userService from '../services/userService';
 import profilePhotos from '../utils/profilePhotoLoader';
 
@@ -282,7 +282,7 @@ const UserInformation = ({ loggedInUser }) => {
         <div className="setDisplay" style={{ ...displayStyle }}>
           {desiredUser.sets.map((set) => (
             <div
-              className="set-item user-list-item"
+              className={`set-item ${UserList.item}`}
               style={setStyle}
               key={set.id}
               onClick={() => {
@@ -319,7 +319,7 @@ const UserInformation = ({ loggedInUser }) => {
         >
           {desiredUser.flashcards.map((flashcard) => (
             <div
-              className="flashcard-item user-list-item"
+              className={`flashcard-item ${UserList.item}`}
               style={flashcardStyle}
               key={flashcard.id}
               onClick={() => {
