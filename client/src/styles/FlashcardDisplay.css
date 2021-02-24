@@ -19,30 +19,6 @@ button {
   font-family: Tahoma, 'Geneva', sans-serif;
 }
 
-@-webkit-keyframes scanLeftToRight {
-  0% {
-    left: 0;
-  }
-  50% {
-    left: 100%;
-  }
-  100% {
-    left: 0;
-  }
-}
-
-@keyframes scanLeftToRight {
-  0% {
-    left: 0;
-  }
-  50% {
-    left: 100%;
-  }
-  100% {
-    left: 0;
-  }
-}
-
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
@@ -310,12 +286,6 @@ li {
 
 .to-left:hover {
   background-position: right;
-}
-
-.scanner {
-  animation: scanLeftToRight 3s infinite;
-  -webkit-animation: scanLeftToRight 3s infinite;
-  -moz-animation: scanLeftToRight 3s infinite;
 }
 
 @media all and (min-width: 901px) and (max-width: 1250px) {
