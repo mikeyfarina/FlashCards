@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
+import SetStyles from './Set.module.css';
 import setService from '../services/setService';
 import Button from './Button';
 
@@ -96,16 +97,22 @@ const Set = ({
   }, [currentFlashcardIndex, currentSetIndex, index]);
 
   return (
-    <div className="sidebar__setlist__set" ref={setRef}>
+    <div className={SetStyles.container} ref={setRef}>
       <div
-        className="set__header"
+        className={
+          index === currentSetIndex
+            ? `${SetStyles.header} ${SetStyles.current}`
+            : `${SetStyles.header}`
+        }
         onClick={handleTitleClick}
         role="button"
         tabIndex="0"
       >
         <input
           className={
-            canEditTitle ? 'edit-mode set__header__title' : 'set__header__title'
+            canEditTitle
+              ? `${SetStyles.title} ${SetStyles.editing}`
+              : `${SetStyles.title}`
           }
           type="text"
           defaultValue={setTitle}
@@ -113,13 +120,13 @@ const Set = ({
           onChange={handleTitleEdit}
         />
         {loggedInUser && loggedInUser.username === set.username && (
-          <div style={{ display: 'contents' }}>
+          <>
             <Button
               onClick={handleEditMode}
               className={
                 canEditTitle
-                  ? 'edit-mode title-edit-button'
-                  : 'title-edit-button'
+                  ? `${SetStyles.button} ${SetStyles.editing}`
+                  : `${SetStyles.button}`
               }
               text={
                 canEditTitle ? (
@@ -131,29 +138,29 @@ const Set = ({
             />
             <Button
               onClick={handleDeleteSet}
-              className="title-edit-button"
+              className={SetStyles.button}
               text={<FontAwesomeIcon icon={['fa', 'trash']} size="sm" />}
             />
-          </div>
+          </>
         )}
       </div>
-      <div className="set__info">
-        <div className="set__length">
+      <div className={SetStyles.info}>
+        <div className={SetStyles.size}>
           <span>{`length: ${setLength}`}</span>
         </div>
-        <div className="set__creator">
+        <div className={SetStyles.author}>
           <Link
             to={`/users/${set.username}`}
-            className="user-link"
+            className={SetStyles.link}
             onClick={(e) => e.stopPropagation()}
           >
             <strong>{set.username}</strong>
           </Link>
         </div>
-        <hr className="divide-line" />
+        <hr className={SetStyles.line} />
       </div>
-      <div className="set__preview" ref={cardContainerRef}>
-        <div style={{ maxHeight: '20vh', padding: '2% 0' }}>
+      <div className={SetStyles.cards} ref={cardContainerRef}>
+        <div className={SetStyles.display}>
           {currentFlashcardsInSet
             ? currentFlashcardsInSet.map((card, i) => (
                 <div
@@ -161,8 +168,8 @@ const Set = ({
                   className={
                     flashcards[currentFlashcardIndex] &&
                     flashcards[currentFlashcardIndex].id === card.id
-                      ? 'set__preview__item current-flashcard'
-                      : 'set__preview__item'
+                      ? `${SetStyles.card} ${SetStyles.reading}`
+                      : `${SetStyles.card}`
                   }
                   ref={(el) => {
                     cardRefs.push(el);

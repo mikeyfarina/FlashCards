@@ -1,13 +1,15 @@
 import React from 'react';
+import SearchStyles from './SearchBar.module.css';
 
-const Form = ({ inputText, setInputText, className }) => {
+const SearchBar = ({ inputText, setInputText }) => {
   const inputChangeHandler = (e) => {
     setInputText(e.target.value);
   };
 
   return (
-    <div className={className}>
+    <div className={SearchStyles.container}>
       <input
+        className={SearchStyles.input}
         onChange={inputChangeHandler}
         value={inputText}
         type="text"
@@ -17,4 +19,4 @@ const Form = ({ inputText, setInputText, className }) => {
   );
 };
 
-export default Form;
+export default SearchBar;

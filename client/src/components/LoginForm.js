@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import LoginStyles from './LoginForm.module.css';
+import CreateAcctStyles from './CreateAccountForm.module.css';
 import flashcardService from '../services/flashcardService';
 import loginService from '../services/loginService';
 import setService from '../services/setService';
@@ -21,7 +23,6 @@ const LoginForm = ({ setUser, standalone }) => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-
     try {
       const user = await loginService.login({
         username,
@@ -58,17 +59,17 @@ const LoginForm = ({ setUser, standalone }) => {
   };
 
   return (
-    <div className="login noselect">
+    <div className={`${LoginStyles.container} noselect`}>
       {!createAccount ? (
         <form
-          className="login-form"
+          className={LoginStyles.form}
           onSubmit={handleLogin}
           style={loginFormStyle}
         >
-          <h3>Login</h3>
+          <h3 className={LoginStyles.title}>Login</h3>
           <input
             type="text"
-            className="login-form-input"
+            className={CreateAcctStyles.input}
             value={username}
             name="Username"
             onChange={({ target }) => setUsername(target.value)}
@@ -76,7 +77,7 @@ const LoginForm = ({ setUser, standalone }) => {
             data-input-username
           />
           <input
-            className="login-form-input"
+            className={CreateAcctStyles.input}
             type="password"
             value={password}
             name="Password"
@@ -85,22 +86,24 @@ const LoginForm = ({ setUser, standalone }) => {
             data-input-password
           />
           {(error || success) && (
-            <div className="message">
-              {error && <p className="error">{error}</p>}
+            <div className={LoginStyles.message}>
+              {error && <p className={CreateAcctStyles.warning}>{error}</p>}
               {success && (
-                <p className="success">Account created Successfully!</p>
+                <p className={CreateAcctStyles.success}>
+                  Account created Successfully!
+                </p>
               )}
             </div>
           )}
           <button
             type="submit"
-            className="login-form-button"
+            className={LoginStyles.button}
             data-button-submit-login
           >
             Log in
           </button>
           <button
-            className="login-form-button"
+            className={LoginStyles.button}
             onClick={() =>
               standalone
                 ? history.push('/home/createAccount')
