@@ -62,7 +62,7 @@ const LoginForm = ({ setUser, standalone }) => {
     <div className={`${LoginStyles.container} noselect`}>
       {!createAccount ? (
         <form
-          className={LoginForm.form}
+          className={LoginStyles.form}
           onSubmit={handleLogin}
           style={loginFormStyle}
         >

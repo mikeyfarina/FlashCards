@@ -1,6 +1,6 @@
 .container {
   background: white;
-  width: fit-content;
+  width: 30vw;
   height: fit-content;
   display: flex;
   justify-content: center;

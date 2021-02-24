@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import CreateAccStyle from './CreateAccountForm.module.css';
+import LoginFormStyles from './LoginForm.module.css';
 import loginService from '../services/loginService';
 import userService from '../services/userService';
 import setService from '../services/setService';
@@ -143,7 +144,7 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
           )}
           <button
             type="submit"
-            className="login-form-button"
+            className={LoginFormStyles.button}
             onClick={handleSubmit}
           >
             Create Account
@@ -152,7 +153,7 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
         <p className={CreateAccStyle.reminder}>Already have an account?</p>
         <button
           type="button"
-          className="login-form-button"
+          className={LoginFormStyles.button}
           onClick={(e) => {
             e.stopPropagation();
             if (standalone) history.push('/home/login');
