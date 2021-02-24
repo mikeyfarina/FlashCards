@@ -134,7 +134,7 @@
     height: 95%;
     align-self: baseline;
   }
-  .toggleContainerContent {
+  .toggle {
     display: contents;
   }
   .cancel {

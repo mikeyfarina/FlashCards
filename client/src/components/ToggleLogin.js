@@ -32,7 +32,7 @@ const ToggleLogin = React.forwardRef((props, ref) => {
       </div>
       <div
         style={showWhenVisible}
-        className="ToggleContainerContent"
+        className={HeaderStyles.toggle}
         data-toggle-content
       >
         {props.children}
