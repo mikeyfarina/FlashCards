@@ -50,9 +50,11 @@ describe('Flashcard App', function () {
         cy.createSet({
           title: 'test set',
         })
-          .then(() => cy.visit('http://localhost:3000', { timeout: 60000 }))
-          .then(() => cy.get('[testingtag=data-new-flashcard-button]').click())
-          .then(() => cy.wait(1000));
+          .then(() => cy.visit('http://localhost:3000'))
+          .then(() =>
+            cy.get('[data-testing-tag=data-new-flashcard-button]').click()
+          )
+          .then(() => cy.wait(1500));
       });
       describe('the flashcard functions correctly', function () {
         it('displays the first card', function () {
@@ -68,12 +70,12 @@ describe('Flashcard App', function () {
 
       describe('the flashcard tools work correctly', function () {
         it('a new flashcard can be created', function () {
-          cy.get('[testingtag=data-new-flashcard-button]').click();
+          cy.get('[data-testing-tag=data-new-flashcard-button]').click();
           cy.contains('front');
         });
 
         it('displays new card when new card is created', function () {
-          cy.get('[testingtag=data-new-flashcard-button]').click();
+          cy.get('[data-testing-tag=data-new-flashcard-button]').click();
           cy.get('[data-flashcard-element]').should('contain', '2front');
           cy.get('[data-flashcard-element]').should('not.contain', '1');
         });
@@ -82,34 +84,34 @@ describe('Flashcard App', function () {
           cy.get('[data-flashcard-element]').should('contain', '1front');
           cy.get('[data-flashcard-element]').click();
 
-          cy.get('[testingtag=data-new-flashcard-button]').click();
+          cy.get('[data-testing-tag=data-new-flashcard-button]').click();
           cy.get('[data-flashcard-element]').should('contain', '2front');
           cy.get('[data-flashcard-element]').should('not.contain', '1');
         });
 
         it('a flashcard can be edited', function () {
-          cy.get('[testingtag=data-edit-flashcard-button]').click();
+          cy.get('[data-testing-tag=data-edit-flashcard-button]').click();
           cy.get('[data-flashcard-front-text]').type(' test edit');
 
-          cy.get('[testingtag=data-edit-flashcard-button]').click();
+          cy.get('[data-testing-tag=data-edit-flashcard-button]').click();
           cy.get('[data-flashcard-front-text]').contains('front test edit');
         });
 
         it('a flashcard can be deleted by user who created it', function () {
           cy.get('[data-flashcard-front-text]').contains('front');
-          cy.get('[testingtag=data-new-flashcard-button]').click();
+          cy.get('[data-testing-tag=data-new-flashcard-button]').click();
 
           cy.get('[data-flashcard-element]').should('not.contain', '1');
           cy.get('[data-flashcard-element]').contains('2');
 
-          cy.get('[testingtag=data-delete-flashcard-button]').click();
+          cy.get('[data-testing-tag=data-delete-flashcard-button]').click();
           cy.get('[data-flashcard-element]').contains('1');
           cy.get('[data-flashcard-element]').should('not.contain', '2');
         });
 
         it('a flashcard made by one user can not be deleted by a different one', function () {
           cy.get('[data-flashcard-element]').contains('1front');
-          cy.get('[testingtag=data-new-flashcard-button]').click();
+          cy.get('[data-testing-tag=data-new-flashcard-button]').click();
 
           cy.get('[data-logout-button]').click();
 
@@ -123,7 +125,7 @@ describe('Flashcard App', function () {
           cy.login({ username: 'test', password: 'password' });
 
           cy.get('[data-card-number-element]').contains('2');
-          cy.get('[testingtag=data-delete-flashcard-button]').should(
+          cy.get('[data-testing-tag=data-delete-flashcard-button]').should(
             'not.exist'
           );
           cy.get('[data-card-number-element]').should('not.contain', '1');
@@ -133,66 +135,66 @@ describe('Flashcard App', function () {
 
       describe('cycling through the flashcards works properly', function () {
         it('displays previous card when clicking left arrow button', function () {
-          cy.get('[testingtag=data-new-flashcard-button]').click();
+          cy.get('[data-testing-tag=data-new-flashcard-button]').click();
           cy.get('[data-flashcard-element]').should('contain', '2front');
           cy.get('[data-flashcard-element]').should('not.contain', '1front');
 
-          cy.get('[testingtag=data-previous-card-button]').click();
+          cy.get('[data-testing-tag=data-previous-card-button]').click();
           cy.get('[data-flashcard-element]').should('contain', '1front');
         });
 
         it('displays next card when clicking right arrow button', function () {
-          cy.get('[testingtag=data-new-flashcard-button]').click();
+          cy.get('[data-testing-tag=data-new-flashcard-button]').click();
           cy.get('[data-flashcard-element]').should('contain', '2front');
           cy.get('[data-flashcard-element]').should('not.contain', '1front');
 
-          cy.get('[testingtag=data-previous-card-button]').click();
+          cy.get('[data-testing-tag=data-previous-card-button]').click();
           cy.get('[data-flashcard-element]').should('contain', '1front');
 
-          cy.get('[testingtag=data-next-card-button]').click();
+          cy.get('[data-testing-tag=data-next-card-button]').click();
           cy.get('[data-flashcard-element]').should('contain', '2front');
           cy.get('[data-flashcard-element]').should('not.contain', '1front');
         });
 
         it('if changing cards while on back of one, display front of next', function () {
-          cy.get('[testingtag=data-new-flashcard-button]').click();
+          cy.get('[data-testing-tag=data-new-flashcard-button]').click();
 
           cy.get('[data-flashcard-element]').should('not.contain', '1front');
           cy.get('[data-flashcard-element]').should('contain', '2front');
 
-          cy.get('[testingtag=data-next-card-button]').click();
+          cy.get('[data-testing-tag=data-next-card-button]').click();
           cy.get('[data-flashcard-element]').should('contain', '1front');
           cy.get('[data-flashcard-element]').click();
           cy.get('[data-flashcard-element]').should('contain', 'back');
 
-          cy.get('[testingtag=data-previous-card-button]').click();
+          cy.get('[data-testing-tag=data-previous-card-button]').click();
           cy.get('[data-flashcard-element]').should('contain', '2front');
         });
 
         it('displays first card if clicking next arrow on last card', function () {
-          cy.get('[testingtag=data-new-flashcard-button]').click();
+          cy.get('[data-testing-tag=data-new-flashcard-button]').click();
           cy.get('[data-flashcard-element]').should('contain', '2front');
           cy.get('[data-flashcard-element]').should('not.contain', '1front');
 
-          cy.get('[testingtag=data-new-flashcard-button]').click();
+          cy.get('[data-testing-tag=data-new-flashcard-button]').click();
           cy.get('[data-flashcard-element]').should('contain', '3front');
           cy.get('[data-flashcard-element]').should('not.contain', '2front');
 
-          cy.get('[testingtag=data-new-flashcard-button]').click();
+          cy.get('[data-testing-tag=data-new-flashcard-button]').click();
           cy.get('[data-flashcard-element]').should('contain', '4front');
           cy.get('[data-flashcard-element]').should('not.contain', '3front');
 
-          cy.get('[testingtag=data-next-card-button]').click();
+          cy.get('[data-testing-tag=data-next-card-button]').click();
           cy.get('[data-flashcard-element]').should('contain', '1front');
         });
 
-        it('displays last card if clicking previous arrow on first card', function () {
-          cy.get('[testingtag=data-new-flashcard-button]').click();
+        it.only('displays last card if clicking previous arrow on first card', function () {
+          cy.get('[data-testing-tag=data-new-flashcard-button]').click();
           cy.get('[data-flashcard-element]').should('contain', '2front');
           cy.get('[data-flashcard-element]').should('not.contain', '1front');
 
-          cy.get('[testingtag=data-previous-card-button]').click();
-          cy.get('[testingtag=data-previous-card-button]').click();
+          cy.get('[data-testing-tag=data-previous-card-button]').click();
+          cy.get('[data-testing-tag=data-previous-card-button]').click();
 
           cy.get('[data-flashcard-element]').should('contain', '2front');
           cy.get('[data-flashcard-element]').should('not.contain', '1front');
