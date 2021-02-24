@@ -20,7 +20,7 @@ const FlashcardsDisplay = ({
 
   useEffect(() => {
     const getFlashcardsWithinSet = async () => {
-      setFlashcards(null);
+      setFlashcards([]);
       const sets = await setService.getAllSets();
       setFlashcardSets(sets);
       const setID = sets[currentSetIndex].id;

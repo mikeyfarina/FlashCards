@@ -73,6 +73,7 @@ const LoginForm = ({ setUser, standalone }) => {
             name="Username"
             onChange={({ target }) => setUsername(target.value)}
             placeholder="username"
+            data-input-username
           />
           <input
             className="login-form-input"
@@ -81,6 +82,7 @@ const LoginForm = ({ setUser, standalone }) => {
             name="Password"
             onChange={({ target }) => setPassword(target.value)}
             placeholder="password"
+            data-input-password
           />
           {(error || success) && (
             <div className="message">
@@ -90,7 +92,11 @@ const LoginForm = ({ setUser, standalone }) => {
               )}
             </div>
           )}
-          <button type="submit" className="login-form-button">
+          <button
+            type="submit"
+            className="login-form-button"
+            data-button-submit-login
+          >
             Log in
           </button>
           <button

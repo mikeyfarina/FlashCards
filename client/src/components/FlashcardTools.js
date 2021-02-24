@@ -20,17 +20,20 @@ const FlashcardTools = ({
           onClick={handleNewFlashCard}
           text={<FontAwesomeIcon icon={['fa', 'plus']} size="2x" />}
           className="new-flashcard-button"
+          testingTag="data-new-flashcard-button"
         />
         <Button
           onClick={handleEditFlashCard}
           text={<FontAwesomeIcon icon={['fa', 'pen']} size="2x" />}
           className="edit-flashcard-button"
+          testingTag="data-edit-flashcard-button"
         />
         <Button
           onClick={handleDeleteFlashCard}
           text={<FontAwesomeIcon icon={['fa', 'trash']} size="2x" />}
           className="delete-flashcard-button"
           disabled={amountOfFlashcards <= 1}
+          testingTag="data-delete-flashcard-button"
         />
       </div>
     )}

@@ -119,9 +119,14 @@ const Flashcard = ({
   };
 
   // TESTING SIDE
-  const handleTextEdit = (e, side) => {
+  const handleTextEdit = (e) => {
     if (canEdit) {
-      setFlashcard({ ...flashcard, [side]: e.target.value });
+      setFlashcard(
+        displayingFront
+          ? { ...flashcard, front: e.target.value }
+          : { ...flashcard, back: e.target.value }
+      );
+      setFlashcardInputText(e.target.value);
     }
   };
 
@@ -168,16 +173,18 @@ const Flashcard = ({
     }
   }, [canEdit]);
 
+  const moveTypingIndicatorToEnd = (ref) => {
+    ref.current.focus();
+    const lengthOfText = ref.current.value.length * 2;
+    ref.current.setSelectionRange(lengthOfText, lengthOfText);
+  };
+
   const backTextRef = useRef();
   const frontTextRef = useRef();
   useEffect(() => {
-    if (!canEdit) return;
-    console.log(backTextRef, frontTextRef);
-    if (canEdit && displayingFront) {
-      frontTextRef.current.focus();
-    }
-    if (canEdit && !displayingFront) {
-      backTextRef.current.focus();
+    if (canEdit) {
+      console.log(backTextRef, frontTextRef);
+      moveTypingIndicatorToEnd(displayingFront ? frontTextRef : backTextRef);
     }
   }, [canEdit]);
 
@@ -203,7 +210,7 @@ const Flashcard = ({
           data-flashcard-element
         >
           <div className="flashcard__front" style={frontStyles}>
-            <span className="card-number noselect">
+            <span className="card-number noselect" data-card-number-element>
               {Number(currentFlashcardIndex) + 1}
             </span>
             <div className="flex-centering noselect">
@@ -217,7 +224,8 @@ const Flashcard = ({
                 ref={frontTextRef}
                 disabled={!canEdit}
                 value={flashcard.front}
-                onChange={(e) => handleTextEdit(e, 'front')}
+                onChange={handleTextEdit}
+                data-flashcard-front-text
               />
             </div>
           </div>
@@ -231,7 +239,8 @@ const Flashcard = ({
                 ref={backTextRef}
                 disabled={!canEdit}
                 value={flashcard.back}
-                onChange={(e) => handleTextEdit(e, 'back')}
+                onChange={handleTextEdit}
+                data-flashcard-back-text
               />
             </div>
           </div>

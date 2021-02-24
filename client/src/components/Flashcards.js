@@ -44,7 +44,7 @@ const Flashcards = ({
     };
 
     flashcardService.createFlashcard(newFlashcard).then((createdFlashcard) => {
-      setFlashcards(flashcards.concat(createdFlashcard));
+      setFlashcards([...flashcards, createdFlashcard]);
       setCurrentFlashcardIndex(flashcards.length);
     });
   };
@@ -95,6 +95,7 @@ const Flashcards = ({
           onClick={handlePreviousCardClick}
           text={'\u261a'}
           className="change-card-button previous-flashcard-button"
+          testingTag="data-previous-card-button"
         />
         <Flashcard
           canEdit={canEdit}
@@ -106,6 +107,7 @@ const Flashcards = ({
           onClick={handleNextCardClick}
           text={'\u261b'}
           className="change-card-button next-flashcard-button"
+          testingTag="data-next-card-button"
         />
       </div>
     </div>

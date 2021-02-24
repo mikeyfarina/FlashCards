@@ -73,7 +73,12 @@ const App = () => {
           {`hello, ${user.username}`}
         </Link>
       </div>
-      <button onClick={handleLogout} className="logout-button" type="button">
+      <button
+        onClick={handleLogout}
+        className="logout-button"
+        type="button"
+        data-logout-button
+      >
         Logout
       </button>
     </div>

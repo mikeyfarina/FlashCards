@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['airbnb', 'prettier', 'jest'],
+  extends: ['airbnb', 'prettier', 'plugin:jest/style'],
   plugins: ['prettier'],
   rules: {
     'prettier/prettier': ['error'],
