@@ -1,0 +1,142 @@
+.center {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background: rgba(255, 255, 255, 0);
+
+  width: 80%;
+  height: 100%;
+  margin: 0 10%;
+
+  border-radius: 10px;
+}
+
+.card {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+
+  background: white;
+  box-shadow: 0px 0px 25px rgb(0 0 0 / 40%), 0px 0px 60px rgb(0 0 0 / 15%);
+  border-radius: 5px;
+  height: 100%;
+  z-index: 1;
+  margin: auto;
+  outline: none;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.number {
+  position: absolute;
+  top: 4%;
+  left: 4%;
+  font-size: 1vw;
+  color: rgba(9, 20, 58, 0.65);
+  transform: translateZ(25px);
+  -webkit-transform: translateZ(25px);
+  -moz-transform: translateZ(25px);
+}
+
+.face {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  padding: 2% 3%;
+
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+}
+
+.front {
+  transform: rotateY(0deg) rotateX(180deg);
+  -webkit-transform: rotateY(0deg) rotateX(180deg);
+  -moz-transform: rotateY(0deg) rotateX(180deg);
+}
+
+.back {
+  transform: rotateY(0deg) rotateX(0deg);
+  -webkit-transform: rotateY(0deg) rotateX(0deg);
+  -moz-transform: rotateY(0deg) rotateX(0deg);
+}
+
+.text {
+  color: black;
+  background: none;
+  width: 100%;
+  height: 80%;
+  margin-top: 0%;
+  padding: 5%;
+  border: none;
+  font-size: 1.55vw;
+  font-family: monospace;
+  text-align: center;
+  outline: none;
+  z-index: 3;
+  transform: translateZ(45px);
+  -webkit-transform: translateZ(45px);
+  -moz-transform: translateZ(10px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.editable {
+  color: rgba(9, 20, 58, 0.75);
+}
+
+@media all and (min-width: 901px) and (max-width: 1250px) {
+  .container {
+    width: 90%;
+    margin: auto;
+    height: 70%;
+  }
+  .text {
+    font-size: 2vw;
+  }
+}
+
+@media all and (min-width: 561px) and (max-width: 900px) {
+  .container {
+    grid-area: 1 / 1 / 2 / 3;
+    width: 100%;
+    margin: 0;
+  }
+  .number {
+    font-size: 1.5vw;
+  }
+  .text {
+    font-size: 3vw;
+  }
+}
+@media all and (max-width: 560px) {
+  .container {
+    grid-area: 1 / 1 / 2 / 3;
+    width: 100%;
+    padding-top: 0;
+    height: 90%;
+    margin: auto;
+    z-index: 0;
+  }
+  .card {
+    width: 95%;
+    height: 100%;
+    top: 0;
+    outline: none;
+  }
+  .number {
+    font-size: 2.5vw;
+  }
+  .text {
+    font-size: 5.2vw;
+  }
+}

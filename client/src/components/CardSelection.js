@@ -1,4 +1,5 @@
 import React from 'react';
+import CardSelect from './CardSelection.module.css';
 
 const CardSelection = ({
   flashcards,
@@ -10,8 +11,12 @@ const CardSelection = ({
   };
 
   return (
-    <div className="tools__card-selection">
-      <select onChange={handleSelect} value={currentFlashcardIndex}>
+    <div>
+      <select
+        className={CardSelect.selection}
+        onChange={handleSelect}
+        value={currentFlashcardIndex}
+      >
         {flashcards
           ? flashcards.map((card, i) => (
               <option key={Math.random(35) * 6} value={i}>

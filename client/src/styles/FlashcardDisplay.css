@@ -375,23 +375,6 @@ li {
   border: 5px white solid;
 }
 
-.tools__card-selection select {
-  height: 100%;
-  min-width: 20vw;
-  width: 40%;
-  max-width: 40%;
-  outline: none;
-  margin: 0 2%;
-  margin-right: 0;
-  padding: 0 5% 0 1%;
-  border: 3px #646c80 solid;
-  border-radius: 8px;
-  cursor: pointer;
-  float: right;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
 .flashcard-selection {
   height: 55%;
   width: 70%;
@@ -431,91 +414,15 @@ li {
   background-position: right;
 }
 
-.flashcard-container {
-  background: rgba(255, 255, 255, 0);
-
-  width: 80%;
-  height: 100%;
-  margin: 0 10%;
-
-  border-radius: 10px;
-}
-
-.flashcard {
-  transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-
-  background: white;
-  box-shadow: 0px 0px 25px rgb(0 0 0 / 40%), 0px 0px 60px rgb(0 0 0 / 15%);
-  border-radius: 5px;
-  height: 100%;
-  z-index: 1;
-  margin: auto;
-  outline: none;
-}
-
 .scanner {
   animation: scanLeftToRight 3s infinite;
   -webkit-animation: scanLeftToRight 3s infinite;
   -moz-animation: scanLeftToRight 3s infinite;
 }
 
-.flex-centering {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.card-number {
-  position: absolute;
-  top: 4%;
-  left: 4%;
-  font-size: 1vw;
-  color: rgba(9, 20, 58, 0.65);
-  transform: translateZ(25px);
-  -webkit-transform: translateZ(25px);
-  -moz-transform: translateZ(25px);
-}
-
-.flashcard-text {
-  color: black;
-  background: none;
-  width: 100%;
-  height: 80%;
-  margin-top: 0%;
-  padding: 5%;
-  border: none;
-  font-size: 1.55vw;
-  font-family: monospace;
-  text-align: center;
-  outline: none;
-  z-index: 3;
-  transform: translateZ(45px);
-  -webkit-transform: translateZ(45px);
-  -moz-transform: translateZ(10px);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-.flashcard-text.can-edit {
-  color: rgba(9, 20, 58, 0.75);
-}
-
 @media all and (min-width: 901px) and (max-width: 1250px) {
   .main-section {
     grid-template-columns: 1fr 4fr;
-  }
-  .tools__card-selection select {
-    width: 50%;
-    min-width: fit-content;
-    max-width: 50%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
   .set__header {
     grid-template-columns: 7fr 1fr 1fr;
@@ -536,18 +443,12 @@ li {
     height: 90%;
     grid-template-columns: 1fr 56vw 1fr;
   }
-  .flashcard-container {
-    width: 90%;
-    margin: auto;
-    height: 45%;
-  }
+
   .change-card-button {
     height: 35%;
     width: 80%;
   }
-  .flashcard-text {
-    font-size: 2vw;
-  }
+
   .search-bar input {
     font-size: 1.25vw;
   }
@@ -579,19 +480,6 @@ li {
     grid-template-rows: 3fr 2fr;
     width: 95%;
     height: 75%;
-  }
-
-  .card-number {
-    font-size: 1.5vw;
-  }
-  .flashcard-container {
-    grid-area: 1 / 1 / 2 / 3;
-    width: 100%;
-    margin: 0;
-  }
-
-  .flashcard-text {
-    font-size: 3vw;
   }
 
   .change-card-button {
@@ -663,19 +551,11 @@ li {
   .new-set-button {
     font-size: 2vw;
   }
-  .tools__card-selection select {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    font-size: 2.5vw;
-    z-index: 1;
-  }
   .search-bar,
   .new-set-button,
   .new-flashcard-button,
   .edit-flashcard-button,
-  .delete-flashcard-button,
-  .tools__card-selection select {
+  .delete-flashcard-button {
     border-radius: 6px;
     border: 2px #646c80 solid;
   }
@@ -688,26 +568,7 @@ li {
     max-height: 100%;
     margin: 0 auto;
   }
-  .flashcard-container {
-    grid-area: 1 / 1 / 2 / 3;
-    width: 100%;
-    padding-top: 0;
-    height: 90%;
-    margin: auto;
-    z-index: 0;
-  }
-  .flashcard {
-    width: 95%;
-    height: 100%;
-    top: 0;
-    outline: none;
-  }
-  .flashcard-text {
-    font-size: 5.2vw;
-  }
-  .card-number {
-    font-size: 2.5vw;
-  }
+
   .change-card-button {
     width: 90%;
     margin: auto;
