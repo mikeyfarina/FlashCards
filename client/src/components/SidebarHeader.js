@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from './Button';
-import Form from './Form';
+import SearchBar from './SearchBar';
 
 const SidebarHeader = ({
   sidebarSearchText,
@@ -14,8 +14,7 @@ const SidebarHeader = ({
       className="new-set-button"
       onClick={handleNewSet}
     />
-    <Form
-      className="search-bar"
+    <SearchBar
       inputText={sidebarSearchText}
       setInputText={setSidebarSearchText}
     />

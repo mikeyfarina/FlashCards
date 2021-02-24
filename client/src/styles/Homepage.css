@@ -95,10 +95,6 @@
   .homepage-container {
     height: 94vh;
   }
-  .form-container {
-    min-width: 60%;
-    min-height: 40%;
-  }
   .user-list-item.home-set {
     min-width: 44%;
     max-width: 44%;
@@ -115,9 +111,6 @@
 @media all and (max-width: 560px) {
   .homepage-container {
     height: 95vh;
-  }
-  .form-container {
-    min-width: 80%;
   }
   .create-account-form {
     max-height: 65vh;
