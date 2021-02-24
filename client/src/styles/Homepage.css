@@ -12,16 +12,7 @@
 .hover-section:hover {
   background: rgba(0, 0, 0, 0.64);
 }
-.homepage-container {
-  height: 90vh;
-}
 
-.flashcard-collections-container {
-  width: 100vw;
-  height: 82vh;
-  position: relative;
-  overflow: hidden;
-}
 .collection-container {
   height: 82vh;
 }
@@ -31,28 +22,16 @@
 }
 
 @media all and (max-width: 900px) {
-  .homepage-container {
-    height: 94vh;
-  }
   .hover_section {
     visibility: invisible;
-  }
-  .flashcard-collections-container {
-    height: 86vh;
   }
 }
 
 @media all and (max-width: 560px) {
-  .homepage-container {
-    height: 95vh;
-  }
   .create-account-form {
     max-height: 65vh;
   }
   .collection-container {
-    height: 87vh;
-  }
-  .flashcard-collections-container {
     height: 87vh;
   }
 }
