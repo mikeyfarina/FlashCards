@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import CreateAccStyle from './CreateAccountForm.module.css';
-import LoginFormStyles from './LoginForm.module.css';
 import loginService from '../services/loginService';
 import userService from '../services/userService';
 import setService from '../services/setService';
@@ -79,17 +77,22 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
         : '1fr 4fr 1fr 1fr',
   };
 
+  const inputsStyle = {
+    display: 'grid',
+    gridTemplateRows: 'repeat(4, 1fr)',
+  };
+
   return (
-    <>
-      <form className={CreateAccStyle.container} style={createAccountGridStyle}>
+    <div style={{ display: 'contents' }}>
+      <form className="create-account-form" style={createAccountGridStyle}>
         <h3>Create Account</h3>
-        <div className={CreateAccStyle.grid}>
+        <div style={inputsStyle}>
           <input
             type="text"
             className={
               error.type === 'nameRequired'
-                ? `${CreateAccStyle.input} ${CreateAccStyle.error}`
-                : `${CreateAccStyle.input}`
+                ? 'login-form-input error'
+                : 'login-form-input'
             }
             value={name}
             name="Name"
@@ -100,8 +103,8 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
             type="text"
             className={
               error.type === 'usernameRequired'
-                ? `${CreateAccStyle.input} ${CreateAccStyle.error}`
-                : `${CreateAccStyle.input}`
+                ? 'login-form-input error'
+                : 'login-form-input'
             }
             value={username}
             name="Username"
@@ -111,8 +114,8 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
           <input
             className={
               error.type === 'passwordRequired'
-                ? `${CreateAccStyle.input} ${CreateAccStyle.error}`
-                : `${CreateAccStyle.input}`
+                ? 'login-form-input error'
+                : 'login-form-input'
             }
             type="password"
             value={password}
@@ -123,8 +126,8 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
           <input
             className={
               password !== confirmPassword
-                ? `${CreateAccStyle.input} ${CreateAccStyle.error}`
-                : `${CreateAccStyle.input}`
+                ? 'login-form-input error'
+                : 'login-form-input '
             }
             type="password"
             value={confirmPassword}
@@ -133,27 +136,21 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
             placeholder="confirm password"
           />
         </div>
-        <>
-          {error.message && (
-            <p className={CreateAccStyle.warning}>{error.message}</p>
-          )}
-          {success && (
-            <p className={CreateAccStyle.success}>
-              Account created Successfully!
-            </p>
-          )}
+        <div style={{ display: 'contents' }}>
+          {error.message && <p className="error-message">{error.message}</p>}
+          {success && <p className="success">Account created Successfully!</p>}
           <button
             type="submit"
-            className={LoginFormStyles.button}
+            className="login-form-button"
             onClick={handleSubmit}
           >
             Create Account
           </button>
-        </>
-        <p className={CreateAccStyle.reminder}>Already have an account?</p>
+        </div>
+        <p style={{ marginTop: 'auto' }}>Already have an account?</p>
         <button
           type="button"
-          className={LoginFormStyles.button}
+          className="login-form-button"
           onClick={(e) => {
             e.stopPropagation();
             if (standalone) history.push('/home/login');
@@ -163,7 +160,7 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
           Log in
         </button>
       </form>
-    </>
+    </div>
   );
 };
 

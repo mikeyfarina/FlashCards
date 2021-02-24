@@ -1,0 +1,715 @@
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  font-family: Tahoma, 'Geneva', sans-serif;
+  background: linear-gradient(0deg, #d6d6d6 0%, white 75%);
+}
+
+button {
+  background: #ececec;
+  font-family: Tahoma, 'Geneva', sans-serif;
+}
+
+@-webkit-keyframes scanLeftToRight {
+  0% {
+    left: 0;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+@keyframes scanLeftToRight {
+  0% {
+    left: 0;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+.noselect::selection {
+  background: transparent;
+}
+
+.noselect::-moz-selection {
+  background: transparent;
+}
+
+textarea {
+  resize: none;
+  outline: none;
+}
+
+input {
+  width: 80%;
+  height: 70%;
+  margin: 0 auto;
+  border: 1px solid lightgray;
+}
+
+li {
+  list-style-type: none;
+}
+
+.new-set-button {
+  background: white;
+  border: 3px #646c80 solid;
+  outline: none;
+  border-radius: 10px;
+  height: 100%;
+  width: 94%;
+  margin-right: 4%;
+  cursor: pointer;
+  font-size: 0.6vw;
+  font-weight: bolder;
+}
+
+.search-bar {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  border: 3px #646c80 solid;
+}
+
+.search-bar input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  padding: 0 6%;
+  font-size: 1.7vh;
+  border-radius: 10px;
+}
+.search-button {
+  height: 100%;
+  width: 100%;
+  background: white;
+  border: none;
+  outline: none;
+  border-radius: 0 15px 15px 0;
+  cursor: pointer;
+}
+
+.main-section {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 1fr 11fr 0.5fr;
+  height: 90vh;
+  max-height: 90vh;
+  background: #5da2d5;
+}
+
+.sidebar {
+  z-index: 1;
+  box-shadow: 5px 0px 200px rgba(0, 0, 0, 0.2);
+  grid-area: 1 / 1 /4 /2;
+  display: contents;
+  grid-template-rows: 1fr 20fr 1fr;
+  height: 100%;
+  position: relative;
+}
+.sidebar__header {
+  height: 100%;
+  width: 100%;
+  padding: 1vh;
+  grid-area: 1 / 1 / 2 / 2;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  box-shadow: -5px 5px 50px rgba(0, 0, 0, 0.151);
+  z-index: 2;
+  background: #ececec;
+}
+
+.sidebar__bottom {
+  z-index: 3;
+  background: #ececec;
+  box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.14);
+  height: 100%;
+  width: 100%;
+  grid-area: 3 / 1 / 4 / 2;
+}
+
+.sidebar__setlist {
+  max-height: 84vh;
+  grid-area: 2 / 1 / 3 / 2;
+  overflow-y: scroll;
+  padding: 0 2%;
+  background: #ececec;
+}
+
+.sidebar__setlist::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar__setlist__set {
+  display: grid;
+  grid-template-rows: 0.25fr 0.2fr 2fr;
+  border: 5px darkgray solid;
+  border-radius: 5px;
+  margin: 5% 1.5%;
+  background: #8590aa;
+  color: white;
+}
+
+.set__header {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 8fr 1fr 1fr;
+  padding: 2%;
+  background: #646c80;
+  color: white;
+}
+
+.set__header:focus {
+  outline: none;
+}
+
+.set__header:hover {
+  cursor: pointer;
+  background: white;
+  color: #646c80;
+  border-radius: 2px;
+}
+
+.set__header__title {
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+  font-size: 3vh;
+  font-weight: bolder;
+  caret-color: #646c80;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+.set__header__title.edit-mode {
+  pointer-events: all;
+  background: white;
+}
+
+.set__header__title::selection {
+  color: white;
+  background: #646c80;
+}
+
+.current-set > .sidebar__setlist__set > .set__header {
+  background: white;
+  color: #646c80;
+  cursor: default;
+}
+
+.title-edit-button {
+  height: 100%;
+  width: 100%;
+  float: right;
+  outline: none;
+  border-radius: 3px;
+  background: white;
+}
+
+.edit-mode {
+  border: #8590aa inherit;
+  background: #f3d250;
+  color: #646c80;
+}
+
+.set__info {
+  display: grid;
+  width: 96%;
+  height: 100%;
+  margin: 0 2%;
+  grid-template-columns: 0.5fr 0.5fr;
+  grid-template-rows: 0.9fr 0.1fr;
+}
+
+.set__length {
+  cursor: default;
+  margin: 1vh 0;
+  min-height: 2vh;
+  font-size: 2vh;
+  font-weight: bolder;
+}
+
+.set__creator {
+  text-align: right;
+  cursor: default;
+  margin: 1vh 0.2vh;
+  min-height: 2vh;
+  font-size: 2vh;
+  font-weight: bolder;
+}
+
+.divide-line {
+  height: 5%;
+  grid-area: 2 / 1 / 2 / 3;
+}
+
+.set__preview {
+  margin: 1% 2%;
+  position: relative;
+  overflow: hidden;
+}
+.set__preview:hover {
+  overflow-y: scroll;
+}
+.set__preview__item {
+  display: -webkit-box;
+  margin: 2%;
+  padding: 1% 0;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  transition: all 0.05s linear;
+  scroll-snap-type: y mandatory;
+  scroll-snap-align: start;
+}
+
+.set__preview__item:focus {
+  outline: none;
+}
+
+.set__preview__item:hover {
+  background: #646c80;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 2% 1%;
+  padding: 1% 1.5%;
+}
+
+.current-flashcard {
+  background: #f3d250;
+  border-radius: 3px;
+  color: #646c80;
+  cursor: pointer;
+  margin: 2% 1%;
+  padding: 1% 1.5%;
+  transition: all 0.1s ease-in;
+}
+
+.current-flashcard:hover {
+  background: #f0df9b;
+  padding: 1% 2%;
+  width: 98%;
+}
+
+.flashcards-display {
+  z-index: 2;
+  min-width: 90%;
+  width: 90%;
+  background-color: aliceblue;
+  display: contents;
+  background: #5da2d5;
+}
+
+.flashcard-tools {
+  grid-area: 1 / 2 / 2 / 3;
+  display: flex;
+  justify-content: space-between;
+  min-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  padding: 1vh;
+  padding-left: 0;
+  background: #ececec;
+  z-index: 3;
+}
+
+.button-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 15vw;
+  min-width: 15vw;
+}
+
+.new-flashcard-button,
+.edit-flashcard-button,
+.delete-flashcard-button {
+  background: white;
+  border: 3px #646c80 solid;
+  outline: none;
+  border-radius: 10px;
+  font-size: 0.75vw;
+  width: 90%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.delete-flashcard-button:hover {
+  background: red;
+  color: white;
+  transition: all 0.1s ease-in;
+}
+
+.new-flashcard-button:active,
+.edit-flashcard-button:active,
+.delete-flashcard-button:active {
+  background: lightgray;
+  border: 5px white solid;
+}
+
+.tools__card-selection select {
+  height: 100%;
+  min-width: 20vw;
+  width: 40%;
+  max-width: 40%;
+  outline: none;
+  margin: 0 2%;
+  margin-right: 0;
+  padding: 0 5% 0 1%;
+  border: 3px #646c80 solid;
+  border-radius: 8px;
+  cursor: pointer;
+  float: right;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.flashcard-selection {
+  height: 55%;
+  width: 70%;
+  grid-area: 2 / 2 / 4 / 3;
+  margin: auto;
+  padding: 1.5vh 1.5%;
+  display: grid;
+  grid-template-columns: 1fr 45vw 1fr;
+}
+
+.change-card-button {
+  width: 100%;
+  height: 50%;
+  background: #8590aa;
+  border: 4px solid white;
+  outline: none;
+  color: white;
+  padding: 10% 3%;
+  margin: auto;
+  border-radius: 5px;
+  font-size: 4rem;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: 200% 200%;
+  transition: background-position 1s;
+  cursor: pointer;
+}
+
+.to-left {
+  background-image: linear-gradient(to left, red 50%, black 0);
+  background-position: left;
+}
+
+.to-left:hover {
+  background-position: right;
+}
+
+.flashcard-container {
+  background: rgba(255, 255, 255, 0);
+
+  width: 80%;
+  height: 100%;
+  margin: 0 10%;
+
+  border-radius: 10px;
+}
+
+.flashcard {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+
+  background: white;
+  box-shadow: 0px 0px 25px rgb(0 0 0 / 40%), 0px 0px 60px rgb(0 0 0 / 15%);
+  border-radius: 5px;
+  height: 100%;
+  z-index: 1;
+  margin: auto;
+  outline: none;
+}
+
+.scanner {
+  animation: scanLeftToRight 3s infinite;
+  -webkit-animation: scanLeftToRight 3s infinite;
+  -moz-animation: scanLeftToRight 3s infinite;
+}
+
+.flex-centering {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-number {
+  position: absolute;
+  top: 4%;
+  left: 4%;
+  font-size: 1vw;
+  color: rgba(9, 20, 58, 0.65);
+  transform: translateZ(25px);
+  -webkit-transform: translateZ(25px);
+  -moz-transform: translateZ(25px);
+}
+
+.flashcard-text {
+  color: black;
+  background: none;
+  width: 100%;
+  height: 80%;
+  margin-top: 0%;
+  padding: 5%;
+  border: none;
+  font-size: 1.55vw;
+  font-family: monospace;
+  text-align: center;
+  outline: none;
+  z-index: 3;
+  transform: translateZ(45px);
+  -webkit-transform: translateZ(45px);
+  -moz-transform: translateZ(10px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.flashcard-text.can-edit {
+  color: rgba(9, 20, 58, 0.75);
+}
+
+@media all and (min-width: 901px) and (max-width: 1250px) {
+  .main-section {
+    grid-template-columns: 1fr 4fr;
+  }
+  .tools__card-selection select {
+    width: 50%;
+    min-width: fit-content;
+    max-width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .set__header {
+    grid-template-columns: 7fr 1fr 1fr;
+  }
+  .set__header__title {
+    font-size: 1.75vw;
+  }
+  .set__info > * {
+    font-size: 1.5vw;
+  }
+  .button-container {
+    width: 20vw;
+    min-width: 20vw;
+    max-width: 20vw;
+  }
+  .flashcard-selection {
+    width: 95%;
+    height: 90%;
+    grid-template-columns: 1fr 56vw 1fr;
+  }
+  .flashcard-container {
+    width: 90%;
+    margin: auto;
+    height: 45%;
+  }
+  .change-card-button {
+    height: 35%;
+    width: 80%;
+  }
+  .flashcard-text {
+    font-size: 2vw;
+  }
+  .search-bar input {
+    font-size: 1.25vw;
+  }
+}
+
+@media all and (min-width: 561px) and (max-width: 900px) {
+  .main-section {
+    grid-template-columns: 1fr 2.5fr;
+    max-height: 94vh;
+    height: 94vh;
+  }
+
+  .button-container {
+    min-width: 30vw;
+    max-width: 30vw;
+  }
+  .set__header__title {
+    font-size: 3vw;
+  }
+  .set__length,
+  .set__creator {
+    font-size: 2vw;
+    margin: auto 0;
+    min-height: 0;
+    padding: 5% 0;
+  }
+  .flashcard-selection {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 3fr 2fr;
+    width: 95%;
+    height: 75%;
+  }
+
+  .card-number {
+    font-size: 1.5vw;
+  }
+  .flashcard-container {
+    grid-area: 1 / 1 / 2 / 3;
+    width: 100%;
+    margin: 0;
+  }
+
+  .flashcard-text {
+    font-size: 3vw;
+  }
+
+  .change-card-button {
+    height: 45%;
+    width: 60%;
+    padding: 0;
+  }
+}
+
+@media all and (max-width: 560px) {
+  .main-section {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 8vh 52vh 35vh;
+    height: 95vh;
+    max-height: 95vh;
+  }
+  .sidebar__setlist {
+    grid-area: 3 / 1 / 4 / 3;
+  }
+  .sidebar__setlist > ul {
+    list-style-type: none;
+    white-space: nowrap;
+    overflow-x: auto;
+    height: 100%;
+    scroll-snap-type: x mandatory;
+    align-items: center;
+  }
+  .sidebar__setlist > ul > li {
+    display: inline-block;
+    height: 100%;
+    width: 75%;
+    margin-left: 5%;
+    scroll-snap-align: center;
+  }
+  .sidebar__setlist__set {
+    max-height: 90%;
+  }
+  .set__preview {
+    overflow-y: scroll;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  .set__preview__item {
+    max-height: 20%;
+    white-space: normal;
+  }
+  .sidebar__header {
+    width: 101%;
+  }
+  .search-bar input {
+    font-size: 3vw;
+  }
+  .new-set-button {
+    width: 90%;
+  }
+  .sidebar__bottom {
+    display: none;
+  }
+  .flashcard-tools {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) 3fr;
+    padding-left: 1%;
+  }
+  .button-container {
+    display: contents;
+  }
+  .button-container > button,
+  .new-set-button {
+    font-size: 2vw;
+  }
+  .tools__card-selection select {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    font-size: 2.5vw;
+    z-index: 1;
+  }
+  .search-bar,
+  .new-set-button,
+  .new-flashcard-button,
+  .edit-flashcard-button,
+  .delete-flashcard-button,
+  .tools__card-selection select {
+    border-radius: 6px;
+    border: 2px #646c80 solid;
+  }
+  .flashcard-selection {
+    grid-area: 2 / 1 / 3 / 3;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2fr 1fr;
+    width: 95%;
+    height: 100%;
+    max-height: 100%;
+    margin: 0 auto;
+  }
+  .flashcard-container {
+    grid-area: 1 / 1 / 2 / 3;
+    width: 100%;
+    padding-top: 0;
+    height: 90%;
+    margin: auto;
+    z-index: 0;
+  }
+  .flashcard {
+    width: 95%;
+    height: 100%;
+    top: 0;
+    outline: none;
+  }
+  .flashcard-text {
+    font-size: 5.2vw;
+  }
+  .card-number {
+    font-size: 2.5vw;
+  }
+  .change-card-button {
+    width: 90%;
+    margin: auto;
+  }
+}

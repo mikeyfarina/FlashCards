@@ -1,6 +1,6 @@
+import '../styles/FlashcardDisplay.css';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import DisplayStyle from './FlashcardsDisplay.module.css';
 import Flashcards from '../components/Flashcards';
 import Sidebar from '../components/Sidebar';
 import setService from '../services/setService';
@@ -38,7 +38,7 @@ const FlashcardsDisplay = ({
 
   return (
     <div>
-      <div className={DisplayStyle.container}>
+      <div className="main-section">
         <Sidebar
           flashcards={flashcards}
           setFlashcards={setFlashcards}

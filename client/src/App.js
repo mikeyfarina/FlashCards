@@ -1,4 +1,4 @@
-import './styles/global.css';
+import './styles/Header.css';
 import {
   Switch,
   Route,
@@ -7,13 +7,12 @@ import {
   useHistory,
 } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
-import HeaderStyles from './styles/Header.module.css';
 import FlashcardsDisplay from './pages/FlashcardsDisplay';
 import Homepage from './pages/Homepage';
 import UserInformation from './pages/UserInformation';
 import flashcardService from './services/flashcardService';
 import setService from './services/setService';
-import ToggleLogin from './components/ToggleLogin';
+import ToggleContainer from './components/ToggleContainer';
 import LoginForm from './components/LoginForm';
 import CreateAccountForm from './components/CreateAccountForm';
 import FormContainer from './components/FormContainer';
@@ -45,11 +44,15 @@ const App = () => {
     }
   }, []);
 
-  const loginToggleRef = useRef();
-  const loginToggle = () => (
-    <ToggleLogin ref={loginToggleRef}>
+  const loginFormRef = useRef();
+  const loginForm = () => (
+    <ToggleContainer
+      buttonLabel="login"
+      ref={loginFormRef}
+      parentDivClassName="login-div"
+    >
       <LoginForm setUser={setUser} standalone={false} />
-    </ToggleLogin>
+    </ToggleContainer>
   );
 
   const handleLogout = (event) => {
@@ -61,15 +64,18 @@ const App = () => {
   };
 
   const logoutDiv = () => (
-    <div className={HeaderStyles.logout}>
-      <div className={HeaderStyles.greeting}>
-        <Link to={`/users/${user.username}/`} className={HeaderStyles.link}>
+    <div className="logout-div" style={{ position: 'relative' }}>
+      <div className="user-greeting">
+        <Link
+          to={`/users/${user.username}/`}
+          style={{ textDecoration: 'none', outline: 'none' }}
+        >
           {`hello, ${user.username}`}
         </Link>
       </div>
       <button
         onClick={handleLogout}
-        className={HeaderStyles.logoutBtn}
+        className="logout-button"
         type="button"
         data-logout-button
       >
@@ -89,9 +95,9 @@ const App = () => {
   return (
     <div>
       <header>
-        <div className={HeaderStyles.titleContainer}>
+        <div className="main-title-container">
           <div
-            className={`${HeaderStyles.title} noselect`}
+            className="main-title noselect"
             onClick={() => {
               history.push('/home');
             }}
@@ -101,7 +107,7 @@ const App = () => {
             <strong>Flashcards</strong>
           </div>
         </div>
-        {user ? logoutDiv() : loginToggle()}
+        {user ? logoutDiv() : loginForm()}
       </header>
       <Switch>
         <Route exact path="/home">

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import CardStyles from './Flashcard.module.css';
 import flashcardService from '../services/flashcardService';
 import LoadingFlashcardPlaceholder from './LoadingFlashcardPlaceholder';
 
@@ -37,7 +36,41 @@ const Flashcard = ({
         ? 180 - -mousePosition.yAxis + 5
         : (mousePosition.yAxis + 5) * 1.5
     }deg)`,
+    transformStyle: 'preserve-3d',
+    WebkitTransformStyle: 'preserve-3d',
+    MozTransformStyle: 'preserve-3d',
     transition,
+    display: 'flex',
+    alignItems: 'center',
+    textAlign: 'center',
+    position: 'relative',
+  };
+
+  const frontStyles = {
+    transform: 'rotateY(0deg) rotateX(180deg)',
+    WebkitTransform: 'rotateY(0deg) rotateX(180deg)',
+    MozTransform: 'rotateY(0deg) rotateX(180deg)',
+    transition,
+    transformStyle: 'preserve-3d',
+    WebkitTransformStyle: 'preserve-3d',
+    MozTransformStyle: 'preserve-3d',
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+    padding: '2% 3%',
+  };
+
+  const backStyles = {
+    transform: 'rotateY(0deg) rotateX(0deg)',
+    WebkitTransform: 'rotateY(0deg) rotateX(0deg)',
+    MozTransform: 'rotateY(0deg) rotateX(0deg)',
+    transition,
+    transformStyle: 'preserve-3d',
+    WebkitTransformStyle: 'preserve-3d',
+    MozTransformStyle: 'preserve-3d',
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
   };
 
   useEffect(() => {
@@ -157,7 +190,7 @@ const Flashcard = ({
 
   return (
     <div
-      className={CardStyles.container}
+      className="flashcard-container"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
@@ -169,30 +202,24 @@ const Flashcard = ({
         />
       ) : (
         <div
-          className={CardStyles.card}
+          className="flashcard"
           onClick={handleClick}
           style={divStyle}
           role="textbox"
           tabIndex="0"
           data-flashcard-element
         >
-          <div
-            className={`${CardStyles.face} ${CardStyles.front}`}
-            style={{ transition }}
-          >
-            <span
-              className={`${CardStyles.number} noselect`}
-              data-card-number-element
-            >
+          <div className="flashcard__front" style={frontStyles}>
+            <span className="card-number noselect" data-card-number-element>
               {Number(currentFlashcardIndex) + 1}
             </span>
-            <div className={`${CardStyles.center} noselect`}>
+            <div className="flex-centering noselect">
               <textarea
                 type="text"
                 className={
                   canEdit
-                    ? `${CardStyles.text} ${CardStyles.editable}`
-                    : `${CardStyles.text} noselect`
+                    ? 'can-edit flashcard-text'
+                    : 'flashcard-text noselect'
                 }
                 ref={frontTextRef}
                 disabled={!canEdit}
@@ -202,17 +229,12 @@ const Flashcard = ({
               />
             </div>
           </div>
-          <div
-            className={`${CardStyles.face} ${CardStyles.back}`}
-            style={{ transition }}
-          >
-            <div className={`${CardStyles.center} noselect`}>
+          <div className="flashcard__back" style={backStyles}>
+            <div className="flex-centering noselect">
               <textarea
                 type="text"
                 className={
-                  canEdit
-                    ? `${CardStyles.text} ${CardStyles.editable}`
-                    : `${CardStyles.text} noselect`
+                  canEdit ? 'flashcard-text' : 'flashcard-text noselect'
                 }
                 ref={backTextRef}
                 disabled={!canEdit}

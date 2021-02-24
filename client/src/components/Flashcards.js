@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import CardsStyles from './Flashcards.module.css';
 import flashcardService from '../services/flashcardService';
 import Button from './Button';
 import Flashcard from './Flashcard';
@@ -75,7 +74,7 @@ const Flashcards = ({
   };
 
   return (
-    <div className={CardsStyles.container}>
+    <div className="flashcards-display">
       <FlashcardTools
         amountOfFlashcards={flashcards ? flashcards.length : 0}
         handleNewFlashCard={handleNewFlashCard}
@@ -91,11 +90,11 @@ const Flashcards = ({
           flashcardSets[currentSetIndex].username === loggedInUser.username
         }
       />
-      <div className={CardsStyles.display}>
+      <div className="flashcard-selection">
         <Button
           onClick={handlePreviousCardClick}
           text={'\u261a'}
-          className={CardsStyles.button}
+          className="change-card-button previous-flashcard-button"
           testingTag="data-previous-card-button"
         />
         <Flashcard
@@ -107,7 +106,7 @@ const Flashcards = ({
         <Button
           onClick={handleNextCardClick}
           text={'\u261b'}
-          className={CardsStyles.button}
+          className="change-card-button next-flashcard-button"
           testingTag="data-next-card-button"
         />
       </div>

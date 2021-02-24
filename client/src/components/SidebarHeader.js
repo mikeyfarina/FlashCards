@@ -1,21 +1,21 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import SidebarHeaderStyles from './SidebarHeader.module.css';
 import Button from './Button';
-import SearchBar from './SearchBar';
+import Form from './Form';
 
 const SidebarHeader = ({
   sidebarSearchText,
   setSidebarSearchText,
   handleNewSet,
 }) => (
-  <div className={SidebarHeaderStyles.container}>
+  <div className="sidebar__header">
     <Button
       text={<FontAwesomeIcon icon={['fa', 'plus']} size="2x" />}
-      className={SidebarHeaderStyles.create}
+      className="new-set-button"
       onClick={handleNewSet}
     />
-    <SearchBar
+    <Form
+      className="search-bar"
       inputText={sidebarSearchText}
       setInputText={setSidebarSearchText}
     />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SidebarStyles from './Sidebar.module.css';
+// import flashcardService from '../services/flashcardService';
 import setService from '../services/setService';
 import SetList from './SetList';
 import SidebarHeader from './SidebarHeader';
@@ -30,7 +30,7 @@ const Sidebar = ({
   };
 
   return (
-    <div className={SidebarStyles.container}>
+    <div className="sidebar">
       <SidebarHeader
         sidebarSearchText={sidebarSearchText}
         setSidebarSearchText={setSidebarSearchText}
@@ -48,7 +48,7 @@ const Sidebar = ({
         sidebarSearchText={sidebarSearchText}
         loggedInUser={loggedInUser}
       />
-      <div className={SidebarStyles.bottom} />
+      <div className="sidebar__bottom" />
     </div>
   );
 };

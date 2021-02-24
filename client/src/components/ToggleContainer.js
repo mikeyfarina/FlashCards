@@ -1,13 +1,12 @@
 import React, { useImperativeHandle, useState } from 'react';
-import HeaderStyles from '../styles/Header.module.css';
 
-const ToggleLogin = React.forwardRef((props, ref) => {
+const ToggleContainer = React.forwardRef((props, ref) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const hideWhenVisible = { display: isVisible ? 'none' : '' };
   const showWhenVisible = { display: isVisible ? '' : 'none' };
 
-  ToggleLogin.displayName = 'ToggleLogin';
+  ToggleContainer.displayName = 'ToggleContainer';
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
@@ -17,35 +16,43 @@ const ToggleLogin = React.forwardRef((props, ref) => {
 
   return (
     <div
-      className={`${HeaderStyles.login} ${
-        isVisible ? HeaderStyles.visible : HeaderStyles.invisible
+      className={`${props.parentDivClassName || ''} ${
+        isVisible ? 'visible' : 'invisible'
       }`}
     >
       <div style={hideWhenVisible}>
         <button
           onClick={toggleVisibility}
-          className={HeaderStyles.loginBtn}
+          className={`${props.buttonLabel}-outside-button`}
+          style={{ border: 'none', outline: 'none' }}
           type="button"
         >
-          login
+          {props.buttonLabel}
         </button>
       </div>
       <div
         style={showWhenVisible}
-        className={HeaderStyles.toggle}
+        className="ToggleContainerContent"
         data-toggle-content
       >
         {props.children}
         <button
           onClick={toggleVisibility}
-          className={HeaderStyles.cancel}
+          className={`${props.buttonLabel}-cancel-button`}
+          style={{
+            border: 'none',
+            outline: 'none',
+            position: 'absolute',
+            top: '1%',
+            right: '2%',
+          }}
           type="button"
         >
-          cancel
+          {props.cancelButtonText || 'cancel'}
         </button>
       </div>
     </div>
   );
 });
 
-export default ToggleLogin;
+export default ToggleContainer;

@@ -1,16 +1,16 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, fireEvent, prettyDOM } from '@testing-library/react';
-import ToggleLogin from './ToggleLogin';
+import ToggleContainer from './ToggleContainer';
 
 describe('<ToggleContainer />', () => {
   let toggleComponent;
 
   beforeEach(() => {
     toggleComponent = render(
-      <ToggleLogin buttonLabel="show..." ToggleContainer-test-element>
+      <ToggleContainer buttonLabel="show..." ToggleContainer-test-element>
         <div className="testDiv" data-test-div />
-      </ToggleLogin>
+      </ToggleContainer>
     );
   });
 
