@@ -12,6 +12,7 @@
   background: white;
   box-shadow: 0 0 55px rgba(1, 1, 1, 0.4), 0 0 5px rgba(1, 1, 1, 0.5);
 }
+
 @media all and (max-width: 900px) {
   .container {
     min-width: 60%;

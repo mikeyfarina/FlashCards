@@ -19,8 +19,7 @@ const Flashcard = ({
   const [displayingFront, setDisplayingFront] = useState(true);
   const [flip, setFlip] = useState(false);
 
-  //create useMouse
-
+  // create useMouse
   // const {handleMouseEvents, mousePosition } = useMousePosition()
 
   const divStyle = {

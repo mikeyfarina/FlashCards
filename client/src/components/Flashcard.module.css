@@ -114,6 +114,7 @@
     height: 70%;
     margin: auto;
   }
+
   .text {
     font-size: 2vw;
   }
@@ -126,13 +127,16 @@
 
     grid-area: 1 / 1 / 2 / 3;
   }
+
   .number {
     font-size: 1.5vw;
   }
+
   .text {
     font-size: 3vw;
   }
 }
+
 @media all and (max-width: 560px) {
   .container {
     z-index: 0;
@@ -144,6 +148,7 @@
 
     grid-area: 1 / 1 / 2 / 3;
   }
+
   .card {
     top: 0;
 
@@ -152,9 +157,11 @@
 
     outline: none;
   }
+
   .number {
     font-size: 2.5vw;
   }
+
   .text {
     font-size: 5.2vw;
   }

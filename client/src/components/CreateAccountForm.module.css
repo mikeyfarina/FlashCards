@@ -21,6 +21,7 @@
   border: 1px #646c80 solid;
   border-radius: 3px;
 }
+
 .error {
   border: 1px red solid;
   outline: red;

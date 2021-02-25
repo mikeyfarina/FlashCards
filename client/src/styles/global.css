@@ -51,6 +51,7 @@ input {
 li {
   list-style-type: none;
 }
+
 header {
   z-index: 2;
 
@@ -72,6 +73,7 @@ header {
    -khtml-user-select: none; /* Konqueror HTML */
   -webkit-touch-callout: none; /* iOS Safari */
 }
+
 .noselect::selection {
   background: transparent;
 }

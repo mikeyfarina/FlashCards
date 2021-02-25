@@ -1,6 +1,7 @@
 {
   "exclude": [".git/**", "node_modules/**", "bower_components/**"],
   "remove-empty-rulesets": true,
+  "lines-between-rulesets": 1,
   "always-semicolon": true,
   "color-case": "lower",
   "block-indent": "  ",

@@ -145,6 +145,7 @@
 
   margin: 1% 2%;
 }
+
 .cards:hover {
   overflow-y: scroll;
 }
@@ -207,9 +208,11 @@
   .header {
     grid-template-columns: 7fr 1fr 1fr;
   }
+
   .title {
     font-size: 1.75vw;
   }
+
   .info > * {
     font-size: 1.5vw;
   }
@@ -219,6 +222,7 @@
   .title {
     font-size: 3vw;
   }
+
   .size,
   .set__creator {
     font-size: 2vw;
@@ -237,6 +241,7 @@
   .cards {
     overflow-y: scroll;
   }
+
   .card {
     max-height: 20%;
 
