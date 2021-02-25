@@ -7,6 +7,7 @@ import CardSelection from './CardSelection';
 
 const plus = ['fa', 'plus'];
 const pen = ['fa', 'pen'];
+const save = ['fa', 'save'];
 const trash = ['fa', 'trash'];
 
 const Flashcards = ({
@@ -99,7 +100,11 @@ const Flashcards = ({
                 type="button"
                 data-edit-flashcard-button
               >
-                <FontAwesomeIcon icon={pen} size="2x" />
+                {canEdit ? (
+                  <FontAwesomeIcon icon={save} size="2x" />
+                ) : (
+                  <FontAwesomeIcon icon={pen} size="2x" />
+                )}
               </button>
               <button
                 onClick={handleDeleteFlashCard}
