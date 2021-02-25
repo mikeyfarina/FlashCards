@@ -184,7 +184,7 @@ describe('Flashcard App', function () {
           cy.get('[data-flashcard-element]').should('contain', '1front');
         });
 
-        it.only('displays last card if clicking previous arrow on first card', function () {
+        it('displays last card if clicking previous arrow on first card', function () {
           cy.get('[data-new-flashcard-button]').click();
           cy.get('[data-flashcard-element]').should('contain', '2front');
           cy.get('[data-flashcard-element]').should('not.contain', '1front');
