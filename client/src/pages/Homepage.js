@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import HomepageStyles from './Homepage.module.css';
+import css from './Homepage.module.css';
 import CreateAccountPrompt from '../components/CreateAccountPrompt';
 import HomepageSet from '../components/HomepageSet';
 import setService from '../services/setService';
@@ -29,22 +29,22 @@ const Homepage = ({ flashcardSets, user }) => {
   }, [searchText]);
 
   return (
-    <div className={HomepageStyles.container}>
+    <div className={css.container}>
       {!user && <CreateAccountPrompt />}
-      <div className={HomepageStyles.search}>
+      <div className={css.search}>
         <input
           type="text"
           onChange={({ target }) => {
             setSearchText(target.value);
           }}
-          className={HomepageStyles.bar}
+          className={css.bar}
           placeholder="search flashcard sets..."
         />
       </div>
-      <div className={HomepageStyles.display}>
-        <div className={HomepageStyles.shape} />
+      <div className={css.display}>
+        <div className={css.shape} />
 
-        <div className={HomepageStyles.sets}>
+        <div className={css.sets}>
           {searchSets ? (
             searchSets.map((set) => (
               <li key={set.id}>

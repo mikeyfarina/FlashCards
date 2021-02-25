@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import CreateAccStyle from './CreateAccountForm.module.css';
-import LoginFormStyles from './LoginForm.module.css';
+import css from './CreateAccountForm.module.css';
+import ui from '../styles/ui.module.css';
 import loginService from '../services/loginService';
 import userService from '../services/userService';
 import setService from '../services/setService';
@@ -81,15 +81,15 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
 
   return (
     <>
-      <form className={CreateAccStyle.container} style={createAccountGridStyle}>
+      <form className={css.container} style={createAccountGridStyle}>
         <h3>Create Account</h3>
-        <div className={CreateAccStyle.grid}>
+        <div className={css.grid}>
           <input
             type="text"
             className={
               error.type === 'nameRequired'
-                ? `${CreateAccStyle.input} ${CreateAccStyle.error}`
-                : `${CreateAccStyle.input}`
+                ? `${ui.input} ${css.error}`
+                : `${ui.input}`
             }
             value={name}
             name="Name"
@@ -100,8 +100,8 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
             type="text"
             className={
               error.type === 'usernameRequired'
-                ? `${CreateAccStyle.input} ${CreateAccStyle.error}`
-                : `${CreateAccStyle.input}`
+                ? `${ui.input} ${css.error}`
+                : `${ui.input}`
             }
             value={username}
             name="Username"
@@ -111,8 +111,8 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
           <input
             className={
               error.type === 'passwordRequired'
-                ? `${CreateAccStyle.input} ${CreateAccStyle.error}`
-                : `${CreateAccStyle.input}`
+                ? `${ui.input} ${css.error}`
+                : `${ui.input}`
             }
             type="password"
             value={password}
@@ -123,8 +123,8 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
           <input
             className={
               password !== confirmPassword
-                ? `${CreateAccStyle.input} ${CreateAccStyle.error}`
-                : `${CreateAccStyle.input}`
+                ? `${ui.input} ${css.error}`
+                : `${ui.input}`
             }
             type="password"
             value={confirmPassword}
@@ -134,26 +134,18 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
           />
         </div>
         <>
-          {error.message && (
-            <p className={CreateAccStyle.warning}>{error.message}</p>
-          )}
+          {error.message && <p className={ui.warning}>{error.message}</p>}
           {success && (
-            <p className={CreateAccStyle.success}>
-              Account created Successfully!
-            </p>
+            <p className={ui.success}>Account created Successfully!</p>
           )}
-          <button
-            type="submit"
-            className={LoginFormStyles.button}
-            onClick={handleSubmit}
-          >
+          <button type="submit" className={ui.button} onClick={handleSubmit}>
             Create Account
           </button>
         </>
-        <p className={CreateAccStyle.reminder}>Already have an account?</p>
+        <p className={css.reminder}>Already have an account?</p>
         <button
           type="button"
-          className={LoginFormStyles.button}
+          className={ui.button}
           onClick={(e) => {
             e.stopPropagation();
             if (standalone) history.push('/home/login');

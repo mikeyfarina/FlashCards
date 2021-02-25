@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
-import HomeSetStyles from './HomepageSet.module.css';
+import css from './HomepageSet.module.css';
 
 const HomepageSet = ({ set }) => {
   const [showAllFlashcards, setShowAllflashcards] = useState(false);
@@ -14,16 +14,16 @@ const HomepageSet = ({ set }) => {
 
   return (
     <div
-      className={`${HomeSetStyles.container}`}
+      className={`${css.container}`}
       onClick={() => {
         history.push(`/flashcards/${set.id}`);
       }}
       role="button"
       tabIndex="0"
     >
-      <h2 className={HomeSetStyles.title}>{set.title}</h2>
+      <h2 className={css.title}>{set.title}</h2>
       <div
-        className={HomeSetStyles.cards}
+        className={css.cards}
         style={{
           height: showAllFlashcards ? '65%' : '50%',
         }}
@@ -33,7 +33,7 @@ const HomepageSet = ({ set }) => {
             !(i > 3 && !showAllFlashcards) && (
               <div
                 key={card.id}
-                className={HomeSetStyles.card}
+                className={css.card}
                 onClick={(e) => {
                   e.stopPropagation();
                   history.push(`/flashcards/${set.id}/${card.id}`);
@@ -48,7 +48,7 @@ const HomepageSet = ({ set }) => {
       </div>
       {set.flashcards.length > 3 && (
         <div
-          className={HomeSetStyles.ellipsis}
+          className={css.ellipsis}
           onClick={handleShowMoreOptions}
           role="button"
           tabIndex="0"
@@ -56,15 +56,15 @@ const HomepageSet = ({ set }) => {
           ...
         </div>
       )}
-      <h5 className={HomeSetStyles.size}>
+      <h5 className={css.size}>
         Size:
         <strong>{` ${set.flashcards.length || 0}`}</strong>
       </h5>
-      <h5 className={HomeSetStyles.author}>
+      <h5 className={css.author}>
         Created By:
         <Link
           to={`/users/${set.username}`}
-          className={HomeSetStyles.user}
+          className={css.user}
           onClick={(e) => e.stopPropagation()}
         >
           <strong>{` ${set.username}`}</strong>
