@@ -34,7 +34,7 @@ const FlashcardsDisplay = ({
       setFlashcards(flashcardsInSet);
     };
     getFlashcardsWithinSet();
-  }, [currentSetIndex, desiredFlashcardID, setFlashcardSets]);
+  }, [currentSetIndex, desiredFlashcardID]);
 
   return (
     <div>
