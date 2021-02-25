@@ -1,21 +1,27 @@
 .container {
   display: grid;
-  grid-template-rows: 0.25fr 0.2fr 2fr;
+
+  margin: 5% 1.5%;
+
+  color: white;
   border: 5px darkgray solid;
   border-radius: 5px;
-  margin: 5% 1.5%;
   background: #8590aa;
-  color: white;
+
+  grid-template-rows: 0.25fr 0.2fr 2fr;
 }
 
 .header {
-  height: 100%;
-  width: 100%;
   display: grid;
-  grid-template-columns: 8fr 1fr 1fr;
+
+  width: 100%;
+  height: 100%;
   padding: 2%;
-  background: #646c80;
+
   color: white;
+  background: #646c80;
+
+  grid-template-columns: 8fr 1fr 1fr;
 }
 
 .header:focus {
@@ -24,29 +30,35 @@
 
 .header:hover {
   cursor: pointer;
-  background: white;
+
   color: #646c80;
   border-radius: 2px;
+  background: white;
 }
 
 .current {
-  background: white;
-  color: #646c80;
   cursor: default;
+
+  color: #646c80;
+  background: white;
 }
 
 .title {
+  font-size: 3vh;
+  font-weight: bolder;
+
   width: 100%;
   height: 100%;
-  background: inherit;
+
+  text-overflow: ellipsis;
+  pointer-events: none;
+
   color: inherit;
   border: none;
   outline: none;
-  font-size: 3vh;
-  font-weight: bolder;
+  background: inherit;
+
   caret-color: #646c80;
-  text-overflow: ellipsis;
-  pointer-events: none;
 }
 
 .title::selection {
@@ -56,53 +68,63 @@
 
 .title.editing {
   pointer-events: all;
+
   background: white;
 }
 
 .button {
-  height: 100%;
-  width: 100%;
   float: right;
-  outline: none;
+
+  width: 100%;
+  height: 100%;
+
   border-radius: 3px;
+  outline: none;
   background: white;
 }
 
 .editing {
+  color: #646c80;
   border: #8590aa inherit;
   background: #f3d250;
-  color: #646c80;
 }
 
 .info {
   display: grid;
+
   width: 96%;
   height: 100%;
   margin: 0 2%;
+
   grid-template-columns: 0.5fr 0.5fr;
   grid-template-rows: 0.9fr 0.1fr;
 }
 
 .size {
-  cursor: default;
-  margin: 1vh 0;
-  min-height: 2vh;
   font-size: 2vh;
   font-weight: bolder;
+
+  min-height: 2vh;
+  margin: 1vh 0;
+
+  cursor: default;
 }
 
 .author {
-  text-align: right;
-  cursor: default;
-  margin: 1vh 0.2vh;
-  min-height: 2vh;
   font-size: 2vh;
   font-weight: bolder;
+
+  min-height: 2vh;
+  margin: 1vh 0.2vh;
+
+  cursor: default;
+  text-align: right;
 }
 
 .link {
-  color: white;
   text-decoration: none;
+
+  color: white;
 }
 
 .link:hover {
@@ -112,13 +134,16 @@
 
 .line {
   height: 5%;
+
   grid-area: 2 / 1 / 2 / 3;
 }
 
 .cards {
-  margin: 1% 2%;
   position: relative;
+
   overflow: hidden;
+
+  margin: 1% 2%;
 }
 .cards:hover {
   overflow-y: scroll;
@@ -131,14 +156,18 @@
 
 .card {
   display: -webkit-box;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+
   margin: 2%;
   padding: 1% 0;
-  overflow: hidden;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+
   transition: all 0.05s linear;
-  scroll-snap-type: y mandatory;
+
+  -webkit-line-clamp: 3;
   scroll-snap-align: start;
+  scroll-snap-type: y mandatory;
 }
 
 .card:focus {
@@ -146,27 +175,32 @@
 }
 
 .card:hover {
-  background: #646c80;
-  border-radius: 3px;
-  cursor: pointer;
   margin: 2% 1%;
   padding: 1% 1.5%;
+
+  cursor: pointer;
+
+  border-radius: 3px;
+  background: #646c80;
 }
 
 .reading {
-  background: #f3d250;
-  border-radius: 3px;
-  color: #646c80;
-  cursor: pointer;
   margin: 2% 1%;
   padding: 1% 1.5%;
+
+  cursor: pointer;
   transition: all 0.1s ease-in;
+
+  color: #646c80;
+  border-radius: 3px;
+  background: #f3d250;
 }
 
 .reading:hover {
-  background: #f0df9b;
-  padding: 1% 2%;
   width: 98%;
+  padding: 1% 2%;
+
+  background: #f0df9b;
 }
 
 @media all and (min-width: 901px) and (max-width: 1250px) {
@@ -188,8 +222,9 @@
   .size,
   .set__creator {
     font-size: 2vw;
-    margin: auto 0;
+
     min-height: 0;
+    margin: auto 0;
     padding: 5% 0;
   }
 }
@@ -204,6 +239,7 @@
   }
   .card {
     max-height: 20%;
+
     white-space: normal;
   }
 }

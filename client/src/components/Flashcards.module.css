@@ -1,79 +1,91 @@
 .container {
   z-index: 2;
-  min-width: 90%;
-  width: 90%;
-  background-color: aliceblue;
+
   display: contents;
+
+  width: 90%;
+  min-width: 90%;
+
   background: #5da2d5;
+  background-color: aliceblue;
 }
 
 .display {
-  height: 55%;
+  display: grid;
+
   width: 70%;
-  grid-area: 2 / 2 / 4 / 3;
+  height: 55%;
   margin: auto;
   padding: 1.5vh 1.5%;
-  display: grid;
+
+  grid-area: 2 / 2 / 4 / 3;
   grid-template-columns: 1fr 45vw 1fr;
 }
 
 .button {
-  width: 100%;
-  height: 50%;
-  background: #8590aa;
-  border: 4px solid white;
-  outline: none;
-  color: white;
-  padding: 10% 3%;
-  margin: auto;
-  border-radius: 5px;
   font-size: 4rem;
-  align-self: center;
+
   display: flex;
   align-items: center;
+  align-self: center;
   justify-content: center;
-  background-size: 200% 200%;
-  transition: background-position 1s;
+
+  width: 100%;
+  height: 50%;
+  margin: auto;
+  padding: 10% 3%;
+
   cursor: pointer;
+  transition: background-position 1s;
+
+  color: white;
+  border: 4px solid white;
+  border-radius: 5px;
+  outline: none;
+  background: #8590aa;
+  background-size: 200% 200%;
 }
 
 @media all and (min-width: 901px) and (max-width: 1250px) {
   .display {
     width: 95%;
     height: 90%;
+
     grid-template-columns: 1fr 56vw 1fr;
   }
 
   .button {
-    height: 35%;
     width: 80%;
+    height: 35%;
   }
 }
 
 @media all and (min-width: 561px) and (max-width: 900px) {
   .display {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 3fr 2fr;
     width: 95%;
     height: 75%;
+
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 3fr 2fr;
   }
 
   .button {
-    height: 45%;
     width: 60%;
+    height: 45%;
     padding: 0;
   }
 }
 
 @media all and (max-width: 560px) {
   .display {
-    grid-area: 2 / 1 / 3 / 3;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 2fr 1fr;
     width: 95%;
     height: 100%;
     max-height: 100%;
     margin: 0 auto;
+
+    grid-area: 2 / 1 / 3 / 3;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2fr 1fr;
   }
 
   .button {

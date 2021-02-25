@@ -23,22 +23,26 @@
 }
 
 .container {
-  padding: 3%;
   overflow: hidden;
+
+  padding: 3%;
 }
 
 .scanner {
-  background: white;
+  position: absolute;
+
+  max-width: 1px;
   height: 90%;
+  margin-left: 0;
+
+  transform: translateZ(45px);
+  -webkit-animation: scanBackAndForth 3s infinite;
+     -moz-animation: scanBackAndForth 3s infinite;
+          animation: scanBackAndForth 3s infinite;
+
   color: rgba(1, 1, 1, 0.2);
   border-radius: 15px;
-  max-width: 1px;
-  margin-left: 0;
-  box-shadow: rgba(1, 1, 1, 0.3) 0px 0px 70px 17px,
-    rgba(1, 1, 1, 0.1) 0px 0px 50px 10px;
-  transform: translateZ(45px);
-  position: absolute;
-  animation: scanBackAndForth 3s infinite;
-  -webkit-animation: scanBackAndForth 3s infinite;
-  -moz-animation: scanBackAndForth 3s infinite;
+  background: white;
+  box-shadow: rgba(1, 1, 1, 0.3) 0 0 70px 17px,
+  rgba(1, 1, 1, 0.1) 0 0 50px 10px;
 }

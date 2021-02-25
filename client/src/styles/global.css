@@ -12,26 +12,31 @@
 *,
 *:after,
 *:before {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
   font-family: Tahoma, 'Geneva', sans-serif;
+
+  overflow: hidden;
+
+  width: 100vw;
+  height: 100vh;
+
   background: linear-gradient(0deg, #d6d6d6 0%, white 75%);
 }
 
 button {
-  background: #ececec;
   font-family: Tahoma, 'Geneva', sans-serif;
+
+  background: #ececec;
 }
 
 textarea {
   resize: none;
+
   outline: none;
 }
 
@@ -39,6 +44,7 @@ input {
   width: 80%;
   height: 70%;
   margin: 0 auto;
+
   border: 1px solid lightgray;
 }
 
@@ -47,20 +53,24 @@ li {
 }
 header {
   z-index: 2;
+
   display: flex;
-  background: #6bbdf3;
-  height: 10vh;
   justify-content: space-between;
+
+  height: 10vh;
+
+  background: #6bbdf3;
 }
 
 .noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
+     -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+
+   -khtml-user-select: none; /* Konqueror HTML */
+  -webkit-touch-callout: none; /* iOS Safari */
 }
 .noselect::selection {
   background: transparent;
@@ -72,8 +82,8 @@ header {
 
 @media all and (max-width: 560px) {
   header {
-    height: 5vh;
     min-width: 100vw;
+    height: 5vh;
   }
 }
 
