@@ -1,0 +1,56 @@
+.input {
+  width: 100%;
+  height: 80%;
+  margin: 3% 0;
+
+  text-indent: 7px;
+
+  border: 1px #646c80 solid;
+  border-radius: 3px;
+}
+
+.button {
+  font-size: 1.5vw;
+
+  width: 100%;
+  height: 80%;
+  margin: 3% 0;
+  padding: 0.6vw 1vw;
+
+  cursor: pointer;
+
+  color: #5da2d5;
+  border: 2px #646c80 solid;
+  border-radius: 5px;
+  background: white;
+}
+
+.error {
+  border: 1px red solid;
+  outline: red;
+}
+
+.warning {
+  padding: 2%;
+
+  text-align: center;
+
+  color: white;
+  background: rgba(233, 64, 64, 0.911);
+}
+
+.success {
+  padding: 2%;
+
+  color: darkgreen;
+  background: rgba(102, 255, 109, 0.25);
+}
+
+@media all and (max-width: 560px) {
+  .button {
+    font-size: 5vw;
+
+    height: 80%;
+    margin-top: 10%;
+  }
+}

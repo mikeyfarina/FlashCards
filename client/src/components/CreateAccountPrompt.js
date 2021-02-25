@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import PromptStyle from './CreateAccountPrompt.module.css';
+import css from './CreateAccountPrompt.module.css';
 import { ReactComponent as Image } from '../images/clipart/img1.svg';
 
 const CreateAccountPrompt = () => {
@@ -12,9 +12,9 @@ const CreateAccountPrompt = () => {
   };
 
   return (
-    <div className={PromptStyle.container} style={signupSectionStyle}>
+    <div className={css.container} style={signupSectionStyle}>
       <button
-        className={PromptStyle.close}
+        className={css.close}
         onClick={() => {
           setSignupDisplayed(false);
         }}
@@ -22,9 +22,9 @@ const CreateAccountPrompt = () => {
       >
         x
       </button>
-      <div className={PromptStyle.circle} />
-      <h2 className={PromptStyle.text}>Sign up to create new flashcards!</h2>
-      <Image className={PromptStyle.image} />
+      <div className={css.circle} />
+      <h2 className={css.text}>Sign up to create new flashcards!</h2>
+      <Image className={css.image} />
       <div
         style={{
           margin: 'auto',
@@ -33,19 +33,13 @@ const CreateAccountPrompt = () => {
           minHeight: '0',
         }}
       >
-        <Link to="/home/createAccount" className={PromptStyle.signupLink}>
-          <button
-            className={`${PromptStyle.button} ${PromptStyle.signup}`}
-            type="button"
-          >
+        <Link to="/home/createAccount" className={css.signupLink}>
+          <button className={`${css.button} ${css.signup}`} type="button">
             Sign up
           </button>
         </Link>
-        <Link to="/home/login" className={PromptStyle.loginLink}>
-          <button
-            className={`${PromptStyle.button} ${PromptStyle.login}`}
-            type="button"
-          >
+        <Link to="/home/login" className={css.loginLink}>
+          <button className={`${css.button} ${css.login}`} type="button">
             Log in
           </button>
         </Link>

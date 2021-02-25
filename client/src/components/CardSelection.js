@@ -1,5 +1,5 @@
 import React from 'react';
-import CardSelect from './CardSelection.module.css';
+import css from './CardSelection.module.css';
 
 const CardSelection = ({
   flashcards,
@@ -13,7 +13,7 @@ const CardSelection = ({
   return (
     <>
       <select
-        className={CardSelect.selection}
+        className={css.selection}
         onChange={handleSelect}
         value={currentFlashcardIndex}
       >

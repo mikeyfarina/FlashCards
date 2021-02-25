@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchStyles from './SearchBar.module.css';
+import css from './SearchBar.module.css';
 
 const SearchBar = ({ inputText, setInputText }) => {
   const inputChangeHandler = (e) => {
@@ -7,9 +7,9 @@ const SearchBar = ({ inputText, setInputText }) => {
   };
 
   return (
-    <div className={SearchStyles.container}>
+    <div className={css.container}>
       <input
-        className={SearchStyles.input}
+        className={css.input}
         onChange={inputChangeHandler}
         value={inputText}
         type="text"

@@ -1,8 +1,8 @@
 import React from 'react';
-import Form from './FormContainer.module.css';
+import css from './FormContainer.module.css';
 
 const FormContainer = ({ children }) => (
-  <div className={Form.container}>{children}</div>
+  <div className={css.container}>{children}</div>
 );
 
 export default FormContainer;

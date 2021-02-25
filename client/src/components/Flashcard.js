@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import CardStyles from './Flashcard.module.css';
+import css from './Flashcard.module.css';
 import flashcardService from '../services/flashcardService';
 import LoadingFlashcardPlaceholder from './LoadingFlashcardPlaceholder';
 
@@ -160,7 +160,7 @@ const Flashcard = ({
 
   return (
     <div
-      className={CardStyles.container}
+      className={css.container}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
@@ -172,30 +172,24 @@ const Flashcard = ({
         />
       ) : (
         <div
-          className={CardStyles.card}
+          className={css.card}
           onClick={handleClick}
           style={divStyle}
           role="textbox"
           tabIndex="0"
           data-flashcard-element
         >
-          <div
-            className={`${CardStyles.face} ${CardStyles.front}`}
-            style={{ transition }}
-          >
-            <span
-              className={`${CardStyles.number} noselect`}
-              data-card-number-element
-            >
+          <div className={`${css.face} ${css.front}`} style={{ transition }}>
+            <span className={`${css.number} noselect`} data-card-number-element>
               {Number(currentFlashcardIndex) + 1}
             </span>
-            <div className={`${CardStyles.center} noselect`}>
+            <div className={`${css.center} noselect`}>
               <textarea
                 type="text"
                 className={
                   canEdit
-                    ? `${CardStyles.text} ${CardStyles.editable}`
-                    : `${CardStyles.text} noselect`
+                    ? `${css.text} ${css.editable}`
+                    : `${css.text} noselect`
                 }
                 ref={frontTextRef}
                 disabled={!canEdit}
@@ -205,17 +199,14 @@ const Flashcard = ({
               />
             </div>
           </div>
-          <div
-            className={`${CardStyles.face} ${CardStyles.back}`}
-            style={{ transition }}
-          >
-            <div className={`${CardStyles.center} noselect`}>
+          <div className={`${css.face} ${css.back}`} style={{ transition }}>
+            <div className={`${css.center} noselect`}>
               <textarea
                 type="text"
                 className={
                   canEdit
-                    ? `${CardStyles.text} ${CardStyles.editable}`
-                    : `${CardStyles.text} noselect`
+                    ? `${css.text} ${css.editable}`
+                    : `${css.text} noselect`
                 }
                 ref={backTextRef}
                 disabled={!canEdit}

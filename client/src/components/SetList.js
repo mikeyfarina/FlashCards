@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SetListStyles from './SetList.module.css';
+import css from './SetList.module.css';
 import Set from './Set';
 
 const SetList = ({
@@ -35,13 +35,13 @@ const SetList = ({
   }, [sidebarSearchText, flashcardSets]);
 
   return (
-    <div className={SetListStyles.container}>
+    <div className={css.container}>
       {!setListSets ? (
         <div>Loading Set List...</div>
       ) : (
-        <ul className={SetListStyles.sets}>
+        <ul className={css.sets}>
           {setListSets.map((set, i) => (
-            <li key={set.id} className={SetListStyles.set}>
+            <li key={set.id} className={css.set}>
               <Set
                 set={set}
                 index={i}

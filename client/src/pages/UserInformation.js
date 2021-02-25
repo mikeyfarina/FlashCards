@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import UserStyle from './UserInformation.module.css';
+import css from './UserInformation.module.css';
 import UserList from '../styles/UserListItem.module.css';
 import userService from '../services/userService';
 import profilePhotos from '../utils/profilePhotoLoader';
@@ -32,11 +32,11 @@ const UserInformation = ({ loggedInUser }) => {
   }, [tempPhotoOption]);
 
   return desiredUser ? (
-    <div className={UserStyle.container}>
-      <div className={UserStyle.info}>
-        <div className={UserStyle.profile}>
+    <div className={css.container}>
+      <div className={css.info}>
+        <div className={css.profile}>
           <img
-            className={UserStyle.photo}
+            className={css.photo}
             src={
               profilePhotos[
                 `${
@@ -50,7 +50,7 @@ const UserInformation = ({ loggedInUser }) => {
           />
           {loggedInUser && loggedInUser.username === desiredUser.username && (
             <div
-              className={UserStyle.change}
+              className={css.change}
               onClick={() => {
                 setDisplayProfilePhotoOptions(!displayProfilePhotoOptions);
               }}
@@ -64,8 +64,8 @@ const UserInformation = ({ loggedInUser }) => {
         <div
           className={
             displayProfilePhotoOptions
-              ? `${UserStyle.options} ${UserStyle.displaying}`
-              : `${UserStyle.options}`
+              ? `${css.options} ${css.displaying}`
+              : `${css.options}`
           }
           style={{
             visibility: displayProfilePhotoOptions ? 'visible' : 'hidden',
@@ -76,8 +76,8 @@ const UserInformation = ({ loggedInUser }) => {
               key={photo}
               className={
                 displayProfilePhotoOptions
-                  ? `${UserStyle.option} ${UserStyle.displaying}`
-                  : `${UserStyle.option}`
+                  ? `${css.option} ${css.displaying}`
+                  : `${css.option}`
               }
               onClick={() => {
                 if (desiredUser.username === loggedInUser.username) {
@@ -87,38 +87,32 @@ const UserInformation = ({ loggedInUser }) => {
               role="button"
               tabIndex="0"
             >
-              <img src={photo} alt="Profile option" className={UserStyle.pic} />
+              <img src={photo} alt="Profile option" className={css.pic} />
             </div>
           ))}
         </div>
-        <div className={UserStyle.names}>
+        <div className={css.names}>
           <h1>{desiredUser.name}</h1>
-          <h3 className={UserStyle.username}>{desiredUser.username}</h3>
+          <h3 className={css.username}>{desiredUser.username}</h3>
         </div>
-        <div className={UserStyle.stats}>
+        <div className={css.stats}>
           <>
-            <h3
-              className={UserStyle.statTitle}
-              style={{ gridArea: '1 / 1 / 2 / 2' }}
-            >
+            <h3 className={css.statTitle} style={{ gridArea: '1 / 1 / 2 / 2' }}>
               Sets:
             </h3>
             <h3
-              className={UserStyle.statNumber}
+              className={css.statNumber}
               style={{ gridArea: '2 / 1 / 3 / 2' }}
             >
               {desiredUser.sets.length}
             </h3>
           </>
           <>
-            <h3
-              className={UserStyle.statTitle}
-              style={{ gridArea: '1 / 2 / 2 / 3' }}
-            >
+            <h3 className={css.statTitle} style={{ gridArea: '1 / 2 / 2 / 3' }}>
               Flashcards:
             </h3>
             <h3
-              className={UserStyle.statNumber}
+              className={css.statNumber}
               style={{ gridArea: '2 / 2 / 3 / 3' }}
             >
               {desiredUser.flashcards.length}
@@ -126,12 +120,12 @@ const UserInformation = ({ loggedInUser }) => {
           </>
         </div>
       </div>
-      <div className={UserStyle.sets}>
-        <h2 className={UserStyle.title}>Sets:</h2>
-        <div className={UserStyle.display}>
+      <div className={css.sets}>
+        <h2 className={css.title}>Sets:</h2>
+        <div className={css.display}>
           {desiredUser.sets.map((set) => (
             <div
-              className={`${UserStyle.item} ${UserList.item}`}
+              className={`${css.item} ${UserList.item}`}
               key={set.id}
               onClick={() => {
                 history.push(`/flashcards/${set.id}`);
@@ -139,10 +133,10 @@ const UserInformation = ({ loggedInUser }) => {
               role="button"
               tabIndex="0"
             >
-              <div className={UserStyle.itemTitle}>
+              <div className={css.itemTitle}>
                 <h3>{set.title}</h3>
               </div>
-              <div className={UserStyle.size}>
+              <div className={css.size}>
                 Size:
                 <strong>{` ${set.flashcards.length}`}</strong>
               </div>
@@ -151,12 +145,12 @@ const UserInformation = ({ loggedInUser }) => {
         </div>
         <div style={{ height: '3vh' }} />
       </div>
-      <div className={UserStyle.sets}>
-        <h2 className={UserStyle.title}>Flashcards:</h2>
-        <div className={UserStyle.display}>
+      <div className={css.sets}>
+        <h2 className={css.title}>Flashcards:</h2>
+        <div className={css.display}>
           {desiredUser.flashcards.map((flashcard) => (
             <div
-              className={`${UserStyle.item} ${UserList.item}`}
+              className={`${css.item} ${UserList.item}`}
               key={flashcard.id}
               onClick={() => {
                 history.push(`/flashcards/${flashcard.set.id}/${flashcard.id}`);
@@ -164,10 +158,10 @@ const UserInformation = ({ loggedInUser }) => {
               role="button"
               tabIndex="0"
             >
-              <div className={UserStyle.itemTitle}>
+              <div className={css.itemTitle}>
                 <h3>{flashcard.front}</h3>
               </div>
-              <h5 className={UserStyle.within}>
+              <h5 className={css.within}>
                 from:
                 <strong>{` ${flashcard.set.title}`}</strong>
               </h5>
@@ -177,8 +171,8 @@ const UserInformation = ({ loggedInUser }) => {
       </div>
     </div>
   ) : (
-    <div className={UserStyle.loading}>
-      <div className={UserStyle.text}>Loading User...</div>
+    <div className={css.loading}>
+      <div className={css.text}>Loading User...</div>
     </div>
   );
 };

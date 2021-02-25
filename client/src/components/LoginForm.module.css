@@ -19,22 +19,6 @@
   border-radius: 3px;
 }
 
-.button {
-  font-size: 1.5vw;
-
-  width: 100%;
-  height: 80%;
-  margin: 3% 0;
-  padding: 0.6vw 1vw;
-
-  cursor: pointer;
-
-  color: #5da2d5;
-  border: 2px #646c80 solid;
-  border-radius: 5px;
-  background: white;
-}
-
 @media all and (max-width: 900px) {
   .container {
     width: 100%;
@@ -71,12 +55,5 @@
     font-size: 4vw;
 
     align-self: center;
-  }
-
-  .button {
-    font-size: 5vw;
-
-    height: 80%;
-    margin-top: 10%;
   }
 }

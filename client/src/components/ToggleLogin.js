@@ -1,5 +1,5 @@
 import React, { useImperativeHandle, useState } from 'react';
-import HeaderStyles from '../styles/Header.module.css';
+import css from '../styles/Header.module.css';
 
 const ToggleLogin = React.forwardRef((props, ref) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -16,31 +16,19 @@ const ToggleLogin = React.forwardRef((props, ref) => {
   useImperativeHandle(ref, () => toggleVisibility);
 
   return (
-    <div
-      className={`${HeaderStyles.login} ${
-        isVisible ? HeaderStyles.visible : HeaderStyles.invisible
-      }`}
-    >
+    <div className={`${css.login} ${isVisible ? css.visible : css.invisible}`}>
       <div style={hideWhenVisible}>
         <button
           onClick={toggleVisibility}
-          className={HeaderStyles.loginBtn}
+          className={css.loginBtn}
           type="button"
         >
           login
         </button>
       </div>
-      <div
-        style={showWhenVisible}
-        className={HeaderStyles.toggle}
-        data-toggle-content
-      >
+      <div style={showWhenVisible} className={css.toggle} data-toggle-content>
         {props.children}
-        <button
-          onClick={toggleVisibility}
-          className={HeaderStyles.cancel}
-          type="button"
-        >
+        <button onClick={toggleVisibility} className={css.cancel} type="button">
           cancel
         </button>
       </div>
