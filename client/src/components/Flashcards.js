@@ -1,9 +1,14 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import css from './Flashcards.module.css';
 import flashcardService from '../services/flashcardService';
-import Button from './Button';
 import Flashcard from './Flashcard';
-import FlashcardTools from './FlashcardTools';
+import CardSelection from './CardSelection';
+
+const plus = ['fa', 'plus'];
+const pen = ['fa', 'pen'];
+const save = ['fa', 'save'];
+const trash = ['fa', 'trash'];
 
 const Flashcards = ({
   flashcards,
@@ -76,40 +81,71 @@ const Flashcards = ({
 
   return (
     <div className={css.container}>
-      <FlashcardTools
-        amountOfFlashcards={flashcards ? flashcards.length : 0}
-        handleNewFlashCard={handleNewFlashCard}
-        handleEditFlashCard={handleEditFlashCard}
-        handleDeleteFlashCard={handleDeleteFlashCard}
-        flashcards={flashcards}
-        currentFlashcardIndex={currentFlashcardIndex}
-        setCurrentFlashcardIndex={setCurrentFlashcardIndex}
-        loggedInUser={loggedInUser}
-        userCreatedSet={
-          flashcardSets &&
+      <div className={css.tools}>
+        {flashcardSets &&
           loggedInUser &&
-          flashcardSets[currentSetIndex].username === loggedInUser.username
-        }
-      />
-      <div className={css.display}>
-        <Button
-          onClick={handlePreviousCardClick}
-          text={'\u261a'}
-          className={css.button}
-          testingTag="data-previous-card-button"
+          flashcardSets[currentSetIndex].username === loggedInUser.username && (
+            <div className={css.buttons}>
+              <button
+                onClick={handleNewFlashCard}
+                className={css.create}
+                type="button"
+                data-new-flashcard-button
+              >
+                <FontAwesomeIcon icon={plus} size="2x" />
+              </button>
+              <button
+                onClick={handleEditFlashCard}
+                className={css.edit}
+                type="button"
+                data-edit-flashcard-button
+              >
+                {canEdit ? (
+                  <FontAwesomeIcon icon={save} size="2x" />
+                ) : (
+                  <FontAwesomeIcon icon={pen} size="2x" />
+                )}
+              </button>
+              <button
+                onClick={handleDeleteFlashCard}
+                className={css.delete}
+                type="button"
+                disabled={!flashcards || flashcards.length === 0}
+                data-delete-flashcard-button
+              >
+                <FontAwesomeIcon icon={trash} size="2x" />
+              </button>
+            </div>
+          )}
+        <CardSelection
+          flashcards={flashcards}
+          currentFlashcardIndex={currentFlashcardIndex}
+          setCurrentFlashcardIndex={setCurrentFlashcardIndex}
         />
+      </div>
+      <div className={css.display}>
+        <button
+          className={css.button}
+          onClick={handlePreviousCardClick}
+          type="button"
+          data-previous-card-button
+        >
+          {'\u261a'}
+        </button>
         <Flashcard
           canEdit={canEdit}
           currentFlashcardIndex={currentFlashcardIndex}
           flashcards={flashcards || []}
           setFlashcards={setFlashcards}
         />
-        <Button
+        <button
           onClick={handleNextCardClick}
-          text={'\u261b'}
           className={css.button}
-          testingTag="data-next-card-button"
-        />
+          type="button"
+          data-next-card-button
+        >
+          {'\u261b'}
+        </button>
       </div>
     </div>
   );

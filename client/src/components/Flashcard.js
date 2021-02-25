@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import cn from 'classnames';
 import css from './Flashcard.module.css';
 import flashcardService from '../services/flashcardService';
 import LoadingFlashcardPlaceholder from './LoadingFlashcardPlaceholder';
@@ -179,18 +180,21 @@ const Flashcard = ({
           tabIndex="0"
           data-flashcard-element
         >
-          <div className={`${css.face} ${css.front}`} style={{ transition }}>
-            <span className={`${css.number} noselect`} data-card-number-element>
+          <div className={cn(css.face, css.front)} style={{ transition }}>
+            <span
+              className={cn(css.number, 'noselect')}
+              data-card-number-element
+            >
               {Number(currentFlashcardIndex) + 1}
             </span>
-            <div className={`${css.center} noselect`}>
+            <div className={cn(css.center, 'noselect')}>
               <textarea
                 type="text"
-                className={
-                  canEdit
-                    ? `${css.text} ${css.editable}`
-                    : `${css.text} noselect`
-                }
+                className={cn(
+                  css.text,
+                  { [css.editable]: canEdit },
+                  { noselect: !canEdit }
+                )}
                 ref={frontTextRef}
                 disabled={!canEdit}
                 value={flashcard.front}
@@ -199,15 +203,15 @@ const Flashcard = ({
               />
             </div>
           </div>
-          <div className={`${css.face} ${css.back}`} style={{ transition }}>
-            <div className={`${css.center} noselect`}>
+          <div className={cn(css.face, css.back)} style={{ transition }}>
+            <div className={cn(css.center, 'noselect')}>
               <textarea
                 type="text"
-                className={
-                  canEdit
-                    ? `${css.text} ${css.editable}`
-                    : `${css.text} noselect`
-                }
+                className={cn(
+                  css.text,
+                  { [css.editable]: canEdit },
+                  { noselect: !canEdit }
+                )}
                 ref={backTextRef}
                 disabled={!canEdit}
                 value={flashcard.back}

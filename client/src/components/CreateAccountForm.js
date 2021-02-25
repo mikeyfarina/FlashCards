@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import cn from 'classnames';
 import css from './CreateAccountForm.module.css';
 import ui from '../styles/ui.module.css';
 import loginService from '../services/loginService';
@@ -72,25 +73,20 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
     }
   };
 
-  const createAccountGridStyle = {
-    gridTemplateRows:
-      error.message || success
-        ? '1fr 4fr .5fr 1fr .5fr 1fr'
-        : '1fr 4fr 1fr 1fr',
-  };
-
   return (
     <>
-      <form className={css.container} style={createAccountGridStyle}>
+      <form
+        className={cn(css.container, {
+          [css.alert]: error.message || success,
+        })}
+      >
         <h3>Create Account</h3>
         <div className={css.grid}>
           <input
             type="text"
-            className={
-              error.type === 'nameRequired'
-                ? `${ui.input} ${css.error}`
-                : `${ui.input}`
-            }
+            className={cn(ui.input, {
+              [ui.error]: error.type === 'nameRequired',
+            })}
             value={name}
             name="Name"
             onChange={({ target }) => setName(target.value)}
@@ -98,22 +94,18 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
           />
           <input
             type="text"
-            className={
-              error.type === 'usernameRequired'
-                ? `${ui.input} ${css.error}`
-                : `${ui.input}`
-            }
+            className={cn(ui.input, {
+              [ui.error]: error.type === 'usernameRequired',
+            })}
             value={username}
             name="Username"
             onChange={({ target }) => setUsername(target.value)}
             placeholder="username"
           />
           <input
-            className={
-              error.type === 'passwordRequired'
-                ? `${ui.input} ${css.error}`
-                : `${ui.input}`
-            }
+            className={cn(ui.input, {
+              [ui.error]: error.type === 'passwordRequired',
+            })}
             type="password"
             value={password}
             name="Password"
@@ -121,11 +113,9 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
             placeholder="password"
           />
           <input
-            className={
-              password !== confirmPassword
-                ? `${ui.input} ${css.error}`
-                : `${ui.input}`
-            }
+            className={cn(ui.input, {
+              [ui.error]: password !== confirmPassword,
+            })}
             type="password"
             value={confirmPassword}
             name="confirmPassword"

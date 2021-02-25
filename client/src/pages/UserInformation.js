@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import cn from 'classnames';
 import css from './UserInformation.module.css';
 import UserList from '../styles/UserListItem.module.css';
 import userService from '../services/userService';
@@ -62,23 +63,16 @@ const UserInformation = ({ loggedInUser }) => {
           )}
         </div>
         <div
-          className={
-            displayProfilePhotoOptions
-              ? `${css.options} ${css.displaying}`
-              : `${css.options}`
-          }
-          style={{
-            visibility: displayProfilePhotoOptions ? 'visible' : 'hidden',
-          }}
+          className={cn(css.options, {
+            [css.displaying]: displayProfilePhotoOptions,
+          })}
         >
           {profilePhotos.map((photo, indexOfPhoto) => (
             <div
               key={photo}
-              className={
-                displayProfilePhotoOptions
-                  ? `${css.option} ${css.displaying}`
-                  : `${css.option}`
-              }
+              className={cn(css.option, {
+                [css.displaying]: displayProfilePhotoOptions,
+              })}
               onClick={() => {
                 if (desiredUser.username === loggedInUser.username) {
                   setTempPhotoOption(indexOfPhoto.toString());
@@ -97,24 +91,14 @@ const UserInformation = ({ loggedInUser }) => {
         </div>
         <div className={css.stats}>
           <>
-            <h3 className={css.statTitle} style={{ gridArea: '1 / 1 / 2 / 2' }}>
-              Sets:
-            </h3>
-            <h3
-              className={css.statNumber}
-              style={{ gridArea: '2 / 1 / 3 / 2' }}
-            >
+            <h3 className={cn(css.statTitle, css.left)}>Sets:</h3>
+            <h3 className={cn(css.statNumber, css.bottomLeft)}>
               {desiredUser.sets.length}
             </h3>
           </>
           <>
-            <h3 className={css.statTitle} style={{ gridArea: '1 / 2 / 2 / 3' }}>
-              Flashcards:
-            </h3>
-            <h3
-              className={css.statNumber}
-              style={{ gridArea: '2 / 2 / 3 / 3' }}
-            >
+            <h3 className={cn(css.statTitle, css.right)}>Flashcards:</h3>
+            <h3 className={cn(css.statNumber, css.bottomRight)}>
               {desiredUser.flashcards.length}
             </h3>
           </>
@@ -125,7 +109,7 @@ const UserInformation = ({ loggedInUser }) => {
         <div className={css.display}>
           {desiredUser.sets.map((set) => (
             <div
-              className={`${css.item} ${UserList.item}`}
+              className={cn(css.item, UserList.item)}
               key={set.id}
               onClick={() => {
                 history.push(`/flashcards/${set.id}`);
@@ -137,20 +121,19 @@ const UserInformation = ({ loggedInUser }) => {
                 <h3>{set.title}</h3>
               </div>
               <div className={css.size}>
-                Size:
-                <strong>{` ${set.flashcards.length}`}</strong>
+                Size: <strong>{set.flashcards.length}</strong>
               </div>
             </div>
           ))}
         </div>
-        <div style={{ height: '3vh' }} />
+        <div className={css.gap} />
       </div>
       <div className={css.sets}>
         <h2 className={css.title}>Flashcards:</h2>
         <div className={css.display}>
           {desiredUser.flashcards.map((flashcard) => (
             <div
-              className={`${css.item} ${UserList.item}`}
+              className={cn(css.item, UserList.item)}
               key={flashcard.id}
               onClick={() => {
                 history.push(`/flashcards/${flashcard.set.id}/${flashcard.id}`);
@@ -162,12 +145,12 @@ const UserInformation = ({ loggedInUser }) => {
                 <h3>{flashcard.front}</h3>
               </div>
               <h5 className={css.within}>
-                from:
-                <strong>{` ${flashcard.set.title}`}</strong>
+                from: <strong>{flashcard.set.title}</strong>
               </h5>
             </div>
           ))}
         </div>
+        <div className={css.gap} />
       </div>
     </div>
   ) : (

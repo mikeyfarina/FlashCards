@@ -1,9 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
+import cn from 'classnames';
 import css from './Set.module.css';
 import setService from '../services/setService';
-import Button from './Button';
+
+const save = ['fa', 'save'];
+const edit = ['fa', 'edit'];
+const trash = ['fa', 'trash'];
 
 const Set = ({
   loggedInUser,
@@ -99,19 +103,13 @@ const Set = ({
   return (
     <div className={css.container} ref={setRef}>
       <div
-        className={
-          index === currentSetIndex
-            ? `${css.header} ${css.current}`
-            : `${css.header}`
-        }
+        className={cn(css.header, { [css.current]: index === currentSetIndex })}
         onClick={handleTitleClick}
         role="button"
         tabIndex="0"
       >
         <input
-          className={
-            canEditTitle ? `${css.title} ${css.editing}` : `${css.title}`
-          }
+          className={cn(css.title, { [css.editing]: canEditTitle })}
           type="text"
           defaultValue={setTitle}
           disabled={!canEditTitle}
@@ -119,30 +117,30 @@ const Set = ({
         />
         {loggedInUser && loggedInUser.username === set.username && (
           <>
-            <Button
+            <button
               onClick={handleEditMode}
-              className={
-                canEditTitle ? `${css.button} ${css.editing}` : `${css.button}`
-              }
-              text={
-                canEditTitle ? (
-                  <FontAwesomeIcon icon={['fa', 'save']} size="sm" />
-                ) : (
-                  <FontAwesomeIcon icon={['fa', 'edit']} size="sm" />
-                )
-              }
-            />
-            <Button
+              className={cn(css.button, { [css.editing]: canEditTitle })}
+              type="button"
+            >
+              {canEditTitle ? (
+                <FontAwesomeIcon icon={save} size="sm" />
+              ) : (
+                <FontAwesomeIcon icon={edit} size="sm" />
+              )}
+            </button>
+            <button
               onClick={handleDeleteSet}
               className={css.button}
-              text={<FontAwesomeIcon icon={['fa', 'trash']} size="sm" />}
-            />
+              type="button"
+            >
+              <FontAwesomeIcon icon={trash} size="sm" />
+            </button>
           </>
         )}
       </div>
       <div className={css.info}>
         <div className={css.size}>
-          <span>{`length: ${setLength}`}</span>
+          <span>length: {setLength}</span>
         </div>
         <div className={css.author}>
           <Link
@@ -161,12 +159,11 @@ const Set = ({
             ? currentFlashcardsInSet.map((card, i) => (
                 <div
                   key={card.id}
-                  className={
-                    flashcards[currentFlashcardIndex] &&
-                    flashcards[currentFlashcardIndex].id === card.id
-                      ? `${css.card} ${css.reading}`
-                      : `${css.card}`
-                  }
+                  className={cn(css.card, {
+                    [css.reading]:
+                      flashcards[currentFlashcardIndex] &&
+                      flashcards[currentFlashcardIndex].id === card.id,
+                  })}
                   ref={(el) => {
                     cardRefs.push(el);
                   }}

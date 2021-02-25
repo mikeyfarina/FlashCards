@@ -48,7 +48,13 @@
 .cards {
   overflow-y: scroll;
 
+  height: 50%;
+
   transition: height 0.2s ease-out;
+}
+
+.showing {
+  height: 65%;
 }
 
 .card {

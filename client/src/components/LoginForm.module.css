@@ -7,6 +7,12 @@
   display: grid;
 
   max-height: 100%;
+
+  grid-template-rows: repeat(5, 1fr);
+}
+
+.alert {
+  grid-template-rows: repeat(3, 1fr) 0.5fr repeat(2, 1fr);
 }
 
 .message {

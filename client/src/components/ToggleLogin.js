@@ -1,4 +1,5 @@
 import React, { useImperativeHandle, useState } from 'react';
+import cn from 'classnames';
 import css from '../styles/Header.module.css';
 
 const ToggleLogin = React.forwardRef((props, ref) => {
@@ -16,7 +17,13 @@ const ToggleLogin = React.forwardRef((props, ref) => {
   useImperativeHandle(ref, () => toggleVisibility);
 
   return (
-    <div className={`${css.login} ${isVisible ? css.visible : css.invisible}`}>
+    <div
+      className={cn(
+        css.login,
+        { [css.visible]: isVisible },
+        { [css.invisible]: !isVisible }
+      )}
+    >
       <div style={hideWhenVisible}>
         <button
           onClick={toggleVisibility}
