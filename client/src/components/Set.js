@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import css from './Set.module.css';
 import setService from '../services/setService';
-import Button from './Button';
 
 const Set = ({
   loggedInUser,
@@ -119,24 +118,26 @@ const Set = ({
         />
         {loggedInUser && loggedInUser.username === set.username && (
           <>
-            <Button
+            <button
               onClick={handleEditMode}
               className={
                 canEditTitle ? `${css.button} ${css.editing}` : `${css.button}`
               }
-              text={
-                canEditTitle ? (
-                  <FontAwesomeIcon icon={['fa', 'save']} size="sm" />
-                ) : (
-                  <FontAwesomeIcon icon={['fa', 'edit']} size="sm" />
-                )
-              }
-            />
-            <Button
+              type="button"
+            >
+              {canEditTitle ? (
+                <FontAwesomeIcon icon={['fa', 'save']} size="sm" />
+              ) : (
+                <FontAwesomeIcon icon={['fa', 'edit']} size="sm" />
+              )}
+            </button>
+            <button
               onClick={handleDeleteSet}
               className={css.button}
-              text={<FontAwesomeIcon icon={['fa', 'trash']} size="sm" />}
-            />
+              type="button"
+            >
+              <FontAwesomeIcon icon={['fa', 'trash']} size="sm" />
+            </button>
           </>
         )}
       </div>

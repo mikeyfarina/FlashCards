@@ -12,6 +12,7 @@
     "@testing-library/dom": "^7.29.6",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.0",
+    "classnames": "^2.2.6",
     "csscomb": "^4.3.0",
     "dotenv": "^8.2.0",
     "eslint-plugin-react-hooks": "^4.2.0",

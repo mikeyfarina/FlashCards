@@ -1,8 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import css from './FlashcardTools.module.css';
-import Button from './Button';
 import CardSelection from './CardSelection';
+
+const plus = ['fa', 'plus'];
+const pen = ['fa', 'pen'];
+const trash = ['fa', 'trash'];
 
 const FlashcardTools = ({
   amountOfFlashcards,
@@ -17,25 +20,31 @@ const FlashcardTools = ({
   <div className={css.container}>
     {userCreatedSet && (
       <div className={css.buttons}>
-        <Button
+        <button
           onClick={handleNewFlashCard}
-          text={<FontAwesomeIcon icon={['fa', 'plus']} size="2x" />}
           className={css.create}
-          testingTag="data-new-flashcard-button"
-        />
-        <Button
+          type="button"
+          data-new-flashcard-button
+        >
+          <FontAwesomeIcon icon={plus} size="2x" />
+        </button>
+        <button
           onClick={handleEditFlashCard}
-          text={<FontAwesomeIcon icon={['fa', 'pen']} size="2x" />}
           className={css.edit}
-          testingTag="data-edit-flashcard-button"
-        />
-        <Button
+          type="button"
+          data-edit-flashcard-button
+        >
+          <FontAwesomeIcon icon={pen} size="2x" />
+        </button>
+        <button
           onClick={handleDeleteFlashCard}
-          text={<FontAwesomeIcon icon={['fa', 'trash']} size="2x" />}
           className={css.delete}
+          type="button"
           disabled={amountOfFlashcards <= 1}
-          testingTag="data-delete-flashcard-button"
-        />
+          data-delete-flashcard-button
+        >
+          <FontAwesomeIcon icon={trash} size="2x" />
+        </button>
       </div>
     )}
     <CardSelection

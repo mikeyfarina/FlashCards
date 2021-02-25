@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import css from './Flashcards.module.css';
 import flashcardService from '../services/flashcardService';
-import Button from './Button';
 import Flashcard from './Flashcard';
 import FlashcardTools from './FlashcardTools';
 
@@ -92,24 +91,28 @@ const Flashcards = ({
         }
       />
       <div className={css.display}>
-        <Button
-          onClick={handlePreviousCardClick}
-          text={'\u261a'}
+        <button
           className={css.button}
+          onClick={handlePreviousCardClick}
           testingTag="data-previous-card-button"
-        />
+          type="button"
+        >
+          {'\u261a'}
+        </button>
         <Flashcard
           canEdit={canEdit}
           currentFlashcardIndex={currentFlashcardIndex}
           flashcards={flashcards || []}
           setFlashcards={setFlashcards}
         />
-        <Button
+        <button
           onClick={handleNextCardClick}
-          text={'\u261b'}
           className={css.button}
           testingTag="data-next-card-button"
-        />
+          type="button"
+        >
+          {'\u261b'}
+        </button>
       </div>
     </div>
   );
