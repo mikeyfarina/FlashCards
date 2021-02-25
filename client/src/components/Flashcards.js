@@ -94,8 +94,8 @@ const Flashcards = ({
         <button
           className={css.button}
           onClick={handlePreviousCardClick}
-          testingTag="data-previous-card-button"
           type="button"
+          data-previous-card-button
         >
           {'\u261a'}
         </button>
@@ -108,8 +108,8 @@ const Flashcards = ({
         <button
           onClick={handleNextCardClick}
           className={css.button}
-          testingTag="data-next-card-button"
           type="button"
+          data-next-card-button
         >
           {'\u261b'}
         </button>

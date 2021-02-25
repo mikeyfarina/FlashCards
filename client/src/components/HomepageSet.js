@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
+import cn from 'classnames';
 import css from './HomepageSet.module.css';
 
 const HomepageSet = ({ set }) => {
@@ -14,7 +15,7 @@ const HomepageSet = ({ set }) => {
 
   return (
     <div
-      className={`${css.container}`}
+      className={css.container}
       onClick={() => {
         history.push(`/flashcards/${set.id}`);
       }}
@@ -22,12 +23,7 @@ const HomepageSet = ({ set }) => {
       tabIndex="0"
     >
       <h2 className={css.title}>{set.title}</h2>
-      <div
-        className={css.cards}
-        style={{
-          height: showAllFlashcards ? '65%' : '50%',
-        }}
-      >
+      <div className={cn(css.cards, { [css.showing]: showAllFlashcards })}>
         {set.flashcards.map(
           (card, i) =>
             !(i > 3 && !showAllFlashcards) && (
@@ -57,17 +53,16 @@ const HomepageSet = ({ set }) => {
         </div>
       )}
       <h5 className={css.size}>
-        Size:
-        <strong>{` ${set.flashcards.length || 0}`}</strong>
+        Size: <strong>{set.flashcards.length || 0}</strong>
       </h5>
       <h5 className={css.author}>
-        Created By:
+        Created By:{' '}
         <Link
           to={`/users/${set.username}`}
           className={css.user}
           onClick={(e) => e.stopPropagation()}
         >
-          <strong>{` ${set.username}`}</strong>
+          <strong>{set.username}</strong>
         </Link>
       </h5>
     </div>

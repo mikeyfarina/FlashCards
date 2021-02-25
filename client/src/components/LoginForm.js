@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import cn from 'classnames';
 import css from './LoginForm.module.css';
 import ui from '../styles/ui.module.css';
 import flashcardService from '../services/flashcardService';
@@ -49,23 +50,14 @@ const LoginForm = ({ setUser, standalone }) => {
       setError('Incorrect Username/Password');
       setTimeout(() => {
         setError(null);
-      }, 335000);
+      }, 3000);
     }
   };
 
-  const loginFormStyle = {
-    gridTemplateRows:
-      error || success ? 'repeat(3,1fr) .5fr repear(2, 1fr)' : 'repeat(5,1fr)',
-  };
-
   return (
-    <div className={`${css.container} noselect`}>
+    <div className={cn(css.container, 'noselect')}>
       {!createAccount ? (
-        <form
-          className={css.form}
-          onSubmit={handleLogin}
-          style={loginFormStyle}
-        >
+        <form className={css.form} onSubmit={handleLogin}>
           <h3 className={css.title}>Login</h3>
           <input
             type="text"

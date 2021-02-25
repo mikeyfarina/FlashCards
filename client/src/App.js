@@ -7,7 +7,8 @@ import {
   useHistory,
 } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
-import HeaderStyles from './styles/Header.module.css';
+import cn from 'classnames';
+import css from './styles/Header.module.css';
 import FlashcardsDisplay from './pages/FlashcardsDisplay';
 import Homepage from './pages/Homepage';
 import UserInformation from './pages/UserInformation';
@@ -61,15 +62,15 @@ const App = () => {
   };
 
   const logoutDiv = () => (
-    <div className={HeaderStyles.logout}>
-      <div className={HeaderStyles.greeting}>
-        <Link to={`/users/${user.username}/`} className={HeaderStyles.link}>
+    <div className={css.logout}>
+      <div className={css.greeting}>
+        <Link to={`/users/${user.username}/`} className={css.link}>
           {`hello, ${user.username}`}
         </Link>
       </div>
       <button
         onClick={handleLogout}
-        className={HeaderStyles.logoutBtn}
+        className={css.logoutBtn}
         type="button"
         data-logout-button
       >
@@ -89,9 +90,9 @@ const App = () => {
   return (
     <div>
       <header>
-        <div className={HeaderStyles.titleContainer}>
+        <div className={css.titleContainer}>
           <div
-            className={`${HeaderStyles.title} noselect`}
+            className={cn(css.title, 'noselect')}
             onClick={() => {
               history.push('/home');
             }}

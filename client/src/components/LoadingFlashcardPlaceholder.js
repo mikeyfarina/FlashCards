@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 import Flashcard from './Flashcard.module.css';
 import css from './LoadingFlashcardPlaceholder.module.css';
 
@@ -11,7 +12,7 @@ const LoadingFlashcardPlaceholder = ({ mousePosition, transition }) => {
   };
 
   return (
-    <div className={`${Flashcard.card} ${css.container}`} style={cardStyles}>
+    <div className={cn(Flashcard.card, css.container)} style={cardStyles}>
       <div className={css.scanner} />
     </div>
   );
