@@ -1,15 +1,18 @@
 .container {
-  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 30vw;
   height: fit-content;
-  display: flex;
-  justify-content: center;
-  padding: 5vh 5vw;
-  border-radius: 10px;
-  box-shadow: 0 0 55px rgba(1, 1, 1, 0.4), 0 0 5px rgba(1, 1, 1, 0.5);
   margin: 3vh auto;
-  align-items: center;
+  padding: 5vh 5vw;
+
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 0 55px rgba(1, 1, 1, 0.4), 0 0 5px rgba(1, 1, 1, 0.5);
 }
+
 @media all and (max-width: 900px) {
   .container {
     min-width: 60%;

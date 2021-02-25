@@ -1,19 +1,26 @@
 .container {
-  z-index: 1;
-  box-shadow: 5px 0px 200px rgba(0, 0, 0, 0.2);
-  grid-area: 1 / 1 /4 /2;
-  display: contents;
-  grid-template-rows: 1fr 20fr 1fr;
-  height: 100%;
   position: relative;
+  z-index: 1;
+
+  display: contents;
+
+  height: 100%;
+
+  box-shadow: 5px 0 200px rgba(0, 0, 0, 0.2);
+
+  grid-area: 1 / 1 /4 /2;
+  grid-template-rows: 1fr 20fr 1fr;
 }
 
 .bottom {
   z-index: 3;
-  background: #ececec;
-  box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.14);
-  height: 100%;
+
   width: 100%;
+  height: 100%;
+
+  background: #ececec;
+  box-shadow: 5px 0 10px rgba(0, 0, 0, 0.14);
+
   grid-area: 3 / 1 / 4 / 2;
 }
 

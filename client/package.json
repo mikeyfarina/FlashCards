@@ -12,6 +12,7 @@
     "@testing-library/dom": "^7.29.6",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.0",
+    "csscomb": "^4.3.0",
     "dotenv": "^8.2.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "lodash": "^4.17.20",
@@ -34,7 +35,8 @@
     "pretty": "prettier --write '**/*.{js,json}' '!node_modules/**'",
     "postpretty": "npm run lint --fix",
     "cypress:open": "cypress open",
-    "test:e2e": "cypress run"
+    "test:e2e": "cypress run",
+    "comb": "csscomb src/components/*.css src/styles/*.css"
   },
   "browserslist": {
     "production": [

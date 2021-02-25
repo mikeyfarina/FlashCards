@@ -1,9 +1,12 @@
 .container {
-  max-height: 84vh;
-  grid-area: 2 / 1 / 3 / 2;
   overflow-y: scroll;
+
+  max-height: 84vh;
   padding: 0 2%;
+
   background: #ececec;
+
+  grid-area: 2 / 1 / 3 / 2;
 }
 
 .container::-webkit-scrollbar {
@@ -16,19 +19,26 @@
   }
 
   .sets {
-    list-style-type: none;
-    white-space: nowrap;
-    overflow-x: auto;
-    height: 100%;
-    scroll-snap-type: x mandatory;
     align-items: center;
+
+    overflow-x: auto;
+
+    height: 100%;
+
+    list-style-type: none;
+
+    white-space: nowrap;
+
+    scroll-snap-type: x mandatory;
   }
 
   .set {
     display: inline-block;
-    height: 100%;
+
     width: 75%;
+    height: 100%;
     margin-left: 5%;
+
     scroll-snap-align: center;
   }
 }

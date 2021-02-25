@@ -1,122 +1,158 @@
 .container {
+  position: relative;
+
+  overflow: hidden;
+
   width: 100vw;
   min-height: 0;
   padding: 2% 6%;
+
   background: #5da2d5;
+
   grid-template-columns: 1fr 1fr;
-  position: relative;
-  overflow: hidden;
   grid-template-rows: 5fr 1fr;
 }
 
 .close {
+  font-size: 1.5vw;
+
   position: absolute;
+  z-index: 1;
   top: 2%;
   right: 1%;
+
   padding: 0.5%;
-  background: transparent;
-  border: none;
-  font-size: 1.5vw;
-  outline: none;
+
   cursor: pointer;
-  z-index: 1;
+
+  border: none;
+  outline: none;
+  background: transparent;
 }
 
 .circle {
-  align-self: center;
-  height: 150%;
   position: absolute;
-  right: 0;
-  border-radius: 100% 0 0 100%;
-  width: 48vw;
-  background: rgba(255, 255, 255, 0.35);
   z-index: 0;
+  right: 0;
+
+  align-self: center;
+
+  width: 48vw;
+  height: 150%;
+
+  border-radius: 100% 0 0 100%;
+  background: rgba(255, 255, 255, 0.35);
 }
 
 .text {
   align-self: center;
-  text-align: center;
+
   min-height: 0;
+
+  text-align: center;
+
   color: white;
 }
 
 .image {
-  justify-self: end;
-  max-height: 28vw;
-  height: 100%;
+  z-index: 1;
+
   display: flex;
   align-self: center;
+
+  height: 100%;
   min-height: 0;
-  z-index: 1;
+  max-height: 28vw;
+
+  justify-self: end;
 }
 
 .signupLink {
-  justify-self: end;
-  align-self: center;
-  margin-right: 1.5vw;
   z-index: 1;
+
+  align-self: center;
+
+  margin-right: 1.5vw;
+
+  justify-self: end;
 }
 
 .loginLink {
-  justify-self: start;
-  align-self: center;
-  margin-left: 1.5vw;
   z-index: 1;
+
+  align-self: center;
+
+  margin-left: 1.5vw;
+
+  justify-self: start;
 }
 
 .button {
-  height: 5vh;
-  width: 8vw;
   font-size: 1.5vw;
+
+  width: 8vw;
+  height: 5vh;
+  min-height: 0;
+
+  transition: all 0.25s ease-in;
+
   color: inherit;
+  border: none;
   border-radius: 6px;
   outline: none;
-  border: none;
-  min-height: 0;
-  transition: all 0.25s ease-in;
 }
 
 .signup {
-  background: #f3d250;
   color: black;
+  background: #f3d250;
 }
 
 .login {
-  background: #5da2d5;
-  border: #ececec 2px solid;
   color: #ececec;
+  border: #ececec 2px solid;
+  background: #5da2d5;
 }
 
 @media all and (max-width: 850px) {
   .container {
     grid-template-rows: 1fr 3fr 1fr;
   }
+
   .circle {
-    bottom: 0;
     right: auto;
-    border-radius: 100% 100% 0 0;
+    bottom: 0;
+
     width: 150vw;
     height: 80%;
+
+    border-radius: 100% 100% 0 0;
+
     justify-self: center;
   }
+
   .text {
     grid-area: 1 / 1 / 2 / 3;
   }
+
   .image {
     max-width: 100vw;
     max-height: none;
-    justify-self: center;
+
     grid-area: 2 / 1 / 3 / 3;
+    justify-self: center;
   }
+
   .btn {
-    width: 20vw;
     font-size: 3vw;
+
+    width: 20vw;
   }
 }
 
 @media all and (max-width: 450px) {
   .btn {
-    width: 40vw;
     font-size: 5vw;
+
+    width: 40vw;
   }
 }
