@@ -5,8 +5,10 @@
 
 .form {
   display: grid;
-  grid-template-rows: repeat(5, 1fr);
+
   max-height: 100%;
+
+  grid-template-rows: repeat(5, 1fr);
 }
 
 .alert {

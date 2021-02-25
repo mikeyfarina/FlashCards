@@ -37,7 +37,7 @@
     "postpretty": "npm run lint --fix",
     "cypress:open": "cypress open",
     "test:e2e": "cypress run",
-    "comb": "csscomb src/components/*.css src/styles/*.css"
+    "comb": "csscomb src/*/*.css"
   },
   "browserslist": {
     "production": [
