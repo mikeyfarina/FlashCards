@@ -1,5 +1,12 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import cn from 'classnames';
+import useMousePosition from '../hooks/useMousePosition';
 import css from './Flashcard.module.css';
 import flashcardService from '../services/flashcardService';
 import LoadingFlashcardPlaceholder from './LoadingFlashcardPlaceholder';
@@ -10,37 +17,33 @@ const Flashcard = ({
   currentFlashcardIndex, // index
   canEdit,
 }) => {
-  const [mousePosition, setMousePosition] = useState({
-    xAxis: 0,
-    yAxis: 0,
-  });
   const [transition, setTransition] = useState('none');
   const [flashcard, setFlashcard] = useState(null);
   const [flashcardInputText, setFlashcardInputText] = useState('');
   const [displayingFront, setDisplayingFront] = useState(true);
   const [flip, setFlip] = useState(false);
+  const {
+    handleMouseEnterExit,
+    handleMouseMove,
+    mousePosition,
+  } = useMousePosition(flip, setTransition);
 
-  // create useMouse
-  // const {handleMouseEvents, mousePosition } = useMousePosition()
+  const rotateY = useMemo(() => (!flip ? mousePosition.xAxis - 5 : 0), [
+    mousePosition.xAxis,
+  ]);
+
+  const rotateX = useMemo(
+    () =>
+      displayingFront
+        ? 180 + mousePosition.yAxis + 5
+        : (mousePosition.yAxis + 5) * 1.5,
+    [mousePosition.yAxis]
+  );
 
   const divStyle = {
-    transform: `rotateY(${!flip ? mousePosition.xAxis - 5 : 0}deg) rotateX(${
-      displayingFront
-        ? 180 - -mousePosition.yAxis + 5
-        : (mousePosition.yAxis + 5) * 1.5
-    }deg)`,
-    WebkitTransform: `rotateY(${
-      !flip ? mousePosition.xAxis - 5 : 0
-    }deg) rotateX(${
-      displayingFront
-        ? 180 - -mousePosition.yAxis + 5
-        : (mousePosition.yAxis + 5) * 1.5
-    }deg)`,
-    MozTransform: `rotateY(${!flip ? mousePosition.xAxis - 5 : 0}deg) rotateX(${
-      displayingFront
-        ? 180 - -mousePosition.yAxis + 5
-        : (mousePosition.yAxis + 5) * 1.5
-    }deg)`,
+    transform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
+    WebkitTransform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
+    MozTransform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
     transition,
   };
 
@@ -56,25 +59,6 @@ const Flashcard = ({
       setTransition('all .5s ease-out');
     }
   }, [flip]);
-
-  const handleMouseMove = (e) => {
-    if (!flip) {
-      const xAxis = -(window.innerWidth / 2 - e.pageX) / 25;
-      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-      setMousePosition({ xAxis, yAxis });
-    }
-  };
-
-  const handleMouseEnter = () => {
-    setTransition('transform .5s ease-out');
-    setMousePosition({ xAxis: 0, yAxis: 0 });
-  };
-
-  const handleMouseLeave = () => {
-    // console.log('reset', e);
-    setTransition('transform .5s ease-out');
-    setMousePosition({ xAxis: 0, yAxis: 0 });
-  };
 
   const handleClick = useCallback(() => {
     if (!canEdit) {
@@ -163,8 +147,8 @@ const Flashcard = ({
     <div
       className={css.container}
       onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseEnterExit}
+      onMouseEnter={handleMouseEnterExit}
     >
       {!flashcard ? (
         <LoadingFlashcardPlaceholder
