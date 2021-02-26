@@ -27,7 +27,7 @@ const Sidebar = ({
     };
     const createdSet = await setService.createSet(newSet);
     setFlashcardSets(flashcardSets.concat(createdSet));
-  }, []);
+  }, [flashcardSets]);
 
   return (
     <div className={css.container}>

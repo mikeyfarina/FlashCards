@@ -68,19 +68,26 @@ const Set = ({
     [canEditTitle]
   );
 
-  const handleDeleteSet = useCallback(() => {
-    setService.deleteSet(set.id).then(() => {
-      const updatedSets = flashcardSets.filter((s) => s.id !== set.id);
-      setFlashcardSets(updatedSets);
-      if (currentSetIndex === 0 || currentSetIndex >= updatedSets.length - 1) {
-        setCurrentSetIndex(0);
-      }
-      if (currentSetIndex <= updatedSets.length) {
-        setCurrentSetIndex(currentSetIndex - 1);
-      }
-      console.log('deleted', currentSetIndex);
-    });
-  }, [set.id, currentSetIndex, flashcardSets]);
+  const handleDeleteSet = useCallback(
+    (e) => {
+      e.stopPropagation();
+      setService.deleteSet(set.id).then(() => {
+        const updatedSets = flashcardSets.filter((s) => s.id !== set.id);
+        setFlashcardSets(updatedSets);
+        console.log('deleted', currentSetIndex, updatedSets.length);
+        if (currentSetIndex === 0) {
+          setCurrentSetIndex(0);
+        }
+        if (currentSetIndex >= updatedSets.length - 1) {
+          setCurrentSetIndex(updatedSets.length - 1);
+        }
+        if (currentSetIndex <= updatedSets.length - 1) {
+          setCurrentSetIndex(currentSetIndex);
+        }
+      });
+    },
+    [set.id, currentSetIndex, flashcardSets]
+  );
 
   const setRef = useRef();
   useEffect(() => {

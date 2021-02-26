@@ -27,7 +27,7 @@ const Flashcards = ({
         ? flashcards.length - 1
         : currentFlashcardIndex - 1
     );
-  }, [currentFlashcardIndex, flashcards.length]);
+  }, [currentFlashcardIndex, flashcards]);
 
   const handleNextCardClick = useCallback(() => {
     setCurrentFlashcardIndex(
@@ -35,7 +35,7 @@ const Flashcards = ({
         ? 0
         : currentFlashcardIndex + 1
     );
-  }, [currentFlashcardIndex, flashcards.length]);
+  }, [currentFlashcardIndex, flashcards]);
 
   const handleNewFlashCard = useCallback(
     async (e) => {
@@ -57,7 +57,7 @@ const Flashcards = ({
           setCurrentFlashcardIndex(flashcards.length);
         });
     },
-    [flashcardSets, currentSetIndex, flashcards, flashcards.length]
+    [flashcardSets, currentSetIndex, flashcards]
   );
 
   const handleEditFlashCard = useCallback(() => {
@@ -88,7 +88,7 @@ const Flashcards = ({
     <div className={css.container}>
       <div className={css.tools}>
         {flashcardSets &&
-          loggedInUser &&
+          flashcardSets[currentSetIndex] &&
           flashcardSets[currentSetIndex].username === loggedInUser.username && (
             <div className={css.buttons}>
               <button
