@@ -8,11 +8,14 @@ const HomepageSet = ({ set }) => {
   const [showAllFlashcards, setShowAllflashcards] = useState(false);
   const history = useHistory();
 
-  const handleShowMoreOptions = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    setShowAllflashcards(!showAllFlashcards);
-  };
+  const handleShowMoreOptions = useCallback(
+    (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      setShowAllflashcards(!showAllFlashcards);
+    },
+    [showAllFlashcards]
+  );
 
   const viewSet = useCallback(() => {
     history.push(`/flashcards/${set.id}`);

@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import cn from 'classnames';
 import css from './Set.module.css';
@@ -38,14 +38,17 @@ const Set = ({
     getCurrentSetFlashcards();
   }, [flashcards, set.id]);
 
-  const handleTitleClick = (e) => {
-    if (canEditTitle) return; // do nothing
-    e.stopPropagation();
-    const newIndex = flashcardSets.findIndex((s) => set.id === s.id);
-    setCurrentFlashcardIndex(0);
-    setCurrentSetIndex(newIndex);
-    history.push(`/flashcards/${set.id}/`);
-  };
+  const handleTitleClick = useCallback(
+    (e) => {
+      if (canEditTitle) return; // do nothing
+      e.stopPropagation();
+      const newIndex = flashcardSets.findIndex((s) => set.id === s.id);
+      setCurrentFlashcardIndex(0);
+      setCurrentSetIndex(newIndex);
+      history.push(`/flashcards/${set.id}/`);
+    },
+    [canEditTitle, flashcardSets, history]
+  );
 
   // switch edit mode when edit title button is clicked
   const handleEditMode = async () => {

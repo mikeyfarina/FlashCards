@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, useState } from 'react';
+import React, { useImperativeHandle, useState, useCallback } from 'react';
 import cn from 'classnames';
 import css from '../styles/Header.module.css';
 
@@ -10,9 +10,9 @@ const ToggleLogin = React.forwardRef((props, ref) => {
 
   ToggleLogin.displayName = 'ToggleLogin';
 
-  const toggleVisibility = () => {
+  const toggleVisibility = useCallback(() => {
     setIsVisible(!isVisible);
-  };
+  }, [isVisible]);
 
   useImperativeHandle(ref, () => toggleVisibility);
 

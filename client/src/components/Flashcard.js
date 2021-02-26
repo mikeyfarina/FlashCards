@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
 import css from './Flashcard.module.css';
 import flashcardService from '../services/flashcardService';
@@ -76,7 +76,7 @@ const Flashcard = ({
     setMousePosition({ xAxis: 0, yAxis: 0 });
   };
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     if (!canEdit) {
       // if not in edit mode, flip card
       // flip {displayingFront} to display back
@@ -87,7 +87,7 @@ const Flashcard = ({
         setFlip(false);
       }, 500);
     }
-  };
+  }, [canEdit, displayingFront]);
 
   // TESTING SIDE
   const handleTextEdit = (e) => {
