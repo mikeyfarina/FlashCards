@@ -15,10 +15,6 @@
   background: rgba(255, 255, 255, 0);
 }
 
-.transition {
-  transition: transform 0.5s ease-out;
-}
-
 .card {
   position: relative;
   z-index: 1;
@@ -29,6 +25,7 @@
   height: 100%;
   margin: auto;
 
+  transition: transform 0.5s ease-out;
   text-align: center;
 
   border-radius: 5px;
@@ -37,8 +34,8 @@
   box-shadow: 0 0 25px rgb(0 0 0 / 40%), 0 0 60px rgb(0 0 0 / 15%);
 
   -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  transform-style: preserve-3d;
+     -moz-transform-style: preserve-3d;
+          transform-style: preserve-3d;
 }
 
 .number {
@@ -49,8 +46,8 @@
   left: 4%;
 
   -webkit-transform: translateZ(25px);
-  -moz-transform: translateZ(25px);
-  transform: translateZ(25px);
+     -moz-transform: translateZ(25px);
+          transform: translateZ(25px);
 
   color: rgba(9, 20, 58, 0.65);
 }
@@ -63,20 +60,20 @@
   padding: 2% 3%;
 
   -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  transform-style: preserve-3d;
+     -moz-transform-style: preserve-3d;
+          transform-style: preserve-3d;
 }
 
 .front {
   -webkit-transform: rotateY(0deg) rotateX(180deg);
-  -moz-transform: rotateY(0deg) rotateX(180deg);
-  transform: rotateY(0deg) rotateX(180deg);
+     -moz-transform: rotateY(0deg) rotateX(180deg);
+          transform: rotateY(0deg) rotateX(180deg);
 }
 
 .back {
   -webkit-transform: rotateY(0deg) rotateX(0deg);
-  -moz-transform: rotateY(0deg) rotateX(0deg);
-  transform: rotateY(0deg) rotateX(0deg);
+     -moz-transform: rotateY(0deg) rotateX(0deg);
+          transform: rotateY(0deg) rotateX(0deg);
 }
 
 .text {
@@ -94,8 +91,8 @@
   padding: 5%;
 
   -webkit-transform: translateZ(45px);
-  -moz-transform: translateZ(10px);
-  transform: translateZ(45px);
+     -moz-transform: translateZ(10px);
+          transform: translateZ(45px);
   text-align: center;
 
   color: black;
@@ -104,8 +101,8 @@
   background: none;
 
   -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  backface-visibility: hidden;
+     -moz-backface-visibility: hidden;
+          backface-visibility: hidden;
 }
 
 .editable {

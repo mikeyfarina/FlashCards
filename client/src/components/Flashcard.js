@@ -17,7 +17,6 @@ const Flashcard = ({
   currentFlashcardIndex, // index
   canEdit,
 }) => {
-  const [transition, setTransition] = useState('none');
   const [flashcard, setFlashcard] = useState(null);
   const [flashcardInputText, setFlashcardInputText] = useState('');
   const [displayingFront, setDisplayingFront] = useState(true);
@@ -26,7 +25,7 @@ const Flashcard = ({
     handleMouseEnterExit,
     handleMouseMove,
     mousePosition,
-  } = useMousePosition(flip, setTransition);
+  } = useMousePosition(flip);
 
   const divStyle = useMemo(() => {
     const rotateX = displayingFront
@@ -37,7 +36,6 @@ const Flashcard = ({
       transform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
       WebkitTransform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
       MozTransform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
-      transition,
     };
   }, [mousePosition.xAxis, mousePosition.yAxis, displayingFront, flip]);
 
@@ -48,18 +46,12 @@ const Flashcard = ({
     setFlashcard(flashcards[currentFlashcardIndex] || null);
   }, [currentFlashcardIndex, flashcards]);
 
-  useEffect(() => {
-    if (flip) {
-      setTransition('all .5s ease-out');
-    }
-  }, [flip]);
-
   const handleClick = useCallback(() => {
     if (!canEdit) {
       // if not in edit mode, flip card
       // flip {displayingFront} to display back
       setDisplayingFront(!displayingFront);
-      setTransition('all .5s linear');
+
       setFlip(true);
       setTimeout(() => {
         setFlip(false);
@@ -122,11 +114,11 @@ const Flashcard = ({
     }
   }, [canEdit]);
 
-  const moveTypingIndicatorToEnd = (ref) => {
+  const moveTypingIndicatorToEnd = useCallback((ref) => {
     ref.current.focus();
     const lengthOfText = ref.current.value.length * 2;
     ref.current.setSelectionRange(lengthOfText, lengthOfText);
-  };
+  }, []);
 
   const backTextRef = useRef();
   const frontTextRef = useRef();
@@ -145,20 +137,17 @@ const Flashcard = ({
       onMouseEnter={handleMouseEnterExit}
     >
       {!flashcard ? (
-        <LoadingFlashcardPlaceholder
-          mousePosition={mousePosition}
-          transition={transition}
-        />
+        <LoadingFlashcardPlaceholder mousePosition={mousePosition} />
       ) : (
         <div
-          className={css.card}
+          className={cn(css.card)}
           onClick={handleClick}
           style={divStyle}
           role="textbox"
           tabIndex="0"
           data-flashcard-element
         >
-          <div className={cn(css.face, css.front)} style={{ transition }}>
+          <div className={cn(css.face, css.front)}>
             <span
               className={cn(css.number, 'noselect')}
               data-card-number-element
@@ -181,7 +170,7 @@ const Flashcard = ({
               />
             </div>
           </div>
-          <div className={cn(css.face, css.back)} style={{ transition }}>
+          <div className={cn(css.face, css.back)}>
             <div className={cn(css.center, 'noselect')}>
               <textarea
                 type="text"

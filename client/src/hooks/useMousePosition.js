@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useMousePosition = (flip, setTransition) => {
+const useMousePosition = (flip) => {
   const [mousePosition, setMousePosition] = useState({
     xAxis: 0,
     yAxis: 0,
@@ -15,7 +15,6 @@ const useMousePosition = (flip, setTransition) => {
   };
 
   const handleMouseEnterExit = () => {
-    setTransition('transform .5s ease-out');
     setMousePosition({ xAxis: 0, yAxis: 0 });
   };
   return { handleMouseMove, handleMouseEnterExit, mousePosition };

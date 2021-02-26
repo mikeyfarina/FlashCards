@@ -5,9 +5,6 @@ import css from '../styles/Header.module.css';
 const ToggleLogin = React.forwardRef((props, ref) => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const hideWhenVisible = { display: isVisible ? 'none' : '' };
-  const showWhenVisible = { display: isVisible ? '' : 'none' };
-
   ToggleLogin.displayName = 'ToggleLogin';
 
   const toggleVisibility = useCallback(() => {
@@ -24,7 +21,12 @@ const ToggleLogin = React.forwardRef((props, ref) => {
         { [css.invisible]: !isVisible }
       )}
     >
-      <div style={hideWhenVisible}>
+      <div
+        className={cn(
+          { [css.untoggled]: isVisible },
+          { [css.toggled]: !isVisible }
+        )}
+      >
         <button
           onClick={toggleVisibility}
           className={css.loginBtn}
@@ -33,7 +35,14 @@ const ToggleLogin = React.forwardRef((props, ref) => {
           login
         </button>
       </div>
-      <div style={showWhenVisible} className={css.toggle} data-toggle-content>
+      <div
+        className={cn(
+          css.toggle,
+          { [css.untoggled]: !isVisible },
+          { [css.toggled]: isVisible }
+        )}
+        data-toggle-content
+      >
         {props.children}
         <button onClick={toggleVisibility} className={css.cancel} type="button">
           cancel
