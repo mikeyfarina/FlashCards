@@ -57,27 +57,6 @@
   height: 65%;
 }
 
-.card {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-
-  overflow: hidden;
-
-  max-width: 80%;
-  padding: 0.5%;
-
-  -webkit-line-clamp: 1;
-}
-
-.card:focus {
-  outline: none;
-}
-
-.card:hover > h5 {
-  cursor: pointer;
-  text-decoration: underline;
-}
-
 .ellipsis {
   align-self: center;
 

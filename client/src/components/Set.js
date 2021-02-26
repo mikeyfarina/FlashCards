@@ -4,6 +4,7 @@ import { useHistory, Link } from 'react-router-dom';
 import cn from 'classnames';
 import css from './Set.module.css';
 import setService from '../services/setService';
+import SetItem from './SetItem';
 
 const save = ['fa', 'save'];
 const edit = ['fa', 'edit'];
@@ -24,9 +25,8 @@ const Set = ({
   const [setLength, setSetLength] = useState(0);
   const [setTitle, setSetTitle] = useState(set.title);
   const [canEditTitle, setCanEditTitle] = useState(false);
-  const [indexOfSet] = useState(index);
   const [currentFlashcardsInSet, setCurrentFlashcardsInSet] = useState(null);
-
+  const [currentSet, setCurrentSet] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -62,22 +62,16 @@ const Set = ({
     }
   };
 
-  const handleCardClick = (e, indexOfCardPreview) => {
-    currentFlashcardsInSet.find((card, i) =>
-      i === indexOfCardPreview && currentSetIndex === indexOfSet
-        ? setCurrentFlashcardIndex(indexOfCardPreview)
-        : ''
-    );
-  };
-
   const handleDeleteSet = () => {
     setService.deleteSet(set.id).then(() => {
       const updatedSets = flashcardSets.filter((s) => s.id !== set.id);
       setFlashcardSets(updatedSets);
-      if (currentSetIndex === 0 || currentSetIndex >= updatedSets.length - 1)
+      if (currentSetIndex === 0 || currentSetIndex >= updatedSets.length - 1) {
         setCurrentSetIndex(0);
-      if (currentSetIndex <= updatedSets.length)
+      }
+      if (currentSetIndex <= updatedSets.length) {
         setCurrentSetIndex(currentSetIndex - 1);
+      }
       console.log('deleted', currentSetIndex);
     });
   };
@@ -87,6 +81,7 @@ const Set = ({
     if (index === currentSetIndex) {
       setRef.current.scrollIntoView({ behavior: 'smooth' });
     }
+    setCurrentSet(index === currentSetIndex);
   }, [currentSetIndex, index]);
 
   const cardContainerRef = useRef();
@@ -157,22 +152,15 @@ const Set = ({
         <div className={css.display}>
           {currentFlashcardsInSet
             ? currentFlashcardsInSet.map((card, i) => (
-                <div
+                <SetItem
                   key={card.id}
-                  className={cn(css.card, {
-                    [css.reading]:
-                      flashcards[currentFlashcardIndex] &&
-                      flashcards[currentFlashcardIndex].id === card.id,
-                  })}
-                  ref={(el) => {
-                    cardRefs.push(el);
-                  }}
-                  onClick={(e) => handleCardClick(e, i)}
-                  role="button"
-                  tabIndex="0"
-                >
-                  {card.front}
-                </div>
+                  card={card}
+                  indexOfCard={i}
+                  currentFlashcardIndex={currentFlashcardIndex}
+                  setCurrentFlashcardIndex={setCurrentFlashcardIndex}
+                  currentSet={currentSet}
+                  cardRefs={cardRefs}
+                />
               ))
             : 'loading...'}
         </div>

@@ -1,0 +1,56 @@
+.card {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+
+  margin: 2%;
+  padding: 1% 0;
+
+  transition: all 0.05s linear;
+
+  -webkit-line-clamp: 3;
+  scroll-snap-align: start;
+  scroll-snap-type: y mandatory;
+}
+
+.card:focus {
+  outline: none;
+}
+
+.card:hover {
+  margin: 2% 1%;
+  padding: 1% 1.5%;
+
+  cursor: pointer;
+
+  border-radius: 3px;
+  background: #646c80;
+}
+
+.current {
+  margin: 2% 1%;
+  padding: 1% 1.5%;
+
+  cursor: pointer;
+  transition: all 0.1s ease-in;
+
+  color: #646c80;
+  border-radius: 3px;
+  background: #f3d250;
+}
+
+.current:hover {
+  width: 98%;
+  padding: 1% 2%;
+
+  background: #f0df9b;
+}
+
+@media all and (max-width: 560px) {
+  .card {
+    max-height: 20%;
+
+    white-space: normal;
+  }
+}
