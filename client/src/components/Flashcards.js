@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import css from './Flashcards.module.css';
 import flashcardService from '../services/flashcardService';
 import Flashcard from './Flashcard';
@@ -21,45 +21,50 @@ const Flashcards = ({
 }) => {
   const [canEdit, setCanEdit] = useState(false);
 
-  const handlePreviousCardClick = () => {
+  const handlePreviousCardClick = useCallback(() => {
     setCurrentFlashcardIndex(
       currentFlashcardIndex - 1 < 0
         ? flashcards.length - 1
         : currentFlashcardIndex - 1
     );
-  };
+  }, [currentFlashcardIndex, flashcards.length]);
 
-  const handleNextCardClick = () => {
+  const handleNextCardClick = useCallback(() => {
     setCurrentFlashcardIndex(
       currentFlashcardIndex + 1 >= flashcards.length
         ? 0
         : currentFlashcardIndex + 1
     );
-  };
+  }, [currentFlashcardIndex, flashcards.length]);
 
-  const handleNewFlashCard = async (e) => {
-    e.preventDefault();
-    setCanEdit(false);
+  const handleNewFlashCard = useCallback(
+    async (e) => {
+      e.preventDefault();
+      setCanEdit(false);
 
-    const setId = flashcardSets[currentSetIndex].id;
+      const setId = flashcardSets[currentSetIndex].id;
 
-    const newFlashcard = {
-      front: 'front',
-      back: 'back',
-      setId,
-    };
+      const newFlashcard = {
+        front: 'front',
+        back: 'back',
+        setId,
+      };
 
-    flashcardService.createFlashcard(newFlashcard).then((createdFlashcard) => {
-      setFlashcards([...flashcards, createdFlashcard]);
-      setCurrentFlashcardIndex(flashcards.length);
-    });
-  };
+      flashcardService
+        .createFlashcard(newFlashcard)
+        .then((createdFlashcard) => {
+          setFlashcards([...flashcards, createdFlashcard]);
+          setCurrentFlashcardIndex(flashcards.length);
+        });
+    },
+    [flashcardSets, currentSetIndex, flashcards]
+  );
 
-  const handleEditFlashCard = () => {
+  const handleEditFlashCard = useCallback(() => {
     setCanEdit(!canEdit);
-  };
+  }, [canEdit]);
 
-  const handleDeleteFlashCard = () => {
+  const handleDeleteFlashCard = useCallback(() => {
     setCanEdit(false);
 
     const flashcardToUpdate = flashcards[currentFlashcardIndex];
@@ -77,7 +82,7 @@ const Flashcards = ({
       .catch((error) => {
         console.error(error);
       });
-  };
+  }, [flashcards, currentFlashcardIndex]);
 
   return (
     <div className={css.container}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import css from './CardSelection.module.css';
 
 const CardSelection = ({
@@ -6,9 +6,9 @@ const CardSelection = ({
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
 }) => {
-  const handleSelect = (e) => {
+  const handleSelect = useCallback((e) => {
     setCurrentFlashcardIndex(Number(e.target.value));
-  };
+  }, []);
 
   return (
     <>

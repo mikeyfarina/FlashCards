@@ -20,20 +20,23 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
   const [success, setSuccess] = useState(false);
   const history = useHistory();
 
-  const handleError = (type, message) => {
-    setError({
-      ...error,
-      type,
-      message,
-    });
-    setTimeout(() => {
+  const handleError = useCallback(
+    (type, message) => {
       setError({
         ...error,
-        type: null,
-        message: null,
+        type,
+        message,
       });
-    }, 3000);
-  };
+      setTimeout(() => {
+        setError({
+          ...error,
+          type: null,
+          message: null,
+        });
+      }, 3000);
+    },
+    [error]
+  );
 
   const handleSubmit = useCallback(
     (e) => {
