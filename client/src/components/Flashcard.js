@@ -60,16 +60,19 @@ const Flashcard = ({
   }, [canEdit, displayingFront]);
 
   // TESTING SIDE
-  const handleTextEdit = useCallback((e) => {
-    if (canEdit) {
-      setFlashcard(
-        displayingFront
-          ? { ...flashcard, front: e.target.value }
-          : { ...flashcard, back: e.target.value }
-      );
-      setFlashcardInputText(e.target.value);
-    }
-  });
+  const handleTextEdit = useCallback(
+    (e) => {
+      if (canEdit) {
+        setFlashcard(
+          displayingFront
+            ? { ...flashcard, front: e.target.value }
+            : { ...flashcard, back: e.target.value }
+        );
+        setFlashcardInputText(e.target.value);
+      }
+    },
+    [canEdit, displayingFront, flashcard]
+  );
 
   const updateAndSaveFlashcard = () => {
     const flashcardToUpdate = flashcards[currentFlashcardIndex];
@@ -116,8 +119,8 @@ const Flashcard = ({
 
   const moveTypingIndicatorToEnd = useCallback((ref) => {
     ref.current.focus();
-    const lengthOfText = ref.current.value.length * 2;
-    ref.current.setSelectionRange(lengthOfText, lengthOfText);
+    const twiceSizeOfText = ref.current.value.length * 2;
+    ref.current.setSelectionRange(twiceSizeOfText, twiceSizeOfText);
   }, []);
 
   const backTextRef = useRef();

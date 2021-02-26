@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const useMousePosition = (flip) => {
   const [mousePosition, setMousePosition] = useState({
@@ -6,17 +6,21 @@ const useMousePosition = (flip) => {
     yAxis: 0,
   });
 
-  const handleMouseMove = (e) => {
-    if (!flip) {
-      const xAxis = -(window.innerWidth / 2 - e.pageX) / 25;
-      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-      setMousePosition({ xAxis, yAxis });
-    }
-  };
+  const handleMouseMove = useCallback(
+    (e) => {
+      if (!flip) {
+        const xAxis = -(window.innerWidth / 2 - e.pageX) / 25;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+        setMousePosition({ xAxis, yAxis });
+      }
+    },
+    [flip, window.innerWidth, window.innerHeight]
+  );
 
-  const handleMouseEnterExit = () => {
+  const handleMouseEnterExit = useCallback(() => {
     setMousePosition({ xAxis: 0, yAxis: 0 });
-  };
+  }, []);
+
   return { handleMouseMove, handleMouseEnterExit, mousePosition };
 };
 

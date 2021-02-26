@@ -57,7 +57,7 @@ const Flashcards = ({
           setCurrentFlashcardIndex(flashcards.length);
         });
     },
-    [flashcardSets, currentSetIndex, flashcards]
+    [flashcardSets, currentSetIndex, flashcards, flashcards.length]
   );
 
   const handleEditFlashCard = useCallback(() => {

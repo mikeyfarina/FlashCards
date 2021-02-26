@@ -51,21 +51,24 @@ const Set = ({
   );
 
   // switch edit mode when edit title button is clicked
-  const handleEditMode = async () => {
+  const handleEditMode = useCallback(async () => {
     setCanEditTitle(!canEditTitle);
     if (canEditTitle) {
       await setService.updateSetTitle(set.id, setTitle);
     }
-  };
+  }, [canEditTitle, set.id, setTitle]);
 
   // changes setTitle state to input
-  const handleTitleEdit = (e) => {
-    if (canEditTitle) {
-      setSetTitle(e.target.value);
-    }
-  };
+  const handleTitleEdit = useCallback(
+    (e) => {
+      if (canEditTitle) {
+        setSetTitle(e.target.value);
+      }
+    },
+    [canEditTitle]
+  );
 
-  const handleDeleteSet = () => {
+  const handleDeleteSet = useCallback(() => {
     setService.deleteSet(set.id).then(() => {
       const updatedSets = flashcardSets.filter((s) => s.id !== set.id);
       setFlashcardSets(updatedSets);
@@ -77,7 +80,7 @@ const Set = ({
       }
       console.log('deleted', currentSetIndex);
     });
-  };
+  }, [set.id, currentSetIndex, flashcardSets]);
 
   const setRef = useRef();
   useEffect(() => {

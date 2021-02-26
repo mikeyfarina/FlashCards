@@ -8,7 +8,7 @@ const UserSetItem = ({ set }) => {
   const history = useHistory();
   const handleClick = useCallback(() => {
     history.push(`/flashcards/${set.id}`);
-  }, [history]);
+  }, [history, set.id]);
 
   return (
     <div

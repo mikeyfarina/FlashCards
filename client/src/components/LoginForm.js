@@ -22,37 +22,40 @@ const LoginForm = ({ setUser, standalone }) => {
     setUser: PropTypes.func.isRequired,
   };
 
-  const handleLogin = async (event) => {
-    event.preventDefault();
-    try {
-      const user = await loginService.login({
-        username,
-        password,
-      });
-      console.log('user', user);
-      window.localStorage.setItem(
-        'loggedFlashcardAppUser',
-        JSON.stringify(user)
-      );
-      flashcardService.setToken(user.token);
-      setService.setToken(user.token);
-      setUsername('');
-      setPassword('');
-      setUser(user);
-      setSuccess(true);
-      setTimeout(() => {
-        setSuccess(false);
-        if (standalone) {
-          history.push('/home');
-        }
-      }, 3000);
-    } catch (ex) {
-      setError('Incorrect Username/Password');
-      setTimeout(() => {
-        setError(null);
-      }, 3000);
-    }
-  };
+  const handleLogin = useCallback(
+    async (event) => {
+      event.preventDefault();
+      try {
+        const user = await loginService.login({
+          username,
+          password,
+        });
+        console.log('user', user);
+        window.localStorage.setItem(
+          'loggedFlashcardAppUser',
+          JSON.stringify(user)
+        );
+        flashcardService.setToken(user.token);
+        setService.setToken(user.token);
+        setUsername('');
+        setPassword('');
+        setUser(user);
+        setSuccess(true);
+        setTimeout(() => {
+          setSuccess(false);
+          if (standalone) {
+            history.push('/home');
+          }
+        }, 3000);
+      } catch (ex) {
+        setError('Incorrect Username/Password');
+        setTimeout(() => {
+          setError(null);
+        }, 3000);
+      }
+    },
+    [username, password, standalone]
+  );
 
   const handleCreateClick = useCallback(() => {
     if (standalone) {

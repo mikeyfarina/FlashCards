@@ -53,13 +53,16 @@ const App = () => {
     </ToggleLogin>
   );
 
-  const handleLogout = useCallback((event) => {
-    event.preventDefault();
+  const handleLogout = useCallback(
+    (event) => {
+      event.preventDefault();
 
-    flashcardService.setToken(null);
-    window.localStorage.removeItem('loggedFlashcardAppUser');
-    setUser(null);
-  }, []);
+      flashcardService.setToken(null);
+      window.localStorage.removeItem('loggedFlashcardAppUser');
+      setUser(null);
+    },
+    [window.localStorage]
+  );
 
   const logoutDiv = () => (
     <div className={css.logout}>
