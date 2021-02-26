@@ -9,6 +9,7 @@ const UserSetItem = ({ set }) => {
   const handleClick = useCallback(() => {
     history.push(`/flashcards/${set.id}`);
   }, [history]);
+
   return (
     <div
       className={cn(css.item, UserList.item)}
