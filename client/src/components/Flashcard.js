@@ -28,24 +28,18 @@ const Flashcard = ({
     mousePosition,
   } = useMousePosition(flip, setTransition);
 
-  const rotateY = useMemo(() => (!flip ? mousePosition.xAxis - 5 : 0), [
-    mousePosition.xAxis,
-  ]);
-
-  const rotateX = useMemo(
-    () =>
-      displayingFront
-        ? 180 + mousePosition.yAxis + 5
-        : (mousePosition.yAxis + 5) * 1.5,
-    [mousePosition.yAxis]
-  );
-
-  const divStyle = {
-    transform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
-    WebkitTransform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
-    MozTransform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
-    transition,
-  };
+  const divStyle = useMemo(() => {
+    const rotateX = displayingFront
+      ? 180 + mousePosition.yAxis + 5
+      : (mousePosition.yAxis + 5) * 1.5;
+    const rotateY = !flip ? mousePosition.xAxis - 5 : 0;
+    return {
+      transform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
+      WebkitTransform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
+      MozTransform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
+      transition,
+    };
+  }, [mousePosition.xAxis, mousePosition.yAxis, displayingFront, flip]);
 
   useEffect(() => {
     const newFlashcard = flashcards[currentFlashcardIndex];
@@ -74,7 +68,7 @@ const Flashcard = ({
   }, [canEdit, displayingFront]);
 
   // TESTING SIDE
-  const handleTextEdit = (e) => {
+  const handleTextEdit = useCallback((e) => {
     if (canEdit) {
       setFlashcard(
         displayingFront
@@ -83,7 +77,7 @@ const Flashcard = ({
       );
       setFlashcardInputText(e.target.value);
     }
-  };
+  });
 
   const updateAndSaveFlashcard = () => {
     const flashcardToUpdate = flashcards[currentFlashcardIndex];

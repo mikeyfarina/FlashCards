@@ -18,7 +18,6 @@ const useMousePosition = (flip, setTransition) => {
     setTransition('transform .5s ease-out');
     setMousePosition({ xAxis: 0, yAxis: 0 });
   };
-
   return { handleMouseMove, handleMouseEnterExit, mousePosition };
 };
 
