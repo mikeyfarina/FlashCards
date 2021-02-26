@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import cn from 'classnames';
 import css from './UserInformation.module.css';
@@ -41,6 +41,10 @@ const UserInformation = ({ loggedInUser }) => {
     }
   }, [tempPhotoOption]);
 
+  const handleClick = useCallback(() => {
+    setDisplayProfilePhotoOptions(!displayProfilePhotoOptions);
+  }, [displayProfilePhotoOptions]);
+
   return desiredUser ? (
     <div className={css.container}>
       <div className={css.info}>
@@ -61,9 +65,7 @@ const UserInformation = ({ loggedInUser }) => {
           {loggedInUser && loggedInUser.username === desiredUser.username && (
             <div
               className={css.change}
-              onClick={() => {
-                setDisplayProfilePhotoOptions(!displayProfilePhotoOptions);
-              }}
+              onClick={handleClick}
               role="button"
               tabIndex="0"
             >
