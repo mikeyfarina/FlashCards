@@ -48,6 +48,50 @@ The root directory is an Express server and inside of the client folder is a fro
 
 ### Express Server
 
+#### `/models`
+
+`/flashcard.js`
+This is the model used for flashcard representation in the database.
+
+-`front`
+  - `String`, front of flashcard. 
+-`back`
+  - `String`, back of flashcard. 
+-`date`
+  - `Date`, time flashcard was created. 
+-`user`
+  - `ObjectId`, Id of user who created flashcard. 
+-`set`
+  - `ObjectId`, Id of set that the flashcard belongs to. 
+  
+`/set.js`
+This is the model used for set representation in the database.
+
+-`title`
+  - `String`, title of set. 
+-`user`
+  - `ObjectId`, Id of user who created set. 
+-`username`
+  - `String`, username of author of set.
+-`flashcards`
+  - Array of `ObjectId`, Ids of flashcards that belong to the set. 
+
+`/user.js`
+This is the model used for user representation in the database.
+
+-`username`
+  - `String`, username of user. 
+-`name`
+  - `String`, name of user. 
+-`passwordHash`
+  - `String`, Encrypted hash of password used to protect user information and decrypted when needed using `bcrypt`.
+-`flashcards`
+  - Array of `ObjectId`, Ids of flashcards that were created by the user. 
+-`sets`
+  - Array of `ObjectId`, Ids of sets that were created by the user.
+-`photoNumber`
+  -`Number`, profile photo option used on user's profile page.
+
 #### `/controllers`
 
 `/flashcards.js`
@@ -80,10 +124,31 @@ This controller is responsible for all requests that require information regardi
 - `/:id` - PATCH
   - updates title of set with data passed into request after authenticating that the editing user is the creator.
 
+`/users.js`
+This controller is responsible for all requests that require information regarding users. 
+
+- `/` - GET 
+  - returns all users in database.
+- `/:username` - GET
+  - returns user with matching `username` or returns 404 if none exist.
+- `/` - POST
+  - creates a user with `username` and `password` from request.
+- `/:id` - DELETE
+  - deletes a user with matching id from the database.
+- `/:username/profile` - PATCH
+  - updates profile picture of user with data passed into request.
+
 `/login.js`
-This controller is responsible for all requests that require information regarding sets. 
+This controller is responsible for all requests that require information regarding login. 
 
 - `/` - POST
   - logs in a user after ensuring information is correct by:
     - validating that `username` exists 
     - comparing plain-text password with decoded password hash using `bcrypt`.
+
+`/testing.js`
+This controller is responsible for all requests that require information regarding testing. 
+
+- `/reset` - POST
+  - wipes entire `Flashcard`, `Set`, and `User` databases
+  - only functional when `NODE_ENV=test`
