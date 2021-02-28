@@ -28,7 +28,9 @@ This application contains unit and integration tests through Jest as well as End
 npm run test
 ```
 #### To run tests using Cypress:
-In the `/` folder, run:
+Close all existing instances of the app.
+
+In `/` folder:
 ```
 npm run start:test
 ```
