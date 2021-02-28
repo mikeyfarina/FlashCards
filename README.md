@@ -55,12 +55,16 @@ This is the model used for flashcard representation in the database.
 
 -`front`
   - `String`, front of flashcard. 
+
 -`back`
   - `String`, back of flashcard. 
+
 -`date`
   - `Date`, time flashcard was created. 
+
 -`user`
   - `ObjectId`, Id of user who created flashcard. 
+
 -`set`
   - `ObjectId`, Id of set that the flashcard belongs to. 
   
