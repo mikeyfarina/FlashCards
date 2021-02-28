@@ -155,55 +155,6 @@
   padding: 2% 0;
 }
 
-.card {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-
-  overflow: hidden;
-
-  margin: 2%;
-  padding: 1% 0;
-
-  transition: all 0.05s linear;
-
-  -webkit-line-clamp: 3;
-  scroll-snap-align: start;
-  scroll-snap-type: y mandatory;
-}
-
-.card:focus {
-  outline: none;
-}
-
-.card:hover {
-  margin: 2% 1%;
-  padding: 1% 1.5%;
-
-  cursor: pointer;
-
-  border-radius: 3px;
-  background: #646c80;
-}
-
-.reading {
-  margin: 2% 1%;
-  padding: 1% 1.5%;
-
-  cursor: pointer;
-  transition: all 0.1s ease-in;
-
-  color: #646c80;
-  border-radius: 3px;
-  background: #f3d250;
-}
-
-.reading:hover {
-  width: 98%;
-  padding: 1% 2%;
-
-  background: #f0df9b;
-}
-
 @media all and (min-width: 901px) and (max-width: 1250px) {
   .header {
     grid-template-columns: 7fr 1fr 1fr;
@@ -240,11 +191,5 @@
 
   .cards {
     overflow-y: scroll;
-  }
-
-  .card {
-    max-height: 20%;
-
-    white-space: normal;
   }
 }

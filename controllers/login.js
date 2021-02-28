@@ -4,7 +4,7 @@ const loginRouter = require('express').Router();
 const User = require('../models/user');
 
 loginRouter.post('/', async (req, res) => {
-  const body = req.body;
+  const { body } = req;
   const user = await User.findOne({
     username: body.username,
   });

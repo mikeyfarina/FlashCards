@@ -2,10 +2,11 @@ const supertest = require('supertest');
 const mongoose = require('mongoose');
 const helper = require('./test_helper');
 const app = require('../app');
-const api = supertest(app);
-
 const Flashcard = require('../models/flashcard');
 const User = require('../models/user');
+
+const api = supertest(app);
+
 const baseUrl = '/api/flashcards';
 
 beforeAll(async () => {

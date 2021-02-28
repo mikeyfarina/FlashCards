@@ -6,7 +6,7 @@ import {
   useRouteMatch,
   useHistory,
 } from 'react-router-dom';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import cn from 'classnames';
 import css from './styles/Header.module.css';
 import FlashcardsDisplay from './pages/FlashcardsDisplay';
@@ -53,13 +53,16 @@ const App = () => {
     </ToggleLogin>
   );
 
-  const handleLogout = (event) => {
-    event.preventDefault();
+  const handleLogout = useCallback(
+    (event) => {
+      event.preventDefault();
 
-    flashcardService.setToken(null);
-    window.localStorage.removeItem('loggedFlashcardAppUser');
-    setUser(null);
-  };
+      flashcardService.setToken(null);
+      window.localStorage.removeItem('loggedFlashcardAppUser');
+      setUser(null);
+    },
+    [window.localStorage]
+  );
 
   const logoutDiv = () => (
     <div className={css.logout}>
@@ -87,15 +90,17 @@ const App = () => {
         )
       : 0;
 
+  const goHome = useCallback(() => {
+    history.push('/home');
+  }, [history]);
+
   return (
     <div>
       <header>
         <div className={css.titleContainer}>
           <div
             className={cn(css.title, 'noselect')}
-            onClick={() => {
-              history.push('/home');
-            }}
+            onClick={goHome}
             role="button"
             tabIndex="0"
           >

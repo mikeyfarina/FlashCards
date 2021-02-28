@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import css from './CreateAccountPrompt.module.css';
@@ -7,7 +7,10 @@ import { ReactComponent as Image } from '../images/clipart/img1.svg';
 const CreateAccountPrompt = () => {
   const [signupDisplayed, setSignupDisplayed] = useState(true);
 
-  // if signup displayed add displayed class, else add hidden class
+  const handleClose = useCallback(() => {
+    setSignupDisplayed(false);
+  }, []);
+
   return (
     <div
       className={cn(
@@ -16,13 +19,7 @@ const CreateAccountPrompt = () => {
         { [css.hidden]: !signupDisplayed }
       )}
     >
-      <button
-        className={css.close}
-        onClick={() => {
-          setSignupDisplayed(false);
-        }}
-        type="button"
-      >
+      <button className={css.close} onClick={handleClose} type="button">
         x
       </button>
       <div className={css.circle} />
@@ -35,7 +32,7 @@ const CreateAccountPrompt = () => {
           </button>
         </Link>
         <Link to="/home/login" className={css.loginLink}>
-          <button className={cn(css.button, css.signup)} type="button">
+          <button className={cn(css.button, css.login)} type="button">
             Log in
           </button>
         </Link>

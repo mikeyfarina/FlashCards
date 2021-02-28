@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import cn from 'classnames';
 import Flashcard from './Flashcard.module.css';
 import css from './LoadingFlashcardPlaceholder.module.css';
 
-const LoadingFlashcardPlaceholder = ({ mousePosition, transition }) => {
-  const cardStyles = {
-    transform: `rotateY(${
-      mousePosition ? mousePosition.xAxis : 0
-    }deg) rotateX(${mousePosition ? mousePosition.yAxis : 0}deg)`,
-    transition,
-  };
+const LoadingFlashcardPlaceholder = ({ mousePosition }) => {
+  const cardStyles = useMemo(() => {
+    const rotateY = mousePosition ? mousePosition.xAxis : 0;
+    const rotateX = mousePosition ? mousePosition.yAxis : 0;
+    return {
+      transform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
+    };
+  }, [mousePosition.xAxis, mousePosition.yAxis]);
 
   return (
     <div className={cn(Flashcard.card, css.container)} style={cardStyles}>

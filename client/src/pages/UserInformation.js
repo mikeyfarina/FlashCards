@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
 import cn from 'classnames';
 import css from './UserInformation.module.css';
-import UserList from '../styles/UserListItem.module.css';
+import ProfilePhotoOption from '../components/ProfilePhotoOption';
+import UserFlashcardItem from '../components/UserFlashcardItem';
+import UserSetItem from '../components/UserSetItem';
 import userService from '../services/userService';
 import profilePhotos from '../utils/profilePhotoLoader';
 
@@ -12,9 +14,10 @@ const UserInformation = ({ loggedInUser }) => {
     false
   );
   const [tempPhotoOption, setTempPhotoOption] = useState(null);
+  const [onOwnPage, setOnOwnPage] = useState(false);
 
-  const history = useHistory();
   const { username } = useParams();
+
   useEffect(() => {
     if (username) {
       userService
@@ -27,10 +30,20 @@ const UserInformation = ({ loggedInUser }) => {
   }, [username]);
 
   useEffect(() => {
+    if (desiredUser && loggedInUser) {
+      setOnOwnPage(desiredUser.username === loggedInUser.username);
+    }
+  }, [desiredUser, loggedInUser]);
+
+  useEffect(() => {
     if (loggedInUser && tempPhotoOption) {
       userService.changeProfilePhoto(loggedInUser.username, tempPhotoOption);
     }
   }, [tempPhotoOption]);
+
+  const handleClick = useCallback(() => {
+    setDisplayProfilePhotoOptions(!displayProfilePhotoOptions);
+  }, [displayProfilePhotoOptions]);
 
   return desiredUser ? (
     <div className={css.container}>
@@ -49,12 +62,10 @@ const UserInformation = ({ loggedInUser }) => {
             }
             alt="User Profile"
           />
-          {loggedInUser && loggedInUser.username === desiredUser.username && (
+          {loggedInUser?.username === desiredUser?.username && (
             <div
               className={css.change}
-              onClick={() => {
-                setDisplayProfilePhotoOptions(!displayProfilePhotoOptions);
-              }}
+              onClick={handleClick}
               role="button"
               tabIndex="0"
             >
@@ -68,21 +79,14 @@ const UserInformation = ({ loggedInUser }) => {
           })}
         >
           {profilePhotos.map((photo, indexOfPhoto) => (
-            <div
+            <ProfilePhotoOption
               key={photo}
-              className={cn(css.option, {
-                [css.displaying]: displayProfilePhotoOptions,
-              })}
-              onClick={() => {
-                if (desiredUser.username === loggedInUser.username) {
-                  setTempPhotoOption(indexOfPhoto.toString());
-                }
-              }}
-              role="button"
-              tabIndex="0"
-            >
-              <img src={photo} alt="Profile option" className={css.pic} />
-            </div>
+              photo={photo}
+              indexOfPhoto={indexOfPhoto}
+              onOwnPage={onOwnPage}
+              displayProfilePhotoOptions={displayProfilePhotoOptions}
+              setTempPhotoOption={setTempPhotoOption}
+            />
           ))}
         </div>
         <div className={css.names}>
@@ -91,13 +95,13 @@ const UserInformation = ({ loggedInUser }) => {
         </div>
         <div className={css.stats}>
           <>
-            <h3 className={cn(css.statTitle, css.left)}>Sets:</h3>
+            <h3 className={cn(css.statTitle, css.topLeft)}>Sets:</h3>
             <h3 className={cn(css.statNumber, css.bottomLeft)}>
               {desiredUser.sets.length}
             </h3>
           </>
           <>
-            <h3 className={cn(css.statTitle, css.right)}>Flashcards:</h3>
+            <h3 className={cn(css.statTitle, css.topRight)}>Flashcards:</h3>
             <h3 className={cn(css.statNumber, css.bottomRight)}>
               {desiredUser.flashcards.length}
             </h3>
@@ -108,22 +112,7 @@ const UserInformation = ({ loggedInUser }) => {
         <h2 className={css.title}>Sets:</h2>
         <div className={css.display}>
           {desiredUser.sets.map((set) => (
-            <div
-              className={cn(css.item, UserList.item)}
-              key={set.id}
-              onClick={() => {
-                history.push(`/flashcards/${set.id}`);
-              }}
-              role="button"
-              tabIndex="0"
-            >
-              <div className={css.itemTitle}>
-                <h3>{set.title}</h3>
-              </div>
-              <div className={css.size}>
-                Size: <strong>{set.flashcards.length}</strong>
-              </div>
-            </div>
+            <UserSetItem key={set.id} set={set} />
           ))}
         </div>
         <div className={css.gap} />
@@ -132,22 +121,7 @@ const UserInformation = ({ loggedInUser }) => {
         <h2 className={css.title}>Flashcards:</h2>
         <div className={css.display}>
           {desiredUser.flashcards.map((flashcard) => (
-            <div
-              className={cn(css.item, UserList.item)}
-              key={flashcard.id}
-              onClick={() => {
-                history.push(`/flashcards/${flashcard.set.id}/${flashcard.id}`);
-              }}
-              role="button"
-              tabIndex="0"
-            >
-              <div className={css.itemTitle}>
-                <h3>{flashcard.front}</h3>
-              </div>
-              <h5 className={css.within}>
-                from: <strong>{flashcard.set.title}</strong>
-              </h5>
-            </div>
+            <UserFlashcardItem key={flashcard.id} flashcard={flashcard} />
           ))}
         </div>
         <div className={css.gap} />

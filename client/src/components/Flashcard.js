@@ -1,5 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import cn from 'classnames';
+import useMousePosition from '../hooks/useMousePosition';
 import css from './Flashcard.module.css';
 import flashcardService from '../services/flashcardService';
 import LoadingFlashcardPlaceholder from './LoadingFlashcardPlaceholder';
@@ -10,39 +17,27 @@ const Flashcard = ({
   currentFlashcardIndex, // index
   canEdit,
 }) => {
-  const [mousePosition, setMousePosition] = useState({
-    xAxis: 0,
-    yAxis: 0,
-  });
-  const [transition, setTransition] = useState('none');
   const [flashcard, setFlashcard] = useState(null);
   const [flashcardInputText, setFlashcardInputText] = useState('');
   const [displayingFront, setDisplayingFront] = useState(true);
   const [flip, setFlip] = useState(false);
+  const {
+    handleMouseEnterExit,
+    handleMouseMove,
+    mousePosition,
+  } = useMousePosition(flip);
 
-  // create useMouse
-  // const {handleMouseEvents, mousePosition } = useMousePosition()
-
-  const divStyle = {
-    transform: `rotateY(${!flip ? mousePosition.xAxis - 5 : 0}deg) rotateX(${
-      displayingFront
-        ? 180 - -mousePosition.yAxis + 5
-        : (mousePosition.yAxis + 5) * 1.5
-    }deg)`,
-    WebkitTransform: `rotateY(${
-      !flip ? mousePosition.xAxis - 5 : 0
-    }deg) rotateX(${
-      displayingFront
-        ? 180 - -mousePosition.yAxis + 5
-        : (mousePosition.yAxis + 5) * 1.5
-    }deg)`,
-    MozTransform: `rotateY(${!flip ? mousePosition.xAxis - 5 : 0}deg) rotateX(${
-      displayingFront
-        ? 180 - -mousePosition.yAxis + 5
-        : (mousePosition.yAxis + 5) * 1.5
-    }deg)`,
-    transition,
-  };
+  const divStyle = useMemo(() => {
+    const rotateX = displayingFront
+      ? 180 + mousePosition.yAxis + 5
+      : (mousePosition.yAxis + 5) * 1.5;
+    const rotateY = !flip ? mousePosition.xAxis - 5 : 0;
+    return {
+      transform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
+      WebkitTransform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
+      MozTransform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
+    };
+  }, [mousePosition.xAxis, mousePosition.yAxis, displayingFront, flip]);
 
   useEffect(() => {
     const newFlashcard = flashcards[currentFlashcardIndex];
@@ -51,55 +46,33 @@ const Flashcard = ({
     setFlashcard(flashcards[currentFlashcardIndex] || null);
   }, [currentFlashcardIndex, flashcards]);
 
-  useEffect(() => {
-    if (flip) {
-      setTransition('all .5s ease-out');
-    }
-  }, [flip]);
-
-  const handleMouseMove = (e) => {
-    if (!flip) {
-      const xAxis = -(window.innerWidth / 2 - e.pageX) / 25;
-      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-      setMousePosition({ xAxis, yAxis });
-    }
-  };
-
-  const handleMouseEnter = () => {
-    setTransition('transform .5s ease-out');
-    setMousePosition({ xAxis: 0, yAxis: 0 });
-  };
-
-  const handleMouseLeave = () => {
-    // console.log('reset', e);
-    setTransition('transform .5s ease-out');
-    setMousePosition({ xAxis: 0, yAxis: 0 });
-  };
-
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     if (!canEdit) {
       // if not in edit mode, flip card
       // flip {displayingFront} to display back
       setDisplayingFront(!displayingFront);
-      setTransition('all .5s linear');
+
       setFlip(true);
       setTimeout(() => {
         setFlip(false);
       }, 500);
     }
-  };
+  }, [canEdit, displayingFront]);
 
   // TESTING SIDE
-  const handleTextEdit = (e) => {
-    if (canEdit) {
-      setFlashcard(
-        displayingFront
-          ? { ...flashcard, front: e.target.value }
-          : { ...flashcard, back: e.target.value }
-      );
-      setFlashcardInputText(e.target.value);
-    }
-  };
+  const handleTextEdit = useCallback(
+    (e) => {
+      if (canEdit) {
+        setFlashcard(
+          displayingFront
+            ? { ...flashcard, front: e.target.value }
+            : { ...flashcard, back: e.target.value }
+        );
+        setFlashcardInputText(e.target.value);
+      }
+    },
+    [canEdit, displayingFront, flashcard]
+  );
 
   const updateAndSaveFlashcard = () => {
     const flashcardToUpdate = flashcards[currentFlashcardIndex];
@@ -144,11 +117,11 @@ const Flashcard = ({
     }
   }, [canEdit]);
 
-  const moveTypingIndicatorToEnd = (ref) => {
+  const moveTypingIndicatorToEnd = useCallback((ref) => {
     ref.current.focus();
-    const lengthOfText = ref.current.value.length * 2;
-    ref.current.setSelectionRange(lengthOfText, lengthOfText);
-  };
+    const twiceSizeOfText = ref.current.value.length * 2;
+    ref.current.setSelectionRange(twiceSizeOfText, twiceSizeOfText);
+  }, []);
 
   const backTextRef = useRef();
   const frontTextRef = useRef();
@@ -163,24 +136,21 @@ const Flashcard = ({
     <div
       className={css.container}
       onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseEnterExit}
+      onMouseEnter={handleMouseEnterExit}
     >
       {!flashcard ? (
-        <LoadingFlashcardPlaceholder
-          mousePosition={mousePosition}
-          transition={transition}
-        />
+        <LoadingFlashcardPlaceholder mousePosition={mousePosition} />
       ) : (
         <div
-          className={css.card}
+          className={cn(css.card)}
           onClick={handleClick}
           style={divStyle}
           role="textbox"
           tabIndex="0"
           data-flashcard-element
         >
-          <div className={cn(css.face, css.front)} style={{ transition }}>
+          <div className={cn(css.face, css.front)}>
             <span
               className={cn(css.number, 'noselect')}
               data-card-number-element
@@ -203,7 +173,7 @@ const Flashcard = ({
               />
             </div>
           </div>
-          <div className={cn(css.face, css.back)} style={{ transition }}>
+          <div className={cn(css.face, css.back)}>
             <div className={cn(css.center, 'noselect')}>
               <textarea
                 type="text"

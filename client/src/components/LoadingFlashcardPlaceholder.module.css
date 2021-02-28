@@ -47,6 +47,5 @@
   color: rgba(1, 1, 1, 0.2);
   border-radius: 15px;
   background: white;
-  box-shadow: rgba(1, 1, 1, 0.3) 0 0 70px 17px,
-  rgba(1, 1, 1, 0.1) 0 0 50px 10px;
+  box-shadow: rgba(1, 1, 1, 0.3) 0 0 70px 17px, rgba(1, 1, 1, 0.1) 0 0 50px 10px;
 }

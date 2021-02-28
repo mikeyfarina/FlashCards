@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import css from './Sidebar.module.css';
 import setService from '../services/setService';
 import SetList from './SetList';
@@ -21,13 +21,13 @@ const Sidebar = ({
     setSidebarSearchText('');
   }, [currentSetIndex]);
 
-  const handleNewSet = async () => {
+  const handleNewSet = useCallback(async () => {
     const newSet = {
       title: 'new set',
     };
     const createdSet = await setService.createSet(newSet);
     setFlashcardSets(flashcardSets.concat(createdSet));
-  };
+  }, [flashcardSets]);
 
   return (
     <div className={css.container}>

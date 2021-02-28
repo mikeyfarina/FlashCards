@@ -1,18 +1,16 @@
-const config = require('./utils/config');
 const express = require('express');
-require('express-async-errors');
 const app = express();
+const mongoose = require('mongoose');
 const cors = require('cors');
-const path = require('path');
+const config = require('./utils/config');
+require('express-async-errors');
 
 const flashcardsRouter = require('./controllers/flashcards');
 const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
 const setsRouter = require('./controllers/sets');
-const testingRouter = require('./controllers/testing');
 const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');
-const mongoose = require('mongoose');
 
 logger.info('connecting to', config.MONGODB_URI);
 

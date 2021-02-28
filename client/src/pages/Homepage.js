@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import css from './Homepage.module.css';
 import CreateAccountPrompt from '../components/CreateAccountPrompt';
 import HomepageSet from '../components/HomepageSet';
@@ -7,6 +7,10 @@ import setService from '../services/setService';
 const Homepage = ({ flashcardSets, user }) => {
   const [searchText, setSearchText] = useState('');
   const [searchSets, setSearchSets] = useState([]);
+
+  const handleChange = useCallback(({ target }) => {
+    setSearchText(target.value);
+  }, []);
 
   useEffect(() => {
     setService.getAllSets().then((sets) => {
@@ -34,9 +38,7 @@ const Homepage = ({ flashcardSets, user }) => {
       <div className={css.search}>
         <input
           type="text"
-          onChange={({ target }) => {
-            setSearchText(target.value);
-          }}
+          onChange={handleChange}
           className={css.bar}
           placeholder="search flashcard sets..."
         />

@@ -1,0 +1,39 @@
+.option {
+  visibility: hidden;
+
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+
+  transition: all 0.1s ease-in;
+
+  opacity: 0;
+  border: #ececec 2px solid;
+  border-radius: 5px;
+  outline: none;
+}
+
+.displaying {
+  visibility: visible;
+
+  opacity: 1;
+}
+
+.option:hover {
+  cursor: pointer;
+  transform: translateY(-0.5vh) scaleY(1.02) scaleX(1.02);
+
+  opacity: 0.95;
+}
+
+.option:active {
+  cursor: pointer;
+  transform: translateY(0vh) scaleY(1) scaleX(1);
+
+  opacity: 0.95;
+}
+
+.pic {
+  width: 100%;
+  height: 100%;
+}

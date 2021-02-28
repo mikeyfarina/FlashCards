@@ -1,9 +1,8 @@
 const flashcardsRouter = require('express').Router();
-const objectID = require('mongodb').ObjectID;
+const jwt = require('jsonwebtoken');
 const Flashcard = require('../models/flashcard');
 const User = require('../models/user');
 const Set = require('../models/set');
-const jwt = require('jsonwebtoken');
 
 flashcardsRouter.get('/', async (req, res) => {
   const flashcards = await Flashcard.find({})
@@ -55,7 +54,7 @@ flashcardsRouter.delete('/:id', async (req, res) => {
 });
 
 flashcardsRouter.post('/', async (req, res) => {
-  const body = req.body;
+  const { body } = req;
 
   const decodedToken = jwt.verify(req.token, process.env.SECRET);
   if (!req.token || !decodedToken.id) {
@@ -101,8 +100,8 @@ flashcardsRouter.post('/', async (req, res) => {
 });
 
 flashcardsRouter.put('/:id', async (req, res) => {
-  const id = req.params.id;
-  const body = req.body;
+  const { body } = req;
+  const { id } = req.params;
   if (body === undefined) {
     return res.status(400).json({ error: 'content missing' });
   }

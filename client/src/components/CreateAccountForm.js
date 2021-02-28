@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import cn from 'classnames';
 import css from './CreateAccountForm.module.css';
@@ -20,58 +20,78 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
   const [success, setSuccess] = useState(false);
   const history = useHistory();
 
-  const handleError = (type, message) => {
-    setError({
-      ...error,
-      type,
-      message,
-    });
-    setTimeout(() => {
+  const handleError = useCallback(
+    (type, message) => {
       setError({
         ...error,
-        type: null,
-        message: null,
+        type,
+        message,
       });
-    }, 3000);
-  };
+      setTimeout(() => {
+        setError({
+          ...error,
+          type: null,
+          message: null,
+        });
+      }, 3000);
+    },
+    [error]
+  );
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
 
-    if (name === '') {
-      handleError('nameRequired', 'Name is required');
-    } else if (username === '') {
-      handleError('usernameRequired', 'Username is required');
-    } else if (password === '') {
-      handleError('passwordRequired', 'Password is required');
-    } else if (password !== confirmPassword) {
-      handleError('passwordMismatch', 'Passwords do not match');
-    } else {
-      userService.createAccount({ username, password, name }).then((result) => {
-        // eslint-disable-next-line no-underscore-dangle
-        if (result.errors && result._message === 'User validation failed') {
-          handleError('accountCreationError', 'Username already taken');
-        } else {
-          setSuccess(true);
-          loginService.login({ username, password }).then((authUser) => {
-            setUser(authUser);
-            // eslint-disable-next-line no-undef
-            window.localStorage.setItem(
-              'loggedFlashcardAppUser',
-              JSON.stringify(authUser)
-            );
-            flashcardService.setToken(authUser.token);
-            setService.setToken(authUser.token);
-            history.push(`/users/${authUser.username}`);
+      if (name === '') {
+        handleError('nameRequired', 'Name is required');
+      } else if (username === '') {
+        handleError('usernameRequired', 'Username is required');
+      } else if (password === '') {
+        handleError('passwordRequired', 'Password is required');
+      } else if (password !== confirmPassword) {
+        handleError('passwordMismatch', 'Passwords do not match');
+      } else {
+        userService
+          .createAccount({ username, password, name })
+          .then((result) => {
+            // eslint-disable-next-line no-underscore-dangle
+            if (result.errors && result._message === 'User validation failed') {
+              handleError('accountCreationError', 'Username already taken');
+            } else {
+              setSuccess(true);
+              loginService.login({ username, password }).then((authUser) => {
+                setUser(authUser);
+                // eslint-disable-next-line no-undef
+                window.localStorage.setItem(
+                  'loggedFlashcardAppUser',
+                  JSON.stringify(authUser)
+                );
+                flashcardService.setToken(authUser.token);
+                setService.setToken(authUser.token);
+                history.push(`/users/${authUser.username}`);
+              });
+              setTimeout(() => {
+                setCreateAccount(false);
+                setSuccess(false);
+              }, 3000);
+            }
           });
-          setTimeout(() => {
-            setCreateAccount(false);
-            setSuccess(false);
-          }, 3000);
-        }
-      });
-    }
-  };
+      }
+    },
+    [name, username, password, confirmPassword]
+  );
+
+  const handleLoginClick = useCallback(
+    (e) => {
+      e.stopPropagation();
+      if (standalone) {
+        history.push('/home/login');
+        return;
+      }
+      setCreateAccount(false);
+    },
+    [history, standalone]
+  );
 
   return (
     <>
@@ -133,15 +153,7 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
           </button>
         </>
         <p className={css.reminder}>Already have an account?</p>
-        <button
-          type="button"
-          className={ui.button}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (standalone) history.push('/home/login');
-            else setCreateAccount(false);
-          }}
-        >
+        <button type="button" className={ui.button} onClick={handleLoginClick}>
           Log in
         </button>
       </form>

@@ -1,9 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import cn from 'classnames';
 import css from './Set.module.css';
 import setService from '../services/setService';
+import SetItem from './SetItem';
 
 const save = ['fa', 'save'];
 const edit = ['fa', 'edit'];
@@ -24,9 +25,8 @@ const Set = ({
   const [setLength, setSetLength] = useState(0);
   const [setTitle, setSetTitle] = useState(set.title);
   const [canEditTitle, setCanEditTitle] = useState(false);
-  const [indexOfSet] = useState(index);
   const [currentFlashcardsInSet, setCurrentFlashcardsInSet] = useState(null);
-
+  const [currentSet, setCurrentSet] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -38,55 +38,63 @@ const Set = ({
     getCurrentSetFlashcards();
   }, [flashcards, set.id]);
 
-  const handleTitleClick = (e) => {
-    if (canEditTitle) return; // do nothing
-    e.stopPropagation();
-    const newIndex = flashcardSets.findIndex((s) => set.id === s.id);
-    setCurrentFlashcardIndex(0);
-    setCurrentSetIndex(newIndex);
-    history.push(`/flashcards/${set.id}/`);
-  };
+  const handleTitleClick = useCallback(
+    (e) => {
+      if (canEditTitle) return; // do nothing
+      e.stopPropagation();
+      const newIndex = flashcardSets.findIndex((s) => set.id === s.id);
+      setCurrentFlashcardIndex(0);
+      setCurrentSetIndex(newIndex);
+      history.push(`/flashcards/${set.id}/`);
+    },
+    [canEditTitle, flashcardSets, history]
+  );
 
   // switch edit mode when edit title button is clicked
-  const handleEditMode = async () => {
+  const handleEditMode = useCallback(async () => {
     setCanEditTitle(!canEditTitle);
     if (canEditTitle) {
       await setService.updateSetTitle(set.id, setTitle);
     }
-  };
+  }, [canEditTitle, set.id, setTitle]);
 
   // changes setTitle state to input
-  const handleTitleEdit = (e) => {
-    if (canEditTitle) {
-      setSetTitle(e.target.value);
-    }
-  };
+  const handleTitleEdit = useCallback(
+    (e) => {
+      if (canEditTitle) {
+        setSetTitle(e.target.value);
+      }
+    },
+    [canEditTitle]
+  );
 
-  const handleCardClick = (e, indexOfCardPreview) => {
-    currentFlashcardsInSet.find((card, i) =>
-      i === indexOfCardPreview && currentSetIndex === indexOfSet
-        ? setCurrentFlashcardIndex(indexOfCardPreview)
-        : ''
-    );
-  };
-
-  const handleDeleteSet = () => {
-    setService.deleteSet(set.id).then(() => {
-      const updatedSets = flashcardSets.filter((s) => s.id !== set.id);
-      setFlashcardSets(updatedSets);
-      if (currentSetIndex === 0 || currentSetIndex >= updatedSets.length - 1)
-        setCurrentSetIndex(0);
-      if (currentSetIndex <= updatedSets.length)
-        setCurrentSetIndex(currentSetIndex - 1);
-      console.log('deleted', currentSetIndex);
-    });
-  };
+  const handleDeleteSet = useCallback(
+    (e) => {
+      e.stopPropagation();
+      setService.deleteSet(set.id).then(() => {
+        const updatedSets = flashcardSets.filter((s) => s.id !== set.id);
+        setFlashcardSets(updatedSets);
+        console.log('deleted', currentSetIndex, updatedSets.length);
+        if (currentSetIndex === 0) {
+          setCurrentSetIndex(0);
+        }
+        if (currentSetIndex >= updatedSets.length - 1) {
+          setCurrentSetIndex(updatedSets.length - 1);
+        }
+        if (currentSetIndex <= updatedSets.length - 1) {
+          setCurrentSetIndex(currentSetIndex);
+        }
+      });
+    },
+    [set.id, currentSetIndex, flashcardSets]
+  );
 
   const setRef = useRef();
   useEffect(() => {
     if (index === currentSetIndex) {
       setRef.current.scrollIntoView({ behavior: 'smooth' });
     }
+    setCurrentSet(index === currentSetIndex);
   }, [currentSetIndex, index]);
 
   const cardContainerRef = useRef();
@@ -103,7 +111,9 @@ const Set = ({
   return (
     <div className={css.container} ref={setRef}>
       <div
-        className={cn(css.header, { [css.current]: index === currentSetIndex })}
+        className={cn(css.header, {
+          [css.current]: flashcardSets[currentSetIndex].id === set.id,
+        })}
         onClick={handleTitleClick}
         role="button"
         tabIndex="0"
@@ -115,7 +125,7 @@ const Set = ({
           disabled={!canEditTitle}
           onChange={handleTitleEdit}
         />
-        {loggedInUser && loggedInUser.username === set.username && (
+        {loggedInUser?.username === set?.username && (
           <>
             <button
               onClick={handleEditMode}
@@ -157,22 +167,15 @@ const Set = ({
         <div className={css.display}>
           {currentFlashcardsInSet
             ? currentFlashcardsInSet.map((card, i) => (
-                <div
+                <SetItem
                   key={card.id}
-                  className={cn(css.card, {
-                    [css.reading]:
-                      flashcards[currentFlashcardIndex] &&
-                      flashcards[currentFlashcardIndex].id === card.id,
-                  })}
-                  ref={(el) => {
-                    cardRefs.push(el);
-                  }}
-                  onClick={(e) => handleCardClick(e, i)}
-                  role="button"
-                  tabIndex="0"
-                >
-                  {card.front}
-                </div>
+                  card={card}
+                  indexOfCard={i}
+                  currentFlashcardIndex={currentFlashcardIndex}
+                  setCurrentFlashcardIndex={setCurrentFlashcardIndex}
+                  currentSet={currentSet}
+                  cardRefs={cardRefs}
+                />
               ))
             : 'loading...'}
         </div>

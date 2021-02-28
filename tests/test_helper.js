@@ -60,20 +60,15 @@ const flashcardsInDb = async () => {
 };
 
 const setsInDb = async () => {
-  const set = await Set.find({});
-  return set.map((set) => set.toJSON());
+  const setsFromDb = await Set.find({});
+  return setsFromDb.map((set) => set.toJSON());
 };
 
 const createAccount = async (newUserInfo) => {
-  //login and set token
+  // login and set token
   const user = new User(newUserInfo);
   const savedUser = await user.save();
   return savedUser;
-};
-
-const getToken = async () => {
-  if (!token) await login();
-  return token;
 };
 
 module.exports = {

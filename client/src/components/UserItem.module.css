@@ -1,0 +1,71 @@
+.item {
+  position: relative;
+
+  display: flex;
+
+  float: left;
+
+  width: 29%;
+  height: 15vh;
+  margin: 1.5vh 2%;
+  padding: 1% 2%;
+  padding: 1% 2%;
+
+  transition: all 0.1s ease-in;
+
+  border: 1px rgba(1, 1, 1, 0.2) solid;
+  border-radius: 8px;
+  outline: none;
+  background: white;
+  box-shadow: 0 0 20px rgb(1 1 1 / 10%), 0 0 5px rgb(1 1 1 / 30%);
+
+  scroll-margin-top: 2vh;
+  scroll-snap-align: start;
+  will-change: transform;
+}
+
+.itemTitle {
+  display: flex;
+  justify-content: center;
+
+  overflow: scroll;
+
+  width: 100%;
+  max-height: 80%;
+
+  text-overflow: ellipsis;
+}
+
+.size {
+  font-weight: lighter;
+
+  position: absolute;
+  right: 4%;
+  bottom: 4%;
+
+  color: darkgray;
+}
+
+.within {
+  font-weight: lighter;
+
+  position: absolute;
+  right: 4%;
+  bottom: 4%;
+
+  overflow: hidden;
+
+  max-width: 75%;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  color: darkgray;
+}
+
+@media all and (max-width: 560px) {
+  .item {
+    width: 90%;
+    margin: 2% 5%;
+  }
+}

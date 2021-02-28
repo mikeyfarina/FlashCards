@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import cn from 'classnames';
 import css from './LoginForm.module.css';
@@ -22,37 +22,48 @@ const LoginForm = ({ setUser, standalone }) => {
     setUser: PropTypes.func.isRequired,
   };
 
-  const handleLogin = async (event) => {
-    event.preventDefault();
-    try {
-      const user = await loginService.login({
-        username,
-        password,
-      });
-      console.log('user', user);
-      window.localStorage.setItem(
-        'loggedFlashcardAppUser',
-        JSON.stringify(user)
-      );
-      flashcardService.setToken(user.token);
-      setService.setToken(user.token);
-      setUsername('');
-      setPassword('');
-      setUser(user);
-      setSuccess(true);
-      setTimeout(() => {
-        setSuccess(false);
-        if (standalone) {
-          history.push('/home');
-        }
-      }, 3000);
-    } catch (ex) {
-      setError('Incorrect Username/Password');
-      setTimeout(() => {
-        setError(null);
-      }, 3000);
+  const handleLogin = useCallback(
+    async (event) => {
+      event.preventDefault();
+      try {
+        const user = await loginService.login({
+          username,
+          password,
+        });
+        console.log('user', user);
+        window.localStorage.setItem(
+          'loggedFlashcardAppUser',
+          JSON.stringify(user)
+        );
+        flashcardService.setToken(user.token);
+        setService.setToken(user.token);
+        setUsername('');
+        setPassword('');
+        setUser(user);
+        setSuccess(true);
+        setTimeout(() => {
+          setSuccess(false);
+          if (standalone) {
+            history.push('/home');
+          }
+        }, 3000);
+      } catch (ex) {
+        setError('Incorrect Username/Password');
+        setTimeout(() => {
+          setError(null);
+        }, 3000);
+      }
+    },
+    [username, password, standalone]
+  );
+
+  const handleCreateClick = useCallback(() => {
+    if (standalone) {
+      history.push('/home/createAccount');
+      return;
     }
-  };
+    setCreateAccount(true);
+  }, [history, standalone]);
 
   return (
     <div className={cn(css.container, 'noselect')}>
@@ -90,11 +101,7 @@ const LoginForm = ({ setUser, standalone }) => {
           </button>
           <button
             className={ui.button}
-            onClick={() =>
-              standalone
-                ? history.push('/home/createAccount')
-                : setCreateAccount(true)
-            }
+            onClick={handleCreateClick}
             type="button"
           >
             Create Account

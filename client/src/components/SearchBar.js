@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import css from './SearchBar.module.css';
 
 const SearchBar = ({ inputText, setInputText }) => {
-  const inputChangeHandler = (e) => {
+  const inputChangeHandler = useCallback((e) => {
     setInputText(e.target.value);
-  };
+  }, []);
 
   return (
     <div className={css.container}>

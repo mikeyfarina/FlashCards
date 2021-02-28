@@ -1,9 +1,6 @@
 const usersRouter = require('express').Router();
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
-const ObjectId = require('mongodb').ObjectId;
-const Flashcard = require('../models/flashcard');
-const Set = require('../models/set');
 
 usersRouter.get('/', async (req, res) => {
   const users = await User.find({})
@@ -48,7 +45,7 @@ usersRouter.get('/:username', async (req, res) => {
 });
 
 usersRouter.post('/', async (req, res) => {
-  const body = req.body;
+  const { body } = req;
 
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(body.password, saltRounds);
