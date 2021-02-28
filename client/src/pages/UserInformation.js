@@ -62,7 +62,7 @@ const UserInformation = ({ loggedInUser }) => {
             }
             alt="User Profile"
           />
-          {loggedInUser && loggedInUser.username === desiredUser.username && (
+          {loggedInUser?.username === desiredUser?.username && (
             <div
               className={css.change}
               onClick={handleClick}

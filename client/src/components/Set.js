@@ -125,7 +125,7 @@ const Set = ({
           disabled={!canEditTitle}
           onChange={handleTitleEdit}
         />
-        {loggedInUser && loggedInUser.username === set.username && (
+        {loggedInUser?.username === set?.username && (
           <>
             <button
               onClick={handleEditMode}
