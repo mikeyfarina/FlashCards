@@ -6,6 +6,7 @@ import UserList from '../styles/UserListItem.module.css';
 
 const UserSetItem = ({ set }) => {
   const history = useHistory();
+
   const handleClick = useCallback(() => {
     history.push(`/flashcards/${set.id}`);
   }, [history, set.id]);

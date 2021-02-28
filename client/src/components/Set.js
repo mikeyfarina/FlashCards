@@ -111,7 +111,9 @@ const Set = ({
   return (
     <div className={css.container} ref={setRef}>
       <div
-        className={cn(css.header, { [css.current]: index === currentSetIndex })}
+        className={cn(css.header, {
+          [css.current]: flashcardSets[currentSetIndex].id === set.id,
+        })}
         onClick={handleTitleClick}
         role="button"
         tabIndex="0"

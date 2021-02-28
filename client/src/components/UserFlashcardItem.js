@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import cn from 'classnames';
 import css from './UserItem.module.css';
@@ -21,7 +21,7 @@ const UserFlashcardItem = ({ flashcard }) => {
         <h3>{flashcard.front}</h3>
       </div>
       <h5 className={css.within}>
-        from: <strong>{flashcard.set.title}</strong>
+        from: <strong>{flashcard.set && flashcard.set.title}</strong>
       </h5>
     </div>
   );

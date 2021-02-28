@@ -44,6 +44,7 @@ const Flashcards = ({
 
       const setId = flashcardSets[currentSetIndex].id;
 
+      console.log(setId);
       const newFlashcard = {
         front: 'front',
         back: 'back',

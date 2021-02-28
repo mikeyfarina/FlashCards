@@ -24,7 +24,9 @@ const SetList = ({
       setSetListSets(flashcardSets);
     } else {
       const sets = flashcardSets
-        .filter((set) => set.title.includes(sidebarSearchText, 0))
+        .filter((set) =>
+          set.title.toLowerCase().includes(sidebarSearchText.toLowerCase(), 0)
+        )
         .sort(
           (a, b) =>
             a.title.indexOf(sidebarSearchText) -
