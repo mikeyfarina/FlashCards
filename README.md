@@ -53,47 +53,43 @@ The root directory is an Express server and inside of the client folder is a fro
 `/flashcard.js`
 This is the model used for flashcard representation in the database.
 
--`front`
+- `front`
   - `String`, front of flashcard. 
-
--`back`
+- `back`
   - `String`, back of flashcard. 
-
--`date`
+- `date`
   - `Date`, time flashcard was created. 
-
--`user`
+- `user`
   - `ObjectId`, Id of user who created flashcard. 
-
--`set`
+- `set`
   - `ObjectId`, Id of set that the flashcard belongs to. 
-  
+ 
 `/set.js`
 This is the model used for set representation in the database.
 
--`title`
+- `title`
   - `String`, title of set. 
--`user`
+- `user`
   - `ObjectId`, Id of user who created set. 
--`username`
+- `username`
   - `String`, username of author of set.
--`flashcards`
+- `flashcards`
   - Array of `ObjectId`, Ids of flashcards that belong to the set. 
 
 `/user.js`
 This is the model used for user representation in the database.
 
--`username`
+- `username`
   - `String`, username of user. 
--`name`
+- `name`
   - `String`, name of user. 
--`passwordHash`
+- `passwordHash`
   - `String`, Encrypted hash of password used to protect user information and decrypted when needed using `bcrypt`.
--`flashcards`
+- `flashcards`
   - Array of `ObjectId`, Ids of flashcards that were created by the user. 
--`sets`
+- `sets`
   - Array of `ObjectId`, Ids of sets that were created by the user.
--`photoNumber`
+- `photoNumber`
   -`Number`, profile photo option used on user's profile page.
 
 #### `/controllers`
