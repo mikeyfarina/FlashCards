@@ -14,7 +14,7 @@ The express server will start with nodemon to track any changes on the back end.
 
 ### To start client:
 
-In a new terminal, enter the client directory and run: 
+In a new terminal, enter the `/client` directory and run: 
 ```
 npm start
 ```
