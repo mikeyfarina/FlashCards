@@ -1,10 +1,10 @@
-# Flashcard
+# Flashcards
 
-### Full-Stack flashcards application developed with React, Node.js, Express, and MongoDB
+### Full-Stack flashcards application developed with React, Express, and MongoDB
 
-## To develop locally
+## To develop locally:
 
-### To start server
+### To start server:
 
 in `/`:
 ```
@@ -12,14 +12,14 @@ npm run dev
 ```
 The express server will start with nodemon to track any changes on the back end.
 
-### To start client
+### To start client:
 
 In a new terminal, enter the client directory and run: 
 ```
 npm start
 ```
 
-### To run tests
+### To run tests:
 
 This application contains unit and integration tests through Jest as well as End-to-End testing with Cypress.
 
@@ -42,15 +42,15 @@ npm run cypress:open
 ```
 This starts cypress and opens a new window with GUI explaining the tests.
 
-## Architecture of application
+## Architecture of application:
 
 The root directory is an Express server and inside of the client folder is a front end applcation developed in React.
 
-### Express Server
+### Express Server:
 
-#### `/models`
+#### `/models`:
 
-`/flashcard.js`
+`/flashcard.js`:
 This is the model used for flashcard representation in the database.
 
 - `front`
@@ -64,7 +64,7 @@ This is the model used for flashcard representation in the database.
 - `set`
   - `ObjectId`, Id of set that the flashcard belongs to. 
  
-`/set.js`
+`/set.js`:
 This is the model used for set representation in the database.
 
 - `title`
@@ -76,7 +76,7 @@ This is the model used for set representation in the database.
 - `flashcards`
   - Array of `ObjectId`, Ids of flashcards that belong to the set. 
 
-`/user.js`
+`/user.js`:
 This is the model used for user representation in the database.
 
 - `username`
@@ -92,9 +92,9 @@ This is the model used for user representation in the database.
 - `photoNumber`
   -`Number`, profile photo option used on user's profile page.
 
-#### `/controllers`
+#### `/controllers`:
 
-`/flashcards.js`
+`/flashcards.js`:
 This controller is responsible for all requests that require information regarding flashcards. 
 
 - `/` - GET 
@@ -108,7 +108,7 @@ This controller is responsible for all requests that require information regardi
 - `/:id` - PUT
   - updates flashcard with information passed into request after authenticating that the editing user is the creator.
 
-`/sets.js`
+`/sets.js`:
 This controller is responsible for all requests that require information regarding sets. 
 
 - `/` - GET 
@@ -124,7 +124,7 @@ This controller is responsible for all requests that require information regardi
 - `/:id` - PATCH
   - updates title of set with data passed into request after authenticating that the editing user is the creator.
 
-`/users.js`
+`/users.js`:
 This controller is responsible for all requests that require information regarding users. 
 
 - `/` - GET 
@@ -138,7 +138,7 @@ This controller is responsible for all requests that require information regardi
 - `/:username/profile` - PATCH
   - updates profile picture of user with data passed into request.
 
-`/login.js`
+`/login.js`:
 This controller is responsible for all requests that require information regarding login. 
 
 - `/` - POST
@@ -146,30 +146,33 @@ This controller is responsible for all requests that require information regardi
     - validating that `username` exists 
     - comparing plain-text password with decoded password hash using `bcrypt`.
 
-`/testing.js`
+`/testing.js`:
 This controller is responsible for all requests that require information regarding testing. 
 
 - `/reset` - POST
   - wipes entire `Flashcard`, `Set`, and `User` databases
   - only functional when `NODE_ENV=test`
 
-### React Frontend
+### React Frontend:
 
-#### `within /client/src`
+#### `within /client/src`:
 
-##### `/components`
+##### `App.js`:
+This component contains the `react-router` routes that allow different pages to be loaded based on the current URL.
+
+##### `/components`:
 This folder holds all of the React components used for the frontend. The folder also contains each component's css module.
 
-##### `/hooks`
+##### `/hooks`:
 This folder contains the `useMousePosition` hook that is responsible for the hover effect on the flashcard.
 
-##### `/images/clipart`
+##### `/images/clipart`:
 This folder contains the image art for the `CreateAccountPrompt` component that displays on the homescreen if there is no user currently logged in.
 
-##### `/images/portraits`
+##### `/images/portraits`:
 This folder contains the six profile photo options for a users profile page.
 
-##### `/pages`
+##### `/pages`:
 This folder contains the three pages that `react-router` utilizes to display different pages on different URLs.
 - The three pages are:
   - `FlashcardsDisplay`
@@ -182,14 +185,11 @@ This folder contains the three pages that `react-router` utilizes to display dif
   - `UserInformation`
     - This is a user's profile page.
     - It displays all of a specific user's created flashcards and sets.
-##### `/services`
+##### `/services`:
 This folder contains helpful services that help ease communication from a component to the server by utilizing routes specified in `/controllers/`.
 
-##### `/styles`
+##### `/styles`:
 This folder contains global css styles as well as a css module for `ui` such as `button` or `input`
 
-##### `/utils`
+##### `/utils`:
 This folder contains a helper that imports all of the profile photo options from `/images/portraits` and formats them into an array. 
-
-##### `App.js`
-This component contains the `react-router` routes that allow different pages to be loaded based on the current URL.
