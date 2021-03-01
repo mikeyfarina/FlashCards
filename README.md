@@ -152,3 +152,44 @@ This controller is responsible for all requests that require information regardi
 - `/reset` - POST
   - wipes entire `Flashcard`, `Set`, and `User` databases
   - only functional when `NODE_ENV=test`
+
+### React Frontend
+
+#### `within /client/src`
+
+##### `/components`
+This folder holds all of the React components used for the frontend. The folder also contains each component's css module.
+
+##### `/hooks`
+This folder contains the `useMousePosition` hook that is responsible for the hover effect on the flashcard.
+
+##### `/images/clipart`
+This folder contains the image art for the `CreateAccountPrompt` component that displays on the homescreen if there is no user currently logged in.
+
+##### `/images/portraits`
+This folder contains the six profile photo options for a users profile page.
+
+##### `/pages`
+This folder contains the three pages that `react-router` utilizes to display different pages on different URLs.
+- The three pages are:
+  - `FlashcardsDisplay`
+    - This is the main page of the application. 
+    - This page displays a desired set of flashcards, and shows previews of all flashcards on the sidebar.
+  - `Homepage`
+    - This page displays the component `CreateAccountPrompt` if no one is logged in. 
+    - There is a search bar to filter through all existing sets. 
+    - A grid display of all existing flashcard sets that contain links to the author's page as well as links that allow for opening a set to a specific flashcard.
+  - `UserInformation`
+    - This is a user's profile page.
+    - It displays all of a specific user's created flashcards and sets.
+##### `/services`
+This folder contains helpful services that help ease communication from a component to the server by utilizing routes specified in `/controllers/`.
+
+##### `/styles`
+This folder contains global css styles as well as a css module for `ui` such as `button` or `input`
+
+##### `/utils`
+This folder contains a helper that imports all of the profile photo options from `/images/portraits` and formats them into an array. 
+
+##### `App.js`
+This component contains the `react-router` routes that allow different pages to be loaded based on the current URL.
