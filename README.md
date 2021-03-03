@@ -48,7 +48,7 @@ The root directory is an Express server and inside of the client folder is a fro
 
 ### Express Server:
 
-#### `/models`:
+#### [`/models`](/models):
 
 `/flashcard.js`:
 This is the model used for flashcard representation in the database.
@@ -60,7 +60,7 @@ attribute | type | description
 `date` | `Date` | time flashcard was created. 
 `user` | `ObjectId` | id of user who created flashcard. 
 `set` | `ObjectId` | id of set that the flashcard belongs to. 
- 
+
 `/set.js`:
 This is the model used for set representation in the database.
 
@@ -83,7 +83,7 @@ attribute | type | description
 `sets` | Array of `ObjectId` | ids of sets that were created by the user.
 `photoNumber` | `Number` | profile photo option used on user's profile page.
 
-#### `/controllers`:
+#### [`/controllers`](/controllers):
 
 `/flashcards.js`:
 This controller is responsible for all requests that require information regarding flashcards. 
@@ -135,24 +135,24 @@ route | method | description
 
 ### React Frontend:
 
-#### `within /client/src`:
+#### within [`/client/src`](/src):
 
-##### `App.js`:
+##### [`App.js`](App.js):
 This component contains the `react-router` routes that allow different pages to be loaded based on the current URL.
 
-##### `/components`:
+##### [`/components`](/components):
 This folder holds all of the React components used for the frontend. The folder also contains each component's css module.
 
-##### `/hooks`:
+##### [`/hooks`](/hooks):
 This folder contains the `useMousePosition` hook that is responsible for the hover effect on the flashcard.
 
-##### `/images/clipart`:
+##### [`/images/clipart`](/clipart):
 This folder contains the image art for the `CreateAccountPrompt` component that displays on the homescreen if there is no user currently logged in.
 
-##### `/images/portraits`:
+##### [`/images/portraits`](/portraits):
 This folder contains the six profile photo options for a users profile page.
 
-##### `/pages`:
+##### [`/pages`](/pages):
 This folder contains the three pages that `react-router` utilizes to display different pages on different URLs.
 - The three pages are:
   - `FlashcardsDisplay`
@@ -165,11 +165,11 @@ This folder contains the three pages that `react-router` utilizes to display dif
   - `UserInformation`
     - This is a user's profile page.
     - It displays all of a specific user's created flashcards and sets.
-##### `/services`:
+##### [`/services`](/services):
 This folder contains helpful services that help ease communication from a component to the server by utilizing routes specified in `/controllers/`.
 
-##### `/styles`:
+##### [`/styles`](/styles):
 This folder contains global css styles as well as a css module for `ui` such as `button` or `input`
 
-##### `/utils`:
+##### [`/utils`](/utils):
 This folder contains a helper that imports all of the profile photo options from `/images/portraits` and formats them into an array. 
