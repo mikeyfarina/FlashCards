@@ -50,88 +50,88 @@ The root directory is an Express server and inside of the client folder is a fro
 
 #### [`/models`](/models):
 
-`/flashcard.js`:
+[`/flashcard.js`](/models/flashcard):
 This is the model used for flashcard representation in the database.
 
-attribute | type | description
----       | ---  | ---
-`front` | `String` | front of flashcard.
-`back` | `String` | back of flashcard. 
-`date` | `Date` | time flashcard was created. 
-`user` | `ObjectId` | id of user who created flashcard. 
-`set` | `ObjectId` | id of set that the flashcard belongs to. 
+attribute | type       | description
+---       | ---        | ---
+`front`   | `String`   | front of flashcard.
+`back`    | `String`   | back of flashcard. 
+`date`    | `Date`     | time flashcard was created. 
+`user`    | `ObjectId` | id of user who created flashcard. 
+`set`     | `ObjectId` | id of set that the flashcard belongs to. 
 
-`/set.js`:
+[`/set.js`](/models/set):
 This is the model used for set representation in the database.
 
-attribute | type | description
----       | ---  | ---
-`title` | `String` | title of set. 
-`user` | `ObjectId` | id of user who created set. 
-`username` | `String` | username of author of set.
+attribute    | type                | description
+---          | ---                 | ---
+`title`      | `String`            | title of set. 
+`user`       | `ObjectId`          | id of user who created set. 
+`username`   | `String`            | username of author of set.
 `flashcards` | Array of `ObjectId` | ids of flashcards that belong to the set. 
 
-`/user.js`:
+[`/user.js`](/models/user):
 This is the model used for user representation in the database.
 
-attribute | type | description
----       | ---  | ---
-`username` | `String` | username of user. 
-`name` | `String` | name of user. 
-`passwordHash` | `String` | encrypted hash of password used to protect user information and decrypted when needed using `bcrypt`.
-`flashcards` | Array of `ObjectId` |  ids of flashcards that were created by the user. 
-`sets` | Array of `ObjectId` | ids of sets that were created by the user.
-`photoNumber` | `Number` | profile photo option used on user's profile page.
+attribute      | type                | description
+---            | ---                 | ---
+`username`     | `String`            | username of user. 
+`name`         | `String`            | name of user. 
+`passwordHash` | `String`            | encrypted hash of password used to protect user information and decrypted when needed using `bcrypt`.
+`flashcards`   | Array of `ObjectId` |  ids of flashcards that were created by the user. 
+`sets`         | Array of `ObjectId` | ids of sets that were created by the user.
+`photoNumber`  | `Number`            | profile photo option used on user's profile page.
 
 #### [`/controllers`](/controllers):
 
-`/flashcards.js`:
+[`/flashcards.js`](/controllers/flashcards.js):
 This controller is responsible for all requests that require information regarding flashcards. 
 
-route | method | description
- ---  |  ---   |    ---   
-`/` | GET | returns all flashcards in database.
-`/:id` | GET | returns flashcard with matching id or returns 404 if none exist.
-`/` | POST | creates a flashcard with `front`, `back`, `set.id`, and the user token received by request and decoded with `JSONWebToken`.
+route  | method | description
+---    | ---    | ---   
+`/`    | GET    | returns all flashcards in database.
+`/:id` | GET    | returns flashcard with matching id or returns 404 if none exist.
+`/`    | POST   | creates a flashcard with `front`, `back`, `set.id`, and the user token received by request and decoded with `JSONWebToken`.
 `/:id` | DELETE | deletes a flashcard with matching id from the database and removes the relation from `Set` and `User`.
-`/:id` | PUT | updates flashcard with information passed into request after authenticating that the editing user is the creator.
+`/:id` | PUT    | updates flashcard with information passed into request after authenticating that the editing user is the creator.
 
-`/sets.js`:
+[`/sets.js`](/controllers/sets.js):
 This controller is responsible for all requests that require information regarding sets. 
 
-route | method | description
- ---  |  ---   |    ---   
-`/` | GET | returns all sets in database.
-`/:id` | GET | returns set with matching id or returns 404 if none exist.
+route  | method | description
+---    | ---    | ---   
+`/`    | GET    | returns all sets in database.
+`/:id` | GET    | returns set with matching id or returns 404 if none exist.
 `/:id/flashcards` | GET | returns all flashcards within set that matches id or returns 404 if no flashcards exist.
-`/` | POST | creates a set with `title` and the user token received by request and decoded with `JSONWebToken`.
+`/`    | POST   | creates a set with `title` and the user token received by request and decoded with `JSONWebToken`.
 `/:id` | DELETE | deletes a set with matching id from the database and removes deletes all flashcards that were within then deleted set from `User`.
-`/:id` | PATCH | updates title of set with data passed into request after authenticating that the editing user is the creator.
+`/:id` | PATCH  | updates title of set with data passed into request after authenticating that the editing user is the creator.
 
-`/users.js`:
+[`/users.js`](/controllers/users.js):
 This controller is responsible for all requests that require information regarding users. 
 
-route | method | description
- ---  |  ---   |    ---   
-`/` | GET | returns all users in database.
-`/:username` | GET | returns user with matching `username` or returns 404 if none exist.
-`/` | POST | creates a user with `username` and `password` from request.
-`/:id` | DELETE | deletes a user with matching id from the database.
-`/:username/profile` | PATCH | updates profile picture of user with data passed into request.
+route                | method | description
+---                  | ---    | ---   
+`/`                  | GET    | returns all users in database.
+`/:username`         | GET    | returns user with matching `username` or returns 404 if none exist.
+`/`                  | POST   | creates a user with `username` and `password` from request.
+`/:id`               | DELETE | deletes a user with matching id from the database.
+`/:username/profile` | PATCH  | updates profile picture of user with data passed into request.
 
-`/login.js`:
+[`/login.js`](/controllers/login.js):
 This controller is responsible for all requests that require information regarding login. 
 
 route | method | description
- ---  |  ---   |    ---   
-`/` | POST | logs in a user after ensuring information is correct by:<br> &emsp; - validating that `username` exists<br> &emsp; - comparing plain-text password with decoded password hash using `bcrypt`.
+---   | ---    | ---   
+`/`   | POST   | logs in a user after ensuring information is correct by:<br> &emsp; - validating that `username` exists<br> &emsp; - comparing plain-text password with decoded password hash using `bcrypt`.
 
-`/testing.js`:
+[`/testing.js`](/controllers/testing.js):
 This controller is responsible for all requests that require information regarding testing. 
 
-route | method | description
- ---  |  ---   |    ---   
-`/reset` | POST | - wipes entire `Flashcard`, `Set`, and `User` databases<br> - only functional when `NODE_ENV=test`
+route    | method | description
+---      | ---    | ---   
+`/reset` | POST   | - wipes entire `Flashcard`, `Set`, and `User` databases<br> - only functional when `NODE_ENV=test`
 
 ### React Frontend:
 
@@ -154,17 +154,12 @@ This folder contains the six profile photo options for a users profile page.
 
 ##### [`/pages`](/pages):
 This folder contains the three pages that `react-router` utilizes to display different pages on different URLs.
-- The three pages are:
-  - `FlashcardsDisplay`
-    - This is the main page of the application. 
-    - This page displays a desired set of flashcards, and shows previews of all flashcards on the sidebar.
-  - `Homepage`
-    - This page displays the component `CreateAccountPrompt` if no one is logged in. 
-    - There is a search bar to filter through all existing sets. 
-    - A grid display of all existing flashcard sets that contain links to the author's page as well as links that allow for opening a set to a specific flashcard.
-  - `UserInformation`
-    - This is a user's profile page.
-    - It displays all of a specific user's created flashcards and sets.
+
+name                | description
+ ---                | ---
+`FlashcardsDisplay` | - This is the main page of the application.<br>- This page displays a desired set of flashcards, and shows previews of all flashcards on the sidebar.
+`Homepage`          | - This page displays the component `CreateAccountPrompt` if no one is logged in.<br> - There is a search bar to filter through all existing sets.<br> - A grid display of all existing flashcard sets that contain links to the author's page as well as links that allow for opening a set to a specific flashcard.
+`UserInformation`   | - This is a user's profile page.<br> - It displays all of a specific user's created flashcards and sets.
 ##### [`/services`](/services):
 This folder contains helpful services that help ease communication from a component to the server by utilizing routes specified in `/controllers/`.
 
