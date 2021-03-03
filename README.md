@@ -50,7 +50,7 @@ The root directory is an Express server and inside of the client folder is a fro
 
 #### [`/models`](/models):
 
-[`/flashcard.js`](/models/flashcard):
+[`/flashcard.js`](/models/flashcard.js):
 This is the model used for flashcard representation in the database.
 
 attribute | type       | description
@@ -61,7 +61,7 @@ attribute | type       | description
 `user`    | `ObjectId` | id of user who created flashcard. 
 `set`     | `ObjectId` | id of set that the flashcard belongs to. 
 
-[`/set.js`](/models/set):
+[`/set.js`](/models/set.js):
 This is the model used for set representation in the database.
 
 attribute    | type                | description
@@ -71,7 +71,7 @@ attribute    | type                | description
 `username`   | `String`            | username of author of set.
 `flashcards` | Array of `ObjectId` | ids of flashcards that belong to the set. 
 
-[`/user.js`](/models/user):
+[`/user.js`](/models/user.js):
 This is the model used for user representation in the database.
 
 attribute      | type                | description
