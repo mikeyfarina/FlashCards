@@ -123,34 +123,38 @@ const Flashcards = ({
           </div>
         )}
         <CardSelection
+          set={flashcardSets?.[currentSetIndex]}
           flashcards={flashcards}
           currentFlashcardIndex={currentFlashcardIndex}
           setCurrentFlashcardIndex={setCurrentFlashcardIndex}
         />
       </div>
+
       <div className={css.display}>
-        <button
-          className={css.button}
-          onClick={handlePreviousCardClick}
-          type="button"
-          data-previous-card-button
-        >
-          {'\u261a'}
-        </button>
+        <div className={css.displayButtons}>
+          <button
+            className={css.button}
+            onClick={handlePreviousCardClick}
+            type="button"
+            data-previous-card-button
+          >
+            {'\u261a'}
+          </button>
+          <button
+            onClick={handleNextCardClick}
+            className={css.button}
+            type="button"
+            data-next-card-button
+          >
+            {'\u261b'}
+          </button>
+        </div>
         <Flashcard
           canEdit={canEdit}
           currentFlashcardIndex={currentFlashcardIndex}
           flashcards={flashcards || []}
           setFlashcards={setFlashcards}
         />
-        <button
-          onClick={handleNextCardClick}
-          className={css.button}
-          type="button"
-          data-next-card-button
-        >
-          {'\u261b'}
-        </button>
       </div>
     </div>
   );

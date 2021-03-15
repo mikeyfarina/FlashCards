@@ -1,187 +1,56 @@
 .container {
-  z-index: 2;
-
-  display: contents;
-
-  width: 90%;
-  min-width: 90%;
-
-  background: #5da2d5;
-  background-color: aliceblue;
 }
 
 .tools {
-  z-index: 3;
-
-  display: flex;
-  justify-content: space-between;
-
-  min-width: 100%;
-  height: 100%;
-  max-height: 100%;
-  padding: 1vh;
-  padding-left: 0;
-
-  background: #ececec;
-
-  grid-area: 1 / 2 / 2 / 3;
 }
 
 .buttons {
-  display: grid;
-
-  min-width: 15vw;
-  max-width: 15vw;
-
-  grid-template-columns: repeat(3, 1fr);
 }
 
 .create,
 .edit,
 .delete {
-  font-size: 0.75vw;
-
-  width: 90%;
-  height: 100%;
-
-  cursor: pointer;
-
-  border: 3px #646c80 solid;
-  border-radius: 10px;
-  outline: none;
-  background: white;
 }
 
 .create:active,
 .edit:active,
 .delete:active {
-  border: 5px white solid;
-  background: lightgray;
 }
 
 .delete:hover {
-  transition: all 0.1s ease-in;
-
-  color: white;
-  background: red;
 }
 
 .display {
-  display: grid;
+  margin-top: 2rem;
+}
 
-  width: 70%;
-  height: 55%;
-  margin: auto;
-  padding: 1.5vh 1.5%;
-
-  grid-area: 2 / 2 / 4 / 3;
-  grid-template-columns: 1fr 45vw 1fr;
+.displayButtons {
+  text-align: center;
+  padding: 1rem;
 }
 
 .button {
+  padding: 0.5rem 2rem;
   font-size: 4rem;
-
-  display: flex;
-  align-items: center;
-  align-self: center;
-  justify-content: center;
-
-  width: 100%;
-  height: 50%;
-  margin: auto;
-  padding: 10% 3%;
-
+  background: var(--color-yellow);
+  border: var(--color-white);
+  border-radius: 4px;
+  color: var(--color-white);
   cursor: pointer;
-  transition: background-position 1s;
+}
 
-  color: white;
-  border: 4px solid white;
-  border-radius: 5px;
+.button:focus {
   outline: none;
-  background: #8590aa;
-  background-size: 200% 200%;
 }
 
-@media all and (min-width: 901px) and (max-width: 1250px) {
-  .display {
-    width: 95%;
-    height: 90%;
-
-    grid-template-columns: 1fr 56vw 1fr;
-  }
-
-  .buttons {
-    width: 20vw;
-    min-width: 20vw;
-    max-width: 20vw;
-  }
-
-  .button {
-    width: 80%;
-    height: 35%;
-  }
+.button:hover {
+  transform: scale(1.025) translateY(-1px);
 }
 
-@media all and (min-width: 561px) and (max-width: 900px) {
-  .display {
-    width: 95%;
-    height: 75%;
-
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 3fr 2fr;
-  }
-
-  .buttons {
-    min-width: 30vw;
-    max-width: 30vw;
-  }
-
-  .button {
-    width: 60%;
-    height: 45%;
-    padding: 0;
-  }
+.button:active {
+  transform: scale(1) translateY(0px);
 }
 
-@media all and (max-width: 560px) {
-  .tools {
-    display: grid;
-
-    padding-left: 1%;
-
-    grid-template-columns: repeat(3, 1fr) 3fr;
-  }
-
-  .buttons {
-    display: contents;
-  }
-
-  .buttons > button {
-    font-size: 2vw;
-  }
-
-  .create,
-  .edit,
-  .delete {
-    font-size: 2vw;
-
-    border: 2px #646c80 solid;
-    border-radius: 6px;
-  }
-
-  .display {
-    width: 95%;
-    height: 100%;
-    max-height: 100%;
-    margin: 0 auto;
-
-    grid-area: 2 / 1 / 3 / 3;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 2fr 1fr;
-  }
-
-  .button {
-    width: 90%;
-    margin: auto;
-  }
+.button:not(:last-child) {
+  margin-right: 1rem;
 }

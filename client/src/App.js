@@ -1,3 +1,4 @@
+import './styles/normalize.css';
 import './styles/global.css';
 import {
   Switch,
@@ -71,6 +72,7 @@ const App = () => {
           {`hello, ${user.username}`}
         </Link>
       </div>
+
       <button
         onClick={handleLogout}
         className={css.logoutBtn}
@@ -95,17 +97,16 @@ const App = () => {
   }, [history]);
 
   return (
-    <div>
-      <header>
+    <>
+      <header className={css.container}>
         <div className={css.titleContainer}>
-          <div
+          <button
             className={cn(css.title, 'noselect')}
             onClick={goHome}
-            role="button"
-            tabIndex="0"
+            type="button"
           >
             <strong>Flashcards</strong>
-          </div>
+          </button>
         </div>
         {user ? logoutDiv() : loginToggle()}
       </header>
@@ -157,7 +158,7 @@ const App = () => {
           />
         </Route>
       </Switch>
-    </div>
+    </>
   );
 };
 
