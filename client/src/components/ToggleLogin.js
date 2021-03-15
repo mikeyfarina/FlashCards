@@ -21,20 +21,9 @@ const ToggleLogin = React.forwardRef((props, ref) => {
         { [css.invisible]: !isVisible }
       )}
     >
-      <div
-        className={cn(
-          { [css.untoggled]: isVisible },
-          { [css.toggled]: !isVisible }
-        )}
-      >
-        <button
-          onClick={toggleVisibility}
-          className={css.loginBtn}
-          type="button"
-        >
-          login
-        </button>
-      </div>
+      <button onClick={toggleVisibility} className={css.loginBtn} type="button">
+        login
+      </button>
       <div
         className={cn(
           css.toggle,

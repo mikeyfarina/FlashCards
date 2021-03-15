@@ -39,14 +39,13 @@ const Homepage = ({ flashcardSets, user }) => {
         <input
           type="text"
           onChange={handleChange}
-          className={css.bar}
           placeholder="search flashcard sets..."
         />
       </div>
       <div className={css.display}>
         <div className={css.shape} />
 
-        <div className={css.sets}>
+        <ul className={css.sets}>
           {searchSets ? (
             searchSets.map((set) => (
               <li key={set.id}>
@@ -54,9 +53,9 @@ const Homepage = ({ flashcardSets, user }) => {
               </li>
             ))
           ) : (
-            <div>Loading Flashcard Sets</div>
+            <li>Loading Flashcard Sets</li>
           )}
-        </div>
+        </ul>
       </div>
     </div>
   );
