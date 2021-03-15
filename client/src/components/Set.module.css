@@ -6,15 +6,11 @@
 }
 
 .header {
+  white-space: nowrap;
 }
 
 .header:focus {
-}
-
-.header:hover {
-}
-
-.current {
+  outline: none;
 }
 
 .title {

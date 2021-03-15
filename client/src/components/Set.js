@@ -121,6 +121,7 @@ const Set = ({
         role="button"
         tabIndex="-1"
       >
+        {currentSet && '\u2022 '}
         <input
           className={cn(css.title, { [css.editing]: canEditTitle })}
           type="text"
