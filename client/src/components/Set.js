@@ -70,6 +70,9 @@ const Set = ({
 
   const handleDeleteSet = useCallback(
     (e) => {
+      if (!window.confirm(`Are you sure you want to delete '${set.title}'?`)) {
+        return;
+      }
       e.stopPropagation();
       setService.deleteSet(set.id).then(() => {
         const updatedSets = flashcardSets.filter((s) => s.id !== set.id);
