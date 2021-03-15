@@ -104,7 +104,7 @@ const LoginForm = ({ setUser, standalone }) => {
             onClick={handleCreateClick}
             type="button"
           >
-            Create Account
+            Or Create Account
           </button>
         </form>
       ) : (

@@ -35,20 +35,22 @@ const HomepageSet = ({ set }) => {
           />
         ))}
       </div>
-      {set.flashcards.length > 3 && (
-        <div
-          className={css.ellipsis}
+
+      {!showAllFlashcards && set.flashcards.length > 3 && (
+        <button
+          className={css.more}
           onClick={handleShowMoreOptions}
-          role="button"
-          tabIndex="0"
+          type="button"
         >
-          ...
-        </div>
+          Click for more
+        </button>
       )}
-      <h5 className={css.size}>
+
+      <div className={css.size}>
         Size: <strong>{set.flashcards.length || 0}</strong>
-      </h5>
-      <h5 className={css.author}>
+      </div>
+
+      <div className={css.author}>
         Created By:{' '}
         <Link
           to={`/users/${set.username}`}
@@ -57,7 +59,7 @@ const HomepageSet = ({ set }) => {
         >
           <strong>{set.username}</strong>
         </Link>
-      </h5>
+      </div>
     </div>
   );
 };

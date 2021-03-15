@@ -116,7 +116,7 @@ const Set = ({
         })}
         onClick={handleTitleClick}
         role="button"
-        tabIndex="0"
+        tabIndex="-1"
       >
         <input
           className={cn(css.title, { [css.editing]: canEditTitle })}
@@ -125,43 +125,42 @@ const Set = ({
           disabled={!canEditTitle}
           onChange={handleTitleEdit}
         />
-        {loggedInUser?.username === set?.username && (
-          <>
-            <button
-              onClick={handleEditMode}
-              className={cn(css.button, { [css.editing]: canEditTitle })}
-              type="button"
-            >
-              {canEditTitle ? (
-                <FontAwesomeIcon icon={save} size="sm" />
-              ) : (
-                <FontAwesomeIcon icon={edit} size="sm" />
-              )}
-            </button>
-            <button
-              onClick={handleDeleteSet}
-              className={css.button}
-              type="button"
-            >
-              <FontAwesomeIcon icon={trash} size="sm" />
-            </button>
-          </>
-        )}
       </div>
+      {loggedInUser?.username === set?.username && (
+        <>
+          <button
+            onClick={handleEditMode}
+            className={cn(css.button, { [css.editing]: canEditTitle })}
+            type="button"
+          >
+            {canEditTitle ? (
+              <FontAwesomeIcon icon={save} size="sm" />
+            ) : (
+              <FontAwesomeIcon icon={edit} size="sm" />
+            )}
+          </button>
+          <button
+            onClick={handleDeleteSet}
+            className={css.button}
+            type="button"
+          >
+            <FontAwesomeIcon icon={trash} size="sm" />
+          </button>
+        </>
+      )}
       <div className={css.info}>
         <div className={css.size}>
-          <span>length: {setLength}</span>
-        </div>
+          <span>length: {setLength}</span> |
+        </div>{' '}
         <div className={css.author}>
           <Link
             to={`/users/${set.username}`}
             className={css.link}
             onClick={(e) => e.stopPropagation()}
           >
-            <strong>{set.username}</strong>
+            User: <strong>{set.username}</strong>
           </Link>
         </div>
-        <hr className={css.line} />
       </div>
       <div className={css.cards} ref={cardContainerRef}>
         <div className={css.display}>

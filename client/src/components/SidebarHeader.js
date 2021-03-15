@@ -11,8 +11,9 @@ const SidebarHeader = ({
 }) => (
   <div className={css.container}>
     <button className={css.create} onClick={handleNewSet} type="button">
-      <FontAwesomeIcon icon={plus} size="2x" />
+      New Set <FontAwesomeIcon icon={plus} size="2x" />
     </button>
+
     <SearchBar
       inputText={sidebarSearchText}
       setInputText={setSidebarSearchText}
