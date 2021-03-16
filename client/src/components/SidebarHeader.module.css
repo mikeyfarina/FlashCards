@@ -6,10 +6,13 @@
 .create {
   display: flex;
   align-items: center;
+
   padding: 0.25rem 0.5rem;
-  background: var(--color-white);
-  border: none;
+
   white-space: nowrap;
+
+  border: none;
+  background: var(--color-white);
 }
 
 .create svg {

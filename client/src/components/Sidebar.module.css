@@ -1,6 +1,8 @@
 .container {
-  background: var(--color-white);
-  max-height: calc(100vh - var(--navbar-height));
-  box-shadow: 0 0 2px 3px rgba(0, 0, 0, 0.05);
   overflow: hidden;
+
+  max-height: calc(100vh - var(--navbar-height));
+
+  background: var(--color-white);
+  box-shadow: 0 0 2px 3px rgba(0, 0, 0, 0.05);
 }

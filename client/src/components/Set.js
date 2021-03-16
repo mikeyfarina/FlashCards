@@ -157,12 +157,15 @@ const Set = ({
           <span>length: {setLength}</span> |
         </div>{' '}
         <div className={css.author}>
+          User:{' '}
           <Link
             to={`/users/${set.username}`}
             className={css.link}
             onClick={(e) => e.stopPropagation()}
           >
-            User: <strong>{set.username}</strong>
+            <strong>
+              {loggedInUser?.username === set?.username ? 'you' : set.username}
+            </strong>
           </Link>
         </div>
       </div>

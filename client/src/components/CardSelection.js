@@ -24,7 +24,7 @@ const CardSelection = ({
       >
         {flashcards
           ? flashcards.map((card, i) => (
-              <option key={Math.random(35) * 6} value={i}>
+              <option key={card.id} value={i} className={css.option}>
                 {`${i + 1}: ${card.front}`}
               </option>
             ))

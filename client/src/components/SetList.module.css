@@ -1,9 +1,8 @@
 .container {
-  padding: 1rem 0.5rem;
-  height: 100%;
-  background: white;
   overflow: auto;
-}
 
-.container::-webkit-scrollbar {
+  height: 100%;
+  padding: 1rem 0.5rem;
+
+  background: white;
 }

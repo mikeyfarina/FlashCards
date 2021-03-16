@@ -1,16 +1,7 @@
-.container {
-}
+
 
 .container h3 {
-  color: var(--color-purple);
   margin-bottom: 1rem;
-}
 
-.alert {
-}
-
-.grid {
-}
-
-.reminder {
+  color: var(--color-purple);
 }

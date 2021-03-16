@@ -1,9 +1,3 @@
 .card {
   display: block;
 }
-
-.card:focus {
-}
-
-.card:hover > h5 {
-}

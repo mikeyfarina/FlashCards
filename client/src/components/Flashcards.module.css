@@ -1,42 +1,36 @@
-.container {
-}
 
-.tools {
-}
 
-.buttons {
-}
 
-.create,
-.edit,
-.delete {
-}
 
-.create:active,
-.edit:active,
-.delete:active {
-}
 
-.delete:hover {
-}
+
+
+
+
+
+
 
 .display {
   margin-top: 2rem;
 }
 
 .displayButtons {
-  text-align: center;
   padding: 1rem;
+
+  text-align: center;
 }
 
 .button {
-  padding: 0.5rem 2rem;
   font-size: 4rem;
-  background: var(--color-yellow);
+
+  padding: 0.5rem 2rem;
+
+  cursor: pointer;
+
+  color: var(--color-white);
   border: var(--color-white);
   border-radius: 4px;
-  color: var(--color-white);
-  cursor: pointer;
+  background: var(--color-yellow);
 }
 
 .button:focus {

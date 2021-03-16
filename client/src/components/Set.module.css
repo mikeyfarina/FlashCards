@@ -1,8 +1,10 @@
 .container {
   margin-bottom: 1rem;
-  box-shadow: 0 0 2px 3px rgba(0, 0, 0, 0.05);
   padding: 1rem 0.5rem;
+
+  border: 1px white solid;
   border-radius: 4px;
+  box-shadow: 0 0 2px 3px rgba(0, 0, 0, 0.05);
 }
 
 .header {
@@ -14,12 +16,14 @@
 }
 
 .title {
-  background: none;
-  border: none;
-  color: inherit;
-  width: 100%;
   font-size: 1.25rem;
+
+  width: 100%;
   margin-bottom: 0.5rem;
+
+  color: inherit;
+  border: none;
+  background: none;
 }
 
 .title input:focus {
@@ -27,12 +31,14 @@
 }
 
 .button {
-  background: none;
-  padding: 0.25rem 0.5rem;
-  border: 1px solid var(--color-grey);
-  background: var(--color-grey);
   margin-bottom: 0.5rem;
+  padding: 0.25rem 0.5rem;
+
   cursor: pointer;
+
+  border: 1px solid var(--color-grey);
+  background: none;
+  background: var(--color-grey);
 }
 
 .button:hover {
@@ -41,10 +47,11 @@
 }
 
 .title.editing {
-  background: var(--color-grey);
   padding: 0.25rem 0.5rem;
-  border-radius: 4px;
+
   border: 1px solid var(--color-green);
+  border-radius: 4px;
+  background: var(--color-grey);
 }
 
 .info {
@@ -57,22 +64,4 @@
 
 .author {
   display: inline-block;
-}
-
-.link {
-}
-
-.link:hover {
-}
-
-.line {
-}
-
-.cards {
-}
-
-.cards:hover {
-}
-
-.display {
 }
