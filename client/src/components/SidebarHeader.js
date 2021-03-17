@@ -5,17 +5,16 @@ import css from './SidebarHeader.module.css';
 import SearchBar from './SearchBar';
 
 const plus = ['fa', 'plus'];
-const rightArrows = ['fa', 'angle-double-right'];
 const leftArrows = ['fa', 'angle-double-left'];
 const SidebarHeader = ({
   sidebarSearchText,
   setSidebarSearchText,
   handleNewSet,
-  sidebarDisplay,
-  setSidebarDisplay,
+  sidebarDisplayed,
+  setSidebarDisplayed,
 }) => {
   const handleExpandSet = () => {
-    setSidebarDisplay(!sidebarDisplay);
+    setSidebarDisplayed(!sidebarDisplayed);
   };
 
   return (
@@ -37,11 +36,7 @@ const SidebarHeader = ({
           onClick={handleExpandSet}
           type="button"
         >
-          {sidebarDisplay ? (
-            <FontAwesomeIcon icon={leftArrows} />
-          ) : (
-            <FontAwesomeIcon icon={rightArrows} />
-          )}
+          <FontAwesomeIcon icon={leftArrows} />
         </button>
       </div>
     </div>

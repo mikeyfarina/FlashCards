@@ -5,6 +5,7 @@ import flashcardService from '../services/flashcardService';
 import Flashcard from './Flashcard';
 import CardSelection from './CardSelection';
 
+const rightArrows = ['fa', 'angle-double-right'];
 const plus = ['fa', 'plus'];
 const pen = ['fa', 'pen'];
 const save = ['fa', 'save'];
@@ -18,6 +19,8 @@ const Flashcards = ({
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
   loggedInUser,
+  sidebarDisplayed,
+  setSidebarDisplayed,
 }) => {
   const [canEdit, setCanEdit] = useState(false);
 
@@ -85,12 +88,23 @@ const Flashcards = ({
       });
   }, [flashcards, currentFlashcardIndex]);
 
+  const expandSidebar = useCallback(() => {
+    setSidebarDisplayed(!sidebarDisplayed);
+  }, [sidebarDisplayed]);
+
   return (
     <div className={css.container}>
       <div className={css.tools}>
         {flashcardSets?.[currentSetIndex]?.username ===
           loggedInUser?.username && (
           <div className={css.flashcardButtons}>
+            <button
+              type="button"
+              className={css.expand}
+              onClick={expandSidebar}
+            >
+              Flashcard Sets <FontAwesomeIcon icon={rightArrows} />
+            </button>
             <button
               onClick={handleNewFlashCard}
               className={css.create}

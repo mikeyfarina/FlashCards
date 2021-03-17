@@ -17,5 +17,5 @@
 }
 
 .closed {
-  left: calc(-400px + 3rem);
+  left: -400px;
 }

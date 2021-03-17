@@ -15,9 +15,10 @@ const Sidebar = ({
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
   loggedInUser,
+  sidebarDisplayed,
+  setSidebarDisplayed,
 }) => {
   const [sidebarSearchText, setSidebarSearchText] = useState('');
-  const [sidebarDisplay, setSidebarDisplay] = useState(true);
 
   useEffect(() => {
     setSidebarSearchText('');
@@ -35,16 +36,16 @@ const Sidebar = ({
     <div
       className={cn(
         css.container,
-        { [css.open]: sidebarDisplay },
-        { [css.closed]: !sidebarDisplay }
+        { [css.open]: sidebarDisplayed },
+        { [css.closed]: !sidebarDisplayed }
       )}
     >
       <SidebarHeader
         sidebarSearchText={sidebarSearchText}
         setSidebarSearchText={setSidebarSearchText}
         handleNewSet={handleNewSet}
-        sidebarDisplay={sidebarDisplay}
-        setSidebarDisplay={setSidebarDisplay}
+        sidebarDisplayed={sidebarDisplayed}
+        setSidebarDisplayed={setSidebarDisplayed}
       />
       <SetList
         flashcards={flashcards || []}
