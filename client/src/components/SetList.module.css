@@ -1,5 +1,5 @@
 .container {
-  overflow: auto;
+  overflow-y: scroll;
 
   height: 100%;
   padding: 1rem 0.5rem;

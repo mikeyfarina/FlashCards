@@ -8,12 +8,17 @@ const SetItem = ({
   currentSet,
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
+  setCurrentSetIndex,
   cardRefs,
+  indexOfSet,
 }) => {
   const [currentFlashcard, setCurrentFlashcard] = useState(false);
 
   const handleCardClick = useCallback(() => {
-    if (!currentSet) return;
+    if (!currentSet) {
+      setCurrentSetIndex(indexOfSet);
+    }
+
     setCurrentFlashcardIndex(indexOfCard);
   }, [currentSet, indexOfCard]);
 

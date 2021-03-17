@@ -5,7 +5,7 @@ const CardSelection = ({
   flashcards,
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
-  set: { title } = { title: '<None>' },
+  set: { title, username } = { title: '<None>', username: '<None>' },
 }) => {
   const handleSelect = useCallback((e) => {
     setCurrentFlashcardIndex(Number(e.target.value));
@@ -13,9 +13,11 @@ const CardSelection = ({
 
   return (
     <div className={css.container}>
-      <div className={css.text}>
+      <div>
         <div className={css.title}>Current set: {title}</div>
-        <div className={css.subtitle}>Owned by you</div>
+        <div className={css.subtitle}>
+          Owned by: <strong>{username}</strong>
+        </div>
       </div>
       <select
         className={css.selection}

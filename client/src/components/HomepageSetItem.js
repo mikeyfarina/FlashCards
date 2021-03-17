@@ -4,7 +4,11 @@ import css from './HomepageSetItem.module.css';
 
 const HomepageSetItem = ({ card, indexOfCard, set, showAllFlashcards }) =>
   !(indexOfCard > 3 && !showAllFlashcards) && (
-    <Link className={css.card} to={`/flashcards/${set.id}/${card.id}`}>
+    <Link
+      className={css.card}
+      onClick={(e) => e.stopPropagation()}
+      to={`/flashcards/${set.id}/${card.id}`}
+    >
       {card.front}
     </Link>
   );

@@ -30,7 +30,7 @@
 .current:hover {
   padding: 0.15rem;
   color: var(--color-purple);
-  border-left: 5px var(--color-purple) solid;
+  border-left: 5px var(--color-yellow) solid;
   border-radius: 0 3px 3px 0;
   margin-left: -0.5rem;
 }

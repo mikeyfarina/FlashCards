@@ -7,7 +7,7 @@ import setService from '../services/setService';
 import SetItem from './SetItem';
 
 const save = ['fa', 'save'];
-const edit = ['fa', 'edit'];
+const edit = ['fa', 'pen'];
 const trash = ['fa', 'trash'];
 
 const Set = ({
@@ -58,6 +58,17 @@ const Set = ({
     }
   }, [canEditTitle, set.id, setTitle]);
 
+  const moveTypingIndicatorToEnd = useCallback((ref) => {
+    ref.current.focus();
+    const twiceSizeOfText = ref.current.value.length * 2;
+    ref.current.setSelectionRange(twiceSizeOfText, twiceSizeOfText);
+  }, []);
+
+  const titleRef = useRef();
+  useEffect(() => {
+    if (canEditTitle) moveTypingIndicatorToEnd(titleRef);
+  }, [canEditTitle]);
+
   // changes setTitle state to input
   const handleTitleEdit = useCallback(
     (e) => {
@@ -105,52 +116,61 @@ const Set = ({
   useEffect(() => {
     if (index === currentSetIndex && cardRefs[currentFlashcardIndex]) {
       cardContainerRef.current.scrollTo({
-        top: cardRefs[currentFlashcardIndex].offsetTop,
+        top: cardRefs[currentFlashcardIndex].offsetTop - 10,
         behavior: 'smooth',
       });
     }
   }, [currentFlashcardIndex, currentSetIndex, index]);
 
   return (
-    <div className={css.container} ref={setRef}>
+    <div
+      className={cn(css.container, { [css.current]: currentSet })}
+      ref={setRef}
+    >
       <div
-        className={cn(css.header, {
-          [css.current]: flashcardSets[currentSetIndex].id === set.id,
-        })}
+        className={cn(css.header)}
         onClick={handleTitleClick}
         role="button"
         tabIndex="-1"
       >
-        {currentSet && '\u2022 '}
         <input
           className={cn(css.title, { [css.editing]: canEditTitle })}
           type="text"
           defaultValue={setTitle}
           disabled={!canEditTitle}
           onChange={handleTitleEdit}
+          ref={titleRef}
         />
       </div>
       {loggedInUser?.username === set?.username && (
-        <>
+        <div className={css.tools}>
           <button
             onClick={handleEditMode}
-            className={cn(css.button, { [css.editing]: canEditTitle })}
+            className={cn(css.button, css.edit, {
+              [css.editing]: canEditTitle,
+            })}
             type="button"
           >
             {canEditTitle ? (
-              <FontAwesomeIcon icon={save} size="sm" />
+              <>
+                Save <FontAwesomeIcon icon={save} size="sm" />
+              </>
             ) : (
-              <FontAwesomeIcon icon={edit} size="sm" />
+              <>
+                Edit Title <FontAwesomeIcon icon={edit} size="sm" />
+              </>
             )}
           </button>
           <button
             onClick={handleDeleteSet}
-            className={css.button}
+            className={cn(css.button, css.delete)}
             type="button"
           >
-            <FontAwesomeIcon icon={trash} size="sm" />
+            <>
+              Delete Set <FontAwesomeIcon icon={trash} size="sm" />
+            </>
           </button>
-        </>
+        </div>
       )}
       <div className={css.info}>
         <div className={css.size}>
@@ -181,6 +201,8 @@ const Set = ({
                   setCurrentFlashcardIndex={setCurrentFlashcardIndex}
                   currentSet={currentSet}
                   cardRefs={cardRefs}
+                  setCurrentSetIndex={setCurrentSetIndex}
+                  indexOfSet={index}
                 />
               ))
             : 'loading...'}

@@ -23,6 +23,10 @@
   background: none;
 }
 
+.title:hover {
+  cursor: pointer;
+}
+
 .title:focus {
   outline: none;
 }

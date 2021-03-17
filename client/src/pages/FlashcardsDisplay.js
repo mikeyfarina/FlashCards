@@ -28,8 +28,8 @@ const FlashcardsDisplay = ({
       const desiredFlashcardIndex = flashcardsInSet.findIndex(
         (card) => card.id === desiredFlashcardID
       );
-      setCurrentFlashcardIndex(
-        desiredFlashcardIndex > 0 ? desiredFlashcardIndex : 0
+      setCurrentFlashcardIndex((prevState) =>
+        desiredFlashcardIndex > 0 ? desiredFlashcardIndex : prevState || 0
       );
       setFlashcards(flashcardsInSet);
     };

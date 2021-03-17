@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import cn from 'classnames';
 import css from './Sidebar.module.css';
 import setService from '../services/setService';
 import SetList from './SetList';
@@ -16,6 +17,7 @@ const Sidebar = ({
   loggedInUser,
 }) => {
   const [sidebarSearchText, setSidebarSearchText] = useState('');
+  const [sidebarDisplay, setSidebarDisplay] = useState(true);
 
   useEffect(() => {
     setSidebarSearchText('');
@@ -30,11 +32,19 @@ const Sidebar = ({
   }, [flashcardSets]);
 
   return (
-    <div className={css.container}>
+    <div
+      className={cn(
+        css.container,
+        { [css.open]: sidebarDisplay },
+        { [css.closed]: !sidebarDisplay }
+      )}
+    >
       <SidebarHeader
         sidebarSearchText={sidebarSearchText}
         setSidebarSearchText={setSidebarSearchText}
         handleNewSet={handleNewSet}
+        sidebarDisplay={sidebarDisplay}
+        setSidebarDisplay={setSidebarDisplay}
       />
       <SetList
         flashcards={flashcards || []}

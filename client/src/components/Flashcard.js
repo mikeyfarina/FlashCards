@@ -29,9 +29,9 @@ const Flashcard = ({
 
   const divStyle = useMemo(() => {
     const rotateX = displayingFront
-      ? 180 + mousePosition.yAxis + 5
-      : (mousePosition.yAxis + 5) * 1.5;
-    const rotateY = !flip ? mousePosition.xAxis - 5 : 0;
+      ? 180 + mousePosition.yAxis
+      : mousePosition.yAxis * 1.5;
+    const rotateY = !flip ? mousePosition.xAxis : 0;
     return {
       transform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
       WebkitTransform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,

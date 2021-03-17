@@ -1,5 +1,6 @@
 .container {
   padding: 1rem;
+  perspective: 600px;
 }
 
 .card {

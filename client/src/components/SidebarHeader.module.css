@@ -1,21 +1,54 @@
 .container {
   display: flex;
   align-items: center;
+  border-bottom: 1px solid var(--color-grey);
+  height: 70px;
 }
 
 .create {
   display: flex;
   align-items: center;
 
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem;
 
   white-space: nowrap;
 
-  border: none;
+  border: 1px solid var(--color-white);
   background: var(--color-white);
 }
 
 .create svg {
   width: 10px;
   height: 10px;
+}
+
+.create:hover {
+  background: var(--color-grey);
+  color: var(--color-white);
+  border: 1px solid var(--color-grey);
+  cursor: pointer;
+}
+
+.expandContainer {
+  width: 3rem;
+}
+
+.expand {
+  max-width: 100%;
+  margin: 0.5rem;
+  background: none;
+  border: 0;
+  padding: 0.5rem;
+  border: 3px var(--color-white) solid;
+  border-radius: 4px;
+  transition: all .25s ease-in;
+}
+
+.expand:hover {
+  cursor: pointer;
+  border: 3px var(--color-green) solid;
+}
+
+.expand:focus, .expand:active {
+  outline: var(--color-green)
 }

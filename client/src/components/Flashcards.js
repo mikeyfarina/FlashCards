@@ -90,14 +90,14 @@ const Flashcards = ({
       <div className={css.tools}>
         {flashcardSets?.[currentSetIndex]?.username ===
           loggedInUser?.username && (
-          <div className={css.buttons}>
+          <div className={css.flashcardButtons}>
             <button
               onClick={handleNewFlashCard}
               className={css.create}
               type="button"
               data-new-flashcard-button
             >
-              <FontAwesomeIcon icon={plus} size="2x" />
+              New Flashcard <FontAwesomeIcon icon={plus} size="2x" />
             </button>
             <button
               onClick={handleEditFlashCard}
@@ -106,9 +106,13 @@ const Flashcards = ({
               data-edit-flashcard-button
             >
               {canEdit ? (
-                <FontAwesomeIcon icon={save} size="2x" />
+                <>
+                  Save <FontAwesomeIcon icon={save} size="2x" />
+                </>
               ) : (
-                <FontAwesomeIcon icon={pen} size="2x" />
+                <>
+                  Edit <FontAwesomeIcon icon={pen} size="2x" />
+                </>
               )}
             </button>
             <button
@@ -118,7 +122,7 @@ const Flashcards = ({
               disabled={!flashcards || flashcards.length === 0}
               data-delete-flashcard-button
             >
-              <FontAwesomeIcon icon={trash} size="2x" />
+              Delete <FontAwesomeIcon icon={trash} size="2x" />
             </button>
           </div>
         )}
