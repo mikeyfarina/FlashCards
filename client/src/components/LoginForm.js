@@ -42,11 +42,11 @@ const LoginForm = ({ setUser, standalone }) => {
         setUser(user);
         setSuccess(true);
         setTimeout(() => {
-          setSuccess(false);
           if (standalone) {
             history.push('/home');
           }
-        }, 3000);
+          setSuccess(false);
+        }, 1000);
       } catch (ex) {
         setError('Incorrect Username/Password');
         setTimeout(() => {
@@ -91,9 +91,7 @@ const LoginForm = ({ setUser, standalone }) => {
           {(error || success) && (
             <div className={css.message}>
               {error && <p className={ui.warning}>{error}</p>}
-              {success && (
-                <p className={ui.success}>Account created Successfully!</p>
-              )}
+              {success && <p className={ui.success}>Login Success!</p>}
             </div>
           )}
           <button type="submit" className={ui.button} data-button-submit-login>

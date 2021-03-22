@@ -4,6 +4,11 @@
   justify-content: space-between;
 }
 
+.setInfo {
+  border-right: 2px var(--color-grey) solid;
+  margin-right: 25px;
+}
+
 .title {
   font-size: 2rem;
 

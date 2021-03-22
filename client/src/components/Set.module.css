@@ -33,7 +33,7 @@
 }
 
 .current {
-  border-left: 5px var(--color-purple) solid;
+  border-left: 5px var(--color-green) solid;
 }
 
 .edit {

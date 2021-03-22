@@ -162,7 +162,7 @@ const Flashcard = ({
               className={cn(
                 css.text,
                 { [css.editable]: canEdit },
-                { noselect: !canEdit }
+                { 'noevent noselect': !canEdit }
               )}
               ref={frontTextRef}
               disabled={!canEdit}
@@ -177,7 +177,7 @@ const Flashcard = ({
               className={cn(
                 css.text,
                 { [css.editable]: canEdit },
-                { noselect: !canEdit }
+                { 'noevent noselect': !canEdit }
               )}
               ref={backTextRef}
               disabled={!canEdit}

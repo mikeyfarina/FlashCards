@@ -13,7 +13,7 @@ const CardSelection = ({
 
   return (
     <div className={css.container}>
-      <div>
+      <div className={css.setInfo}>
         <div className={css.title}>Current set: {title}</div>
         <div className={css.subtitle}>
           Owned by: <strong>{username}</strong>

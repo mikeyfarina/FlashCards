@@ -1,8 +1,7 @@
 .container {
-  width: calc(100% - 3rem);
-  position: absolute;
-  left: 3rem;
+  width: 100%;
 }
+
 .display {
   margin-top: 2rem;
 }
@@ -27,13 +26,11 @@
 
   border-radius: 4px;
   overflow: hidden;
-  margin-left: 0.5rem;
+  margin-left: 1rem;
   border: 1px var(--color-grey) solid;
 }
 
-.create,
-.edit,
-.delete {
+.tool {
   display: flex;
   align-items: center;
 
@@ -45,23 +42,22 @@
   border: none;
 }
 
-.create:hover,
-.edit:hover,
-.delete:hover {
+.expand svg {
+  margin-left: 0.5rem;
+}
+
+.tool:not(:last-child) {
+  border-right: 1px var(--color-grey) solid;
+}
+
+.tool:hover {
   background: var(--color-grey);
   cursor: pointer;
 }
 
-.create svg,
-.edit svg,
-.delete svg {
+.tool svg {
   width: 12px;
   height: 12px;
-}
-
-.edit {
-  border-left: 1px var(--color-grey) solid;
-  border-right: 1px var(--color-grey) solid;
 }
 
 .button {

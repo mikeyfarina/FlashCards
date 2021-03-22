@@ -69,6 +69,10 @@ li {
   -webkit-touch-callout: none; /* iOS Safari */
 }
 
+.noevents {
+  pointer-events: none;
+}
+
 .noselect::selection {
   background: transparent;
 }

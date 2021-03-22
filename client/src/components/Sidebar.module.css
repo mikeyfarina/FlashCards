@@ -1,11 +1,12 @@
 .container {
   position: absolute;
-  max-height: calc(100vh - var(--navbar-height));
+  height: calc(100vh - var(--navbar-height));
+  
   max-width: 400px;
 
   box-shadow: 0 0 12px 5px rgba(0, 0, 0, 0.25);
   background: var(--color-white);
-  transition: left 0.25s ease-out;
+  transition: left 0.35s linear;
   z-index: 2;
 
   display: flex;

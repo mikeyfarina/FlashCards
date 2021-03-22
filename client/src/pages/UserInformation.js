@@ -94,18 +94,10 @@ const UserInformation = ({ loggedInUser }) => {
           <h3 className={css.username}>{desiredUser.username}</h3>
         </div>
         <div className={css.stats}>
-          <>
-            <h3 className={cn(css.statTitle, css.topLeft)}>Sets:</h3>
-            <h3 className={cn(css.statNumber, css.bottomLeft)}>
-              {desiredUser.sets.length}
-            </h3>
-          </>
-          <>
-            <h3 className={cn(css.statTitle, css.topRight)}>Flashcards:</h3>
-            <h3 className={cn(css.statNumber, css.bottomRight)}>
-              {desiredUser.flashcards.length}
-            </h3>
-          </>
+          <div className={cn(css.stat)}>Sets: {desiredUser.sets.length}</div>
+          <div className={cn(css.stat)}>
+            Flashcards: {desiredUser.flashcards.length}
+          </div>
         </div>
       </div>
       <div className={css.sets}>
