@@ -3,5 +3,10 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  margin-bottom: .4rem;
+  margin-bottom: 0.4rem;
+}
+
+.card:hover {
+  transform: translateY(-2px) translateX(2px);
+  color: var(--color-purple);
 }

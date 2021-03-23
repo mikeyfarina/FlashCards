@@ -90,8 +90,8 @@ const UserInformation = ({ loggedInUser }) => {
           ))}
         </div>
         <div className={css.names}>
-          <h1>{desiredUser.name}</h1>
-          <h3 className={css.username}>{desiredUser.username}</h3>
+          {desiredUser.name}
+          <div className={css.username}>{desiredUser.username}</div>
         </div>
         <div className={css.stats}>
           <div className={cn(css.stat)}>Sets: {desiredUser.sets.length}</div>
@@ -101,17 +101,17 @@ const UserInformation = ({ loggedInUser }) => {
         </div>
       </div>
       <div className={css.sets}>
-        <h2 className={css.title}>Sets:</h2>
-        <div className={css.display}>
+        <div className={css.title}>Sets:</div>
+        <div className={css.collection}>
           {desiredUser.sets.map((set) => (
             <UserSetItem key={set.id} set={set} />
           ))}
         </div>
         <div className={css.gap} />
       </div>
-      <div className={css.sets}>
-        <h2 className={css.title}>Flashcards:</h2>
-        <div className={css.display}>
+      <div>
+        <div className={css.title}>Flashcards:</div>
+        <div className={css.collection}>
           {desiredUser.flashcards.map((flashcard) => (
             <UserFlashcardItem key={flashcard.id} flashcard={flashcard} />
           ))}

@@ -5,11 +5,20 @@
   border: 4px white solid;
   border-radius: 4px;
   box-shadow: 0 0 2px 3px rgba(0, 0, 0, 0.05);
-  transition: all .3s linear;
+  transition: all 0.3s linear;
+}
+
+.container:hover {
+  border: 4px var(--color-grey) solid;
+  cursor: pointer;
 }
 
 .header {
   white-space: nowrap;
+}
+
+.header:hover {
+  cursor: pointer;
 }
 
 .header:focus {
@@ -32,7 +41,8 @@
   outline: none;
 }
 
-.current {
+.current,
+.current:hover {
   border-left: 5px var(--color-green) solid;
 }
 

@@ -22,8 +22,10 @@
 }
 
 .card:hover {
-  color: var(--color-white);
-  background-color: var(--color-grey);
+  color: var(--color-grey);
+  border-left: 5px var(--color-yellow) solid;
+  margin-left: -0.5rem;
+  padding: 0.15rem;
 }
 
 .current,
@@ -35,6 +37,6 @@
   margin-left: -0.5rem;
 }
 
-.current:hover{
-  color:white;
+.current:hover {
+  padding-left: 0.3rem;
 }

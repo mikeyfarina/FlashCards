@@ -14,13 +14,17 @@ const SetItem = ({
 }) => {
   const [currentFlashcard, setCurrentFlashcard] = useState(false);
 
-  const handleCardClick = useCallback(() => {
-    if (!currentSet) {
-      setCurrentSetIndex(indexOfSet);
-    }
+  const handleCardClick = useCallback(
+    (e) => {
+      e.stopPropagation();
+      if (!currentSet) {
+        setCurrentSetIndex(indexOfSet);
+      }
 
-    setCurrentFlashcardIndex(indexOfCard);
-  }, [currentSet, indexOfCard]);
+      setCurrentFlashcardIndex(indexOfCard);
+    },
+    [currentSet, indexOfCard]
+  );
 
   useEffect(() => {
     setCurrentFlashcard(currentSet && currentFlashcardIndex === indexOfCard);

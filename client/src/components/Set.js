@@ -38,7 +38,7 @@ const Set = ({
     getCurrentSetFlashcards();
   }, [flashcards, set.id]);
 
-  const handleTitleClick = useCallback(
+  const handleSetClick = useCallback(
     (e) => {
       if (canEditTitle) return; // do nothing
       e.stopPropagation();
@@ -126,13 +126,11 @@ const Set = ({
     <div
       className={cn(css.container, { [css.current]: currentSet })}
       ref={setRef}
+      onClick={handleSetClick}
+      role="button"
+      tabIndex="0"
     >
-      <div
-        className={cn(css.header)}
-        onClick={handleTitleClick}
-        role="button"
-        tabIndex="-1"
-      >
+      <div className={cn(css.header)} role="button" tabIndex="-1">
         <input
           className={cn(css.title, { [css.editing]: canEditTitle })}
           type="text"

@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import cn from 'classnames';
 import css from './HomepageSet.module.css';
+import ui from '../styles/UserListItem.module.css';
 import HomepageSetItem from './HomepageSetItem';
 
 const HomepageSet = ({ set }) => {
@@ -22,7 +23,12 @@ const HomepageSet = ({ set }) => {
   }, [history]);
 
   return (
-    <div className={css.container} onClick={viewSet} role="button" tabIndex="0">
+    <div
+      className={cn(css.container, ui.item)}
+      onClick={viewSet}
+      role="button"
+      tabIndex="0"
+    >
       <h2 className={css.title}>{set.title}</h2>
       <div className={cn(css.cards, { [css.showing]: showAllFlashcards })}>
         {set.flashcards.map((card, indexOfCard) => (
