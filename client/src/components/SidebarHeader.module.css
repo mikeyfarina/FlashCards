@@ -3,6 +3,7 @@
   align-items: center;
   border-bottom: 1px solid var(--color-grey);
   min-height: 70px;
+  padding: 0.5rem;
 }
 
 .create {
@@ -15,6 +16,8 @@
 
   border: 1px solid var(--color-white);
   background: var(--color-white);
+  border-radius: 4px;
+  margin-right: 0.25rem;
 }
 
 .create svg {
@@ -29,19 +32,15 @@
   cursor: pointer;
 }
 
-.expandContainer {
-  width: 3rem;
-}
-
 .expand {
   max-width: 100%;
-  margin: 0.5rem;
   background: none;
   border: 0;
   padding: 0.5rem;
   border: 3px var(--color-white) solid;
   border-radius: 4px;
-  transition: all .25s ease-in;
+  transition: all 0.25s ease-in;
+  margin-left: 0.5rem;
 }
 
 .expand:hover {
@@ -49,6 +48,7 @@
   border: 3px var(--color-green) solid;
 }
 
-.expand:focus, .expand:active {
-  outline: var(--color-green)
+.expand:focus,
+.expand:active {
+  outline: var(--color-green);
 }

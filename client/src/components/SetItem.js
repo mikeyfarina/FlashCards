@@ -34,6 +34,7 @@ const SetItem = ({
     <div
       className={cn(css.card, {
         [css.current]: currentFlashcard,
+        [css.currentSet]: currentSet,
       })}
       ref={(el) => {
         cardRefs.push(el);

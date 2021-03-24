@@ -30,15 +30,13 @@ const SidebarHeader = ({
         inputText={sidebarSearchText}
         setInputText={setSidebarSearchText}
       />
-      <div className={cn(css.expandContainer)}>
-        <button
-          className={cn(css.expand)}
-          onClick={handleExpandSet}
-          type="button"
-        >
-          <FontAwesomeIcon icon={leftArrows} />
-        </button>
-      </div>
+      <button
+        className={cn(css.expand)}
+        onClick={handleExpandSet}
+        type="button"
+      >
+        <FontAwesomeIcon icon={leftArrows} />
+      </button>
     </div>
   );
 };

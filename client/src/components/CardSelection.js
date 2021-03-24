@@ -20,7 +20,7 @@ const CardSelection = ({
           Owned by: <Link to={`/users/${username}`}>{username}</Link>
         </div>
       </div>
-      {flashcards && (
+      {flashcards?.length > 0 && (
         <select
           className={css.selection}
           onChange={handleSelect}

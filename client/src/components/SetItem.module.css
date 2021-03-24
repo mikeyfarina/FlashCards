@@ -40,3 +40,7 @@
 .current:hover {
   padding-left: 0.3rem;
 }
+
+.currentSet {
+  color: black;
+}

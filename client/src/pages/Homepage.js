@@ -23,14 +23,17 @@ const Homepage = ({ flashcardSets, user }) => {
       console.log('search empty', flashcardSets);
       setSearchSets(flashcardSets);
     } else {
+      const text = searchText.toLowerCase();
       const sets = flashcardSets
-        .filter((set) => set.title.includes(searchText, 0))
+        .filter((set) => set.title.toLowerCase().includes(text))
         .sort(
-          (a, b) => a.title.indexOf(searchText) - b.title.indexOf(searchText)
+          (a, b) =>
+            a.title.toLowerCase().indexOf(text) -
+            b.title.toLowerCase().indexOf(text)
         );
       setSearchSets(sets);
     }
-  }, [searchText]);
+  }, [flashcardSets, searchText]);
 
   return (
     <div className={css.container}>

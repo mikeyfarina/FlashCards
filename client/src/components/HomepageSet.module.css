@@ -5,6 +5,7 @@
 
   border: 1px solid var(--color-purple);
   border-radius: 5px;
+  transition: all 0.2s ease-in-out;
 }
 
 .title {
@@ -19,6 +20,12 @@
   border: 1px solid var(--color-grey);
   border-radius: 4px;
   background: var(--color-white);
+}
+
+.more:hover {
+  cursor: pointer;
+  background: var(--color-grey);
+  color: var(--color-white);
 }
 
 .size {

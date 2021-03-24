@@ -21,12 +21,13 @@ const Set = ({
   setFlashcardSets,
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
+  currentSetId,
+  setCurrentSetId,
 }) => {
   const [setLength, setSetLength] = useState(0);
   const [setTitle, setSetTitle] = useState(set.title);
   const [canEditTitle, setCanEditTitle] = useState(false);
   const [currentFlashcardsInSet, setCurrentFlashcardsInSet] = useState(null);
-  const [currentSet, setCurrentSet] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -46,6 +47,8 @@ const Set = ({
       setCurrentFlashcardIndex(0);
       setCurrentSetIndex(newIndex);
       history.push(`/flashcards/${set.id}/`);
+
+      setCurrentSetId(set.id);
     },
     [canEditTitle, flashcardSets, history]
   );
@@ -54,7 +57,8 @@ const Set = ({
   const handleEditMode = useCallback(async () => {
     setCanEditTitle(!canEditTitle);
     if (canEditTitle) {
-      await setService.updateSetTitle(set.id, setTitle);
+      const updatedSet = await setService.updateSetTitle(set.id, setTitle);
+      console.log(updatedSet);
     }
   }, [canEditTitle, set.id, setTitle]);
 
@@ -108,7 +112,6 @@ const Set = ({
     if (index === currentSetIndex) {
       setRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-    setCurrentSet(index === currentSetIndex);
   }, [currentSetIndex, index]);
 
   const cardContainerRef = useRef();
@@ -122,9 +125,10 @@ const Set = ({
     }
   }, [currentFlashcardIndex, currentSetIndex, index]);
 
+  console.log(currentSetId, set.id);
   return (
     <div
-      className={cn(css.container, { [css.current]: currentSet })}
+      className={cn(css.container, { [css.current]: set.id === currentSetId })}
       ref={setRef}
       onClick={handleSetClick}
       role="button"
@@ -172,7 +176,7 @@ const Set = ({
       )}
       <div className={css.info}>
         <div className={css.size}>
-          <span>length: {setLength}</span> |
+          <span>length: {setLength}</span>
         </div>{' '}
         <div className={css.author}>
           User:{' '}
@@ -197,7 +201,7 @@ const Set = ({
                   indexOfCard={i}
                   currentFlashcardIndex={currentFlashcardIndex}
                   setCurrentFlashcardIndex={setCurrentFlashcardIndex}
-                  currentSet={currentSet}
+                  currentSet={set.id === currentSetId}
                   cardRefs={cardRefs}
                   setCurrentSetIndex={setCurrentSetIndex}
                   indexOfSet={index}

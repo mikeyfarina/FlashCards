@@ -1,7 +1,6 @@
 .container {
-  width: 100%;
   margin: auto;
-  padding: 1rem 2rem;
+  padding: 1rem 5rem;
 
   border-radius: 5px;
   background: var(--color-white);
@@ -60,14 +59,14 @@
 
 .options {
   position: absolute;
-  left: 20rem;
+  left: 22rem;
 
   display: grid;
 
   min-width: fit-content;
   padding: 0.5rem;
 
-  transition: all 0.5s ease-in;
+  transition: all 0.25s ease-in;
 
   opacity: 0;
   border: #646c80 2px solid;
@@ -124,7 +123,7 @@
 
 .sets {
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .title {
@@ -137,14 +136,11 @@
   height: 375px;
   padding: 0 1%;
 
-  border: 1px rgba(1, 1, 1, 0.2) solid;
   border-radius: 8px;
-  background: linear-gradient(
-    221deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(235, 234, 234, 1) 50%,
-    rgba(255, 255, 255, 1) 100%
-  );
+  background: var(--color-white);
+  border: 1px solid var(--color-purple);
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .loading {
@@ -153,6 +149,7 @@
 }
 
 .title {
+  font-weight: 600;
   font-size: 1.5rem;
 }
 
