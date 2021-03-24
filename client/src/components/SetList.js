@@ -14,23 +14,31 @@ const SetList = ({
   loggedInUser,
 }) => {
   const [setListSets, setSetListSets] = useState(null);
+  const [currentSetId, setCurrentSetId] = useState(null);
+
+  useEffect(() => {
+    setCurrentSetId(
+      flashcardSets && flashcardSets[currentSetIndex]
+        ? flashcardSets[currentSetIndex].id
+        : null
+    );
+  }, [flashcardSets, currentSetIndex]);
 
   useEffect(() => {
     setSetListSets(flashcardSets);
-  }, [flashcardSets]);
+  }, [flashcardSets, sidebarSearchText]);
 
   useEffect(() => {
     if (sidebarSearchText === '') {
       setSetListSets(flashcardSets);
     } else {
+      const text = sidebarSearchText.toLowerCase();
       const sets = flashcardSets
-        .filter((set) =>
-          set.title.toLowerCase().includes(sidebarSearchText.toLowerCase(), 0)
-        )
+        .filter((set) => set.title.toLowerCase().includes(text))
         .sort(
           (a, b) =>
-            a.title.indexOf(sidebarSearchText) -
-            b.title.indexOf(sidebarSearchText)
+            a.title.toLowerCase().indexOf(text) -
+            b.title.toLowerCase().indexOf(text)
         );
       setSetListSets(sets);
     }
@@ -41,9 +49,9 @@ const SetList = ({
       {!setListSets ? (
         <div>Loading Set List...</div>
       ) : (
-        <ul className={css.sets}>
+        <ul>
           {setListSets.map((set, i) => (
-            <li key={set.id} className={css.set}>
+            <li key={set.id}>
               <Set
                 set={set}
                 index={i}
@@ -57,6 +65,8 @@ const SetList = ({
                 setCurrentFlashcardIndex={setCurrentFlashcardIndex}
                 sidebarSearchText={sidebarSearchText}
                 loggedInUser={loggedInUser}
+                currentSetId={currentSetId}
+                setCurrentSetId={setCurrentSetId}
               />
             </li>
           ))}

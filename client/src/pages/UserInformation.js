@@ -3,8 +3,7 @@ import { useParams } from 'react-router-dom';
 import cn from 'classnames';
 import css from './UserInformation.module.css';
 import ProfilePhotoOption from '../components/ProfilePhotoOption';
-import UserFlashcardItem from '../components/UserFlashcardItem';
-import UserSetItem from '../components/UserSetItem';
+import UserItem from '../components/UserItem';
 import userService from '../services/userService';
 import profilePhotos from '../utils/profilePhotoLoader';
 
@@ -90,47 +89,37 @@ const UserInformation = ({ loggedInUser }) => {
           ))}
         </div>
         <div className={css.names}>
-          <h1>{desiredUser.name}</h1>
-          <h3 className={css.username}>{desiredUser.username}</h3>
+          {desiredUser.name}
+          <div className={css.username}>{desiredUser.username}</div>
         </div>
         <div className={css.stats}>
-          <>
-            <h3 className={cn(css.statTitle, css.topLeft)}>Sets:</h3>
-            <h3 className={cn(css.statNumber, css.bottomLeft)}>
-              {desiredUser.sets.length}
-            </h3>
-          </>
-          <>
-            <h3 className={cn(css.statTitle, css.topRight)}>Flashcards:</h3>
-            <h3 className={cn(css.statNumber, css.bottomRight)}>
-              {desiredUser.flashcards.length}
-            </h3>
-          </>
+          <div className={cn(css.stat)}>Sets: {desiredUser.sets.length}</div>
+          <div className={cn(css.stat)}>
+            Flashcards: {desiredUser.flashcards.length}
+          </div>
         </div>
       </div>
       <div className={css.sets}>
-        <h2 className={css.title}>Sets:</h2>
-        <div className={css.display}>
+        <div className={css.title}>Sets:</div>
+        <div className={css.collection}>
           {desiredUser.sets.map((set) => (
-            <UserSetItem key={set.id} set={set} />
+            <UserItem key={set.id} set={set} />
           ))}
+          <div className={css.padding} />
         </div>
-        <div className={css.gap} />
       </div>
       <div className={css.sets}>
-        <h2 className={css.title}>Flashcards:</h2>
-        <div className={css.display}>
+        <div className={css.title}>Flashcards:</div>
+        <div className={css.collection}>
           {desiredUser.flashcards.map((flashcard) => (
-            <UserFlashcardItem key={flashcard.id} flashcard={flashcard} />
+            <UserItem key={flashcard.id} flashcard={flashcard} />
           ))}
+          <div className={css.padding} />
         </div>
-        <div className={css.gap} />
       </div>
     </div>
   ) : (
-    <div className={css.loading}>
-      <div className={css.text}>Loading User...</div>
-    </div>
+    <div className={css.loading}>Loading User...</div>
   );
 };
 

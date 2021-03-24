@@ -4,53 +4,48 @@
 
   overflow: hidden;
 
-  margin: 2%;
-  padding: 1% 0;
+  max-width: 100%;
+  margin-bottom: 0.25rem;
+  padding: 0.15rem 0rem;
 
-  transition: all 0.05s linear;
+  cursor: pointer;
+  transition: all 0.15s linear, color 0.05s linear, margin 0s;
+  text-decoration: underline;
+
+  color: var(--color-grey);
+  border-radius: 3px;
+  outline: none;
 
   -webkit-line-clamp: 3;
-  scroll-snap-align: start;
-  scroll-snap-type: y mandatory;
 }
 
-.card:focus {
+.card:focus,
+.current:focus {
   outline: none;
 }
 
 .card:hover {
-  margin: 2% 1%;
-  padding: 1% 1.5%;
+  margin-left: -0.5rem;
+  padding: 0.15rem;
 
-  cursor: pointer;
-
-  border-radius: 3px;
-  background: #646c80;
+  color: var(--color-grey);
+  border-left: 5px var(--color-yellow) solid;
 }
 
-.current {
-  margin: 2% 1%;
-  padding: 1% 1.5%;
+.current,
+.current:hover {
+  margin-left: -0.5rem;
+  padding: 0.15rem;
 
-  cursor: pointer;
-  transition: all 0.1s ease-in;
-
-  color: #646c80;
-  border-radius: 3px;
-  background: #f3d250;
+  border-left: 5px var(--color-purple) solid;
+  border-radius: 0 3px 3px 0;
 }
 
 .current:hover {
-  width: 98%;
-  padding: 1% 2%;
-
-  background: #f0df9b;
+  padding-left: 0.3rem;
 }
 
-@media all and (max-width: 560px) {
-  .card {
-    max-height: 20%;
-
-    white-space: normal;
-  }
+.currentSet,
+.currentSet:hover {
+  color: black;
 }

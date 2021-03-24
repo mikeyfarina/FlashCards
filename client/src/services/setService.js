@@ -30,12 +30,16 @@ const createSet = async (newSet) => {
   return res.data;
 };
 
-const updateSetTitle = (id, newTitle) => {
+const updateSetTitle = async (id, newTitle) => {
   const config = {
     headers: { Authorization: token },
   };
-  const req = axios.patch(`${baseUrl}/${id}`, { title: newTitle }, config);
-  return req.then((res) => res.data);
+  const res = await axios.patch(
+    `${baseUrl}/${id}`,
+    { title: newTitle },
+    config
+  );
+  return res.data;
 };
 
 const deleteSet = async (id) => {

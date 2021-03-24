@@ -142,8 +142,6 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
             onChange={({ target }) => setConfirmPassword(target.value)}
             placeholder="confirm password"
           />
-        </div>
-        <>
           {error.message && <p className={ui.warning}>{error.message}</p>}
           {success && (
             <p className={ui.success}>Account created Successfully!</p>
@@ -151,11 +149,14 @@ const CreateAccountForm = ({ setCreateAccount, setUser, standalone }) => {
           <button type="submit" className={ui.button} onClick={handleSubmit}>
             Create Account
           </button>
-        </>
-        <p className={css.reminder}>Already have an account?</p>
-        <button type="button" className={ui.button} onClick={handleLoginClick}>
-          Log in
-        </button>
+          <button
+            type="button"
+            className={ui.button}
+            onClick={handleLoginClick}
+          >
+            Or login
+          </button>
+        </div>
       </form>
     </>
   );

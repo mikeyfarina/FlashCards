@@ -1,195 +1,121 @@
 .container {
-  display: grid;
+  margin-bottom: 1.25rem;
+  padding: 0.35rem 0.5rem 0.5rem 0.5rem;
 
-  margin: 5% 1.5%;
+  transition: all 0.3s linear;
 
-  color: white;
-  border: 5px darkgray solid;
-  border-radius: 5px;
-  background: #8590aa;
+  border: 4px white solid;
+  border-radius: 4px;
+  box-shadow: 0 0 2px 3px rgba(0, 0, 0, 0.05);
 
-  grid-template-rows: 0.25fr 0.2fr 2fr;
+  scroll-margin: 1rem;
+}
+
+.container:hover {
+  cursor: pointer;
+
+  border: 4px var(--color-grey) solid;
+}
+
+.container:focus,
+.current:focus {
+  outline: none;
+}
+
+.current {
+  border-left: 4px var(--color-green) solid;
+}
+
+.current:hover {
+  border: 4px var(--color-green) solid;
 }
 
 .header {
-  display: grid;
+  white-space: nowrap;
+}
 
-  width: 100%;
-  height: 100%;
-  padding: 2%;
-
-  color: white;
-  background: #646c80;
-
-  grid-template-columns: 8fr 1fr 1fr;
+.header:hover {
+  cursor: pointer;
 }
 
 .header:focus {
   outline: none;
 }
 
-.header:hover {
-  cursor: pointer;
-
-  color: #646c80;
-  border-radius: 2px;
-  background: white;
-}
-
-.current {
-  cursor: default;
-
-  color: #646c80;
-  background: white;
-}
-
 .title {
-  font-size: 3vh;
-  font-weight: bolder;
+  font-size: 1.25rem;
 
   width: 100%;
-  height: 100%;
+  margin-bottom: 0.5rem;
 
-  text-overflow: ellipsis;
-  pointer-events: none;
+  transition: all 0.15s linear, color 0.05s linear, margin 0s, border 0.05s;
 
   color: inherit;
   border: none;
+  background: none;
+}
+
+.title:hover {
+  cursor: pointer;
+}
+
+.title input:focus {
   outline: none;
-  background: inherit;
-
-  caret-color: #646c80;
 }
 
-.title::selection {
-  color: white;
-  background: #646c80;
-}
-
-.title.editing {
-  pointer-events: all;
-
-  background: white;
+.edit {
+  margin-right: 5%;
 }
 
 .button {
-  float: right;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-  width: 100%;
-  height: 100%;
+  min-width: 47.5%;
+  margin-bottom: 0.5rem;
+  padding: 0.25rem 0.5rem;
 
-  border-radius: 3px;
-  outline: none;
-  background: white;
+  cursor: pointer;
+
+  border: 1px solid var(--color-grey);
+  border-radius: 5px;
+  background: none;
+  background: var(--color-grey);
 }
 
-.editing {
-  color: #646c80;
-  border: #8590aa inherit;
-  background: #f3d250;
+.button:hover {
+  color: var(--color-grey);
+  background: var(--color-white);
+}
+
+.button svg {
+  width: 10px;
+  height: 10px;
+  margin-left: 0.5rem;
+}
+
+.title.editing {
+  padding: 0.25rem 0.5rem;
+
+  cursor: text;
+
+  border: 1px solid var(--color-green);
+  border-radius: 4px;
+  background: var(--color-grey);
 }
 
 .info {
-  display: grid;
+  display: flex;
+  justify-content: space-between;
 
-  width: 96%;
-  height: 100%;
-  margin: 0 2%;
-
-  grid-template-columns: 0.5fr 0.5fr;
-  grid-template-rows: 0.9fr 0.1fr;
+  margin-bottom: 0.5rem;
 }
 
 .size {
-  font-size: 2vh;
-  font-weight: bolder;
-
-  min-height: 2vh;
-  margin: 1vh 0;
-
-  cursor: default;
+  display: inline-block;
 }
 
 .author {
-  font-size: 2vh;
-  font-weight: bolder;
-
-  min-height: 2vh;
-  margin: 1vh 0.2vh;
-
-  cursor: default;
-  text-align: right;
-}
-
-.link {
-  text-decoration: none;
-
-  color: white;
-}
-
-.link:hover {
-  cursor: point;
-  text-decoration: underline;
-}
-
-.line {
-  height: 5%;
-
-  grid-area: 2 / 1 / 2 / 3;
-}
-
-.cards {
-  position: relative;
-
-  overflow: hidden;
-
-  margin: 1% 2%;
-}
-
-.cards:hover {
-  overflow-y: scroll;
-}
-
-.display {
-  max-height: 20vh;
-  padding: 2% 0;
-}
-
-@media all and (min-width: 901px) and (max-width: 1250px) {
-  .header {
-    grid-template-columns: 7fr 1fr 1fr;
-  }
-
-  .title {
-    font-size: 1.75vw;
-  }
-
-  .info > * {
-    font-size: 1.5vw;
-  }
-}
-
-@media all and (min-width: 561px) and (max-width: 900px) {
-  .title {
-    font-size: 3vw;
-  }
-
-  .size,
-  .set__creator {
-    font-size: 2vw;
-
-    min-height: 0;
-    margin: auto 0;
-    padding: 5% 0;
-  }
-}
-
-@media all and (max-width: 560px) {
-  .container {
-    max-height: 90%;
-  }
-
-  .cards {
-    overflow-y: scroll;
-  }
+  display: inline-block;
 }
