@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import cn from 'classnames';
 import css from './Flashcards.module.css';
 import flashcardService from '../services/flashcardService';
 import Flashcard from './Flashcard';
 import CardSelection from './CardSelection';
+import Notification from './Notification';
 
 const rightArrows = ['fa', 'angle-double-right'];
 const plus = ['fa', 'plus'];
@@ -24,6 +25,22 @@ const Flashcards = ({
   setSidebarDisplayed,
 }) => {
   const [canEdit, setCanEdit] = useState(false);
+  const [onOwnSet, setOnOwnSet] = useState(false);
+  const [createMessage, setCreateMessage] = useState(null);
+
+  useEffect(() => {
+    setOnOwnSet(
+      flashcardSets?.[currentSetIndex]?.username === loggedInUser?.username
+    );
+  }, [flashcardSets, currentSetIndex, loggedInUser]);
+
+  useEffect(() => {
+    setCreateMessage(
+      onOwnSet
+        ? 'Create a new flashcard to start!'
+        : 'There are no flashcards in this set.'
+    );
+  }, [onOwnSet]);
 
   const handlePreviousCardClick = useCallback(() => {
     setCurrentFlashcardIndex(
@@ -104,16 +121,18 @@ const Flashcards = ({
           >
             Flashcard Sets <FontAwesomeIcon icon={rightArrows} />
           </button>
-          {flashcardSets?.[currentSetIndex]?.username ===
-            loggedInUser?.username && (
+          {onOwnSet && (
             <>
               <button
                 onClick={handleNewFlashCard}
-                className={css.tool}
+                className={cn(css.tool, {
+                  [css.flash]: flashcards?.length === 0 && onOwnSet,
+                })}
                 type="button"
                 data-new-flashcard-button
               >
                 New Flashcard <FontAwesomeIcon icon={plus} size="2x" />
+                {/* if no flashcards notification saying make one */}
               </button>
               <button
                 onClick={handleEditFlashCard}
@@ -143,6 +162,7 @@ const Flashcards = ({
             </>
           )}
         </div>
+        {flashcards?.length === 0 && <Notification message={createMessage} />}
 
         <CardSelection
           set={flashcardSets?.[currentSetIndex]}
