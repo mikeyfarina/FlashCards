@@ -30,7 +30,7 @@ const HomepageSet = ({ set }) => {
       tabIndex="0"
     >
       <h2 className={css.title}>{set.title}</h2>
-      <div className={cn(css.cards, { [css.showing]: showAllFlashcards })}>
+      <div>
         {set.flashcards.map((card, indexOfCard) => (
           <HomepageSetItem
             key={card.id}
@@ -56,7 +56,7 @@ const HomepageSet = ({ set }) => {
         Size: <strong>{set.flashcards.length || 0}</strong>
       </div>
 
-      <div className={css.author}>
+      <div>
         Created By:{' '}
         <Link
           to={`/users/${set.username}`}

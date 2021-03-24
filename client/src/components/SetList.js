@@ -49,9 +49,9 @@ const SetList = ({
       {!setListSets ? (
         <div>Loading Set List...</div>
       ) : (
-        <ul className={css.sets}>
+        <ul>
           {setListSets.map((set, i) => (
-            <li key={set.id} className={css.set}>
+            <li key={set.id}>
               <Set
                 set={set}
                 index={i}

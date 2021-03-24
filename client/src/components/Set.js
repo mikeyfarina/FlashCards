@@ -125,7 +125,6 @@ const Set = ({
     }
   }, [currentFlashcardIndex, currentSetIndex, index]);
 
-  console.log(currentSetId, set.id);
   return (
     <div
       className={cn(css.container, { [css.current]: set.id === currentSetId })}
@@ -134,9 +133,9 @@ const Set = ({
       role="button"
       tabIndex="0"
     >
-      <div className={cn(css.header)} role="button" tabIndex="-1">
+      <div className={css.header} role="button" tabIndex="-1">
         <input
-          className={cn(css.title, { [css.editing]: canEditTitle })}
+          className={css.title}
           type="text"
           defaultValue={setTitle}
           disabled={!canEditTitle}
@@ -148,9 +147,7 @@ const Set = ({
         <div className={css.tools}>
           <button
             onClick={handleEditMode}
-            className={cn(css.button, css.edit, {
-              [css.editing]: canEditTitle,
-            })}
+            className={cn(css.button, css.edit)}
             type="button"
           >
             {canEditTitle ? (
@@ -165,7 +162,7 @@ const Set = ({
           </button>
           <button
             onClick={handleDeleteSet}
-            className={cn(css.button, css.delete)}
+            className={css.button}
             type="button"
           >
             <>
@@ -182,7 +179,6 @@ const Set = ({
           User:{' '}
           <Link
             to={`/users/${set.username}`}
-            className={css.link}
             onClick={(e) => e.stopPropagation()}
           >
             <strong>
@@ -191,24 +187,22 @@ const Set = ({
           </Link>
         </div>
       </div>
-      <div className={css.cards} ref={cardContainerRef}>
-        <div className={css.display}>
-          {currentFlashcardsInSet
-            ? currentFlashcardsInSet.map((card, i) => (
-                <SetItem
-                  key={card.id}
-                  card={card}
-                  indexOfCard={i}
-                  currentFlashcardIndex={currentFlashcardIndex}
-                  setCurrentFlashcardIndex={setCurrentFlashcardIndex}
-                  currentSet={set.id === currentSetId}
-                  cardRefs={cardRefs}
-                  setCurrentSetIndex={setCurrentSetIndex}
-                  indexOfSet={index}
-                />
-              ))
-            : 'loading...'}
-        </div>
+      <div ref={cardContainerRef}>
+        {currentFlashcardsInSet
+          ? currentFlashcardsInSet.map((card, i) => (
+              <SetItem
+                key={card.id}
+                card={card}
+                indexOfCard={i}
+                currentFlashcardIndex={currentFlashcardIndex}
+                setCurrentFlashcardIndex={setCurrentFlashcardIndex}
+                currentSet={set.id === currentSetId}
+                cardRefs={cardRefs}
+                setCurrentSetIndex={setCurrentSetIndex}
+                indexOfSet={index}
+              />
+            ))
+          : 'loading...'}
       </div>
     </div>
   );

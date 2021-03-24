@@ -59,7 +59,6 @@ const Sidebar = ({
         sidebarSearchText={sidebarSearchText}
         loggedInUser={loggedInUser}
       />
-      <div className={css.bottom} />
     </div>
   );
 };

@@ -29,6 +29,17 @@
   border: none;
   border-radius: 50%;
   background: var(--color-white);
+
+  cursor: pointer;
+}
+
+.close:focus {
+  outline: none;
+}
+
+.text {
+  font-size: 1.5rem;
+  width: 250px;
 }
 
 .imageContainer {
@@ -43,14 +54,6 @@
   height: 100%;
 }
 
-
-
-
-
-
-
-
-
 .button {
   margin-right: 1rem;
   padding: 0.5rem 1rem;
@@ -59,12 +62,6 @@
   border: none;
   background: var(--color-green);
 }
-
-
-
-
-
-
 
 .hidden {
   display: none;

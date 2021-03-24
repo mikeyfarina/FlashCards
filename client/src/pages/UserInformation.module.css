@@ -143,6 +143,11 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
+.title {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
 .padding {
   height: 1px;
   transform: translateY(1px);
@@ -154,9 +159,4 @@
   align-content: center;
   margin-top: 15rem;
   font-size: 3rem;
-}
-
-.title {
-  font-weight: 600;
-  font-size: 1.5rem;
 }

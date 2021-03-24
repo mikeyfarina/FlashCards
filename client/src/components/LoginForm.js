@@ -68,8 +68,8 @@ const LoginForm = ({ setUser, standalone }) => {
   return (
     <div className={cn(css.container, 'noselect')}>
       {!createAccount ? (
-        <form className={css.form} onSubmit={handleLogin}>
-          <h3 className={css.title}>Login</h3>
+        <form onSubmit={handleLogin}>
+          <h3>Login</h3>
           <input
             type="text"
             className={ui.input}
@@ -89,7 +89,7 @@ const LoginForm = ({ setUser, standalone }) => {
             data-input-password
           />
           {(error || success) && (
-            <div className={css.message}>
+            <div>
               {error && <p className={ui.warning}>{error}</p>}
               {success && <p className={ui.success}>Login Success!</p>}
             </div>

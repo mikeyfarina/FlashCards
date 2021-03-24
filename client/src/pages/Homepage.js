@@ -36,7 +36,7 @@ const Homepage = ({ flashcardSets, user }) => {
   }, [flashcardSets, searchText]);
 
   return (
-    <div className={css.container}>
+    <div>
       {!user && <CreateAccountPrompt />}
       <div className={css.search}>
         <input
@@ -45,9 +45,7 @@ const Homepage = ({ flashcardSets, user }) => {
           placeholder="search flashcard sets..."
         />
       </div>
-      <div className={css.display}>
-        <div className={css.shape} />
-
+      <div>
         <ul className={css.sets}>
           {searchSets ? (
             searchSets.map((set) => (

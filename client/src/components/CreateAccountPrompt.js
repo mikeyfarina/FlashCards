@@ -12,29 +12,21 @@ const CreateAccountPrompt = () => {
   }, []);
 
   return (
-    <div
-      className={cn(
-        css.container,
-        { [css.displayed]: signupDisplayed },
-        { [css.hidden]: !signupDisplayed }
-      )}
-    >
+    <div className={cn(css.container, { [css.hidden]: !signupDisplayed })}>
       <button className={css.close} onClick={handleClose} type="button">
         x
       </button>
-      <div>
-        <h2 className={css.text}>Sign up to create new flashcards!</h2>
-      </div>
       <div className={css.imageContainer}>
-        <Image className={css.image} />
-        <div className={css.buttons}>
+        <div className={css.text}>Sign up to create new flashcards!</div>
+        <Image />
+        <div>
           <Link to="/home/createAccount" className={css.signupLink}>
-            <button className={cn(css.button, css.signup)} type="button">
+            <button className={css.button} type="button">
               Sign up
             </button>
           </Link>
           <Link to="/home/login" className={css.loginLink}>
-            <button className={cn(css.button, css.login)} type="button">
+            <button className={css.button} type="button">
               Log in
             </button>
           </Link>
