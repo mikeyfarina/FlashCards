@@ -40,9 +40,7 @@
   margin-left: 0;
 
   transform: translateZ(45px);
-  -webkit-animation: scanBackAndForth 3s infinite;
-     -moz-animation: scanBackAndForth 3s infinite;
-          animation: scanBackAndForth 3s infinite;
+  animation: scanBackAndForth 3s infinite;
 
   color: rgba(1, 1, 1, 0.2);
   border-radius: 15px;

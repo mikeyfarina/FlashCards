@@ -1,133 +1,39 @@
 .container {
-  position: relative;
-  z-index: 1;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
 
-  float: left;
-  overflow: hidden;
+  transition: all 0.2s ease-in-out;
 
-  min-width: 30vw;
-  max-width: 30vw;
-  height: 20vh;
-  margin: 2.5vh 1.4vw;
-  padding: 1% 2%;
-
-  transition: all 0.1s linear;
-
-  border-radius: 8px;
-  background: white;
-  box-shadow: 2px 5px 12px rgb(1, 1, 1, 0.2), 2px 5px 2px rgb(1, 1, 1, 0.1);
-
-  scroll-margin-top: 2.5vh;
-  scroll-padding: 8vh;
-  scroll-snap-align: start;
-  will-change: transform;
-}
-
-.container:hover {
-  cursor: pointer;
-}
-
-.container:hover > .title {
-  text-decoration: underline;
+  border: 1px solid var(--color-purple);
+  border-radius: 5px;
 }
 
 .title {
-  overflow: hidden;
-
-  margin-bottom: 1vh;
-
-  white-space: nowrap;
-  text-decoration: none;
-  text-overflow: ellipsis;
+  margin-bottom: 1rem;
 }
 
-.title {
-  cursor: pointer;
-}
+.more {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
 
-.cards {
-  overflow-y: scroll;
-
-  height: 50%;
-
-  transition: height 0.2s ease-out;
-}
-
-.showing {
-  height: 65%;
-}
-
-.ellipsis {
-  align-self: center;
-
-  margin-top: 1%;
-  margin-left: -1%;
-  padding: 1% 1% 2% 1%;
-}
-
-.ellipsis:hover {
-  cursor: pointer;
-
-  color: white;
+  border: 1px solid var(--color-grey);
   border-radius: 4px;
-  background: linear-gradient(90deg, #c0c0c0, white 65%);
+  background: var(--color-white);
 }
 
-.ellipsis:focus {
-  outline: none;
+.more:hover {
+  cursor: pointer;
+
+  color: var(--color-white);
+  background: var(--color-grey);
 }
 
 .size {
-  font-weight: lighter;
-
-  position: absolute;
-  right: 4%;
-  bottom: 18%;
-
-  color: darkgray;
-}
-
-.author {
-  font-weight: lighter;
-
-  position: absolute;
-  right: 4%;
-  bottom: 6%;
-
-  color: darkgray;
-}
-
-.user {
-  text-decoration: none;
-
-  color: black;
+  margin-top: 1rem;
 }
 
 .user:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-@media all and (min-width: 1200px) {
-  .container {
-    min-width: 22%;
-    max-width: 22%;
-    margin: 1.5vh 1.5%;
-  }
-}
-
-@media all and (max-width: 900px) {
-  .container {
-    min-width: 44%;
-    max-width: 44%;
-    margin: 1.5vh 2.5vw;
-  }
-}
-
-@media all and (max-width: 560px) {
-  .container {
-    min-width: 95%;
-    max-width: 95%;
-    margin: 1.5vh 2.5vw;
-  }
+  color: var(--color-purple);
 }

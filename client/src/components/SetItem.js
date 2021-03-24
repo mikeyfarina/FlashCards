@@ -8,14 +8,23 @@ const SetItem = ({
   currentSet,
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
+  setCurrentSetIndex,
   cardRefs,
+  indexOfSet,
 }) => {
   const [currentFlashcard, setCurrentFlashcard] = useState(false);
 
-  const handleCardClick = useCallback(() => {
-    if (!currentSet) return;
-    setCurrentFlashcardIndex(indexOfCard);
-  }, [currentSet, indexOfCard]);
+  const handleCardClick = useCallback(
+    (e) => {
+      e.stopPropagation();
+      if (!currentSet) {
+        setCurrentSetIndex(indexOfSet);
+      }
+
+      setCurrentFlashcardIndex(indexOfCard);
+    },
+    [currentSet, indexOfCard]
+  );
 
   useEffect(() => {
     setCurrentFlashcard(currentSet && currentFlashcardIndex === indexOfCard);
@@ -25,6 +34,7 @@ const SetItem = ({
     <div
       className={cn(css.card, {
         [css.current]: currentFlashcard,
+        [css.currentSet]: currentSet,
       })}
       ref={(el) => {
         cardRefs.push(el);

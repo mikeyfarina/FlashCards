@@ -29,9 +29,9 @@ const Flashcard = ({
 
   const divStyle = useMemo(() => {
     const rotateX = displayingFront
-      ? 180 + mousePosition.yAxis + 5
-      : (mousePosition.yAxis + 5) * 1.5;
-    const rotateY = !flip ? mousePosition.xAxis - 5 : 0;
+      ? 180 + mousePosition.yAxis
+      : mousePosition.yAxis * 1.5;
+    const rotateY = !flip ? mousePosition.xAxis : 0;
     return {
       transform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
       WebkitTransform: `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
@@ -157,38 +157,34 @@ const Flashcard = ({
             >
               {Number(currentFlashcardIndex) + 1}
             </span>
-            <div className={cn(css.center, 'noselect')}>
-              <textarea
-                type="text"
-                className={cn(
-                  css.text,
-                  { [css.editable]: canEdit },
-                  { noselect: !canEdit }
-                )}
-                ref={frontTextRef}
-                disabled={!canEdit}
-                value={flashcard.front}
-                onChange={handleTextEdit}
-                data-flashcard-front-text
-              />
-            </div>
+            <textarea
+              type="text"
+              className={cn(
+                css.text,
+                { [css.editable]: canEdit },
+                { 'noevent noselect': !canEdit }
+              )}
+              ref={frontTextRef}
+              disabled={!canEdit}
+              value={flashcard.front}
+              onChange={handleTextEdit}
+              data-flashcard-front-text
+            />
           </div>
           <div className={cn(css.face, css.back)}>
-            <div className={cn(css.center, 'noselect')}>
-              <textarea
-                type="text"
-                className={cn(
-                  css.text,
-                  { [css.editable]: canEdit },
-                  { noselect: !canEdit }
-                )}
-                ref={backTextRef}
-                disabled={!canEdit}
-                value={flashcard.back}
-                onChange={handleTextEdit}
-                data-flashcard-back-text
-              />
-            </div>
+            <textarea
+              type="text"
+              className={cn(
+                css.text,
+                { [css.editable]: canEdit },
+                { 'noevent noselect': !canEdit }
+              )}
+              ref={backTextRef}
+              disabled={!canEdit}
+              value={flashcard.back}
+              onChange={handleTextEdit}
+              data-flashcard-back-text
+            />
           </div>
         </div>
       )}

@@ -8,6 +8,8 @@ import {
   faSave,
   faSearch,
   faTrash,
+  faAngleDoubleRight,
+  faAngleDoubleLeft,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -18,6 +20,8 @@ library.add(
   faSave,
   faPen,
   faPlus,
-  faTrash
+  faTrash,
+  faAngleDoubleRight,
+  faAngleDoubleLeft
   // more icons go here
 );

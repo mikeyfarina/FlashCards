@@ -9,8 +9,8 @@ const useMousePosition = (flip) => {
   const handleMouseMove = useCallback(
     (e) => {
       if (!flip) {
-        const xAxis = -(window.innerWidth / 2 - e.pageX) / 25;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+        const xAxis = -(window.innerWidth / 2 - e.pageX) / 100;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 55;
         setMousePosition({ xAxis, yAxis });
       }
     },

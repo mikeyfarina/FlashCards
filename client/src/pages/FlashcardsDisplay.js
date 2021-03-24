@@ -15,6 +15,7 @@ const FlashcardsDisplay = ({
   const [currentSetIndex, setCurrentSetIndex] = useState(desiredSetIndex || 0);
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
   const [flashcards, setFlashcards] = useState(null);
+  const [sidebarDisplayed, setSidebarDisplayed] = useState(true);
 
   const desiredFlashcardID = useParams().flashcardId;
 
@@ -28,8 +29,8 @@ const FlashcardsDisplay = ({
       const desiredFlashcardIndex = flashcardsInSet.findIndex(
         (card) => card.id === desiredFlashcardID
       );
-      setCurrentFlashcardIndex(
-        desiredFlashcardIndex > 0 ? desiredFlashcardIndex : 0
+      setCurrentFlashcardIndex((prevState) =>
+        desiredFlashcardIndex > 0 ? desiredFlashcardIndex : prevState || 0
       );
       setFlashcards(flashcardsInSet);
     };
@@ -49,6 +50,8 @@ const FlashcardsDisplay = ({
           currentFlashcardIndex={currentFlashcardIndex}
           setCurrentFlashcardIndex={setCurrentFlashcardIndex}
           loggedInUser={loggedInUser}
+          sidebarDisplayed={sidebarDisplayed}
+          setSidebarDisplayed={setSidebarDisplayed}
         />
         <Flashcards
           flashcards={flashcards}
@@ -58,6 +61,8 @@ const FlashcardsDisplay = ({
           currentFlashcardIndex={currentFlashcardIndex}
           setCurrentFlashcardIndex={setCurrentFlashcardIndex}
           loggedInUser={loggedInUser}
+          sidebarDisplayed={sidebarDisplayed}
+          setSidebarDisplayed={setSidebarDisplayed}
         />
       </div>
     </div>

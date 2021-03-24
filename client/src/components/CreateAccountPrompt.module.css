@@ -1,179 +1,68 @@
 .container {
-  position: relative;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
-  overflow: hidden;
+  height: 250px;
+  padding: 1rem;
 
-  width: 100vw;
-  min-height: 0;
-  padding: 2% 6%;
-
-  background: #5da2d5;
-
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 5fr 1fr;
+  background: var(--color-yellow);
 }
 
 .close {
-  font-size: 1.5vw;
+  font-weight: bold;
 
   position: absolute;
-  z-index: 1;
-  top: 2%;
-  right: 1%;
+  top: 1rem;
+  right: 1rem;
 
-  padding: 0.5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
 
   cursor: pointer;
+  text-transform: uppercase;
 
   border: none;
-  outline: none;
-  background: transparent;
+  border-radius: 50%;
+  background: var(--color-white);
 }
 
-.circle {
-  position: absolute;
-  z-index: 0;
-  right: 0;
-
-  align-self: center;
-
-  width: 48vw;
-  height: 150%;
-
-  border-radius: 100% 0 0 100%;
-  background: rgba(255, 255, 255, 0.35);
+.close:focus {
+  outline: none;
 }
 
 .text {
-  align-self: center;
+  font-size: 1.5rem;
 
-  min-height: 0;
-
-  text-align: center;
-
-  color: white;
+  width: 250px;
 }
 
-.image {
-  z-index: 1;
-
+.imageContainer {
   display: flex;
-  align-self: center;
+  align-items: center;
+  justify-content: center;
 
   height: 100%;
-  min-height: 0;
-  max-height: 28vw;
-
-  justify-self: end;
 }
 
-.signupLink {
-  z-index: 1;
-
-  align-self: center;
-
-  margin-right: 1.5vw;
-
-  justify-self: end;
-}
-
-.loginLink {
-  z-index: 1;
-
-  align-self: center;
-
-  margin-left: 1.5vw;
-
-  justify-self: start;
-}
-
-.buttons {
-  display: contents;
-
-  min-height: 0;
-  margin: auto;
-
-  grid-area: 2/ 1 / 3 / 3;
+.imageContainer svg {
+  height: 100%;
 }
 
 .button {
-  font-size: 1.5vw;
+  margin-right: 1rem;
+  padding: 0.5rem 1rem;
 
-  width: 8vw;
-  height: 5vh;
-  min-height: 0;
-
-  transition: all 0.25s ease-in;
-
-  color: inherit;
+  color: var(--color-white);
   border: none;
-  border-radius: 6px;
-  outline: none;
-}
-
-.signup {
-  color: black;
-  background: #f3d250;
-}
-
-.login {
-  color: #ececec;
-  border: #ececec 2px solid;
-  background: #5da2d5;
-}
-
-.displayed {
-  display: grid;
-
-  height: 55vh;
+  background: var(--color-green);
 }
 
 .hidden {
   display: none;
-
-  height: 0;
-}
-
-@media all and (max-width: 850px) {
-  .container {
-    grid-template-rows: 1fr 3fr 1fr;
-  }
-
-  .circle {
-    right: auto;
-    bottom: 0;
-
-    width: 150vw;
-    height: 80%;
-
-    border-radius: 100% 100% 0 0;
-
-    justify-self: center;
-  }
-
-  .text {
-    grid-area: 1 / 1 / 2 / 3;
-  }
-
-  .image {
-    max-width: 100vw;
-    max-height: none;
-
-    grid-area: 2 / 1 / 3 / 3;
-    justify-self: center;
-  }
-
-  .btn {
-    font-size: 3vw;
-
-    width: 20vw;
-  }
-}
-
-@media all and (max-width: 450px) {
-  .btn {
-    font-size: 5vw;
-
-    width: 40vw;
-  }
 }

@@ -42,11 +42,11 @@ const LoginForm = ({ setUser, standalone }) => {
         setUser(user);
         setSuccess(true);
         setTimeout(() => {
-          setSuccess(false);
           if (standalone) {
             history.push('/home');
           }
-        }, 3000);
+          setSuccess(false);
+        }, 1000);
       } catch (ex) {
         setError('Incorrect Username/Password');
         setTimeout(() => {
@@ -68,8 +68,8 @@ const LoginForm = ({ setUser, standalone }) => {
   return (
     <div className={cn(css.container, 'noselect')}>
       {!createAccount ? (
-        <form className={css.form} onSubmit={handleLogin}>
-          <h3 className={css.title}>Login</h3>
+        <form onSubmit={handleLogin}>
+          <h3>Login</h3>
           <input
             type="text"
             className={ui.input}
@@ -89,11 +89,9 @@ const LoginForm = ({ setUser, standalone }) => {
             data-input-password
           />
           {(error || success) && (
-            <div className={css.message}>
+            <div>
               {error && <p className={ui.warning}>{error}</p>}
-              {success && (
-                <p className={ui.success}>Account created Successfully!</p>
-              )}
+              {success && <p className={ui.success}>Login Success!</p>}
             </div>
           )}
           <button type="submit" className={ui.button} data-button-submit-login>
@@ -104,7 +102,7 @@ const LoginForm = ({ setUser, standalone }) => {
             onClick={handleCreateClick}
             type="button"
           >
-            Create Account
+            Or Create Account
           </button>
         </form>
       ) : (

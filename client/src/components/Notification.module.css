@@ -1,0 +1,19 @@
+.container {
+  position: absolute;
+  bottom: -50px;
+
+  display: flex;
+  align-items: center;
+
+  width: fit-content;
+  height: 50px;
+  padding: 1rem 0.5rem;
+
+  background-color: var(--color-yellow);
+}
+
+.message {
+  font-size: 1.25rem;
+
+  color: var(--color-purple);
+}

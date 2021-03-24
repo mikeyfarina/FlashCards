@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import cn from 'classnames';
 import css from './HomepageSet.module.css';
+import ui from '../styles/UserListItem.module.css';
 import HomepageSetItem from './HomepageSetItem';
 
 const HomepageSet = ({ set }) => {
@@ -22,9 +23,14 @@ const HomepageSet = ({ set }) => {
   }, [history]);
 
   return (
-    <div className={css.container} onClick={viewSet} role="button" tabIndex="0">
+    <div
+      className={cn(css.container, ui.item)}
+      onClick={viewSet}
+      role="button"
+      tabIndex="0"
+    >
       <h2 className={css.title}>{set.title}</h2>
-      <div className={cn(css.cards, { [css.showing]: showAllFlashcards })}>
+      <div>
         {set.flashcards.map((card, indexOfCard) => (
           <HomepageSetItem
             key={card.id}
@@ -35,20 +41,22 @@ const HomepageSet = ({ set }) => {
           />
         ))}
       </div>
-      {set.flashcards.length > 3 && (
-        <div
-          className={css.ellipsis}
+
+      {!showAllFlashcards && set.flashcards.length > 3 && (
+        <button
+          className={css.more}
           onClick={handleShowMoreOptions}
-          role="button"
-          tabIndex="0"
+          type="button"
         >
-          ...
-        </div>
+          Click for more
+        </button>
       )}
-      <h5 className={css.size}>
+
+      <div className={css.size}>
         Size: <strong>{set.flashcards.length || 0}</strong>
-      </h5>
-      <h5 className={css.author}>
+      </div>
+
+      <div>
         Created By:{' '}
         <Link
           to={`/users/${set.username}`}
@@ -57,7 +65,7 @@ const HomepageSet = ({ set }) => {
         >
           <strong>{set.username}</strong>
         </Link>
-      </h5>
+      </div>
     </div>
   );
 };

@@ -1,10 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
+import cn from 'classnames';
 import css from './Flashcards.module.css';
 import flashcardService from '../services/flashcardService';
 import Flashcard from './Flashcard';
 import CardSelection from './CardSelection';
+import Notification from './Notification';
 
+const rightArrows = ['fa', 'angle-double-right'];
 const plus = ['fa', 'plus'];
 const pen = ['fa', 'pen'];
 const save = ['fa', 'save'];
@@ -18,8 +21,26 @@ const Flashcards = ({
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
   loggedInUser,
+  sidebarDisplayed,
+  setSidebarDisplayed,
 }) => {
   const [canEdit, setCanEdit] = useState(false);
+  const [onOwnSet, setOnOwnSet] = useState(false);
+  const [createMessage, setCreateMessage] = useState(null);
+
+  useEffect(() => {
+    setOnOwnSet(
+      flashcardSets?.[currentSetIndex]?.username === loggedInUser?.username
+    );
+  }, [flashcardSets, currentSetIndex, loggedInUser]);
+
+  useEffect(() => {
+    setCreateMessage(
+      onOwnSet
+        ? 'Create a new flashcard to start!'
+        : 'There are no flashcards in this set.'
+    );
+  }, [onOwnSet]);
 
   const handlePreviousCardClick = useCallback(() => {
     setCurrentFlashcardIndex(
@@ -85,72 +106,97 @@ const Flashcards = ({
       });
   }, [flashcards, currentFlashcardIndex]);
 
+  const expandSidebar = useCallback(() => {
+    setSidebarDisplayed(!sidebarDisplayed);
+  }, [sidebarDisplayed]);
+
   return (
     <div className={css.container}>
       <div className={css.tools}>
-        {flashcardSets?.[currentSetIndex]?.username ===
-          loggedInUser?.username && (
-          <div className={css.buttons}>
-            <button
-              onClick={handleNewFlashCard}
-              className={css.create}
-              type="button"
-              data-new-flashcard-button
-            >
-              <FontAwesomeIcon icon={plus} size="2x" />
-            </button>
-            <button
-              onClick={handleEditFlashCard}
-              className={css.edit}
-              type="button"
-              data-edit-flashcard-button
-            >
-              {canEdit ? (
-                <FontAwesomeIcon icon={save} size="2x" />
-              ) : (
-                <FontAwesomeIcon icon={pen} size="2x" />
-              )}
-            </button>
-            <button
-              onClick={handleDeleteFlashCard}
-              className={css.delete}
-              type="button"
-              disabled={!flashcards || flashcards.length === 0}
-              data-delete-flashcard-button
-            >
-              <FontAwesomeIcon icon={trash} size="2x" />
-            </button>
-          </div>
-        )}
+        <div className={css.flashcardButtons}>
+          <button
+            type="button"
+            className={cn(css.tool, css.expand)}
+            onClick={expandSidebar}
+          >
+            Flashcard Sets <FontAwesomeIcon icon={rightArrows} />
+          </button>
+          {onOwnSet && (
+            <>
+              <button
+                onClick={handleNewFlashCard}
+                className={cn(css.tool, {
+                  [css.flash]: flashcards?.length === 0 && onOwnSet,
+                })}
+                type="button"
+                data-new-flashcard-button
+              >
+                New Flashcard <FontAwesomeIcon icon={plus} size="2x" />
+                {/* if no flashcards notification saying make one */}
+              </button>
+              <button
+                onClick={handleEditFlashCard}
+                className={css.tool}
+                type="button"
+                data-edit-flashcard-button
+              >
+                {canEdit ? (
+                  <>
+                    Save <FontAwesomeIcon icon={save} size="2x" />
+                  </>
+                ) : (
+                  <>
+                    Edit <FontAwesomeIcon icon={pen} size="2x" />
+                  </>
+                )}
+              </button>
+              <button
+                onClick={handleDeleteFlashCard}
+                className={css.tool}
+                type="button"
+                disabled={!flashcards || flashcards.length === 0}
+                data-delete-flashcard-button
+              >
+                Delete <FontAwesomeIcon icon={trash} size="2x" />
+              </button>
+            </>
+          )}
+        </div>
+        {flashcards?.length === 0 && <Notification message={createMessage} />}
+
         <CardSelection
+          set={flashcardSets?.[currentSetIndex]}
           flashcards={flashcards}
           currentFlashcardIndex={currentFlashcardIndex}
           setCurrentFlashcardIndex={setCurrentFlashcardIndex}
         />
       </div>
+
       <div className={css.display}>
-        <button
-          className={css.button}
-          onClick={handlePreviousCardClick}
-          type="button"
-          data-previous-card-button
-        >
-          {'\u261a'}
-        </button>
+        <div className={css.displayButtons}>
+          <button
+            className={css.button}
+            onClick={handlePreviousCardClick}
+            type="button"
+            data-previous-card-button
+          >
+            {'\u261a'}
+          </button>
+          <button
+            onClick={handleNextCardClick}
+            className={css.button}
+            type="button"
+            data-next-card-button
+          >
+            {'\u261b'}
+          </button>
+        </div>
         <Flashcard
           canEdit={canEdit}
           currentFlashcardIndex={currentFlashcardIndex}
           flashcards={flashcards || []}
           setFlashcards={setFlashcards}
         />
-        <button
-          onClick={handleNextCardClick}
-          className={css.button}
-          type="button"
-          data-next-card-button
-        >
-          {'\u261b'}
-        </button>
       </div>
     </div>
   );
