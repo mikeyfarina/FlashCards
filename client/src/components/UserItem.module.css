@@ -5,7 +5,7 @@
 
   width: 350px;
   height: 150px;
-  margin: 1rem auto;
+  margin: 20px auto;
   padding: 1% 2%;
 
   transition: all 0.1s ease-in;
@@ -21,12 +21,13 @@
   display: flex;
   justify-content: center;
 
-  overflow: scroll;
+  overflow: hidden;
 
   width: 100%;
-  max-height: 80%;
 
+  white-space: nowrap;
   text-overflow: ellipsis;
+  font-size: 1.25rem;
 }
 
 .size {

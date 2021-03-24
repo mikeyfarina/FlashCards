@@ -3,8 +3,7 @@ import { useParams } from 'react-router-dom';
 import cn from 'classnames';
 import css from './UserInformation.module.css';
 import ProfilePhotoOption from '../components/ProfilePhotoOption';
-import UserFlashcardItem from '../components/UserFlashcardItem';
-import UserSetItem from '../components/UserSetItem';
+import UserItem from '../components/UserItem';
 import userService from '../services/userService';
 import profilePhotos from '../utils/profilePhotoLoader';
 
@@ -104,25 +103,23 @@ const UserInformation = ({ loggedInUser }) => {
         <div className={css.title}>Sets:</div>
         <div className={css.collection}>
           {desiredUser.sets.map((set) => (
-            <UserSetItem key={set.id} set={set} />
+            <UserItem key={set.id} set={set} />
           ))}
+          <div className={css.padding} />
         </div>
-        <div className={css.gap} />
       </div>
-      <div>
+      <div className={css.sets}>
         <div className={css.title}>Flashcards:</div>
         <div className={css.collection}>
           {desiredUser.flashcards.map((flashcard) => (
-            <UserFlashcardItem key={flashcard.id} flashcard={flashcard} />
+            <UserItem key={flashcard.id} flashcard={flashcard} />
           ))}
+          <div className={css.padding} />
         </div>
-        <div className={css.gap} />
       </div>
     </div>
   ) : (
-    <div className={css.loading}>
-      <div className={css.text}>Loading User...</div>
-    </div>
+    <div className={css.loading}>Loading User...</div>
   );
 };
 

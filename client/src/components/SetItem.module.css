@@ -31,7 +31,6 @@
 .current,
 .current:hover {
   padding: 0.15rem;
-  color: var(--color-grey);
   border-left: 5px var(--color-purple) solid;
   border-radius: 0 3px 3px 0;
   margin-left: -0.5rem;
@@ -41,6 +40,7 @@
   padding-left: 0.3rem;
 }
 
-.currentSet {
+.currentSet,
+.currentSet:hover {
   color: black;
 }

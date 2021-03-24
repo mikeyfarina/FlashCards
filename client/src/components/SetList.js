@@ -17,7 +17,11 @@ const SetList = ({
   const [currentSetId, setCurrentSetId] = useState(null);
 
   useEffect(() => {
-    setCurrentSetId(flashcardSets ? flashcardSets[currentSetIndex].id : null);
+    setCurrentSetId(
+      flashcardSets && flashcardSets[currentSetIndex]
+        ? flashcardSets[currentSetIndex].id
+        : null
+    );
   }, [flashcardSets, currentSetIndex]);
 
   useEffect(() => {
