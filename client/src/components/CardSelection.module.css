@@ -1,18 +1,21 @@
 .container {
   display: flex;
-  padding: 0.5rem 1rem;
   justify-content: space-between;
+
+  padding: 0.5rem 1rem;
 }
 
 .setInfo {
-  border-right: 2px var(--color-grey) solid;
   margin-right: 25px;
+
+  border-right: 2px var(--color-grey) solid;
 }
 
 .title {
   font-size: 1.75rem;
 
   margin-right: 1rem;
+
   white-space: nowrap;
 }
 
@@ -22,10 +25,12 @@
 
 .selection,
 .option {
+  overflow: hidden;
+
   width: 300px;
+
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden;
 }
 
 @media (max-width: 850px) {

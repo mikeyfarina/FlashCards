@@ -11,8 +11,6 @@
   background: var(--color-purple);
 }
 
-
-
 .title {
   font-size: 2rem;
 
@@ -36,8 +34,6 @@
   position: relative;
 }
 
-
-
 .toggled {
   position: absolute;
   z-index: 1;
@@ -58,8 +54,6 @@
   display: none;
 }
 
-
-
 .logout {
   display: flex;
   align-items: center;
@@ -68,8 +62,6 @@
 .greeting {
   margin-right: 1rem;
 }
-
-
 
 .logoutBtn,
 .loginBtn {

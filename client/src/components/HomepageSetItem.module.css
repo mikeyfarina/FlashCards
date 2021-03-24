@@ -1,13 +1,18 @@
 .card {
-  overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+
+  overflow: hidden;
+
   margin-bottom: 0.4rem;
+
   transition: all 0.1s ease-in-out;
+
+  -webkit-line-clamp: 3;
 }
 
 .card:hover {
   transform: translateX(2px);
+
   color: var(--color-purple);
 }

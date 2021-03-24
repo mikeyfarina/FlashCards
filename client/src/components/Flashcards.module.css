@@ -3,34 +3,41 @@
 }
 
 .tools {
+  position: relative;
+
   display: flex;
-  border-bottom: 1px solid var(--color-grey);
   align-items: center;
   justify-content: space-between;
+
   height: 70px;
-  position: relative;
+
+  border-bottom: 1px solid var(--color-grey);
 }
 
 .flashcardButtons {
   display: flex;
   align-items: center;
 
-  border-radius: 4px;
   overflow: hidden;
+
   margin-left: 1rem;
+
   border: 1px var(--color-grey) solid;
+  border-radius: 4px;
 }
 
 .tool {
+  font-size: 1rem;
+
   display: flex;
   align-items: center;
 
   padding: 0.5rem;
-  font-size: 1rem;
 
   white-space: nowrap;
-  background: var(--color-white);
+
   border: none;
+  background: var(--color-white);
 }
 
 .expand svg {
@@ -42,22 +49,25 @@
 }
 
 .tool:hover {
-  background: var(--color-grey);
   cursor: pointer;
+
+  background: var(--color-grey);
 }
 
 @keyframes flash {
   0% {
-    background: var(--color-white);
     color: black;
+    background: var(--color-white);
   }
+
   50% {
-    background: var(--color-purple);
     color: var(--color-white);
+    background: var(--color-purple);
   }
+
   100% {
-    background: var(--color-white);
     color: black;
+    background: var(--color-white);
   }
 }
 

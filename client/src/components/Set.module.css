@@ -2,16 +2,19 @@
   margin-bottom: 1.25rem;
   padding: 0.35rem 0.5rem 0.5rem 0.5rem;
 
+  transition: all 0.3s linear;
+
   border: 4px white solid;
   border-radius: 4px;
   box-shadow: 0 0 2px 3px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s linear;
+
   scroll-margin: 1rem;
 }
 
 .container:hover {
-  border: 4px var(--color-grey) solid;
   cursor: pointer;
+
+  border: 4px var(--color-grey) solid;
 }
 
 .container:focus,
@@ -22,6 +25,7 @@
 .current {
   border-left: 4px var(--color-green) solid;
 }
+
 .current:hover {
   border: 4px var(--color-green) solid;
 }
@@ -44,10 +48,11 @@
   width: 100%;
   margin-bottom: 0.5rem;
 
+  transition: all 0.15s linear, color 0.05s linear, margin 0s, border 0.05s;
+
   color: inherit;
   border: none;
   background: none;
-  transition: all 0.15s linear, color 0.05s linear, margin 0s, border 0.05s;
 }
 
 .title:hover {
@@ -63,19 +68,20 @@
 }
 
 .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 47.5%;
   margin-bottom: 0.5rem;
   padding: 0.25rem 0.5rem;
 
   cursor: pointer;
 
   border: 1px solid var(--color-grey);
+  border-radius: 5px;
   background: none;
   background: var(--color-grey);
-  display: inline-flex;
-  align-items: center;
-  min-width: 47.5%;
-  justify-content: center;
-  border-radius: 5px;
 }
 
 .button:hover {
@@ -92,16 +98,18 @@
 .title.editing {
   padding: 0.25rem 0.5rem;
 
+  cursor: text;
+
   border: 1px solid var(--color-green);
   border-radius: 4px;
   background: var(--color-grey);
-  cursor: text;
 }
 
 .info {
-  margin-bottom: 0.5rem;
   display: flex;
   justify-content: space-between;
+
+  margin-bottom: 0.5rem;
 }
 
 .size {

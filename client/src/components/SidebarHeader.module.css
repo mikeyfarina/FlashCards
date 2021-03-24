@@ -1,23 +1,25 @@
 .container {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--color-grey);
+
   min-height: 70px;
   padding: 0.5rem;
+
+  border-bottom: 1px solid var(--color-grey);
 }
 
 .create {
   display: flex;
   align-items: center;
 
+  margin-right: 0.25rem;
   padding: 0.5rem;
 
   white-space: nowrap;
 
   border: 1px solid var(--color-white);
-  background: var(--color-white);
   border-radius: 4px;
-  margin-right: 0.25rem;
+  background: var(--color-white);
 }
 
 .create svg {
@@ -26,25 +28,29 @@
 }
 
 .create:hover {
-  background: var(--color-grey);
+  cursor: pointer;
+
   color: var(--color-white);
   border: 1px solid var(--color-grey);
-  cursor: pointer;
+  background: var(--color-grey);
 }
 
 .expand {
   max-width: 100%;
-  background: none;
-  border: 0;
+  margin-left: 0.5rem;
   padding: 0.5rem;
+
+  transition: all 0.25s ease-in;
+
+  border: 0;
   border: 3px var(--color-white) solid;
   border-radius: 4px;
-  transition: all 0.25s ease-in;
-  margin-left: 0.5rem;
+  background: none;
 }
 
 .expand:hover {
   cursor: pointer;
+
   border: 3px var(--color-green) solid;
 }
 

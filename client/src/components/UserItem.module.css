@@ -2,6 +2,7 @@
   position: relative;
 
   display: flex;
+  align-items: center;
 
   width: 350px;
   height: 150px;
@@ -14,10 +15,11 @@
   border-radius: 8px;
   outline: none;
   background: white;
-  align-items: center;
 }
 
 .itemTitle {
+  font-size: 1.25rem;
+
   display: flex;
   justify-content: center;
 
@@ -27,7 +29,6 @@
 
   white-space: nowrap;
   text-overflow: ellipsis;
-  font-size: 1.25rem;
 }
 
 .size {

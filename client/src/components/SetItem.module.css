@@ -1,19 +1,22 @@
 .card {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+
+  max-width: 100%;
   margin-bottom: 0.25rem;
   padding: 0.15rem 0rem;
 
   cursor: pointer;
   transition: all 0.15s linear, color 0.05s linear, margin 0s;
   text-decoration: underline;
+
   color: var(--color-grey);
   border-radius: 3px;
   outline: none;
-  max-width: 100%;
 
-  overflow: hidden;
-  display: -webkit-box;
   -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
 }
 
 .card:focus,
@@ -22,18 +25,20 @@
 }
 
 .card:hover {
-  color: var(--color-grey);
-  border-left: 5px var(--color-yellow) solid;
   margin-left: -0.5rem;
   padding: 0.15rem;
+
+  color: var(--color-grey);
+  border-left: 5px var(--color-yellow) solid;
 }
 
 .current,
 .current:hover {
+  margin-left: -0.5rem;
   padding: 0.15rem;
+
   border-left: 5px var(--color-purple) solid;
   border-radius: 0 3px 3px 0;
-  margin-left: -0.5rem;
 }
 
 .current:hover {
