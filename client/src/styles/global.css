@@ -59,6 +59,14 @@ li {
   list-style-type: none;
 }
 
+textarea[disabled] {
+  -webkit-text-fill-color: rgba(0, 0, 0, 1);
+  -webkit-opacity: 1;
+  opacity: 1;
+  color: rgba(0, 0, 0, 1);
+  background: white;
+}
+
 .noselect {
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Old versions of Firefox */
