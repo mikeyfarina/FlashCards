@@ -1,3 +1,17 @@
+@keyframes flash {
+  0% {
+    border-color: var(--color-white);
+  }
+
+  50% {
+    border-color: var(--color-green);
+  }
+
+  100% {
+    border-color: var(--color-white);
+  }
+}
+
 .container {
   display: flex;
   align-items: center;
@@ -41,6 +55,7 @@
   padding: 0.5rem;
 
   transition: all 0.25s ease-in;
+  animation: flash 4s infinite;
 
   border: 0;
   border: 3px var(--color-white) solid;
@@ -51,7 +66,7 @@
 .expand:hover {
   cursor: pointer;
 
-  border: 3px var(--color-green) solid;
+  border: 3px var(--color-green) solid !important;
 }
 
 .expand:focus,

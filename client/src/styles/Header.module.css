@@ -83,3 +83,15 @@
   border: none;
   background: none;
 }
+
+@media all and (max-width: 800px) {
+  .greeting {
+    margin-left: 1rem;
+  }
+}
+
+@media all and (max-width: 450px) {
+  .greeting {
+    margin-right: 0.2rem;
+  }
+}
