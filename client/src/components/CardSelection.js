@@ -9,6 +9,7 @@ const CardSelection = ({
   setCurrentFlashcardIndex,
   set: { title, username } = { title: '<None>', username: '' },
   showSetInfo,
+  onOwnSet,
 }) => {
   const handleSelect = useCallback((e) => {
     setCurrentFlashcardIndex(Number(e.target.value));
@@ -19,7 +20,8 @@ const CardSelection = ({
       <div className={cn(css.setInfo, { [css.hidden]: !showSetInfo })}>
         <div className={css.title}>Current set: {title}</div>
         <div className={css.subtitle}>
-          Owned by: <Link to={`/users/${username}`}>{username}</Link>
+          Owned by:{' '}
+          <Link to={`/users/${username}`}>{onOwnSet ? 'you' : username}</Link>
         </div>
       </div>
       {flashcards?.length > 0 && (
