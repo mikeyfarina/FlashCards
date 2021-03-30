@@ -125,9 +125,14 @@ const Flashcards = ({
         <div className={css.flashcardButtons}>
           <button
             type="button"
-            className={cn(css.tool, css.expand, {
-              [css.onlyButton]: !onOwnSet,
-            })}
+            className={cn(
+              css.tool,
+              css.expand,
+              {
+                [css.onlyButton]: !onOwnSet,
+              },
+              { [css.flash]: flashcards?.length === 0 && !onOwnSet }
+            )}
             onClick={expandSidebar}
           >
             Flashcard Sets <FontAwesomeIcon icon={rightArrows} />
@@ -163,7 +168,7 @@ const Flashcards = ({
               </button>
               <button
                 onClick={handleDeleteFlashCard}
-                className={css.tool}
+                className={cn(css.tool)}
                 type="button"
                 disabled={!flashcards || flashcards.length === 0}
                 data-delete-flashcard-button
@@ -190,6 +195,7 @@ const Flashcards = ({
           currentFlashcardIndex={currentFlashcardIndex}
           setCurrentFlashcardIndex={setCurrentFlashcardIndex}
           showSetInfo={showSetInfo}
+          onOwnSet={onOwnSet}
         />
       </div>
 

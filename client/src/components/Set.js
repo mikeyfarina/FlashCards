@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useHistory, Link } from 'react-router-dom';
+import { isMobile } from 'react-device-detect';
 import cn from 'classnames';
 import css from './Set.module.css';
 import setService from '../services/setService';
@@ -117,7 +118,11 @@ const Set = ({
   const cardContainerRef = useRef();
   const cardRefs = [];
   useEffect(() => {
-    if (index === currentSetIndex && cardRefs[currentFlashcardIndex]) {
+    if (
+      index === currentSetIndex &&
+      cardRefs[currentFlashcardIndex] &&
+      !isMobile
+    ) {
       cardContainerRef.current.scrollTo({
         top: cardRefs[currentFlashcardIndex].offsetTop - 10,
         behavior: 'smooth',
