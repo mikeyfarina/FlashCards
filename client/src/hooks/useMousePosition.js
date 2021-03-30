@@ -1,8 +1,9 @@
 import { useCallback, useState } from 'react';
+import { isSafari, isMobileSafari } from 'react-device-detect';
 
 const useMousePosition = (flip) => {
   const [mousePosition, setMousePosition] = useState({
-    xAxis: 0,
+    xAxis: isSafari || isMobileSafari ? 1 : 0,
     yAxis: 0,
   });
 
@@ -18,7 +19,7 @@ const useMousePosition = (flip) => {
   );
 
   const handleMouseEnterExit = useCallback(() => {
-    setMousePosition({ xAxis: 0, yAxis: 0 });
+    setMousePosition({ xAxis: isSafari || isMobileSafari ? 1 : 0, yAxis: 0 });
   }, []);
 
   return { handleMouseMove, handleMouseEnterExit, mousePosition };
