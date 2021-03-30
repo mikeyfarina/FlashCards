@@ -143,7 +143,7 @@
   .tools {
     position: relative;
 
-    align-items: end;
+    align-items: center;
     flex-flow: column-reverse;
     justify-content: space-between;
 

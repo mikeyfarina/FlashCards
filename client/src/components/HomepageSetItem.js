@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import css from './HomepageSetItem.module.css';
 
 const HomepageSetItem = ({ card, indexOfCard, set, showAllFlashcards }) =>
-  !(indexOfCard > 3 && !showAllFlashcards) && (
+  !(indexOfCard > 6 && !showAllFlashcards) && (
     <Link
       className={css.card}
       onClick={(e) => e.stopPropagation()}

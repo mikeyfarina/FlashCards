@@ -42,7 +42,7 @@ const HomepageSet = ({ set }) => {
         ))}
       </div>
 
-      {!showAllFlashcards && set.flashcards.length > 3 && (
+      {!showAllFlashcards && set.flashcards.length > 6 && (
         <button
           className={css.more}
           onClick={handleShowMoreOptions}

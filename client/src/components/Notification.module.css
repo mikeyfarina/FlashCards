@@ -4,12 +4,13 @@
 
   display: flex;
   align-items: center;
-  width: fit-content;
+  width: 300px;
   height: 50px;
   padding: 1rem 0.5rem;
 
   background-color: var(--color-yellow);
   z-index: 1;
+  white-space: nowrap;
 }
 
 .message {
