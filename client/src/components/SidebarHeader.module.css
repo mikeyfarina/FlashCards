@@ -55,12 +55,12 @@
   padding: 0.5rem;
 
   transition: all 0.25s ease-in;
+  animation: flash 4s infinite;
 
   border: 0;
   border: 3px var(--color-white) solid;
   border-radius: 4px;
   background: none;
-  animation: flash 4s infinite;
 }
 
 .expand:hover {

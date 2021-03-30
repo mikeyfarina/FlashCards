@@ -46,12 +46,15 @@
     margin: 0;
     margin-bottom: 0.2rem;
     padding: 0;
-    border-right: none;
+
     text-align: start;
+
+    border-right: none;
   }
 
   .subtitle {
     font-size: 1.25rem;
+
     margin-top: 0.25rem;
   }
 }
