@@ -33,28 +33,12 @@
   text-overflow: ellipsis;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 850px) {
   .container {
-    display: contents;
+    flex-direction: column;
   }
 
-  .hidden {
-    display: none;
-  }
-
-  .setInfo {
-    margin: 0;
-    margin-bottom: 0.2rem;
-    padding: 0;
-
-    text-align: start;
-
-    border-right: none;
-  }
-
-  .subtitle {
-    font-size: 1.25rem;
-
-    margin-top: 0.25rem;
+  .selection {
+    margin-top: 1rem;
   }
 }

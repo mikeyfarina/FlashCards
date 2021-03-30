@@ -27,7 +27,6 @@ const Flashcards = ({
   const [canEdit, setCanEdit] = useState(false);
   const [onOwnSet, setOnOwnSet] = useState(false);
   const [createMessage, setCreateMessage] = useState(null);
-  const [showSetInfo, setShowSetInfo] = useState(false);
 
   useEffect(() => {
     setOnOwnSet(
@@ -88,14 +87,6 @@ const Flashcards = ({
   }, [canEdit]);
 
   const handleDeleteFlashCard = useCallback(() => {
-    if (
-      !window.confirm(
-        `Are you sure you want to delete '${flashcards[currentFlashcardIndex].front}'?`
-      )
-    ) {
-      return;
-    }
-
     setCanEdit(false);
 
     const flashcardToUpdate = flashcards[currentFlashcardIndex];
@@ -121,13 +112,11 @@ const Flashcards = ({
 
   return (
     <div className={css.container}>
-      <div className={cn(css.tools, { [css.showInfo]: showSetInfo })}>
+      <div className={css.tools}>
         <div className={css.flashcardButtons}>
           <button
             type="button"
-            className={cn(css.tool, css.expand, {
-              [css.onlyButton]: !onOwnSet,
-            })}
+            className={cn(css.tool, css.expand)}
             onClick={expandSidebar}
           >
             Flashcard Sets <FontAwesomeIcon icon={rightArrows} />
@@ -173,15 +162,6 @@ const Flashcards = ({
             </>
           )}
         </div>
-        <button
-          type="button"
-          className={cn(css.infoButton, {
-            [css.showInfo]: showSetInfo,
-          })}
-          onClick={() => {
-            setShowSetInfo(!showSetInfo);
-          }}
-        >{`${showSetInfo ? 'hide' : 'show'} set info`}</button>
         {flashcards?.length === 0 && <Notification message={createMessage} />}
 
         <CardSelection
@@ -189,7 +169,6 @@ const Flashcards = ({
           flashcards={flashcards}
           currentFlashcardIndex={currentFlashcardIndex}
           setCurrentFlashcardIndex={setCurrentFlashcardIndex}
-          showSetInfo={showSetInfo}
         />
       </div>
 
