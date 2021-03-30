@@ -77,3 +77,18 @@
 .editable {
   color: rgba(9, 20, 58, 0.75);
 }
+
+@media all and (max-width: 850px) {
+  .container {
+    padding: 0;
+    margin: 0 2rem;
+    margin-top: 1.25rem;
+    perspective: 1000px;
+  }
+  .text {
+    font-size: 1.2rem;
+  }
+  .card {
+    min-height: 350px;
+  }
+}

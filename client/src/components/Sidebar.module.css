@@ -22,3 +22,14 @@
 .closed {
   left: -400px;
 }
+
+@media all and (max-width: 620px) {
+  .container {
+    width: 400px;
+    max-width: 100%;
+    min-width: auto;
+  }
+  .container.closed {
+    box-shadow: none;
+  }
+}

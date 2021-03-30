@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import cn from 'classnames';
 import css from './CardSelection.module.css';
 
 const CardSelection = ({
@@ -7,6 +8,7 @@ const CardSelection = ({
   currentFlashcardIndex,
   setCurrentFlashcardIndex,
   set: { title, username } = { title: '<None>', username: '' },
+  showSetInfo,
 }) => {
   const handleSelect = useCallback((e) => {
     setCurrentFlashcardIndex(Number(e.target.value));
@@ -14,7 +16,7 @@ const CardSelection = ({
 
   return (
     <div className={css.container}>
-      <div className={css.setInfo}>
+      <div className={cn(css.setInfo, { [css.hidden]: !showSetInfo })}>
         <div className={css.title}>Current set: {title}</div>
         <div className={css.subtitle}>
           Owned by: <Link to={`/users/${username}`}>{username}</Link>
@@ -22,7 +24,7 @@ const CardSelection = ({
       </div>
       {flashcards?.length > 0 && (
         <select
-          className={css.selection}
+          className={cn(css.selection, { [css.hidden]: !showSetInfo })}
           onChange={handleSelect}
           value={currentFlashcardIndex}
         >
