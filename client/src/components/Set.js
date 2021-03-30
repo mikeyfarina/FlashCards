@@ -111,7 +111,10 @@ const Set = ({
   const setRef = useRef();
   useEffect(() => {
     if (index === currentSetIndex) {
-      setRef.current.scrollIntoView({ behavior: 'smooth' });
+      setRef.current.scrollIntoView({
+        top: setRef.offsetTop - 10,
+        behavior: 'smooth',
+      });
     }
   }, [currentSetIndex, index]);
 

@@ -64,7 +64,7 @@ textarea[disabled] {
   -webkit-opacity: 1;
   opacity: 1;
   color: rgba(0, 0, 0, 1);
-  background: white;
+  background: none;
 }
 
 .noselect {

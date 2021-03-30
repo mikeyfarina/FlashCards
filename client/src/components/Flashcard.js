@@ -165,7 +165,7 @@ const Flashcard = ({
                 { 'noevent noselect': !canEdit }
               )}
               ref={frontTextRef}
-              disabled={!canEdit}
+              readOnly={!canEdit}
               value={flashcard.front}
               onChange={handleTextEdit}
               data-flashcard-front-text
@@ -180,7 +180,7 @@ const Flashcard = ({
                 { 'noevent noselect': !canEdit }
               )}
               ref={backTextRef}
-              disabled={!canEdit}
+              readOnly={!canEdit}
               value={flashcard.back}
               onChange={handleTextEdit}
               data-flashcard-back-text
