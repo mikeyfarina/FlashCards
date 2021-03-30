@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
 
-  width: 350px;
+  width: 90%;
   height: 150px;
   margin: 20px auto;
   padding: 1% 2%;
@@ -27,7 +27,8 @@
 
   width: 100%;
 
-  white-space: nowrap;
+  text-align: center;
+  white-space: break-spaces;
   text-overflow: ellipsis;
 }
 
@@ -58,9 +59,8 @@
   color: darkgray;
 }
 
-@media all and (max-width: 560px) {
+@media all and (max-width: 900px) {
   .item {
     width: 90%;
-    margin: 2% 5%;
   }
 }
