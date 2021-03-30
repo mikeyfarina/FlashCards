@@ -61,13 +61,9 @@
   color: var(--color-white);
   border: none;
   background: var(--color-green);
+  margin-top: 0.25rem;
 }
 
 .hidden {
   display: none;
-}
-
-.signupLink,
-.loginLink {
-  margin-top: 0.25rem;
 }

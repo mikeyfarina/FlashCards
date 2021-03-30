@@ -72,6 +72,11 @@
   background: var(--color-white);
 }
 
+.logoutBtn:hover,
+.loginBtn:hover {
+  cursor: pointer;
+}
+
 .cancel {
   position: absolute;
   top: 0.5rem;
