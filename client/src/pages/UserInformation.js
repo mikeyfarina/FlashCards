@@ -9,9 +9,8 @@ import profilePhotos from '../utils/profilePhotoLoader';
 
 const UserInformation = ({ loggedInUser }) => {
   const [desiredUser, setDesiredUser] = useState(null);
-  const [displayProfilePhotoOptions, setDisplayProfilePhotoOptions] = useState(
-    false
-  );
+  const [displayProfilePhotoOptions, setDisplayProfilePhotoOptions] =
+    useState(false);
   const [tempPhotoOption, setTempPhotoOption] = useState(null);
   const [onOwnPage, setOnOwnPage] = useState(false);
 

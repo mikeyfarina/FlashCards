@@ -21,11 +21,8 @@ const Flashcard = ({
   const [flashcardInputText, setFlashcardInputText] = useState('');
   const [displayingFront, setDisplayingFront] = useState(true);
   const [flip, setFlip] = useState(false);
-  const {
-    handleMouseEnterExit,
-    handleMouseMove,
-    mousePosition,
-  } = useMousePosition(flip);
+  const { handleMouseEnterExit, handleMouseMove, mousePosition } =
+    useMousePosition(flip);
 
   const divStyle = useMemo(() => {
     const rotateX = displayingFront
